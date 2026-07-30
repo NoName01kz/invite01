@@ -1,11 +1,11 @@
-```html
 <!DOCTYPE html>
+
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Мой аккаунт — Date Ticket</title>
+<title>Аккаунт — Date Ticket</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,36 +15,30 @@
 :root{
   --bg:#090d16;
   --bg2:#111728;
-  --card:rgba(18,24,40,.76);
+  --card:rgba(19,25,42,.78);
   --line:rgba(255,255,255,.10);
   --text:#fff;
   --muted:#aeb6c8;
   --pink:#ff6fae;
   --pink2:#ff91bf;
   --gold:#f6c667;
-  --green:#79d6a1;
-  --red:#ff667d;
+  --danger:#ff667d;
+  --green:#71d6a1;
 }
 
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
-html{
-  scroll-behavior:smooth;
-}
+html{scroll-behavior:smooth}
 
 body{
   margin:0;
   min-height:100vh;
   color:var(--text);
   font-family:"Manrope",sans-serif;
-
   background:
-    radial-gradient(circle at 80% 15%,rgba(255,105,170,.16),transparent 28%),
-    radial-gradient(circle at 15% 80%,rgba(100,90,255,.12),transparent 30%),
+    radial-gradient(circle at 75% 10%,rgba(255,105,170,.14),transparent 28%),
+    radial-gradient(circle at 10% 90%,rgba(95,100,255,.12),transparent 30%),
     linear-gradient(135deg,var(--bg),var(--bg2));
-
   overflow-x:hidden;
 }
 
@@ -53,18 +47,12 @@ body:before{
   position:fixed;
   inset:0;
   pointer-events:none;
-
+  opacity:.28;
   background-image:
-    radial-gradient(circle at 15% 20%,rgba(255,255,255,.35) 0 1px,transparent 1.5px),
-    radial-gradient(circle at 70% 35%,rgba(255,255,255,.25) 0 1px,transparent 1.5px),
-    radial-gradient(circle at 40% 75%,rgba(255,255,255,.22) 0 1px,transparent 1.5px);
-
-  background-size:
-    240px 220px,
-    310px 270px,
-    370px 320px;
-
-  opacity:.35;
+    radial-gradient(circle at 20% 20%,#fff 0 1px,transparent 1.5px),
+    radial-gradient(circle at 75% 35%,#fff 0 1px,transparent 1.5px),
+    radial-gradient(circle at 45% 80%,#fff 0 1px,transparent 1.5px);
+  background-size:270px 240px,330px 290px,370px 320px;
 }
 
 a{
@@ -72,79 +60,51 @@ a{
   text-decoration:none;
 }
 
+button{
+  font-family:"Manrope",sans-serif;
+}
+
 .container{
-  width:min(1080px,92%);
+  width:min(1100px,92%);
   margin:auto;
 }
 
-nav{
-  height:78px;
+header{
+  min-height:80px;
   display:flex;
   align-items:center;
   justify-content:space-between;
+  gap:20px;
   position:relative;
   z-index:2;
 }
 
 .logo{
-  font-family:"Playfair Display",serif;
-  font-size:25px;
+  font:700 25px "Playfair Display",serif;
   font-style:italic;
 }
 
-.nav-right{
+.header-actions{
   display:flex;
+  gap:10px;
   align-items:center;
-  gap:12px;
 }
 
-.btn{
-  border:0;
-  cursor:pointer;
-  border-radius:15px;
-  padding:14px 20px;
-
-  color:#fff;
-
-  font:700 13px "Manrope",sans-serif;
-
-  background:
-    linear-gradient(
-      135deg,
-      var(--pink),
-      var(--pink2)
-    );
-
-  box-shadow:
-    0 12px 35px rgba(255,105,170,.24);
-
-  transition:.25s;
-}
-
-.btn:hover{
-  transform:translateY(-2px);
-  box-shadow:
-    0 16px 40px rgba(255,105,170,.34);
-}
-
-.btn.secondary{
-  background:rgba(255,255,255,.055);
+.header-btn{
   border:1px solid var(--line);
-  box-shadow:none;
-}
-
-.btn.danger{
-  background:rgba(255,102,125,.12);
-  border:1px solid rgba(255,102,125,.25);
-  color:#ff9aaa;
-  box-shadow:none;
+  background:rgba(255,255,255,.055);
+  color:#fff;
+  border-radius:12px;
+  padding:10px 14px;
+  cursor:pointer;
+  font-size:12px;
 }
 
 main{
-  padding:45px 0 90px;
+  padding:45px 0 80px;
 }
 
-.page-head{
+.hero{
   text-align:center;
   margin-bottom:35px;
 }
@@ -154,17 +114,16 @@ main{
   color:#ffc0d8;
   font-size:11px;
   text-transform:uppercase;
-  letter-spacing:2px;
+  letter-spacing:1.7px;
   margin-bottom:12px;
 }
 
-.page-head h1{
-  font:700 clamp(42px,6vw,62px)/1.05 "Playfair Display",serif;
-  margin:0 0 14px;
-  letter-spacing:-1px;
+.hero h1{
+  font:700 clamp(40px,6vw,62px)/1.05 "Playfair Display",serif;
+  margin:0 0 15px;
 }
 
-.page-head p{
+.hero p{
   color:var(--muted);
   line-height:1.7;
   max-width:600px;
@@ -172,80 +131,96 @@ main{
   font-size:14px;
 }
 
+.grid{
+  display:grid;
+  grid-template-columns:360px 1fr;
+  gap:22px;
+  align-items:start;
+}
+
 .card{
   border:1px solid var(--line);
   background:var(--card);
-  border-radius:28px;
+  border-radius:26px;
   padding:28px;
   backdrop-filter:blur(18px);
-  box-shadow:0 30px 80px rgba(0,0,0,.22);
-  margin-bottom:18px;
+  box-shadow:0 30px 80px rgba(0,0,0,.25);
 }
 
 .profile{
-  display:grid;
-  grid-template-columns:auto 1fr auto;
-  align-items:center;
-  gap:20px;
+  text-align:center;
 }
 
 .avatar{
-  width:78px;
-  height:78px;
-  border-radius:22px;
-
-  display:grid;
-  place-items:center;
-
-  font-size:35px;
-
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  margin:0 auto 18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:42px;
   background:
-    linear-gradient(
-      135deg,
-      rgba(255,111,174,.18),
-      rgba(246,198,103,.12)
-    );
-
-  border:1px solid rgba(255,255,255,.10);
+    radial-gradient(circle at 30% 20%,#ff91bf,transparent 40%),
+    linear-gradient(135deg,#44203c,#151a31);
+  border:1px solid rgba(255,255,255,.15);
+  box-shadow:0 15px 40px rgba(255,105,170,.15);
 }
 
-.label{
-  font-size:10px;
-  font-weight:800;
-  text-transform:uppercase;
-  letter-spacing:2px;
+.profile h2{
+  margin:0 0 7px;
+  font-size:21px;
+}
+
+.email{
   color:var(--muted);
-}
-
-.profile-name{
-  font-size:25px;
-  font-weight:700;
-  margin:5px 0 3px;
-}
-
-.profile-email{
-  color:var(--muted);
-  font-size:13px;
+  font-size:12px;
+  word-break:break-word;
 }
 
 .profile-actions{
-  display:flex;
+  display:grid;
   gap:10px;
-  flex-wrap:wrap;
-  justify-content:flex-end;
+  margin-top:25px;
+}
+
+.btn{
+  border:0;
+  cursor:pointer;
+  border-radius:14px;
+  padding:14px 18px;
+  color:#fff;
+  font:700 13px "Manrope",sans-serif;
+  background:linear-gradient(135deg,var(--pink),var(--pink2));
+  box-shadow:0 12px 35px rgba(255,105,170,.22);
+  transition:.2s;
+}
+
+.btn:hover{
+  transform:translateY(-2px);
+}
+
+.btn.secondary{
+  background:rgba(255,255,255,.055);
+  border:1px solid var(--line);
+  box-shadow:none;
+}
+
+.btn.danger{
+  background:linear-gradient(135deg,#d94d66,#ff667d);
 }
 
 .section-title{
   display:flex;
-  align-items:end;
+  align-items:center;
   justify-content:space-between;
-  gap:20px;
+  gap:15px;
   margin-bottom:18px;
 }
 
 .section-title h2{
-  font:600 30px "Playfair Display",serif;
   margin:0;
+  font-size:21px;
 }
 
 .section-title span{
@@ -253,212 +228,147 @@ main{
   font-size:12px;
 }
 
-.list{
+.invites{
   display:grid;
   gap:12px;
 }
 
-.invitation{
+.invite{
   border:1px solid var(--line);
-  background:rgba(255,255,255,.035);
-  border-radius:21px;
-  padding:20px;
-
-  transition:.22s;
+  background:rgba(255,255,255,.045);
+  border-radius:18px;
+  padding:18px;
+  transition:.2s;
 }
 
-.invitation:hover{
-  background:rgba(255,255,255,.055);
-  transform:translateY(-1px);
+.invite:hover{
+  transform:translateY(-2px);
+  background:rgba(255,255,255,.065);
 }
 
-.invitation-top{
+.invite-top{
   display:flex;
+  align-items:center;
   justify-content:space-between;
-  align-items:flex-start;
   gap:15px;
 }
 
-.invitation-main{
-  display:flex;
-  gap:14px;
-  align-items:center;
-}
-
-.invitation-character{
-  width:54px;
-  height:54px;
-  border-radius:17px;
-
-  display:grid;
-  place-items:center;
-
-  font-size:29px;
-
-  background:
-    rgba(255,111,174,.08);
-
-  border:1px solid var(--line);
-}
-
-.invitation-name{
-  font-size:18px;
-  font-weight:700;
-}
-
-.invitation-id{
-  color:var(--muted);
-  font:11px monospace;
-  margin-top:4px;
-}
-
-.status{
-  font-size:10px;
+.invite-name{
   font-weight:800;
-  padding:7px 10px;
-  border-radius:999px;
-  white-space:nowrap;
+  font-size:15px;
 }
 
-.status.waiting{
-  color:#f6d18b;
-  background:rgba(246,198,103,.09);
-  border:1px solid rgba(246,198,103,.18);
+.invite-character{
+  font-size:29px;
 }
 
-.status.accepted{
-  color:#8de1b0;
-  background:rgba(121,214,161,.09);
-  border:1px solid rgba(121,214,161,.18);
-}
-
-.status.created{
-  color:#ffb4d1;
-  background:rgba(255,111,174,.09);
-  border:1px solid rgba(255,111,174,.18);
-}
-
-.invitation-info{
+.invite-info{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
-  margin-top:17px;
+  grid-template-columns:repeat(2,1fr);
+  gap:8px;
+  margin-top:13px;
 }
 
 .info{
-  padding:12px;
-  border-radius:14px;
-  background:rgba(255,255,255,.035);
-  border:1px solid rgba(255,255,255,.06);
+  padding:10px 12px;
+  border-radius:12px;
+  background:rgba(255,255,255,.04);
 }
 
 .info span{
   display:block;
   color:var(--muted);
   font-size:10px;
-  margin-bottom:5px;
+  margin-bottom:3px;
 }
 
 .info strong{
-  font-size:12px;
+  font-size:11px;
 }
 
-.invitation-actions{
+.invite-actions{
   display:flex;
-  gap:9px;
+  gap:8px;
+  margin-top:14px;
   flex-wrap:wrap;
-  margin-top:15px;
 }
 
-.invitation-actions .btn{
-  padding:11px 15px;
-  font-size:12px;
+.small-btn{
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.05);
+  color:#fff;
+  border-radius:11px;
+  padding:9px 12px;
+  cursor:pointer;
+  font-size:11px;
 }
 
 .empty{
   text-align:center;
   padding:45px 20px;
+  border:1px dashed var(--line);
+  border-radius:18px;
+  color:var(--muted);
 }
 
 .empty-icon{
-  font-size:55px;
-  margin-bottom:12px;
-}
-
-.empty h3{
-  font:600 25px "Playfair Display",serif;
-  margin:0 0 8px;
-}
-
-.empty p{
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.6;
-  max-width:470px;
-  margin:0 auto 20px;
+  font-size:45px;
+  margin-bottom:10px;
 }
 
 .loading{
   text-align:center;
-  padding:45px 20px;
   color:var(--muted);
-  font-size:13px;
+  padding:30px;
+}
+
+.status{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  padding:5px 8px;
+  border-radius:999px;
+  font-size:10px;
+  background:rgba(113,214,161,.10);
+  color:var(--green);
+}
+
+.status.pending{
+  background:rgba(246,198,103,.10);
+  color:var(--gold);
+}
+
+.status.no{
+  background:rgba(255,255,255,.06);
+  color:var(--muted);
 }
 
 .error{
-  color:#ff9aaa;
+  color:var(--danger);
   text-align:center;
-  padding:25px;
-  font-size:13px;
-}
-
-.hidden{
-  display:none!important;
-}
-
-.notice{
-  margin-top:15px;
-  padding:13px 15px;
-  border-radius:14px;
-  background:rgba(255,255,255,.035);
-  border:1px solid var(--line);
-  color:var(--muted);
-  font-size:11px;
+  font-size:12px;
   line-height:1.6;
+  padding:20px;
 }
 
-footer{
-  border-top:1px solid var(--line);
-  padding:25px 0;
-  color:#7f899d;
-  font-size:11px;
-}
-
-@media(max-width:750px){
+@media(max-width:800px){
+  .grid{
+    grid-template-columns:1fr;
+  }
 
   .profile{
-    grid-template-columns:auto 1fr;
+    max-width:600px;
+    margin:auto;
   }
-
-  .profile-actions{
-    grid-column:1/-1;
-    justify-content:flex-start;
-  }
-
-  .invitation-info{
-    grid-template-columns:1fr 1fr;
-  }
-
 }
 
 @media(max-width:520px){
-
-  nav{
-    height:70px;
+  header{
+    min-height:70px;
   }
 
-  .nav-right .home-btn{
-    display:none;
+  .header-btn{
+    padding:9px 10px;
   }
 
   main{
@@ -466,191 +376,109 @@ footer{
   }
 
   .card{
-    padding:20px;
-    border-radius:23px;
+    padding:22px;
   }
 
-  .profile{
-    grid-template-columns:1fr;
-    text-align:center;
-  }
-
-  .avatar{
-    margin:auto;
-  }
-
-  .profile-actions{
-    justify-content:center;
-  }
-
-  .section-title{
-    align-items:flex-start;
-    flex-direction:column;
-  }
-
-  .invitation-top{
-    flex-direction:column;
-  }
-
-  .invitation-info{
+  .invite-info{
     grid-template-columns:1fr;
   }
 
-  .invitation-actions .btn{
-    flex:1;
+  .invite-actions{
+    display:grid;
+    grid-template-columns:1fr;
+  }
+
+  .small-btn{
+    width:100%;
   }
 }
 </style>
+
 </head>
 
 <body>
 
 <div class="container">
 
-<nav>
+<header>
   <a class="logo" href="index.html">Date Ticket</a>
 
-  <div class="nav-right">
-    <a class="btn secondary home-btn" href="create.html">
-      Создать приглашение
-    </a>
-
-    <button class="btn danger" id="logoutBtn">
-      Выйти
-    </button>
+  <div class="header-actions">
+    <a class="header-btn" href="create.html">Создать</a>
+    <a class="header-btn" href="admin.html">Админка</a>
   </div>
-</nav>
+</header>
 
 <main>
 
-<header class="page-head">
-  <div class="eyebrow">Date Ticket · Профиль</div>
-
-  <h1>Мой аккаунт</h1>
-
+<section class="hero">
+  <span class="eyebrow">Твой аккаунт</span>
+  <h1>Личный кабинет</h1>
   <p>
-    Здесь хранятся твои приглашения, ответы получателей
-    и вся история созданных свиданий.
+    Здесь находятся данные твоего аккаунта
+    и все созданные тобой приглашения.
   </p>
-</header>
-
-
-<section class="card profile">
-
-  <div class="avatar">
-    💌
-  </div>
-
-  <div>
-    <div class="label">Твой профиль</div>
-
-    <div class="profile-name" id="userName">
-      Загрузка…
-    </div>
-
-    <div class="profile-email" id="userEmail">
-      …
-    </div>
-  </div>
-
-  <div class="profile-actions">
-
-    <a
-      class="btn"
-      href="create.html"
-    >
-      Создать приглашение ✨
-    </a>
-
-  </div>
-
 </section>
 
+<section class="grid">
 
-<section class="card">
+  <div class="card profile">
 
-  <div class="section-title">
+```
+<div class="avatar">💌</div>
 
-    <h2>Мои приглашения</h2>
+<h2 id="profileName">Загрузка…</h2>
 
-    <span id="invitationCount">
-      Загружаем…
-    </span>
+<div
+  class="email"
+  id="profileEmail">
+  Загрузка…
+</div>
 
-  </div>
+<div class="profile-actions">
 
+  <a
+    class="btn"
+    href="create.html">
+    ✨ Создать приглашение
+  </a>
 
-  <div id="loading" class="loading">
-    💌 Загружаем твои приглашения…
-  </div>
+  <a
+    class="btn secondary"
+    href="admin.html">
+    📊 Открыть мои приглашения
+  </a>
 
+  <button
+    class="btn danger"
+    id="logoutBtn"
+    type="button">
+    Выйти
+  </button>
 
-  <div id="error" class="error hidden">
-    Не удалось загрузить список приглашений.
-    <br><br>
-
-    <button
-      class="btn secondary"
-      id="retryBtn"
-    >
-      Попробовать снова
-    </button>
-  </div>
-
-
-  <div
-    id="empty"
-    class="empty hidden"
-  >
-
-    <div class="empty-icon">
-      💌
-    </div>
-
-    <h3>
-      Пока нет приглашений
-    </h3>
-
-    <p>
-      Создай первое приглашение, отправь его
-      особому человеку и дождись его ответа.
-    </p>
-
-    <a
-      class="btn"
-      href="create.html"
-    >
-      Создать приглашение
-    </a>
+</div>
+```
 
   </div>
 
+  <div class="card">
 
-  <div
-    id="list"
-    class="list hidden"
-  ></div>
+```
+<div class="section-title">
+  <h2>Мои приглашения</h2>
+  <span id="inviteCount">0</span>
+</div>
 
-</section>
+<div
+  id="invites"
+  class="invites">
 
-
-<section class="card">
-
-  <div class="label">
-    Как это работает
+  <div class="loading">
+    Загружаем приглашения…
   </div>
 
-  <div class="notice">
-
-    Все созданные приглашения привязаны к твоему аккаунту.
-    Поэтому после повторного входа они снова появятся
-    в разделе «Мои приглашения».
-
-    <br><br>
-
-    Если получатель уже прошёл опрос,
-    в соответствующем приглашении появится кнопка
-    просмотра его ответов.
+</div>
+```
 
   </div>
 
@@ -658,13 +486,7 @@ footer{
 
 </main>
 
-
-<footer>
-  © 2026 Date Ticket · Сделано для особенных свиданий ❤️
-</footer>
-
 </div>
-
 
 <script type="module">
 
@@ -683,436 +505,449 @@ import {
   collection,
   query,
   where,
-  getDocs
+  getDocs,
+  orderBy
 } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js";
 
 
 const firebaseConfig = {
-
-  apiKey:
-    "AIzaSyC2esT1S9A8SnTBPyrHVfxTy-Z_u-GiGpWo",
-
-  authDomain:
-    "date-ticket-2e786.firebaseapp.com",
-
-  databaseURL:
-    "https://date-ticket-2e786-default-rtdb.europe-west1.firebasedatabase.app",
-
-  projectId:
-    "date-ticket-2e786",
-
-  storageBucket:
-    "date-ticket-2e786.firebasestorage.app",
-
-  messagingSenderId:
-    "576969359516",
-
-  appId:
-    "1:576969359516:web:2b9e622d7b2de86acc6d59"
+  apiKey:"AIzaSyC2esT1S9A8SnTBPyrHVfxTy-Z_u-GiGpWo",
+  authDomain:"date-ticket-2e786.firebaseapp.com",
+  databaseURL:"https://date-ticket-2e786-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId:"date-ticket-2e786",
+  storageBucket:"date-ticket-2e786.firebasestorage.app",
+  messagingSenderId:"576969359516",
+  appId:"1:576969359516:web:2b9e622d7b2de86acc6d59"
 };
 
-
-const app =
-  initializeApp(firebaseConfig);
-
-const auth =
-  getAuth(app);
-
-const db =
-  getFirestore(app);
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
 
-const loading =
-  document.querySelector("#loading");
+const profileName =
+  document.querySelector("#profileName");
 
-const errorBox =
-  document.querySelector("#error");
+const profileEmail =
+  document.querySelector("#profileEmail");
 
-const empty =
-  document.querySelector("#empty");
+const invitesBox =
+  document.querySelector("#invites");
 
-const list =
-  document.querySelector("#list");
+const inviteCount =
+  document.querySelector("#inviteCount");
 
-const count =
-  document.querySelector("#invitationCount");
+const logoutBtn =
+  document.querySelector("#logoutBtn");
 
 
 function escapeHtml(value){
 
   return String(value ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
 }
 
 
 function formatDate(value){
 
-  if(!value)
-    return "—";
+  if(!value) return "—";
 
-  const date =
-    new Date(value + "T12:00:00");
+  const parts =
+    String(value).split("-");
 
-  if(Number.isNaN(date.getTime()))
+  if(parts.length !== 3)
     return value;
 
-  return date.toLocaleDateString(
-    "ru-RU",
-    {
-      day:"numeric",
-      month:"long",
-      year:"numeric"
-    }
-  );
+  return `${parts[2]}.${parts[1]}.${parts[0]}`;
+
 }
 
 
-function today(){
+function statusHtml(item){
 
-  const d =
-    new Date();
+  if(item.response){
 
-  return [
-    d.getFullYear(),
-    String(d.getMonth()+1).padStart(2,"0"),
-    String(d.getDate()).padStart(2,"0")
-  ].join("-");
-}
-
-
-function getStatus(data){
-
-  if(data.response){
-
-    return {
-      text:"Принято ❤️",
-      className:"accepted"
-    };
+    return `
+      <span class="status">
+        ✓ Ответ получен
+      </span>
+    `;
 
   }
 
-  if(data.status === "created"){
+  if(item.status === "created"){
 
-    return {
-      text:"Ожидает ответа",
-      className:"waiting"
-    };
+    return `
+      <span class="status pending">
+        ⏳ Ждёт ответа
+      </span>
+    `;
 
   }
-
-  return {
-    text:"Создано",
-    className:"created"
-  };
-}
-
-
-function renderInvitation(id,data){
-
-  const status =
-    getStatus(data);
-
-  const response =
-    data.response || null;
-
-  const date =
-    response?.date || "";
-
-  const time =
-    response?.time ||
-    data.time ||
-    "";
-
-  let dateText =
-    "Дата ещё не выбрана";
-
-  if(date)
-    dateText =
-      formatDate(date);
-
-
-  const answersButton =
-    response
-
-      ? `
-        <a
-          class="btn"
-          href="admin.html?id=${encodeURIComponent(id)}"
-        >
-          Посмотреть ответы 💌
-        </a>
-        `
-
-      : `
-        <a
-          class="btn secondary"
-          href="admin.html?id=${encodeURIComponent(id)}"
-        >
-          Открыть приглашение
-        </a>
-        `;
-
 
   return `
+    <span class="status no">
+      Создано
+    </span>
+  `;
 
-    <article class="invitation">
+}
 
-      <div class="invitation-top">
 
-        <div class="invitation-main">
+function inviteUrl(id){
 
-          <div class="invitation-character">
-            ${escapeHtml(data.character || "🐸")}
-          </div>
+  return new URL(
+    `invite.html?id=${encodeURIComponent(id)}`,
+    location.href
+  ).href;
 
-          <div>
+}
 
-            <div class="invitation-name">
-              ${escapeHtml(
-                data.nickname || "Солнышко"
-              )}
-            </div>
 
-            <div class="invitation-id">
-              ID: ${escapeHtml(id)}
-            </div>
+function renderInvites(items){
 
-          </div>
+  inviteCount.textContent =
+    items.length;
 
+  if(!items.length){
+
+    invitesBox.innerHTML = `
+      <div class="empty">
+
+        <div class="empty-icon">
+          💌
         </div>
 
+        <strong>
+          У тебя пока нет приглашений
+        </strong>
 
-        <div
-          class="status ${status.className}"
-        >
-          ${status.text}
-        </div>
-
-      </div>
-
-
-      <div class="invitation-info">
-
-        <div class="info">
-
-          <span>Свидание</span>
-
-          <strong>
-            ${escapeHtml(dateText)}
-          </strong>
-
-        </div>
-
-
-        <div class="info">
-
-          <span>Время</span>
-
-          <strong>
-            ${escapeHtml(time || "—")}
-          </strong>
-
-        </div>
-
-
-        <div class="info">
-
-          <span>Статус</span>
-
-          <strong>
-            ${
-              response
-                ? "Ответ получен"
-                : "Ожидание"
-            }
-          </strong>
-
-        </div>
-
-      </div>
-
-
-      <div class="invitation-actions">
-
-        ${answersButton}
-
+        <p>
+          Создай первое приглашение,
+          чтобы оно появилось здесь.
+        </p>
 
         <a
-          class="btn secondary"
-          href="invite.html?id=${encodeURIComponent(id)}"
-          target="_blank"
-        >
-          Открыть билет 🎫
+          class="btn"
+          href="create.html">
+          Создать приглашение
         </a>
 
       </div>
+    `;
 
-    </article>
+    return;
 
-  `;
+  }
+
+
+  invitesBox.innerHTML =
+    items.map(item => {
+
+      const id =
+        escapeHtml(item.id);
+
+      const nickname =
+        escapeHtml(
+          item.nickname || "Без имени"
+        );
+
+      const character =
+        escapeHtml(
+          item.character || "💌"
+        );
+
+      const theme =
+        escapeHtml(
+          item.theme || "—"
+        );
+
+      const dates =
+        `${formatDate(item.from)} → ${formatDate(item.to)}`;
+
+      return `
+        <article class="invite">
+
+          <div class="invite-top">
+
+            <div>
+              <div class="invite-name">
+                ${nickname}
+              </div>
+
+              <div style="margin-top:7px">
+                ${statusHtml(item)}
+              </div>
+            </div>
+
+            <div class="invite-character">
+              ${character}
+            </div>
+
+          </div>
+
+          <div class="invite-info">
+
+            <div class="info">
+              <span>Тема</span>
+              <strong>${theme}</strong>
+            </div>
+
+            <div class="info">
+              <span>Дата</span>
+              <strong>${escapeHtml(dates)}</strong>
+            </div>
+
+            <div class="info">
+              <span>Время</span>
+              <strong>${escapeHtml(item.time || "—")}</strong>
+            </div>
+
+            <div class="info">
+              <span>Ответ</span>
+              <strong>
+                ${
+                  item.response
+                    ? escapeHtml(
+                        item.response.choice ||
+                        item.response.answer ||
+                        "Получен"
+                      )
+                    : "Пока нет"
+                }
+              </strong>
+            </div>
+
+          </div>
+
+          <div class="invite-actions">
+
+            <button
+              class="small-btn"
+              data-open="${id}">
+              Открыть
+            </button>
+
+            <button
+              class="small-btn"
+              data-copy="${id}">
+              Копировать ссылку
+            </button>
+
+            <button
+              class="small-btn"
+              data-admin="${id}">
+              Ответ
+            </button>
+
+          </div>
+
+        </article>
+      `;
+
+    }).join("");
+
+
+  invitesBox
+    .querySelectorAll("[data-open]")
+    .forEach(btn => {
+
+      btn.addEventListener(
+        "click",
+        () => {
+
+          location.href =
+            inviteUrl(btn.dataset.open);
+
+        }
+      );
+
+    });
+
+
+  invitesBox
+    .querySelectorAll("[data-copy]")
+    .forEach(btn => {
+
+      btn.addEventListener(
+        "click",
+        async () => {
+
+          const url =
+            inviteUrl(btn.dataset.copy);
+
+          try{
+
+            await navigator.clipboard.writeText(url);
+
+            const old =
+              btn.textContent;
+
+            btn.textContent =
+              "Скопировано ✓";
+
+            setTimeout(
+              () => {
+                btn.textContent = old;
+              },
+              1500
+            );
+
+          }catch(error){
+
+            prompt(
+              "Скопируй ссылку:",
+              url
+            );
+
+          }
+
+        }
+      );
+
+    });
+
+
+  invitesBox
+    .querySelectorAll("[data-admin]")
+    .forEach(btn => {
+
+      btn.addEventListener(
+        "click",
+        () => {
+
+          location.href =
+            `admin.html?id=${encodeURIComponent(btn.dataset.admin)}`;
+
+        }
+      );
+
+    });
 
 }
 
 
 async function loadInvitations(user){
 
-  loading.classList.remove("hidden");
-
-  errorBox.classList.add("hidden");
-
-  empty.classList.add("hidden");
-
-  list.classList.add("hidden");
-
+  invitesBox.innerHTML = `
+    <div class="loading">
+      Загружаем приглашения…
+    </div>
+  `;
 
   try{
-
-    /*
-      ВАЖНО:
-
-      create.html должен сохранять
-      creatorId: user.uid
-
-      именно поэтому приглашения
-      можно найти после повторного входа.
-    */
 
     const q =
       query(
         collection(db,"invitations"),
-        where(
-          "creatorId",
-          "==",
-          user.uid
-        )
+        where("ownerUid","==",user.uid),
+        orderBy("createdAt","desc")
       );
-
 
     const snapshot =
       await getDocs(q);
 
+    const items =
+      snapshot.docs.map(doc => ({
+        id:doc.id,
+        ...doc.data()
+      }));
 
-    const invitations = [];
+    renderInvites(items);
 
+  }catch(error){
 
-    snapshot.forEach(docSnap => {
+    console.error(error);
 
-      invitations.push({
-        id:docSnap.id,
-        data:docSnap.data()
-      });
+    /*
+      Если в Firestore ещё нет индекса
+      для ownerUid + createdAt, используем
+      более простой запрос.
+    */
 
-    });
+    try{
 
+      const q =
+        query(
+          collection(db,"invitations"),
+          where("ownerUid","==",user.uid)
+        );
 
-    invitations.sort((a,b)=>{
+      const snapshot =
+        await getDocs(q);
 
-      const da =
-        a.data.createdAt || "";
+      const items =
+        snapshot.docs.map(doc => ({
+          id:doc.id,
+          ...doc.data()
+        }));
 
-      const dbb =
-        b.data.createdAt || "";
+      items.sort(
+        (a,b) => {
 
-      return dbb.localeCompare(da);
+          const aa =
+            a.createdAt?.seconds || 0;
 
-    });
+          const bb =
+            b.createdAt?.seconds || 0;
 
+          return bb - aa;
 
-    loading.classList.add("hidden");
+        }
+      );
 
+      renderInvites(items);
 
-    if(!invitations.length){
+    }catch(secondError){
 
-      count.textContent =
-        "0 приглашений";
+      console.error(secondError);
 
-      empty.classList.remove("hidden");
-
-      return;
+      invitesBox.innerHTML = `
+        <div class="error">
+          Не удалось загрузить приглашения.
+          <br><br>
+          Проверь правила Firestore.
+        </div>
+      `;
 
     }
 
-
-    count.textContent =
-      `${invitations.length} ${
-        invitations.length === 1
-          ? "приглашение"
-          : "приглашений"
-      }`;
-
-
-    list.innerHTML =
-      invitations
-        .map(item =>
-          renderInvitation(
-            item.id,
-            item.data
-          )
-        )
-        .join("");
-
-
-    list.classList.remove("hidden");
-
-  }
-
-  catch(err){
-
-    console.error(
-      "Ошибка загрузки приглашений:",
-      err
-    );
-
-
-    loading.classList.add("hidden");
-
-    errorBox.classList.remove("hidden");
-
-    count.textContent =
-      "Ошибка загрузки";
-
   }
 
 }
 
 
-function showUser(user){
+logoutBtn.addEventListener(
+  "click",
+  async () => {
 
-  const name =
-    user.displayName ||
-    user.email?.split("@")[0] ||
-    "Пользователь";
+    try{
 
+      await signOut(auth);
 
-  document.querySelector("#userName")
-    .textContent =
-    name;
+      location.href =
+        "index.html";
 
+    }catch(error){
 
-  document.querySelector("#userEmail")
-    .textContent =
-    user.email || "Email не указан";
+      console.error(error);
 
+    }
 
-  loadInvitations(user);
-
-}
+  }
+);
 
 
 onAuthStateChanged(
   auth,
-  user => {
+  async user => {
 
     if(!user){
-
-      /*
-        Если пользователь не вошёл,
-        отправляем его на страницу входа.
-      */
 
       location.href =
         "login.html";
@@ -1121,59 +956,19 @@ onAuthStateChanged(
 
     }
 
+    profileEmail.textContent =
+      user.email || "Email не указан";
 
-    showUser(user);
+    profileName.textContent =
+      user.displayName ||
+      "Мой аккаунт";
+
+    await loadInvitations(user);
 
   }
 );
-
-
-document
-  .querySelector("#logoutBtn")
-  .addEventListener(
-    "click",
-    async ()=>{
-
-      try{
-
-        await signOut(auth);
-
-        location.href =
-          "login.html";
-
-      }
-
-      catch(error){
-
-        console.error(error);
-
-        alert(
-          "Не удалось выйти из аккаунта."
-        );
-
-      }
-
-    }
-  );
-
-
-document
-  .querySelector("#retryBtn")
-  .addEventListener(
-    "click",
-    ()=>{
-
-      const user =
-        auth.currentUser;
-
-      if(user)
-        loadInvitations(user);
-
-    }
-  );
 
 </script>
 
 </body>
 </html>
-```
