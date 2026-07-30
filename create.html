@@ -410,19 +410,18 @@ document.querySelector("#createBtn")?.addEventListener("click", async () => {
     };
 
     // Сохраняем основную информацию приглашения
-    await setDoc(
-      doc(db, "invitations", id),
-      payload
-    );
+   await window.setDoc(
+  window.doc(window.db, 'invitations', id),
+  payload
+);
 
-    // Сохраняем личное письмо отдельно
-    await setDoc(
-      doc(db, "invitations", id, "private", "letter"),
-      {
-        letter: state.letter || "",
-        letterUnlock: state.letterDate || null
-      }
-    );
+await window.setDoc(
+  window.doc(window.db, 'invitations', id, 'private', 'letter'),
+  {
+    letter: state.letter || '',
+    letterUnlock: state.letterDate || null
+  }
+);
 
     // Создаём ссылку для получателя
     const base = location.href.substring(
