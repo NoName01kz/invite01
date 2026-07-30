@@ -4,295 +4,2658 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Создание приглашения — Date Ticket</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
 <style>
 :root{
-  --bg:#090d16;--bg2:#111728;--card:rgba(19,25,42,.78);
-  --line:rgba(255,255,255,.10);--text:#fff;--muted:#aeb6c8;
-  --pink:#ff6fae;--pink2:#ff91bf;--gold:#f6c667;--danger:#ff667d;
+  --bg:#090d16;
+  --bg2:#111728;
+  --card:rgba(19,25,42,.78);
+  --line:rgba(255,255,255,.10);
+  --text:#fff;
+  --muted:#aeb6c8;
+  --pink:#ff6fae;
+  --pink2:#ff91bf;
+  --gold:#f6c667;
+  --green:#78d6a1;
+  --danger:#ff667d;
 }
+
 *{box-sizing:border-box}
+
 body{
-  margin:0;min-height:100vh;color:var(--text);font-family:"Manrope",sans-serif;
-  background:radial-gradient(circle at 75% 10%,rgba(255,105,170,.14),transparent 28%),
-  radial-gradient(circle at 10% 90%,rgba(95,100,255,.12),transparent 30%),
-  linear-gradient(135deg,var(--bg),var(--bg2));overflow-x:hidden;
+  margin:0;
+  min-height:100vh;
+  color:var(--text);
+  font-family:"Manrope",sans-serif;
+  background:
+    radial-gradient(circle at 75% 10%,rgba(255,105,170,.14),transparent 28%),
+    radial-gradient(circle at 10% 90%,rgba(95,100,255,.12),transparent 30%),
+    linear-gradient(135deg,var(--bg),var(--bg2));
+  overflow-x:hidden;
 }
-body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.28;
-background-image:radial-gradient(circle at 20% 20%,#fff 0 1px,transparent 1.5px),
-radial-gradient(circle at 75% 35%,#fff 0 1px,transparent 1.5px);
-background-size:270px 240px,330px 290px}
-.container{width:min(1100px,92%);margin:auto}
-header{height:78px;display:flex;align-items:center;justify-content:space-between;position:relative;z-index:2}
-.logo{font:700 24px "Playfair Display",serif;font-style:italic}
-.save{color:var(--muted);font-size:12px}
-.progress-wrap{position:relative;z-index:2}
-.progress-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-.step-label{font-size:12px;color:var(--muted)}
-.step-title{font-size:13px;font-weight:700}
-.progress{height:5px;background:rgba(255,255,255,.08);border-radius:99px;overflow:hidden}
-.progress-bar{height:100%;width:12.5%;background:linear-gradient(90deg,var(--pink),var(--gold));transition:.45s}
-main{padding:44px 0 70px}
-.step{display:none;animation:enter .45s ease}
-.step.active{display:block}
-.step-layout{display:grid;grid-template-columns:1.05fr .95fr;gap:50px;align-items:center;min-height:610px}
-.copy h1{font:700 clamp(40px,5vw,62px)/1.05 "Playfair Display",serif;margin:0 0 18px;letter-spacing:-1px}
-.copy p{color:var(--muted);line-height:1.7;max-width:570px}
-.eyebrow{display:inline-block;color:#ffc0d8;font-size:11px;text-transform:uppercase;letter-spacing:1.7px;margin-bottom:14px}
-.field{margin-top:28px}
-label{display:block;font-size:13px;font-weight:700;margin-bottom:10px}
-input,textarea,select{
-width:100%;border:1px solid var(--line);outline:none;border-radius:16px;background:rgba(255,255,255,.055);
-color:#fff;padding:17px 18px;font:500 14px "Manrope",sans-serif;transition:.2s
+
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.28;
+  background-image:
+    radial-gradient(circle at 20% 20%,#fff 0 1px,transparent 1.5px),
+    radial-gradient(circle at 75% 35%,#fff 0 1px,transparent 1.5px);
+  background-size:270px 240px,330px 290px;
 }
-textarea{min-height:180px;resize:vertical;line-height:1.7}
-input:focus,textarea:focus,select:focus{border-color:rgba(255,111,174,.65);box-shadow:0 0 0 4px rgba(255,111,174,.08)}
+
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+.container{
+  width:min(1100px,92%);
+  margin:auto;
+}
+
+header{
+  height:78px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  position:relative;
+  z-index:2;
+}
+
+.logo{
+  font:700 24px "Playfair Display",serif;
+  font-style:italic;
+}
+
+.header-right{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.save{
+  color:var(--muted);
+  font-size:12px;
+}
+
+.account{
+  padding:9px 13px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  color:var(--muted);
+  font-size:11px;
+  background:rgba(255,255,255,.04);
+}
+
+.progress-wrap{
+  position:relative;
+  z-index:2;
+}
+
+.progress-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:10px;
+}
+
+.step-label{
+  font-size:12px;
+  color:var(--muted);
+}
+
+.step-title{
+  font-size:13px;
+  font-weight:700;
+}
+
+.progress{
+  height:5px;
+  background:rgba(255,255,255,.08);
+  border-radius:99px;
+  overflow:hidden;
+}
+
+.progress-bar{
+  height:100%;
+  width:12.5%;
+  background:linear-gradient(90deg,var(--pink),var(--gold));
+  transition:.45s;
+}
+
+main{
+  padding:44px 0 70px;
+}
+
+.step{
+  display:none;
+  animation:enter .45s ease;
+}
+
+.step.active{
+  display:block;
+}
+
+.step-layout{
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  gap:50px;
+  align-items:center;
+  min-height:590px;
+}
+
+.copy h1{
+  font:700 clamp(40px,5vw,62px)/1.05 "Playfair Display",serif;
+  margin:0 0 18px;
+  letter-spacing:-1px;
+}
+
+.copy p{
+  color:var(--muted);
+  line-height:1.7;
+  max-width:570px;
+}
+
+.eyebrow{
+  display:inline-block;
+  color:#ffc0d8;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:1.7px;
+  margin-bottom:14px;
+}
+
+.field{
+  margin-top:28px;
+}
+
+label{
+  display:block;
+  font-size:13px;
+  font-weight:700;
+  margin-bottom:10px;
+}
+
+input,
+textarea,
+select{
+  width:100%;
+  border:1px solid var(--line);
+  outline:none;
+  border-radius:16px;
+  background:rgba(255,255,255,.055);
+  color:#fff;
+  padding:17px 18px;
+  font:500 14px "Manrope",sans-serif;
+  transition:.2s;
+}
+
+select option{
+  background:#151b2b;
+  color:#fff;
+}
+
+textarea{
+  min-height:180px;
+  resize:vertical;
+  line-height:1.7;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+  border-color:rgba(255,111,174,.65);
+  box-shadow:0 0 0 4px rgba(255,111,174,.08);
+}
+
 .preview{
-border:1px solid var(--line);background:var(--card);border-radius:28px;padding:30px;
-backdrop-filter:blur(18px);box-shadow:0 30px 80px rgba(0,0,0,.28);min-height:470px;
-display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;
-position:relative;overflow:hidden
+  border:1px solid var(--line);
+  background:var(--card);
+  border-radius:28px;
+  padding:30px;
+  backdrop-filter:blur(18px);
+  box-shadow:0 30px 80px rgba(0,0,0,.28);
+  min-height:470px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
 }
-.preview:before{content:"";position:absolute;width:320px;height:320px;border-radius:50%;
-background:radial-gradient(circle,rgba(255,111,174,.20),transparent 65%);top:-110px;right:-100px}
-.preview .character{font-size:145px;position:relative;z-index:1;filter:drop-shadow(0 20px 20px rgba(0,0,0,.25));animation:float 4s ease-in-out infinite}
-.preview .bubble{position:relative;z-index:1;margin-top:15px;max-width:300px;padding:13px 17px;border-radius:17px;background:rgba(255,255,255,.07);border:1px solid var(--line);font-size:13px;color:#e8ebf3}
-.option-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:18px}
+
+.preview:before{
+  content:"";
+  position:absolute;
+  width:320px;
+  height:320px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(255,111,174,.20),transparent 65%);
+  top:-110px;
+  right:-100px;
+}
+
+.preview .character{
+  font-size:145px;
+  position:relative;
+  z-index:1;
+  filter:drop-shadow(0 20px 20px rgba(0,0,0,.25));
+  animation:float 4s ease-in-out infinite;
+}
+
+.preview .bubble{
+  position:relative;
+  z-index:1;
+  margin-top:15px;
+  max-width:330px;
+  padding:13px 17px;
+  border-radius:17px;
+  background:rgba(255,255,255,.07);
+  border:1px solid var(--line);
+  font-size:13px;
+  color:#e8ebf3;
+}
+
+.option-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+  margin-top:18px;
+}
+
 .option{
-border:1px solid var(--line);background:rgba(255,255,255,.045);border-radius:17px;padding:17px;
-cursor:pointer;text-align:left;transition:.22s;min-height:78px
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.045);
+  border-radius:17px;
+  padding:17px;
+  cursor:pointer;
+  text-align:left;
+  transition:.22s;
+  min-height:78px;
 }
-.option:hover{transform:translateY(-2px);background:rgba(255,255,255,.075)}
-.option.selected{border-color:rgba(255,111,174,.72);background:rgba(255,111,174,.10);box-shadow:0 0 0 2px rgba(255,111,174,.08) inset}
-.option .emoji{font-size:28px;margin-bottom:8px}.option strong{font-size:13px}.option small{display:block;color:var(--muted);margin-top:3px;font-size:11px}
-.counter{color:var(--muted);font-size:12px;margin-top:12px}
-.counter b{color:#fff}
-.date-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.notice{margin-top:14px;color:#9ea8bc;font-size:11px;line-height:1.6}
-.actions{display:flex;justify-content:space-between;gap:12px;margin-top:30px}
-.btn{border:0;cursor:pointer;border-radius:15px;padding:15px 23px;color:#fff;font:700 13px "Manrope";background:linear-gradient(135deg,var(--pink),var(--pink2));box-shadow:0 12px 35px rgba(255,105,170,.22);transition:.2s}
-.btn:hover{transform:translateY(-2px)}
-.btn.secondary{background:rgba(255,255,255,.055);border:1px solid var(--line);box-shadow:none}
-.btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
-.theme-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
-.theme{height:105px;border-radius:17px;border:2px solid transparent;cursor:pointer;position:relative;overflow:hidden;transition:.2s}
-.theme.selected{border-color:#fff}
-.theme span{position:absolute;left:12px;bottom:10px;font-size:11px;font-weight:700;text-shadow:0 2px 8px #000}
+
+.option:hover{
+  transform:translateY(-2px);
+  background:rgba(255,255,255,.075);
+}
+
+.option.selected{
+  border-color:rgba(255,111,174,.72);
+  background:rgba(255,111,174,.10);
+  box-shadow:0 0 0 2px rgba(255,111,174,.08) inset;
+}
+
+.option .emoji{
+  font-size:28px;
+  margin-bottom:8px;
+}
+
+.option strong{
+  font-size:13px;
+}
+
+.option small{
+  display:block;
+  color:var(--muted);
+  margin-top:3px;
+  font-size:11px;
+}
+
+.counter{
+  color:var(--muted);
+  font-size:12px;
+  margin-top:12px;
+}
+
+.counter b{
+  color:#fff;
+}
+
+.date-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.notice{
+  margin-top:14px;
+  color:#9ea8bc;
+  font-size:11px;
+  line-height:1.6;
+}
+
+.actions{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  margin-top:30px;
+}
+
+.btn{
+  border:0;
+  cursor:pointer;
+  border-radius:15px;
+  padding:15px 23px;
+  color:#fff;
+  font:700 13px "Manrope";
+  background:linear-gradient(135deg,var(--pink),var(--pink2));
+  box-shadow:0 12px 35px rgba(255,105,170,.22);
+  transition:.2s;
+}
+
+.btn:hover{
+  transform:translateY(-2px);
+}
+
+.btn.secondary{
+  background:rgba(255,255,255,.055);
+  border:1px solid var(--line);
+  box-shadow:none;
+}
+
+.btn.danger{
+  background:rgba(255,102,125,.13);
+  border:1px solid rgba(255,102,125,.25);
+  box-shadow:none;
+}
+
+.btn:disabled{
+  opacity:.4;
+  cursor:not-allowed;
+  transform:none;
+}
+
+.theme-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-top:18px;
+}
+
+.theme{
+  height:105px;
+  border-radius:17px;
+  border:2px solid transparent;
+  cursor:pointer;
+  position:relative;
+  overflow:hidden;
+  transition:.2s;
+}
+
+.theme.selected{
+  border-color:#fff;
+}
+
+.theme span{
+  position:absolute;
+  left:12px;
+  bottom:10px;
+  font-size:11px;
+  font-weight:700;
+  text-shadow:0 2px 8px #000;
+}
+
 .sakura{background:linear-gradient(135deg,#4a203f,#11162d)}
 .galaxy{background:linear-gradient(135deg,#171c50,#080b17)}
 .sunset{background:linear-gradient(135deg,#8e3c48,#f0a45e)}
 .rain{background:linear-gradient(135deg,#172c43,#50677b)}
 .ocean{background:linear-gradient(135deg,#0b5260,#122238)}
 .city{background:linear-gradient(135deg,#201b3f,#0b0d15)}
-.char-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
-.char{border:1px solid var(--line);border-radius:18px;padding:15px;background:rgba(255,255,255,.045);cursor:pointer;text-align:center;transition:.2s}
-.char.selected{border-color:rgba(255,111,174,.75);background:rgba(255,111,174,.09)}
-.char .big{font-size:55px}.char div:last-child{font-size:11px;margin-top:5px}
-.limit{color:var(--muted);font-size:12px;margin-top:8px}.limit.ok{color:#ffc0d8}
-.review{border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.045);padding:18px;margin-top:18px}
-.review-row{display:flex;justify-content:space-between;gap:15px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:12px}
-.review-row:last-child{border-bottom:0}.review-row span{color:var(--muted)}
-.success{font-size:80px;margin-bottom:15px}
-.linkbox{display:flex;gap:8px;margin-top:18px}.linkbox input{font-size:12px}
-@keyframes enter{from{opacity:0;transform:translateY(12px);filter:blur(3px)}to{opacity:1;transform:none;filter:none}}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-@media(max-width:800px){.step-layout{grid-template-columns:1fr;gap:25px}.preview{min-height:330px}.nav-hide{display:none}.theme-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:520px){main{padding-top:25px}.option-grid,.char-grid,.theme-grid{grid-template-columns:1fr 1fr}.option-grid .option{min-height:70px}.date-row{grid-template-columns:1fr}.preview{padding:22px}.preview .character{font-size:105px}.actions .btn{padding:14px 16px}}
+
+.char-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-top:18px;
+}
+
+.char{
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:15px;
+  background:rgba(255,255,255,.045);
+  cursor:pointer;
+  text-align:center;
+  transition:.2s;
+}
+
+.char.selected{
+  border-color:rgba(255,111,174,.75);
+  background:rgba(255,111,174,.09);
+}
+
+.char .big{
+  font-size:55px;
+}
+
+.char div:last-child{
+  font-size:11px;
+  margin-top:5px;
+}
+
+.music-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-top:18px;
+}
+
+.music{
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.045);
+  border-radius:18px;
+  padding:18px;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.music.selected{
+  border-color:rgba(255,111,174,.75);
+  background:rgba(255,111,174,.09);
+}
+
+.music strong{
+  display:block;
+  font-size:13px;
+}
+
+.music small{
+  color:var(--muted);
+  display:block;
+  margin-top:5px;
+}
+
+.limit{
+  color:var(--muted);
+  font-size:12px;
+  margin-top:8px;
+}
+
+.limit.ok{
+  color:#ffc0d8;
+}
+
+.review{
+  border:1px solid var(--line);
+  border-radius:20px;
+  background:rgba(255,255,255,.045);
+  padding:18px;
+  margin-top:18px;
+}
+
+.review-row{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  padding:10px 0;
+  border-bottom:1px solid rgba(255,255,255,.06);
+  font-size:12px;
+}
+
+.review-row:last-child{
+  border-bottom:0;
+}
+
+.review-row span{
+  color:var(--muted);
+}
+
+.success-wrap{
+  min-height:650px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.success-card{
+  width:min(700px,100%);
+  border:1px solid var(--line);
+  background:var(--card);
+  border-radius:30px;
+  padding:45px 30px;
+  text-align:center;
+  backdrop-filter:blur(18px);
+  box-shadow:0 30px 80px rgba(0,0,0,.28);
+}
+
+.success{
+  font-size:80px;
+  margin-bottom:15px;
+}
+
+.success-card h1{
+  font:700 48px "Playfair Display",serif;
+  margin:0 0 14px;
+}
+
+.success-card p{
+  color:var(--muted);
+  line-height:1.7;
+}
+
+.linkbox{
+  display:flex;
+  gap:8px;
+  margin-top:22px;
+}
+
+.linkbox input{
+  font-size:12px;
+}
+
+.info-box{
+  margin-top:18px;
+  padding:16px;
+  border-radius:17px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.04);
+  text-align:left;
+  font-size:12px;
+  color:var(--muted);
+  line-height:1.7;
+}
+
+.error-text{
+  color:var(--danger);
+  font-size:12px;
+  margin-top:12px;
+  display:none;
+}
+
+.hidden{
+  display:none!important;
+}
+
+@keyframes enter{
+  from{
+    opacity:0;
+    transform:translateY(12px);
+    filter:blur(3px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+    filter:none;
+  }
+}
+
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-10px)}
+}
+
+@media(max-width:800px){
+  .step-layout{
+    grid-template-columns:1fr;
+    gap:25px;
+  }
+
+  .preview{
+    min-height:330px;
+  }
+
+  .theme-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .save{
+    display:none;
+  }
+}
+
+@media(max-width:520px){
+  main{
+    padding-top:25px;
+  }
+
+  .option-grid,
+  .char-grid,
+  .theme-grid,
+  .music-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .date-row{
+    grid-template-columns:1fr;
+  }
+
+  .preview{
+    padding:22px;
+  }
+
+  .preview .character{
+    font-size:105px;
+  }
+
+  .actions .btn{
+    padding:14px 16px;
+  }
+
+  .success-card{
+    padding:35px 20px;
+  }
+
+  .success-card h1{
+    font-size:38px;
+  }
+
+  .linkbox{
+    flex-direction:column;
+  }
+
+  .header-right .account{
+    display:none;
+  }
+}
 </style>
 </head>
+
 <body>
+
 <div class="container">
+
 <header>
   <a class="logo" href="index.html">Date Ticket</a>
-  <div class="save">Черновик сохраняется локально</div>
+
+  <div class="header-right">
+    <div class="save">Приглашение сохраняется в аккаунте</div>
+    <div class="account" id="accountLabel">Гость</div>
+  </div>
 </header>
 
-<div class="progress-wrap">
+<div class="progress-wrap" id="progressWrap">
+
   <div class="progress-top">
-    <div><span class="step-label">Шаг <span id="stepNum">1</span> из 8</span> · <span class="step-title" id="stepTitle">Обращение</span></div>
-    <div class="step-label" id="progressPercent">13%</div>
+    <div>
+      <span class="step-label">
+        Шаг <span id="stepNum">1</span> из 8
+      </span>
+      ·
+      <span class="step-title" id="stepTitle">
+        Обращение
+      </span>
+    </div>
+
+    <div class="step-label" id="progressPercent">
+      13%
+    </div>
   </div>
-  <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+
+  <div class="progress">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+
 </div>
 
 <main>
-<!-- 1 -->
+
+<!-- STEP 1 -->
+
 <section class="step active" data-title="Обращение">
+
 <div class="step-layout">
+
 <div class="copy">
-<span class="eyebrow">Шаг 1 · Персонализация</span>
-<h1>Как сайт будет обращаться к получателю?</h1>
-<p>Это обращение будет использоваться во всём путешествии: в приветствии, репликах персонажа и на финальном билете.</p>
+
+<span class="eyebrow">
+Шаг 1 · Персонализация
+</span>
+
+<h1>
+Как сайт будет обращаться к получателю?
+</h1>
+
+<p>
+Это обращение будет использоваться во всём путешествии:
+в приветствии, репликах персонажа и на финальном билете.
+</p>
+
 <div class="field">
-<label for="nickname">Обращение</label>
-<input id="nickname" maxlength="35" placeholder="Например: Солнышко, Алина, Любимая..." />
-<div class="notice">Можно написать что угодно. Главное — чтобы получателю было приятно это увидеть.</div>
-</div>
-</div>
-<div class="preview"><div class="character" id="charPreview">🐸</div><div class="bubble" id="bubblePreview">Привет! Я приготовил для тебя кое-что особенное ❤️</div></div>
-</div>
-<div class="actions" style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
-  <input id="shareLink" readonly style="flex:1;min-width:240px">
-  <button class="btn secondary" id="copyLinkBtn" type="button">Копировать ссылку</button>
-  <button class="btn" id="answersBtn" type="button">Смотреть ответы 💌</button>
-</div>
-<div class="actions" style="justify-content:center"><a class="btn secondary" href="index.html">На главную</a><button class="btn" id="previewBtn">Открыть превью</button></div>
-</div>
-</section>
-</main>
+
+<label for="nickname">
+Обращение
+</label>
+
+<input
+ id="nickname"
+ maxlength="35"
+ placeholder="Например: Солнышко, Алина, Любимая..."
+>
+
+<div class="notice">
+Можно написать что угодно. Главное — чтобы получателю было приятно это увидеть.
 </div>
 
-<script>
-const steps=[...document.querySelectorAll(".step")];
-let current=0;
-const state={
- nickname:"",
- character:"🐸",
- theme:"Сакура",
- music:"none",
- from:"",
- to:"",
- time:"18:00",
- letter:"",
- letterDate:"",
- survey:[]
+</div>
+
+</div>
+
+<div class="preview">
+
+<div class="character" id="charPreview">
+🐸
+</div>
+
+<div class="bubble" id="bubblePreview">
+Привет! Я приготовил для тебя кое-что особенное ❤️
+</div>
+
+</div>
+
+</div>
+
+<div class="actions">
+
+<a class="btn secondary" href="index.html">
+На главную
+</a>
+
+<button class="btn next" type="button">
+Далее →
+</button>
+
+</div>
+
+</section>
+
+
+<!-- STEP 2 -->
+
+<section class="step" data-title="Персонаж">
+
+<div class="step-layout">
+
+<div class="copy">
+
+<span class="eyebrow">
+Шаг 2 · Персонаж
+</span>
+
+<h1>
+Кто встретит получателя?
+</h1>
+
+<p>
+Выбери персонажа, который будет сопровождать приглашение.
+</p>
+
+<div class="char-grid">
+
+<div class="char selected" data-char="🐸">
+<div class="big">🐸</div>
+<div>Лягушка</div>
+</div>
+
+<div class="char" data-char="🦊">
+<div class="big">🦊</div>
+<div>Лисёнок</div>
+</div>
+
+<div class="char" data-char="🐱">
+<div class="big">🐱</div>
+<div>Котик</div>
+</div>
+
+<div class="char" data-char="🐻">
+<div class="big">🐻</div>
+<div>Мишка</div>
+</div>
+
+<div class="char" data-char="🐰">
+<div class="big">🐰</div>
+<div>Кролик</div>
+</div>
+
+<div class="char" data-char="🤖">
+<div class="big">🤖</div>
+<div>Робот</div>
+</div>
+
+</div>
+
+</div>
+
+<div class="preview">
+
+<div class="character" id="characterBig">
+🐸
+</div>
+
+<div class="bubble">
+Я буду ждать тебя здесь 💗
+</div>
+
+</div>
+
+</div>
+
+<div class="actions">
+
+<button class="btn secondary prev" type="button">
+← Назад
+</button>
+
+<button class="btn next" type="button">
+Далее →
+</button>
+
+</div>
+
+</section>
+
+
+<!-- STEP 3 -->
+
+<section class="step" data-title="Оформление">
+
+<div class="step-layout">
+
+<div class="copy">
+
+<span class="eyebrow">
+Шаг 3 · Атмосфера
+</span>
+
+<h1>
+Как будет выглядеть ваше свидание?
+</h1>
+
+<p>
+Выбери настроение страницы.
+</p>
+
+<div class="theme-grid">
+
+<div class="theme sakura selected" data-theme="Сакура">
+<span>🌸 Сакура</span>
+</div>
+
+<div class="theme galaxy" data-theme="Космос">
+<span>🌌 Космос</span>
+</div>
+
+<div class="theme sunset" data-theme="Закат">
+<span>🌅 Закат</span>
+</div>
+
+<div class="theme rain" data-theme="Дождь">
+<span>🌧️ Дождь</span>
+</div>
+
+<div class="theme ocean" data-theme="Океан">
+<span>🌊 Океан</span>
+</div>
+
+<div class="theme city" data-theme="Ночной город">
+<span>🌃 Ночной город</span>
+</div>
+
+</div>
+
+</div>
+
+<div class="preview">
+
+<div class="character">
+🌸
+</div>
+
+<div class="bubble">
+Каждая деталь будет частью вашей истории ✨
+</div>
+
+</div>
+
+</div>
+
+<div class="actions">
+
+<button class="btn secondary prev" type="button">
+← Назад
+</button>
+
+<button class="btn next" type="button">
+Далее →
+</button>
+
+</div>
+
+</section>
+
+
+<!-- STEP 4 -->
+
+<section class="step" data-title="Музыка">
+
+<div class="step-layout">
+
+<div class="copy">
+
+<span class="eyebrow">
+Шаг 4 · Музыка
+</span>
+
+<h1>
+Добавим немного музыки?
+</h1>
+
+<p>
+Музыка необязательна. Можно оставить приглашение без неё.
+</p>
+
+<div class="music-grid">
+
+<div class="music selected" data-music="none">
+<strong>🔇 Без музыки</strong>
+<small>Тихое приглашение</small>
+</div>
+
+<div class="music" data-music="romantic">
+<strong>💗 Romantic</strong>
+<small>Нежная атмосфера</small>
+</div>
+
+<div class="music" data-music="dream">
+<strong>✨ Dream</strong>
+<small>Мечтательное настроение</small>
+</div>
+
+<div class="music" data-music="night">
+<strong>🌙 Night</strong>
+<small>Спокойный вечер</small>
+</div>
+
+</div>
+
+<div class="notice">
+Музыка будет отображаться на странице приглашения, если соответствующий файл добавлен в проект.
+</div>
+
+</div>
+
+<div class="preview">
+
+<div class="character">
+🎵
+</div>
+
+<div class="bubble">
+Иногда одна мелодия говорит больше тысячи слов.
+</div>
+
+</div>
+
+</div>
+
+<div class="actions">
+
+<button class="btn secondary prev" type="button">
+← Назад
+</button>
+
+<button class="btn next" type="button">
+Далее →
+</button>
+
+</div>
+
+</section>
+
+
+<!-- STEP 5 -->
+
+<section class="step" data-title="Дата">
+
+<div class="step-layout">
+
+<div class="copy">
+
+<span class="eyebrow">
+Шаг 5 · День свидания
+</span>
+
+<h1>
+Когда может состояться свидание?
+</h1>
+
+<p>
+Получатель увидит только этот диапазон и сам выберет подходящий день.
+</p>
+
+<div class="field">
+
+<label>
+Доступные даты
+</label>
+
+<div class="date-row">
+
+<div>
+<label for="dateFrom">От</label>
+<input type="date" id="dateFrom">
+</div>
+
+<div>
+<label for="dateTo">До</label>
+<input type="date" id="dateTo">
+</div>
+
+</div>
+
+</div>
+
+<div class="field">
+
+<label for="time">
+Предпочтительное время
+</label>
+
+<input type="time" id="time" value="18:00">
+
+</div>
+
+<div class="notice">
+Предъявить билет можно будет только в выбранный получателем день.
+</div>
+
+</div>
+
+<div class="preview">
+
+<div class="character">
+🎫
+</div>
+
+<div class="bubble">
+У билета будет свой день и время ❤️
+</div>
+
+</div>
+
+</div>
+
+<div class="actions">
+
+<button class="btn secondary prev" type="button">
+← Назад
+</button>
+
+<button class="btn next" type="button">
+Далее →
+</button>
+
+</div>
+
+</section>
+
+
+<!-- STEP 6 -->
+
+<section class="step" data-title="Письмо">
+
+<div class="step-layout">
+
+<div class="copy">
+
+<span class="eyebrow">
+Шаг 6 · Личное письмо
+</span>
+
+<h1>
+Есть что сказать лично?
+</h1>
+
+<p>
+Напиши письмо, которое будет доступно получателю после приглашения.
+</p>
+
+<div class="field">
+
+<label for="letter">
+Твоё письмо
+</label>
+
+<textarea
+ id="letter"
+ maxlength="3000"
+ placeholder="Напиши здесь всё, что хочешь сказать..."
+></textarea>
+
+<div class="counter">
+<span id="letterCount">0</span> / 3000
+</div>
+
+</div>
+
+<div class="field">
+
+<label for="letterDate">
+Когда открыть письмо?
+</label>
+
+<input
+ type="datetime-local"
+ id="letterDate"
+>
+
+</div>
+
+<div class="notice">
+Если дату открытия не указать, письмо будет доступно сразу после принятия приглашения.
+</div>
+
+</div>
+
+<div class="preview">
+
+<div class="character">
+💌
+</div>
+
+<div class="bubble">
+Иногда самое важное письмо ждёт своего момента.
+</div>
+
+</div>
+
+</div>
+
+<div class="actions">
+
+<button class="btn secondary prev" type="button">
+← Назад
+</button>
+
+<button class="btn next" type="button">
+Далее →
+</button>
+
+</div>
+
+</section>
+
+
+<!-- STEP 7 -->
+
+<section class="step" data-title="Опрос">
+
+<div class="step-layout">
+
+<div class="copy">
+
+<span class="eyebrow">
+Шаг 7 · Выбор свидания
+</span>
+
+<h1>
+Что предложить получателю?
+</h1>
+
+<p>
+Выбери ровно четыре варианта. Именно из них получатель выберет своё свидание.
+</p>
+
+<div
+ id="surveyOptions"
+ class="option-grid"
+></div>
+
+<div class="counter">
+Выбрано:
+<b id="surveyCount">0</b>
+/
+4
+</div>
+
+<div
+ id="surveyError"
+ class="error-text"
+></div>
+
+</div>
+
+<div class="preview">
+
+<div class="character">
+💗
+</div>
+
+<div class="bubble">
+Выбор будет за тобой. Главное — провести этот день вместе.
+</div>
+
+</div>
+
+</div>
+
+<div class="actions">
+
+<button class="btn secondary prev" type="button">
+← Назад
+</button>
+
+<button class="btn next" type="button">
+Проверить →
+</button>
+
+</div>
+
+</section>
+
+
+<!-- STEP 8 -->
+
+<section class="step" data-title="Проверка">
+
+<div class="step-layout">
+
+<div class="copy">
+
+<span class="eyebrow">
+Шаг 8 · Финальная проверка
+</span>
+
+<h1>
+Всё готово?
+</h1>
+
+<p>
+Проверь данные перед созданием приглашения.
+</p>
+
+<div class="review">
+
+<div class="review-row">
+<span>Обращение</span>
+<strong id="rNick">—</strong>
+</div>
+
+<div class="review-row">
+<span>Персонаж</span>
+<strong id="rChar">—</strong>
+</div>
+
+<div class="review-row">
+<span>Оформление</span>
+<strong id="rTheme">—</strong>
+</div>
+
+<div class="review-row">
+<span>Музыка</span>
+<strong id="rMusic">—</strong>
+</div>
+
+<div class="review-row">
+<span>Даты</span>
+<strong id="rDates">—</strong>
+</div>
+
+<div class="review-row">
+<span>Время</span>
+<strong id="rTime">—</strong>
+</div>
+
+<div class="review-row">
+<span>Письмо</span>
+<strong id="rLetter">—</strong>
+</div>
+
+<div class="review-row">
+<span>Варианты свидания</span>
+<strong id="rSurvey">—</strong>
+</div>
+
+</div>
+
+<div
+ id="createError"
+ class="error-text"
+></div>
+
+</div>
+
+<div class="preview">
+
+<div class="character">
+🎟️
+</div>
+
+<div class="bubble">
+После создания ты получишь ссылку, которую можно отправить получателю.
+</div>
+
+</div>
+
+</div>
+
+<div class="actions">
+
+<button class="btn secondary prev" type="button">
+← Назад
+</button>
+
+<button class="btn" id="createBtn" type="button">
+Создать приглашение ✨
+</button>
+
+</div>
+
+</section>
+
+
+<!-- SUCCESS -->
+
+<section
+ id="successStep"
+ class="hidden"
+>
+
+<div class="success-wrap">
+
+<div class="success-card">
+
+<div class="success">
+💌
+</div>
+
+<h1>
+Приглашение создано!
+</h1>
+
+<p>
+Теперь отправь эту ссылку человеку, для которого ты его создал.
+</p>
+
+<div class="linkbox">
+
+<input
+ id="shareLink"
+ readonly
+>
+
+<button
+ class="btn"
+ id="copyLinkBtn"
+ type="button"
+>
+Копировать
+</button>
+
+</div>
+
+<div class="actions" style="justify-content:center">
+
+<a
+ class="btn secondary"
+ id="openInviteBtn"
+ href="#"
+>
+Открыть приглашение
+</a>
+
+<a
+ class="btn secondary"
+ id="answersBtn"
+ href="#"
+>
+Мои приглашения 💌
+</a>
+
+</div>
+
+<div class="info-box">
+<strong style="color:#fff">
+Важно:
+</strong>
+<br>
+После того как получатель пройдёт опрос, повторно проходить его ему не придётся.
+Его выбранная дата сохранится в приглашении и будет отображаться в разделе «Мои приглашения».
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+</div>
+
+
+<script type="module">
+
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/12.17.0/firebase-app.js";
+
+import {
+  getFirestore,
+  doc,
+  setDoc,
+  getDoc
+} from "https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js";
+
+import {
+  getAuth,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.17.0/firebase-auth.js";
+
+
+/* =========================
+   FIREBASE
+========================= */
+
+const firebaseConfig = {
+
+  apiKey:"AIzaSyC2esT1S9A8SnTBPyrHVfxTy-Z_u-GiGpWo",
+
+  authDomain:"date-ticket-2e786.firebaseapp.com",
+
+  databaseURL:
+    "https://date-ticket-2e786-default-rtdb.europe-west1.firebasedatabase.app",
+
+  projectId:"date-ticket-2e786",
+
+  storageBucket:
+    "date-ticket-2e786.firebasestorage.app",
+
+  messagingSenderId:"576969359516",
+
+  appId:
+    "1:576969359516:web:2b9e622d7b2de86acc6d59"
 };
 
-const surveyData=[
- ["☕","Кофейня"],["🎬","Кино"],["🌳","Парк"],["🎳","Боулинг"],
- ["🌅","Набережная"],["🎨","Мастер-класс"],["🧺","Пикник"],["🎡","Аттракционы"]
+const app = initializeApp(firebaseConfig);
+
+const db = getFirestore(app);
+
+const auth = getAuth(app);
+
+
+/* =========================
+   STATE
+========================= */
+
+const steps =
+  [...document.querySelectorAll(".step")];
+
+let current = 0;
+
+const state = {
+
+  nickname:"",
+
+  character:"🐸",
+
+  theme:"Сакура",
+
+  music:"none",
+
+  from:"",
+
+  to:"",
+
+  time:"18:00",
+
+  letter:"",
+
+  letterDate:"",
+
+  survey:[]
+
+};
+
+
+/* =========================
+   SURVEY
+========================= */
+
+const surveyData = [
+
+  ["☕","Кофейня"],
+
+  ["🎬","Кино"],
+
+  ["🌳","Парк"],
+
+  ["🎳","Боулинг"],
+
+  ["🌅","Набережная"],
+
+  ["🎨","Мастер-класс"],
+
+  ["🧺","Пикник"],
+
+  ["🎡","Аттракционы"]
+
 ];
 
-const save=()=>localStorage.setItem("dateTicketDraft",JSON.stringify(state));
-const load=()=>{
- try{Object.assign(state,JSON.parse(localStorage.getItem("dateTicketDraft")||"{}"))}catch(e){}
- if(state.nickname) document.querySelector("#nickname").value=state.nickname;
- if(state.letter) {document.querySelector("#letter").value=state.letter;document.querySelector("#letterCount").textContent=state.letter.length}
- if(state.from) document.querySelector("#dateFrom").value=state.from;
- if(state.to) document.querySelector("#dateTo").value=state.to;
- if(state.time) document.querySelector("#time").value=state.time;
- if(state.letterDate) document.querySelector("#letterDate").value=state.letterDate;
-};
-function updateProgress(){
- const pct=Math.round(((current+1)/8)*100);
- document.querySelector("#stepNum").textContent=Math.min(current+1,8);
- document.querySelector("#stepTitle").textContent=steps[current].dataset.title;
- document.querySelector("#progressPercent").textContent=pct+"%";
- document.querySelector("#progressBar").style.width=pct+"%";
-}
-function show(n){
- current=Math.max(0,Math.min(n,steps.length-1));
- steps.forEach((s,i)=>s.classList.toggle("active",i===current));
- updateProgress();
- if(current===7) updateReview();
- if(current===6) renderSurvey();
- window.scrollTo({top:0,behavior:"smooth"});
-}
-document.querySelectorAll(".next").forEach(btn=>btn.addEventListener("click",()=>{
- if(current===0 && !document.querySelector("#nickname").value.trim()){
-   document.querySelector("#nickname").focus(); return;
- }
- if(current===6 && state.survey.length!==4){alert("Выбери ровно 4 варианта.");return}
- show(current+1);
-}));
-document.querySelectorAll(".prev").forEach(btn=>btn.addEventListener("click",()=>show(current-1)));
 
-document.querySelector("#nickname").addEventListener("input",e=>{
- state.nickname=e.target.value.trim();
- document.querySelector("#bubblePreview").textContent=state.nickname?`Привет, ${state.nickname}! Я приготовил для тебя кое-что особенное ❤️`:"Привет! Я приготовил для тебя кое-что особенное ❤️";
- save();
-});
-document.querySelectorAll(".char").forEach(el=>el.addEventListener("click",()=>{
- document.querySelectorAll(".char").forEach(x=>x.classList.remove("selected"));
- el.classList.add("selected");state.character=el.dataset.char;
- document.querySelector("#characterBig").textContent=state.character;
- save();
-}));
-document.querySelectorAll(".theme").forEach(el=>el.addEventListener("click",()=>{
- document.querySelectorAll(".theme").forEach(x=>x.classList.remove("selected"));
- el.classList.add("selected");state.theme=el.dataset.theme;save();
-}));
-document.querySelectorAll("[data-music]").forEach(el=>el.addEventListener("click",()=>{
- document.querySelectorAll("[data-music]").forEach(x=>x.classList.remove("selected"));
- el.classList.add("selected");state.music=el.dataset.music;save();
-}));
-["dateFrom","dateTo","time","letterDate"].forEach(id=>document.querySelector("#"+id).addEventListener("input",e=>{state[id==="dateFrom"?"from":id==="dateTo"?"to":id]=e.target.value;save()}));
-document.querySelector("#letter").addEventListener("input",e=>{
- state.letter=e.target.value;document.querySelector("#letterCount").textContent=e.target.value.length;save();
-});
-function renderSurvey(){
- const box=document.querySelector("#surveyOptions");box.innerHTML="";
- surveyData.forEach(([emoji,name])=>{
-   const div=document.createElement("div");div.className="option"+(state.survey.includes(name)?" selected":"");
-   div.innerHTML=`<div class="emoji">${emoji}</div><strong>${name}</strong>`;
-   div.onclick=()=>{
-     if(state.survey.includes(name)) state.survey=state.survey.filter(x=>x!==name);
-     else if(state.survey.length<4) state.survey.push(name);
-     renderSurvey();save();
-   };
-   box.appendChild(div);
- });
- document.querySelector("#surveyCount").textContent=state.survey.length;
+/* =========================
+   LOCAL DRAFT
+========================= */
+
+function saveDraft(){
+
+  localStorage.setItem(
+    "dateTicketCreateWithAnswersDraft",
+    JSON.stringify(state)
+  );
+
 }
-function updateReview(){
- document.querySelector("#rNick").textContent=state.nickname||"—";
- document.querySelector("#rChar").textContent=state.character;
- document.querySelector("#rTheme").textContent=state.theme;
- document.querySelector("#rDates").textContent=(state.from||"—")+" → "+(state.to||"—");
- document.querySelector("#rTime").textContent=state.time||"—";
- document.querySelector("#rLetter").textContent=state.letter?"Написано":"Не заполнено";
- document.querySelector("#rSurvey").textContent=state.survey.length+" / 4";
-}
-document.querySelector("#createBtn").addEventListener("click",async()=>{
-  if(state.survey.length!==4){alert("Выбери ровно 4 варианта.");return}
-  if(!state.from || !state.to){alert("Укажи диапазон дат.");return}
-  if(state.from>state.to){alert("Дата начала не может быть позже даты окончания.");return}
-  const btn=document.querySelector("#createBtn"); btn.disabled=true; btn.textContent="Создаём приглашение…";
+
+
+function loadDraft(){
+
   try{
-    const id=Math.random().toString(36).slice(2,10).toUpperCase();
-    const payload={nickname:state.nickname,character:state.character,theme:state.theme,music:state.music,from:state.from,to:state.to,time:state.time,survey:state.survey,status:"created",createdAt:new Date().toISOString()};
-    const privateLetter={letter:state.letter||"",letterUnlock:state.letterDate||null};
-    const {db,doc,setDoc}=window.dateTicketFirebase;
-    await setDoc(doc(db,"invitations",id),payload);
-    await setDoc(doc(db,"invitations",id,"private","letter"),privateLetter);
-    localStorage.setItem("dateTicketInvitation",JSON.stringify({...payload,...privateLetter,id}));
-    const base=location.href.substring(0,location.href.lastIndexOf("/")+1);
-    document.querySelector("#shareLink").value=base+"invite.html?id="+id;
-    show(8);
-  }catch(error){console.error(error);alert("Не удалось создать приглашение. Проверь правила Firestore и подключение к интернету.");}
-  finally{btn.disabled=false;btn.textContent="Создать приглашение ✨";}
-});
-document.querySelector("#copyBtn").addEventListener("click",async()=>{
- try{await navigator.clipboard.writeText(document.querySelector("#shareLink").value);document.querySelector("#copyBtn").textContent="Скопировано ✓";setTimeout(()=>document.querySelector("#copyBtn").textContent="Копировать",1500)}
- catch(e){document.querySelector("#shareLink").select()}
-});
-document.querySelector("#previewBtn").addEventListener("click",()=>{
- const id=(JSON.parse(localStorage.getItem("dateTicketInvitation")||"{}").id||"");
- location.href="invite.html?id="+id;
-});
-load();updateProgress();
+
+    const saved =
+      JSON.parse(
+        localStorage.getItem(
+          "dateTicketCreateWithAnswersDraft"
+        ) || "{}"
+      );
+
+    Object.assign(
+      state,
+      saved
+    );
+
+  }catch(e){
+
+    console.error(e);
+
+  }
+
+}
+
+
+/* =========================
+   ACCOUNT
+========================= */
+
+onAuthStateChanged(
+  auth,
+  user => {
+
+    const label =
+      document.querySelector("#accountLabel");
+
+    if(user){
+
+      label.textContent =
+        user.email || "Аккаунт";
+
+    }else{
+
+      label.textContent =
+        "Гость";
+
+    }
+
+  }
+);
+
+
+/* =========================
+   PROGRESS
+========================= */
+
+function updateProgress(){
+
+  const pct =
+    Math.round(
+      ((current + 1) / 8) * 100
+    );
+
+  document.querySelector("#stepNum")
+    .textContent =
+    current + 1;
+
+  document.querySelector("#stepTitle")
+    .textContent =
+    steps[current].dataset.title;
+
+  document.querySelector("#progressPercent")
+    .textContent =
+    pct + "%";
+
+  document.querySelector("#progressBar")
+    .style.width =
+    pct + "%";
+
+}
+
+
+/* =========================
+   SHOW STEP
+========================= */
+
+function show(n){
+
+  current =
+    Math.max(
+      0,
+      Math.min(
+        n,
+        steps.length - 1
+      )
+    );
+
+  steps.forEach(
+    (step,index) => {
+
+      step.classList.toggle(
+        "active",
+        index === current
+      );
+
+    }
+  );
+
+  updateProgress();
+
+  if(current === 6){
+
+    renderSurvey();
+
+  }
+
+  if(current === 7){
+
+    updateReview();
+
+  }
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+/* =========================
+   VALIDATION
+========================= */
+
+function validateStep(){
+
+  if(current === 0){
+
+    if(!state.nickname.trim()){
+
+      document.querySelector("#nickname").focus();
+
+      return false;
+
+    }
+
+  }
+
+
+  if(current === 4){
+
+    if(!state.from || !state.to){
+
+      alert(
+        "Укажи диапазон дат."
+      );
+
+      return false;
+
+    }
+
+    if(state.from > state.to){
+
+      alert(
+        "Дата начала не может быть позже даты окончания."
+      );
+
+      return false;
+
+    }
+
+  }
+
+
+  if(current === 6){
+
+    if(state.survey.length !== 4){
+
+      const error =
+        document.querySelector("#surveyError");
+
+      error.textContent =
+        "Выбери ровно 4 варианта.";
+
+      error.style.display =
+        "block";
+
+      return false;
+
+    }
+
+    document.querySelector("#surveyError")
+      .style.display =
+      "none";
+
+  }
+
+  return true;
+
+}
+
+
+/* =========================
+   NEXT
+========================= */
+
+document
+  .querySelectorAll(".next")
+  .forEach(
+    button => {
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          if(
+            !validateStep()
+          ){
+
+            return;
+
+          }
+
+          show(
+            current + 1
+          );
+
+        }
+      );
+
+    }
+  );
+
+
+/* =========================
+   PREVIOUS
+========================= */
+
+document
+  .querySelectorAll(".prev")
+  .forEach(
+    button => {
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          show(
+            current - 1
+          );
+
+        }
+      );
+
+    }
+  );
+
+
+/* =========================
+   NICKNAME
+========================= */
+
+document
+  .querySelector("#nickname")
+  .addEventListener(
+    "input",
+    e => {
+
+      state.nickname =
+        e.target.value.trim();
+
+      document.querySelector(
+        "#bubblePreview"
+      ).textContent =
+        state.nickname
+          ? `Привет, ${state.nickname}! Я приготовил для тебя кое-что особенное ❤️`
+          : "Привет! Я приготовил для тебя кое-что особенное ❤️";
+
+      saveDraft();
+
+    }
+  );
+
+
+/* =========================
+   CHARACTERS
+========================= */
+
+document
+  .querySelectorAll(".char")
+  .forEach(
+    element => {
+
+      element.addEventListener(
+        "click",
+        () => {
+
+          document
+            .querySelectorAll(".char")
+            .forEach(
+              x =>
+                x.classList.remove(
+                  "selected"
+                )
+            );
+
+          element.classList.add(
+            "selected"
+          );
+
+          state.character =
+            element.dataset.char;
+
+          document.querySelector(
+            "#characterBig"
+          ).textContent =
+            state.character;
+
+          document.querySelector(
+            "#charPreview"
+          ).textContent =
+            state.character;
+
+          saveDraft();
+
+        }
+      );
+
+    }
+  );
+
+
+/* =========================
+   THEMES
+========================= */
+
+document
+  .querySelectorAll(".theme")
+  .forEach(
+    element => {
+
+      element.addEventListener(
+        "click",
+        () => {
+
+          document
+            .querySelectorAll(".theme")
+            .forEach(
+              x =>
+                x.classList.remove(
+                  "selected"
+                )
+            );
+
+          element.classList.add(
+            "selected"
+          );
+
+          state.theme =
+            element.dataset.theme;
+
+          saveDraft();
+
+        }
+      );
+
+    }
+  );
+
+
+/* =========================
+   MUSIC
+========================= */
+
+document
+  .querySelectorAll("[data-music]")
+  .forEach(
+    element => {
+
+      element.addEventListener(
+        "click",
+        () => {
+
+          document
+            .querySelectorAll("[data-music]")
+            .forEach(
+              x =>
+                x.classList.remove(
+                  "selected"
+                )
+            );
+
+          element.classList.add(
+            "selected"
+          );
+
+          state.music =
+            element.dataset.music;
+
+          saveDraft();
+
+        }
+      );
+
+    }
+  );
+
+
+/* =========================
+   DATES
+========================= */
+
+document
+  .querySelector("#dateFrom")
+  .addEventListener(
+    "input",
+    e => {
+
+      state.from =
+        e.target.value;
+
+      saveDraft();
+
+    }
+  );
+
+
+document
+  .querySelector("#dateTo")
+  .addEventListener(
+    "input",
+    e => {
+
+      state.to =
+        e.target.value;
+
+      saveDraft();
+
+    }
+  );
+
+
+document
+  .querySelector("#time")
+  .addEventListener(
+    "input",
+    e => {
+
+      state.time =
+        e.target.value;
+
+      saveDraft();
+
+    }
+  );
+
+
+/* =========================
+   LETTER
+========================= */
+
+document
+  .querySelector("#letter")
+  .addEventListener(
+    "input",
+    e => {
+
+      state.letter =
+        e.target.value;
+
+      document.querySelector(
+        "#letterCount"
+      ).textContent =
+        e.target.value.length;
+
+      saveDraft();
+
+    }
+  );
+
+
+document
+  .querySelector("#letterDate")
+  .addEventListener(
+    "input",
+    e => {
+
+      state.letterDate =
+        e.target.value;
+
+      saveDraft();
+
+    }
+  );
+
+
+/* =========================
+   SURVEY
+========================= */
+
+function renderSurvey(){
+
+  const box =
+    document.querySelector(
+      "#surveyOptions"
+    );
+
+  box.innerHTML = "";
+
+  surveyData.forEach(
+    ([emoji,name]) => {
+
+      const div =
+        document.createElement(
+          "div"
+        );
+
+      div.className =
+        "option" +
+        (
+          state.survey.includes(name)
+            ? " selected"
+            : ""
+        );
+
+      div.innerHTML = `
+        <div class="emoji">${emoji}</div>
+        <strong>${name}</strong>
+      `;
+
+      div.onclick = () => {
+
+        if(
+          state.survey.includes(name)
+        ){
+
+          state.survey =
+            state.survey.filter(
+              x => x !== name
+            );
+
+        }
+
+        else if(
+          state.survey.length < 4
+        ){
+
+          state.survey.push(name);
+
+        }
+
+        renderSurvey();
+
+        saveDraft();
+
+      };
+
+      box.appendChild(div);
+
+    }
+  );
+
+  document.querySelector(
+    "#surveyCount"
+  ).textContent =
+    state.survey.length;
+
+}
+
+
+/* =========================
+   REVIEW
+========================= */
+
+function updateReview(){
+
+  document.querySelector(
+    "#rNick"
+  ).textContent =
+    state.nickname || "—";
+
+  document.querySelector(
+    "#rChar"
+  ).textContent =
+    state.character;
+
+  document.querySelector(
+    "#rTheme"
+  ).textContent =
+    state.theme;
+
+  const musicNames = {
+
+    none:"Без музыки",
+
+    romantic:"Romantic",
+
+    dream:"Dream",
+
+    night:"Night"
+
+  };
+
+  document.querySelector(
+    "#rMusic"
+  ).textContent =
+    musicNames[state.music] ||
+    state.music ||
+    "—";
+
+  document.querySelector(
+    "#rDates"
+  ).textContent =
+    (state.from || "—") +
+    " → " +
+    (state.to || "—");
+
+  document.querySelector(
+    "#rTime"
+  ).textContent =
+    state.time || "—";
+
+  document.querySelector(
+    "#rLetter"
+  ).textContent =
+    state.letter
+      ? "Написано"
+      : "Не заполнено";
+
+  document.querySelector(
+    "#rSurvey"
+  ).textContent =
+    state.survey.length +
+    " / 4";
+
+}
+
+
+/* =========================
+   CREATE ID
+========================= */
+
+function generateId(){
+
+  return (
+    Math.random()
+      .toString(36)
+      .slice(2,10)
+      .toUpperCase()
+  );
+
+}
+
+
+/* =========================
+   CREATE INVITATION
+========================= */
+
+document
+  .querySelector("#createBtn")
+  .addEventListener(
+    "click",
+    async () => {
+
+      if(
+        !validateStep()
+      ){
+
+        return;
+
+      }
+
+      const button =
+        document.querySelector(
+          "#createBtn"
+        );
+
+      const error =
+        document.querySelector(
+          "#createError"
+        );
+
+      error.style.display =
+        "none";
+
+      button.disabled =
+        true;
+
+      button.textContent =
+        "Создаём приглашение…";
+
+
+      try{
+
+        const user =
+          auth.currentUser;
+
+        const id =
+          generateId();
+
+
+        const payload = {
+
+          nickname:
+            state.nickname,
+
+          character:
+            state.character,
+
+          theme:
+            state.theme,
+
+          music:
+            state.music,
+
+          from:
+            state.from,
+
+          to:
+            state.to,
+
+          time:
+            state.time,
+
+          survey:
+            state.survey,
+
+          status:
+            "created",
+
+          response:
+            null,
+
+          createdAt:
+            new Date().toISOString(),
+
+          ownerUid:
+            user ? user.uid : null,
+
+          ownerEmail:
+            user ? user.email : null
+
+        };
+
+
+        const privateLetter = {
+
+          letter:
+            state.letter || "",
+
+          letterUnlock:
+            state.letterDate || null
+
+        };
+
+
+        await setDoc(
+          doc(
+            db,
+            "invitations",
+            id
+          ),
+          payload
+        );
+
+
+        await setDoc(
+          doc(
+            db,
+            "invitations",
+            id,
+            "private",
+            "letter"
+          ),
+          privateLetter
+        );
+
+
+        /*
+          Сохраняем созданное приглашение
+          локально — как резерв.
+        */
+
+        localStorage.setItem(
+          "dateTicketInvitation",
+          JSON.stringify({
+            ...payload,
+            ...privateLetter,
+            id
+          })
+        );
+
+
+        /*
+          Сохраняем ID приглашения
+          отдельно для аккаунта.
+        */
+
+        const oldIds =
+          JSON.parse(
+            localStorage.getItem(
+              "dateTicketMyInvitationIds"
+            ) || "[]"
+          );
+
+        if(
+          !oldIds.includes(id)
+        ){
+
+          oldIds.push(id);
+
+        }
+
+        localStorage.setItem(
+          "dateTicketMyInvitationIds",
+          JSON.stringify(oldIds)
+        );
+
+
+        const base =
+          location.href.substring(
+            0,
+            location.href.lastIndexOf("/") + 1
+          );
+
+        const link =
+          base +
+          "invite.html?id=" +
+          encodeURIComponent(id);
+
+
+        document.querySelector(
+          "#shareLink"
+        ).value =
+          link;
+
+
+        document.querySelector(
+          "#openInviteBtn"
+        ).href =
+          link;
+
+
+        document.querySelector(
+          "#answersBtn"
+        ).href =
+          "admin.html?id=" +
+          encodeURIComponent(id);
+
+
+        document.querySelector(
+          "#progressWrap"
+        ).classList.add(
+          "hidden"
+        );
+
+
+        steps.forEach(
+          x =>
+            x.classList.remove(
+              "active"
+            )
+        );
+
+
+        document.querySelector(
+          "#successStep"
+        ).classList.remove(
+          "hidden"
+        );
+
+
+        localStorage.removeItem(
+          "dateTicketCreateWithAnswersDraft"
+        );
+
+
+        window.scrollTo({
+          top:0,
+          behavior:"smooth"
+        });
+
+      }
+
+      catch(errorValue){
+
+        console.error(
+          errorValue
+        );
+
+        error.textContent =
+          "Не удалось создать приглашение. Проверь подключение к интернету и правила Firestore.";
+
+        error.style.display =
+          "block";
+
+      }
+
+      finally{
+
+        button.disabled =
+          false;
+
+        button.textContent =
+          "Создать приглашение ✨";
+
+      }
+
+    }
+  );
+
+
+/* =========================
+   COPY LINK
+========================= */
+
+document
+  .querySelector("#copyLinkBtn")
+  .addEventListener(
+    "click",
+    async () => {
+
+      const input =
+        document.querySelector(
+          "#shareLink"
+        );
+
+      if(!input.value){
+
+        return;
+
+      }
+
+      try{
+
+        await navigator.clipboard.writeText(
+          input.value
+        );
+
+        const button =
+          document.querySelector(
+            "#copyLinkBtn"
+          );
+
+        const old =
+          button.textContent;
+
+        button.textContent =
+          "Скопировано ✓";
+
+        setTimeout(
+          () => {
+            button.textContent =
+              old;
+          },
+          1500
+        );
+
+      }
+
+      catch(e){
+
+        input.select();
+
+        alert(
+          "Ссылка выделена. Скопируй её вручную."
+        );
+
+      }
+
+    }
+  );
+
+
+/* =========================
+   LOAD DRAFT INTO UI
+========================= */
+
+function applyDraft(){
+
+  if(state.nickname){
+
+    document.querySelector(
+      "#nickname"
+    ).value =
+      state.nickname;
+
+    document.querySelector(
+      "#bubblePreview"
+    ).textContent =
+      `Привет, ${state.nickname}! Я приготовил для тебя кое-что особенное ❤️`;
+
+  }
+
+
+  document.querySelector(
+    "#charPreview"
+  ).textContent =
+    state.character;
+
+  document.querySelector(
+    "#characterBig"
+  ).textContent =
+    state.character;
+
+
+  document
+    .querySelectorAll(".char")
+    .forEach(
+      element => {
+
+        element.classList.toggle(
+          "selected",
+          element.dataset.char ===
+          state.character
+        );
+
+      }
+    );
+
+
+  document
+    .querySelectorAll(".theme")
+    .forEach(
+      element => {
+
+        element.classList.toggle(
+          "selected",
+          element.dataset.theme ===
+          state.theme
+        );
+
+      }
+    );
+
+
+  document
+    .querySelectorAll("[data-music]")
+    .forEach(
+      element => {
+
+        element.classList.toggle(
+          "selected",
+          element.dataset.music ===
+          state.music
+        );
+
+      }
+    );
+
+
+  document.querySelector(
+    "#dateFrom"
+  ).value =
+    state.from || "";
+
+
+  document.querySelector(
+    "#dateTo"
+  ).value =
+    state.to || "";
+
+
+  document.querySelector(
+    "#time"
+  ).value =
+    state.time || "18:00";
+
+
+  document.querySelector(
+    "#letter"
+  ).value =
+    state.letter || "";
+
+
+  document.querySelector(
+    "#letterCount"
+  ).textContent =
+    (state.letter || "").length;
+
+
+  document.querySelector(
+    "#letterDate"
+  ).value =
+    state.letterDate || "";
+
+}
+
+
+/* =========================
+   INIT
+========================= */
+
+loadDraft();
+
+applyDraft();
+
+updateProgress();
+
+renderSurvey();
+
 </script>
+
 </body>
 </html>
-<script>
-document.querySelector("#copyLinkBtn")?.addEventListener("click",async()=>{
-  const link=document.querySelector("#shareLink")?.value;
-  if(!link)return;
-  try{
-    await navigator.clipboard.writeText(link);
-    const b=document.querySelector("#copyLinkBtn");
-    const old=b.textContent;
-    b.textContent="Скопировано ✓";
-    setTimeout(()=>b.textContent=old,1400);
-  }catch(e){ alert("Скопируй ссылку вручную из поля."); }
-});
-document.querySelector("#answersBtn")?.addEventListener("click",()=>{
-  const link=document.querySelector("#shareLink")?.value;
-  const id=link?new URL(link).searchParams.get("id"):"";
-  if(!id){alert("Сначала создай приглашение.");return;}
-  const base=location.href.substring(0,location.href.lastIndexOf("/")+1);
-  location.href=base+"admin.html?id="+encodeURIComponent(id);
-});
-</script>
