@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>Регистрация — Date Ticket</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#090d16;
+  --bg2:#111728;
+  --card:rgba(19,25,42,.78);
+  --line:rgba(255,255,255,.10);
+  --text:#fff;
+  --muted:#aeb6c8;
+  --pink:#ff6fae;
+  --pink2:#ff91bf;
+  --danger:#ff667d;
+  --green:#73d6a0;
+}
+
+*{box-sizing:border-box}
+
+html,body{
+  margin:0;
+  min-height:100%;
+}
+
+body{
+  min-height:100vh;
+  color:var(--text);
+  font-family:"Manrope",sans-serif;
+  background:
+    radial-gradient(circle at 75% 10%,rgba(255,105,170,.15),transparent 28%),
+    radial-gradient(circle at 10% 90%,rgba(95,100,255,.12),transparent 30%),
+    linear-gradient(135deg,var(--bg),var(--bg2));
+  overflow-x:hidden;
+}
+
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.28;
+  background-image:
+    radial-gradient(circle at 20% 20%,#fff 0 1px,transparent 1.5px),
+    radial-gradient(circle at 75% 35%,#fff 0 1px,transparent 1.5px),
+    radial-gradient(circle at 45% 80%,#fff 0 1px,transparent 1.5px);
+  background-size:270px 240px,330px 290px,390px 340px;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+.container{
+  width:min(1100px,92%);
+  margin:auto;
+}
+
+header{
+  height:78px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  position:relative;
+  z-index:2;
+}
+
+.logo{
+  font:700 24px "Playfair Display",serif;
+  font-style:italic;
+}
+
+.back{
+  color:var(--muted);
+  font-size:13px;
+}
+
+.back:hover{
+  color:#fff;
+}
+
+main{
+  min-height:calc(100vh - 78px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:40px 0 80px;
+}
+
+.layout{
+  width:100%;
+  display:grid;
+  grid-template-columns:1fr 460px;
+  gap:70px;
+  align-items:center;
+}
+
+.hero{
+  max-width:560px;
+}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 13px;
+  border:1px solid rgba(255,111,174,.25);
+  background:rgba(255,111,174,.07);
+  border-radius:999px;
+  color:#ffc1d9;
+  font-size:12px;
+  margin-bottom:22px;
+}
+
+.hero h1{
+  font:700 clamp(45px,5vw,68px)/1.04 "Playfair Display",serif;
+  margin:0 0 22px;
+  letter-spacing:-1.5px;
+}
+
+.hero h1 span{
+  color:var(--pink2);
+}
+
+.hero p{
+  color:var(--muted);
+  line-height:1.8;
+  font-size:15px;
+  max-width:520px;
+}
+
+.points{
+  margin-top:28px;
+  display:grid;
+  gap:12px;
+}
+
+.point{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  color:#dce1ed;
+  font-size:13px;
+}
+
+.point-icon{
+  width:34px;
+  height:34px;
+  border-radius:11px;
+  display:grid;
+  place-items:center;
+  background:rgba(255,111,174,.08);
+  border:1px solid rgba(255,111,174,.15);
+}
+
+.card{
+  border:1px solid var(--line);
+  background:var(--card);
+  border-radius:28px;
+  padding:34px;
+  backdrop-filter:blur(18px);
+  box-shadow:0 30px 80px rgba(0,0,0,.3);
+  position:relative;
+  overflow:hidden;
+}
+
+.card:before{
+  content:"";
+  position:absolute;
+  width:300px;
+  height:300px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(255,111,174,.18),transparent 65%);
+  top:-150px;
+  right:-130px;
+  pointer-events:none;
+}
+
+.card-content{
+  position:relative;
+  z-index:1;
+}
+
+.icon{
+  font-size:52px;
+  margin-bottom:15px;
+}
+
+.card h2{
+  font:700 34px/1.1 "Playfair Display",serif;
+  margin:0 0 10px;
+}
+
+.subtitle{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.6;
+  margin-bottom:25px;
+}
+
+.field{
+  margin-top:16px;
+}
+
+label{
+  display:block;
+  font-size:12px;
+  font-weight:700;
+  margin-bottom:9px;
+}
+
+input{
+  width:100%;
+  border:1px solid var(--line);
+  outline:none;
+  border-radius:15px;
+  background:rgba(255,255,255,.055);
+  color:#fff;
+  padding:16px 17px;
+  font:500 14px "Manrope",sans-serif;
+  transition:.2s;
+}
+
+input::placeholder{
+  color:#737d92;
+}
+
+input:focus{
+  border-color:rgba(255,111,174,.65);
+  box-shadow:0 0 0 4px rgba(255,111,174,.08);
+}
+
+.password-wrap{
+  position:relative;
+}
+
+.password-wrap input{
+  padding-right:50px;
+}
+
+.show-password{
+  position:absolute;
+  right:13px;
+  top:50%;
+  transform:translateY(-50%);
+  border:0;
+  background:transparent;
+  color:#929bad;
+  cursor:pointer;
+  font-size:18px;
+}
+
+.password-hint{
+  margin-top:7px;
+  color:#737d92;
+  font-size:10px;
+  line-height:1.5;
+}
+
+.error{
+  display:none;
+  margin-top:15px;
+  padding:12px 14px;
+  border-radius:13px;
+  background:rgba(255,102,125,.08);
+  border:1px solid rgba(255,102,125,.18);
+  color:#ff9aaa;
+  font-size:12px;
+  line-height:1.5;
+}
+
+.error.show{
+  display:block;
+}
+
+.btn{
+  width:100%;
+  border:0;
+  cursor:pointer;
+  border-radius:15px;
+  padding:16px 22px;
+  margin-top:23px;
+  color:#fff;
+  font:700 13px "Manrope",sans-serif;
+  background:linear-gradient(135deg,var(--pink),var(--pink2));
+  box-shadow:0 12px 35px rgba(255,105,170,.22);
+  transition:.2s;
+}
+
+.btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 16px 40px rgba(255,105,170,.32);
+}
+
+.btn:disabled{
+  opacity:.5;
+  cursor:not-allowed;
+  transform:none;
+}
+
+.links{
+  text-align:center;
+  margin-top:22px;
+  font-size:12px;
+  color:var(--muted);
+}
+
+.links a{
+  color:#ff91bf;
+}
+
+.links a:hover{
+  text-decoration:underline;
+}
+
+.divider{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin:25px 0;
+  color:#626b7e;
+  font-size:11px;
+}
+
+.divider:before,
+.divider:after{
+  content:"";
+  flex:1;
+  height:1px;
+  background:var(--line);
+}
+
+.info{
+  margin-top:22px;
+  padding:14px;
+  border-radius:15px;
+  background:rgba(255,255,255,.035);
+  border:1px solid rgba(255,255,255,.06);
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.6;
+}
+
+@media(max-width:850px){
+
+  .layout{
+    grid-template-columns:1fr;
+    gap:35px;
+  }
+
+  .hero{
+    text-align:center;
+    margin:auto;
+  }
+
+  .hero p{
+    margin:auto;
+  }
+
+  .points{
+    width:max-content;
+    max-width:100%;
+    margin:28px auto 0;
+    text-align:left;
+  }
+
+  .card{
+    width:min(460px,100%);
+    margin:auto;
+  }
+}
+
+@media(max-width:520px){
+
+  header{
+    height:68px;
+  }
+
+  main{
+    padding:25px 0 50px;
+  }
+
+  .hero h1{
+    font-size:42px;
+  }
+
+  .hero p{
+    font-size:14px;
+  }
+
+  .card{
+    padding:24px 20px;
+    border-radius:23px;
+  }
+
+  .card h2{
+    font-size:30px;
+  }
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<header>
+
+  <a class="logo" href="index.html">
+    Date Ticket
+  </a>
+
+  <a class="back" href="index.html">
+    ← На главную
+  </a>
+
+</header>
+
+<main>
+
+<div class="layout">
+
+<section class="hero">
+
+  <div class="badge">
+    💌 Создай свой Date Ticket
+  </div>
+
+  <h1>
+    Один аккаунт —
+    <span>все приглашения</span>
+  </h1>
+
+  <p>
+    Зарегистрируйся, чтобы сохранять свои приглашения,
+    возвращаться к ним в любое время и смотреть ответы
+    человека, которого ты пригласил.
+  </p>
+
+  <div class="points">
+
+```
+<div class="point">
+  <div class="point-icon">💗</div>
+  <span>Все приглашения сохраняются в твоём аккаунте</span>
+</div>
+
+<div class="point">
+  <div class="point-icon">💌</div>
+  <span>Ответы приглашённых всегда доступны</span>
+</div>
+
+<div class="point">
+  <div class="point-icon">🎫</div>
+  <span>Можно создавать новые билеты когда угодно</span>
+</div>
+```
+
+  </div>
+
+</section>
+
+<section class="card">
+
+<div class="card-content">
+
+  <div class="icon">✨</div>
+
+  <h2>Создать аккаунт</h2>
+
+  <div class="subtitle">
+    Заполни данные — это займёт меньше минуты.
+  </div>
+
+  <form id="registerForm">
+
+```
+<div class="field">
+
+  <label for="name">
+    Имя
+  </label>
+
+  <input
+    id="name"
+    type="text"
+    maxlength="40"
+    autocomplete="name"
+    placeholder="Например: Артём"
+    required
+  >
+
+</div>
+
+
+<div class="field">
+
+  <label for="email">
+    Email
+  </label>
+
+  <input
+    id="email"
+    type="email"
+    autocomplete="email"
+    placeholder="example@mail.com"
+    required
+  >
+
+</div>
+
+
+<div class="field">
+
+  <label for="password">
+    Пароль
+  </label>
+
+  <div class="password-wrap">
+
+    <input
+      id="password"
+      type="password"
+      minlength="6"
+      autocomplete="new-password"
+      placeholder="Минимум 6 символов"
+      required
+    >
+
+    <button
+      class="show-password"
+      id="showPassword"
+      type="button"
+    >
+      👁
+    </button>
+
+  </div>
+
+  <div class="password-hint">
+    Пароль должен содержать минимум 6 символов.
+  </div>
+
+</div>
+
+
+<div class="field">
+
+  <label for="password2">
+    Повтори пароль
+  </label>
+
+  <div class="password-wrap">
+
+    <input
+      id="password2"
+      type="password"
+      minlength="6"
+      autocomplete="new-password"
+      placeholder="Повтори пароль"
+      required
+    >
+
+    <button
+      class="show-password"
+      id="showPassword2"
+      type="button"
+    >
+      👁
+    </button>
+
+  </div>
+
+</div>
+
+
+<div
+  id="error"
+  class="error"
+></div>
+
+
+<button
+  class="btn"
+  id="registerBtn"
+  type="submit"
+>
+  Создать аккаунт →
+</button>
+```
+
+  </form>
+
+  <div class="divider">
+    уже есть аккаунт?
+  </div>
+
+  <div class="links">
+
+```
+<a href="login.html">
+  Войти в аккаунт
+</a>
+```
+
+  </div>
+
+  <div class="info">
+    🔒 Аккаунт создаётся через Firebase Authentication.
+    Пароль не сохраняется в базе приглашений.
+  </div>
+
+</div>
+
+</section>
+
+</div>
+
+</main>
+
+</div>
+
+<script type="module">
+
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/12.17.0/firebase-app.js";
+
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.17.0/firebase-auth.js";
+
+import {
+  getFirestore,
+  doc,
+  setDoc,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js";
+
+
+const firebaseConfig = {
+
+  apiKey:
+    "AIzaSyC2esT1S9A8SnTBPyrHVfxTy-Z_u-GiGpWo",
+
+  authDomain:
+    "date-ticket-2e786.firebaseapp.com",
+
+  databaseURL:
+    "https://date-ticket-2e786-default-rtdb.europe-west1.firebasedatabase.app",
+
+  projectId:
+    "date-ticket-2e786",
+
+  storageBucket:
+    "date-ticket-2e786.firebasestorage.app",
+
+  messagingSenderId:
+    "576969359516",
+
+  appId:
+    "1:576969359516:web:2b9e622d7b2de86acc6d59"
+};
+
+
+const app =
+  initializeApp(firebaseConfig);
+
+const auth =
+  getAuth(app);
+
+const db =
+  getFirestore(app);
+
+
+const form =
+  document.querySelector("#registerForm");
+
+const nameInput =
+  document.querySelector("#name");
+
+const emailInput =
+  document.querySelector("#email");
+
+const passwordInput =
+  document.querySelector("#password");
+
+const password2Input =
+  document.querySelector("#password2");
+
+const registerBtn =
+  document.querySelector("#registerBtn");
+
+const errorBox =
+  document.querySelector("#error");
+
+
+function showError(message){
+
+  errorBox.textContent =
+    message;
+
+  errorBox.classList.add("show");
+
+}
+
+
+function clearError(){
+
+  errorBox.classList.remove("show");
+
+  errorBox.textContent =
+    "";
+
+}
+
+
+function firebaseError(error){
+
+  switch(error.code){
+
+    case "auth/email-already-in-use":
+      return "Аккаунт с таким email уже существует.";
+
+    case "auth/invalid-email":
+      return "Проверь правильность email.";
+
+    case "auth/weak-password":
+      return "Пароль слишком слабый. Используй минимум 6 символов.";
+
+    case "auth/network-request-failed":
+      return "Нет соединения с интернетом.";
+
+    case "auth/operation-not-allowed":
+      return "Регистрация по email пока не включена в Firebase Authentication.";
+
+    default:
+      return "Не удалось создать аккаунт. Попробуй ещё раз.";
+
+  }
+
+}
+
+
+function setupPasswordToggle(button,input){
+
+  button.addEventListener(
+    "click",
+    () => {
+
+      const visible =
+        input.type === "text";
+
+      input.type =
+        visible ? "password" : "text";
+
+      button.textContent =
+        visible ? "👁" : "🙈";
+
+    }
+  );
+
+}
+
+
+setupPasswordToggle(
+  document.querySelector("#showPassword"),
+  passwordInput
+);
+
+
+setupPasswordToggle(
+  document.querySelector("#showPassword2"),
+  password2Input
+);
+
+
+form.addEventListener(
+  "submit",
+  async event => {
+
+    event.preventDefault();
+
+    clearError();
+
+    const name =
+      nameInput.value.trim();
+
+    const email =
+      emailInput.value.trim();
+
+    const password =
+      passwordInput.value;
+
+    const password2 =
+      password2Input.value;
+
+
+    if(name.length < 2){
+
+      showError(
+        "Введи имя минимум из 2 символов."
+      );
+
+      nameInput.focus();
+
+      return;
+
+    }
+
+
+    if(!email){
+
+      showError(
+        "Введи email."
+      );
+
+      emailInput.focus();
+
+      return;
+
+    }
+
+
+    if(password.length < 6){
+
+      showError(
+        "Пароль должен содержать минимум 6 символов."
+      );
+
+      passwordInput.focus();
+
+      return;
+
+    }
+
+
+    if(password !== password2){
+
+      showError(
+        "Пароли не совпадают."
+      );
+
+      password2Input.focus();
+
+      return;
+
+    }
+
+
+    registerBtn.disabled = true;
+
+    registerBtn.textContent =
+      "Создаём аккаунт…";
+
+
+    try{
+
+      const credential =
+        await createUserWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
+
+
+      const user =
+        credential.user;
+
+
+      /*
+       * Сохраняем имя в Firebase Authentication.
+       */
+
+      await updateProfile(
+        user,
+        {
+          displayName:name
+        }
+      );
+
+
+      /*
+       * Дополнительно сохраняем профиль
+       * в Firestore.
+       */
+
+      await setDoc(
+        doc(
+          db,
+          "users",
+          user.uid
+        ),
+        {
+          uid:user.uid,
+          name:name,
+          email:user.email,
+          createdAt:serverTimestamp()
+        },
+        {
+          merge:true
+        }
+      );
+
+
+      /*
+       * После регистрации пользователь
+       * сразу попадает в личный кабинет.
+       */
+
+      location.href =
+        "account.html";
+
+
+    }catch(error){
+
+      console.error(
+        "Firebase registration error:",
+        error
+      );
+
+      showError(
+        firebaseError(error)
+      );
+
+      registerBtn.disabled =
+        false;
+
+      registerBtn.textContent =
+        "Создать аккаунт →";
+
+    }
+
+  }
+);
+
+
+/*
+ * Если пользователь уже авторизован,
+ * регистрация ему больше не нужна.
+ */
+
+onAuthStateChanged(
+  auth,
+  user => {
+
+    if(
+      user &&
+      !registerBtn.disabled
+    ){
+
+      location.href =
+        "account.html";
+
+    }
+
+  }
+);
+
+</script>
+
+</body>
+</html>
