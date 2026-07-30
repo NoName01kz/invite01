@@ -1,11 +1,10 @@
-```html
 <!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Date Ticket — Приглашение</title>
+<title>Date Ticket 💌</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,7 +13,7 @@
 <style>
 :root{
   --bg:#090d16;
-  --bg2:#111728;
+  --bg2:#15182a;
   --card:rgba(19,25,42,.78);
   --line:rgba(255,255,255,.10);
   --text:#fff;
@@ -22,8 +21,8 @@
   --pink:#ff6fae;
   --pink2:#ff91bf;
   --gold:#f6c667;
-  --green:#72d6a1;
-  --red:#ff667d;
+  --green:#71d6a1;
+  --danger:#ff667d;
 }
 
 *{
@@ -41,21 +40,9 @@ body{
   font-family:"Manrope",sans-serif;
 
   background:
-    radial-gradient(
-      circle at 80% 10%,
-      rgba(255,105,170,.16),
-      transparent 28%
-    ),
-    radial-gradient(
-      circle at 10% 90%,
-      rgba(95,100,255,.13),
-      transparent 30%
-    ),
-    linear-gradient(
-      135deg,
-      var(--bg),
-      var(--bg2)
-    );
+    radial-gradient(circle at 75% 10%,rgba(255,105,170,.18),transparent 30%),
+    radial-gradient(circle at 10% 90%,rgba(95,100,255,.14),transparent 32%),
+    linear-gradient(135deg,var(--bg),var(--bg2));
 
   overflow-x:hidden;
 }
@@ -65,28 +52,16 @@ body:before{
   position:fixed;
   inset:0;
   pointer-events:none;
-  opacity:.30;
+  opacity:.32;
 
   background-image:
-    radial-gradient(
-      circle at 15% 20%,
-      #fff 0 1px,
-      transparent 1.5px
-    ),
-    radial-gradient(
-      circle at 70% 35%,
-      #fff 0 1px,
-      transparent 1.5px
-    ),
-    radial-gradient(
-      circle at 40% 75%,
-      #fff 0 1px,
-      transparent 1.5px
-    );
+    radial-gradient(circle at 20% 20%,#fff 0 1px,transparent 1.5px),
+    radial-gradient(circle at 75% 35%,#fff 0 1px,transparent 1.5px),
+    radial-gradient(circle at 45% 80%,#fff 0 1px,transparent 1.5px);
 
   background-size:
-    240px 220px,
-    310px 270px,
+    270px 240px,
+    330px 290px,
     370px 320px;
 }
 
@@ -97,163 +72,375 @@ a{
 
 button,
 input,
-select{
+textarea{
   font-family:"Manrope",sans-serif;
 }
 
 .container{
-  width:min(920px,92%);
+  width:min(1050px,92%);
   margin:auto;
 }
 
+/* HEADER */
+
 header{
-  min-height:78px;
+  min-height:80px;
+
   display:flex;
   align-items:center;
   justify-content:space-between;
+
+  gap:20px;
+
   position:relative;
-  z-index:2;
+  z-index:5;
 }
 
 .logo{
-  font:
-    700 24px
-    "Playfair Display",
-    serif;
-
+  font:700 25px "Playfair Display",serif;
   font-style:italic;
 }
 
-.header-small{
-  color:var(--muted);
-  font-size:12px;
-}
-
-.card{
+.home-btn{
   border:1px solid var(--line);
-  background:var(--card);
-  border-radius:28px;
-  padding:30px;
-  backdrop-filter:blur(18px);
-  box-shadow:
-    0 30px 80px rgba(0,0,0,.25);
+  background:rgba(255,255,255,.055);
 
-  margin:18px 0;
+  color:#fff;
+
+  border-radius:12px;
+  padding:10px 14px;
+
+  font-size:12px;
+
+  cursor:pointer;
 }
 
-.hidden{
-  display:none!important;
+/* MAIN */
+
+main{
+  padding:45px 0 90px;
 }
 
-/* INTRO */
+.page{
+  max-width:800px;
+  margin:auto;
+}
 
-.hero{
-  min-height:620px;
+/* LOADING */
+
+.loading{
+  min-height:70vh;
+
   display:flex;
+  flex-direction:column;
   align-items:center;
   justify-content:center;
+
   text-align:center;
 }
 
-.hero-inner{
-  max-width:720px;
-  margin:auto;
+.loader{
+  width:55px;
+  height:55px;
+
+  border-radius:50%;
+
+  border:4px solid rgba(255,255,255,.08);
+  border-top-color:var(--pink);
+
+  animation:spin 1s linear infinite;
+
+  margin-bottom:20px;
 }
 
-.badge{
-  display:inline-flex;
+.loading p{
+  color:var(--muted);
+  font-size:13px;
+}
+
+/* ERROR */
+
+.error-screen{
+  min-height:70vh;
+
+  display:flex;
   align-items:center;
-  gap:8px;
+  justify-content:center;
+}
 
-  padding:8px 14px;
+.error-card{
+  width:min(560px,100%);
 
-  border:
-    1px solid
-    rgba(255,111,174,.25);
+  border:1px solid var(--line);
+  background:var(--card);
 
-  background:
-    rgba(255,111,174,.07);
+  border-radius:28px;
 
-  border-radius:999px;
+  padding:40px 30px;
 
-  color:#ffc1d9;
-  font-size:12px;
+  text-align:center;
 
-  margin-bottom:22px;
+  backdrop-filter:blur(18px);
+
+  box-shadow:
+    0 30px 80px rgba(0,0,0,.3);
+}
+
+.error-icon{
+  font-size:70px;
+  margin-bottom:15px;
+}
+
+.error-card h1{
+  font:700 38px "Playfair Display",serif;
+  margin:0 0 12px;
+}
+
+.error-card p{
+  color:var(--muted);
+  line-height:1.7;
+  font-size:14px;
+}
+
+/* HERO */
+
+.hero{
+  text-align:center;
+
+  padding:30px 0 15px;
 }
 
 .character{
-  font-size:135px;
+  font-size:125px;
+
+  line-height:1;
 
   filter:
-    drop-shadow(
-      0 25px 25px
-      rgba(0,0,0,.35)
-    );
+    drop-shadow(0 20px 25px rgba(0,0,0,.3));
 
   animation:float 4s ease-in-out infinite;
-
-  margin-bottom:10px;
 }
 
-h1{
-  font:
-    700
-    clamp(42px,7vw,68px)/1.05
-    "Playfair Display",
-    serif;
+.eyebrow{
+  display:inline-block;
 
-  margin:0 0 20px;
+  margin-top:22px;
+  margin-bottom:12px;
 
-  letter-spacing:-1px;
+  color:#ffc0d8;
+
+  font-size:11px;
+
+  text-transform:uppercase;
+  letter-spacing:2px;
 }
 
-h1 span{
-  color:var(--pink2);
+.hero h1{
+  font:700 clamp(40px,7vw,70px)/1.05
+        "Playfair Display",serif;
+
+  margin:0;
+
+  letter-spacing:-1.5px;
 }
 
-.hero-text{
-  color:var(--muted);
-  line-height:1.8;
-  font-size:15px;
+.hero-subtitle{
   max-width:600px;
-  margin:auto;
+
+  margin:18px auto 0;
+
+  color:var(--muted);
+
+  font-size:15px;
+
+  line-height:1.7;
 }
 
-.actions{
-  display:flex;
-  justify-content:center;
+/* CARD */
+
+.card{
+  margin-top:28px;
+
+  border:1px solid var(--line);
+
+  background:var(--card);
+
+  border-radius:28px;
+
+  padding:30px;
+
+  backdrop-filter:blur(18px);
+
+  box-shadow:
+    0 30px 80px rgba(0,0,0,.28);
+}
+
+.card-title{
+  font:700 28px "Playfair Display",serif;
+
+  margin:0 0 8px;
+}
+
+.card-subtitle{
+  color:var(--muted);
+
+  font-size:13px;
+
+  line-height:1.6;
+
+  margin:0 0 25px;
+}
+
+/* DATE */
+
+.date-card{
+  display:grid;
+
+  grid-template-columns:1fr 1fr;
+
+  gap:15px;
+}
+
+.date-item{
+  border:1px solid var(--line);
+
+  background:rgba(255,255,255,.045);
+
+  border-radius:18px;
+
+  padding:20px;
+
+  text-align:center;
+}
+
+.date-icon{
+  font-size:30px;
+  margin-bottom:8px;
+}
+
+.date-label{
+  color:var(--muted);
+
+  font-size:11px;
+
+  text-transform:uppercase;
+
+  letter-spacing:1px;
+}
+
+.date-value{
+  font-size:17px;
+
+  font-weight:800;
+
+  margin-top:6px;
+}
+
+/* SURVEY */
+
+.options{
+  display:grid;
+
+  grid-template-columns:1fr 1fr;
+
   gap:12px;
-  flex-wrap:wrap;
-  margin-top:30px;
+}
+
+.option{
+  border:1px solid var(--line);
+
+  background:rgba(255,255,255,.045);
+
+  border-radius:18px;
+
+  padding:18px;
+
+  cursor:pointer;
+
+  transition:.2s;
+}
+
+.option:hover{
+  transform:translateY(-2px);
+
+  background:rgba(255,255,255,.075);
+}
+
+.option.selected{
+  border-color:rgba(255,111,174,.75);
+
+  background:rgba(255,111,174,.11);
+
+  box-shadow:
+    0 0 0 2px rgba(255,111,174,.08) inset;
+}
+
+.option-emoji{
+  font-size:30px;
+
+  margin-bottom:8px;
+}
+
+.option-name{
+  font-size:13px;
+  font-weight:800;
+}
+
+.option-check{
+  float:right;
+
+  width:21px;
+  height:21px;
+
+  border-radius:50%;
+
+  border:1px solid rgba(255,255,255,.15);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:12px;
+}
+
+.option.selected .option-check{
+  background:var(--pink);
+
+  border-color:var(--pink);
 }
 
 /* BUTTON */
 
+.actions{
+  display:flex;
+
+  justify-content:center;
+
+  gap:12px;
+
+  flex-wrap:wrap;
+
+  margin-top:25px;
+}
+
 .btn{
   border:0;
+
   cursor:pointer;
 
   border-radius:15px;
 
-  padding:15px 23px;
+  padding:15px 25px;
 
   color:#fff;
 
-  font:
-    700 13px
-    "Manrope";
+  font:700 13px "Manrope";
 
   background:
-    linear-gradient(
-      135deg,
-      var(--pink),
-      var(--pink2)
-    );
+    linear-gradient(135deg,var(--pink),var(--pink2));
 
   box-shadow:
-    0 12px 35px
-    rgba(255,105,170,.22);
+    0 12px 35px rgba(255,105,170,.22);
 
   transition:.2s;
 }
@@ -262,434 +449,168 @@ h1 span{
   transform:translateY(-2px);
 }
 
-.btn.secondary{
-  background:rgba(255,255,255,.055);
-  border:1px solid var(--line);
-  box-shadow:none;
-}
-
 .btn:disabled{
-  opacity:.4;
+  opacity:.5;
   cursor:not-allowed;
   transform:none;
 }
 
-/* QUESTION */
+.btn.secondary{
+  background:rgba(255,255,255,.055);
 
-.question-header{
-  text-align:center;
-  margin-bottom:25px;
-}
+  border:1px solid var(--line);
 
-.eyebrow{
-  display:inline-block;
-  color:#ffc0d8;
-
-  font-size:11px;
-
-  text-transform:uppercase;
-
-  letter-spacing:1.7px;
-
-  margin-bottom:12px;
-}
-
-.question-header h2{
-  font:
-    700
-    clamp(30px,5vw,46px)/1.1
-    "Playfair Display",
-    serif;
-
-  margin:0 0 12px;
-}
-
-.question-header p{
-  color:var(--muted);
-  font-size:14px;
-  line-height:1.7;
-  margin:auto;
-  max-width:600px;
-}
-
-.option-grid{
-  display:grid;
-  grid-template-columns:
-    repeat(2,1fr);
-
-  gap:12px;
-
-  margin-top:24px;
-}
-
-.option{
-  border:
-    1px solid
-    var(--line);
-
-  background:
-    rgba(255,255,255,.045);
-
-  border-radius:18px;
-
-  padding:18px;
-
-  cursor:pointer;
-
-  transition:.2s;
-
-  min-height:90px;
-}
-
-.option:hover{
-  transform:translateY(-2px);
-
-  background:
-    rgba(255,255,255,.075);
-}
-
-.option.selected{
-  border-color:
-    rgba(255,111,174,.75);
-
-  background:
-    rgba(255,111,174,.10);
-
-  box-shadow:
-    0 0 0 2px
-    rgba(255,111,174,.08)
-    inset;
-}
-
-.option .emoji{
-  font-size:28px;
-  margin-bottom:9px;
-}
-
-.option strong{
-  font-size:13px;
-}
-
-.option small{
-  display:block;
-  color:var(--muted);
-  margin-top:4px;
-  font-size:11px;
-}
-
-/* DATE */
-
-.date-grid{
-  display:grid;
-  grid-template-columns:
-    repeat(2,1fr);
-
-  gap:12px;
-
-  margin-top:22px;
-}
-
-.date-option{
-  border:
-    1px solid
-    var(--line);
-
-  background:
-    rgba(255,255,255,.045);
-
-  border-radius:18px;
-
-  padding:20px;
-
-  cursor:pointer;
-
-  text-align:center;
-
-  transition:.2s;
-}
-
-.date-option:hover{
-  transform:translateY(-2px);
-}
-
-.date-option.selected{
-  border-color:
-    rgba(255,111,174,.75);
-
-  background:
-    rgba(255,111,174,.10);
-}
-
-.date-day{
-  font-size:24px;
-  font-weight:800;
-}
-
-.date-week{
-  color:var(--muted);
-  font-size:12px;
-  margin-top:5px;
-}
-
-/* SUMMARY */
-
-.summary{
-  display:grid;
-  gap:0;
-}
-
-.summary-row{
-  display:flex;
-  justify-content:space-between;
-  gap:20px;
-
-  padding:14px 0;
-
-  border-bottom:
-    1px solid
-    rgba(255,255,255,.06);
-
-  font-size:13px;
-}
-
-.summary-row:last-child{
-  border-bottom:0;
-}
-
-.summary-row span{
-  color:var(--muted);
-}
-
-.summary-row strong{
-  text-align:right;
-}
-
-/* TICKET */
-
-.ticket{
-  position:relative;
-  overflow:hidden;
-}
-
-.ticket:before{
-  content:"";
-
-  position:absolute;
-
-  width:350px;
-  height:350px;
-
-  border-radius:50%;
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(255,105,170,.18),
-      transparent 65%
-    );
-
-  right:-130px;
-  top:-150px;
-
-  pointer-events:none;
-}
-
-.ticket-top{
-  text-align:center;
-  position:relative;
-}
-
-.ticket-character{
-  font-size:95px;
-
-  filter:
-    drop-shadow(
-      0 20px 20px
-      rgba(0,0,0,.3)
-    );
-}
-
-.ticket-title{
-  font:
-    700 38px
-    "Playfair Display";
-
-  margin:8px 0;
-}
-
-.ticket-subtitle{
-  color:var(--muted);
-  font-size:13px;
-}
-
-.ticket-line{
-  border-top:
-    1px dashed
-    rgba(255,255,255,.16);
-
-  margin:25px 0;
-}
-
-.ticket-info{
-  display:grid;
-
-  grid-template-columns:
-    repeat(2,1fr);
-
-  gap:12px;
-}
-
-.ticket-item{
-  background:
-    rgba(255,255,255,.045);
-
-  border:
-    1px solid
-    var(--line);
-
-  border-radius:18px;
-
-  padding:18px;
-
-  text-align:center;
-}
-
-.ticket-item span{
-  display:block;
-
-  color:var(--muted);
-
-  font-size:11px;
-
-  margin-bottom:7px;
-}
-
-.ticket-item strong{
-  font-size:18px;
-}
-
-.ticket-status{
-  text-align:center;
-
-  padding:18px;
-
-  margin-top:18px;
-
-  border-radius:18px;
-
-  background:
-    rgba(255,255,255,.045);
-
-  border:
-    1px solid
-    var(--line);
-}
-
-.ticket-status strong{
-  display:block;
-  font-size:18px;
-  margin-bottom:5px;
-}
-
-.ticket-status p{
-  margin:0;
-  color:var(--muted);
-  font-size:12px;
-  line-height:1.6;
-}
-
-.ticket-status.today{
-  border-color:
-    rgba(114,214,161,.45);
-
-  background:
-    rgba(114,214,161,.08);
-}
-
-.ticket-status.today strong{
-  color:var(--green);
-}
-
-.ticket-status.future strong{
-  color:var(--gold);
-}
-
-.ticket-status.past strong{
-  color:var(--red);
+  box-shadow:none;
 }
 
 /* LETTER */
 
 .letter{
+  text-align:center;
+
   position:relative;
+
   overflow:hidden;
 }
 
-.letter:before{
-  content:"✉";
+.lock{
+  font-size:55px;
 
-  position:absolute;
-
-  right:25px;
-  top:10px;
-
-  font-size:70px;
-
-  opacity:.06;
+  margin-bottom:15px;
 }
 
-.letter-text{
+.letter h2{
+  font:700 30px "Playfair Display",serif;
+
+  margin:0 0 10px;
+}
+
+.letter-info{
+  color:var(--muted);
+
+  font-size:13px;
+
+  line-height:1.6;
+}
+
+.letter-content{
+  margin-top:25px;
+
+  border:1px solid rgba(255,111,174,.25);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,111,174,.08),
+      rgba(255,255,255,.035)
+    );
+
+  border-radius:20px;
+
+  padding:25px;
+
+  text-align:left;
+
+  line-height:1.8;
+
   white-space:pre-wrap;
 
-  font:
-    19px/1.8
-    "Playfair Display",
-    serif;
+  color:#f2f3f7;
 
-  color:#f5edf1;
-
-  margin-top:18px;
+  animation:enter .5s ease;
 }
 
-/* LOADING */
+/* RESPONSE */
 
-.status{
+.response-box{
   text-align:center;
-  padding:55px 25px;
 }
 
-.status-icon{
-  font-size:55px;
-  margin-bottom:12px;
-}
-
-.status h2{
-  font:
-    600 32px
-    "Playfair Display";
-
-  margin:5px 0 10px;
-}
-
-.status p{
+.response-status{
   color:var(--muted);
-  font-size:13px;
+
+  font-size:12px;
+
+  margin-top:10px;
+}
+
+.success-icon{
+  font-size:70px;
+
+  margin-bottom:10px;
+}
+
+.success-title{
+  font:700 34px "Playfair Display",serif;
+
+  margin:0 0 10px;
+}
+
+.success-text{
+  color:var(--muted);
+
+  font-size:14px;
+
   line-height:1.7;
-  max-width:550px;
-  margin:auto;
 }
 
 /* FOOTER */
 
 footer{
-  color:#727d91;
-  font-size:11px;
+  padding:25px 0 45px;
+
   text-align:center;
 
-  padding:25px 0 45px;
+  color:#6f778a;
+
+  font-size:11px;
 }
 
-/* ANIMATION */
+/* THEME */
+
+body.theme-sakura{
+  --pink:#ff6fae;
+  --pink2:#ff91bf;
+}
+
+body.theme-galaxy{
+  --pink:#7c83ff;
+  --pink2:#b08cff;
+}
+
+body.theme-sunset{
+  --pink:#ff8066;
+  --pink2:#ffbf6e;
+}
+
+body.theme-rain{
+  --pink:#65a9d8;
+  --pink2:#8dc7e8;
+}
+
+body.theme-ocean{
+  --pink:#41c7d8;
+  --pink2:#72e3df;
+}
+
+body.theme-city{
+  --pink:#9c78ff;
+  --pink2:#d37cff;
+}
+
+/* HIDDEN */
+
+.hidden{
+  display:none!important;
+}
+
+/* ANIMATIONS */
+
+@keyframes spin{
+  to{
+    transform:rotate(360deg);
+  }
+}
 
 @keyframes float{
   0%,100%{
@@ -701,43 +622,68 @@ footer{
   }
 }
 
-@media(max-width:650px){
-
-  .card{
-    padding:21px;
+@keyframes enter{
+  from{
+    opacity:0;
+    transform:translateY(12px);
+    filter:blur(3px);
   }
 
-  .option-grid{
-    grid-template-columns:1fr;
+  to{
+    opacity:1;
+    transform:none;
+    filter:none;
+  }
+}
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+  header{
+    min-height:70px;
   }
 
-  .date-grid{
-    grid-template-columns:1fr;
-  }
-
-  .ticket-info{
-    grid-template-columns:1fr;
+  main{
+    padding-top:25px;
   }
 
   .character{
-    font-size:105px;
+    font-size:95px;
   }
 
-  .ticket-title{
-    font-size:31px;
+  .card{
+    padding:22px 18px;
+
+    border-radius:23px;
   }
 
-  .header-small{
-    display:none;
+  .date-card{
+    grid-template-columns:1fr;
   }
 
-  .summary-row{
-    flex-direction:column;
-    gap:5px;
+  .options{
+    grid-template-columns:1fr 1fr;
   }
 
-  .summary-row strong{
-    text-align:left;
+  .option{
+    padding:14px;
+  }
+
+  .option-emoji{
+    font-size:25px;
+  }
+
+  .hero h1{
+    font-size:43px;
+  }
+
+  .hero-subtitle{
+    font-size:13px;
+  }
+
+  .error-card{
+    padding:30px 20px;
   }
 }
 </style>
@@ -748,24 +694,28 @@ footer{
 <div class="container">
 
 <header>
-  <a class="logo" href="index.html">Date Ticket</a>
 
-  <div class="header-small">
-    Особенное приглашение ❤️
-  </div>
+  <a href="index.html" class="logo">
+    Date Ticket
+  </a>
+
+  <a href="index.html" class="home-btn">
+    На главную
+  </a>
+
 </header>
 
 
+<main>
+
 <!-- LOADING -->
 
-<section id="loading" class="card status">
+<section id="loading" class="loading">
 
-  <div class="status-icon">💌</div>
-
-  <h2>Открываем приглашение…</h2>
+  <div class="loader"></div>
 
   <p>
-    Подожди немного. Мы проверяем твоё приглашение.
+    Загружаем приглашение…
   </p>
 
 </section>
@@ -773,313 +723,233 @@ footer{
 
 <!-- ERROR -->
 
-<section id="error" class="card status hidden">
+<section id="errorScreen" class="error-screen hidden">
 
-  <div class="status-icon">🥀</div>
+  <div class="error-card">
 
-  <h2>Приглашение не найдено</h2>
+    <div class="error-icon">
+      💔
+    </div>
 
-  <p id="errorText">
-    Не удалось загрузить приглашение.
-  </p>
+    <h1>
+      Приглашение не найдено
+    </h1>
 
-  <div class="actions">
-    <button
-      class="btn"
-      onclick="location.reload()"
-    >
-      Попробовать снова
-    </button>
+    <p id="errorText">
+      Возможно, ссылка неправильная
+      или приглашение больше не существует.
+    </p>
+
+    <div class="actions">
+
+      <a
+        href="index.html"
+        class="btn">
+        На главную
+      </a>
+
+    </div>
+
   </div>
 
 </section>
 
 
-<!-- INTRO -->
+<!-- INVITATION -->
 
-<main id="intro" class="hero hidden">
+<section id="invitePage" class="page hidden">
 
-  <div class="hero-inner">
 
-    <div class="badge">
-      💌 Тебе пришло приглашение
-    </div>
+  <!-- HERO -->
+
+  <div class="hero">
 
     <div
-      class="character"
-      id="introCharacter"
-    >
+      id="character"
+      class="character">
       🐸
     </div>
 
-    <h1>
-      Привет,
-      <span id="introName">
-        Солнышко
-      </span> ❤️
+    <span class="eyebrow">
+      Для тебя приготовили приглашение
+    </span>
+
+    <h1 id="title">
+      Привет ❤️
     </h1>
 
-    <p class="hero-text">
-      Тебя приглашают на особенное свидание.
-      Перед тем как открыть билет,
-      выбери то, что тебе больше всего хочется.
+    <p
+      id="subtitle"
+      class="hero-subtitle">
+      Кажется, тебя приглашают
+      на кое-что особенное.
     </p>
 
-    <div class="actions">
+  </div>
 
-      <button
-        class="btn"
-        id="startBtn"
-      >
-        Открыть приглашение ✨
-      </button>
+
+  <!-- DATE -->
+
+  <div class="card">
+
+    <h2 class="card-title">
+      📅 Когда?
+    </h2>
+
+    <p class="card-subtitle">
+      Выбери удобную дату из предложенного диапазона.
+    </p>
+
+    <div class="date-card">
+
+      <div class="date-item">
+
+        <div class="date-icon">
+          🗓️
+        </div>
+
+        <div class="date-label">
+          Доступные даты
+        </div>
+
+        <div
+          id="dates"
+          class="date-value">
+          —
+        </div>
+
+      </div>
+
+      <div class="date-item">
+
+        <div class="date-icon">
+          🕕
+        </div>
+
+        <div class="date-label">
+          Время
+        </div>
+
+        <div
+          id="time"
+          class="date-value">
+          —
+        </div>
+
+      </div>
 
     </div>
 
   </div>
 
-</main>
 
+  <!-- SURVEY -->
 
-<!-- SURVEY -->
+  <div class="card">
 
-<main id="survey" class="hidden">
+    <h2 class="card-title">
+      💗 Чем займёмся?
+    </h2>
 
-  <section class="card">
-
-    <div class="question-header">
-
-      <span class="eyebrow">
-        Небольшой вопрос
-      </span>
-
-      <h2 id="questionTitle">
-        Куда хочется пойти?
-      </h2>
-
-      <p id="questionText">
-        Выбери вариант, который тебе ближе.
-      </p>
-
-    </div>
+    <p class="card-subtitle">
+      Выбери один вариант, который тебе больше всего нравится.
+    </p>
 
     <div
       id="options"
-      class="option-grid"
-    ></div>
+      class="options">
+    </div>
+
+    <div
+      id="surveyMessage"
+      class="response-status">
+      Выбери один вариант.
+    </div>
 
     <div class="actions">
 
       <button
-        class="btn secondary"
-        id="prevBtn"
-      >
-        ← Назад
-      </button>
-
-      <button
+        id="sendResponseBtn"
         class="btn"
-        id="nextBtn"
-      >
-        Далее →
+        type="button"
+        disabled>
+        Ответить 💌
       </button>
 
     </div>
-
-  </section>
-
-</main>
-
-
-<!-- DATE -->
-
-<main id="dateStep" class="hidden">
-
-  <section class="card">
-
-    <div class="question-header">
-
-      <span class="eyebrow">
-        Последний выбор
-      </span>
-
-      <h2>
-        Когда увидимся?
-      </h2>
-
-      <p>
-        Выбери дату, которая тебе подходит.
-      </p>
-
-    </div>
-
-    <div
-      id="dateOptions"
-      class="date-grid"
-    ></div>
-
-    <div class="actions">
-
-      <button
-        class="btn secondary"
-        id="dateBackBtn"
-      >
-        ← Назад
-      </button>
-
-      <button
-        class="btn"
-        id="finishBtn"
-      >
-        Получить билет 🎫
-      </button>
-
-    </div>
-
-  </section>
-
-</main>
-
-
-<!-- RESULT -->
-
-<main id="result" class="hidden">
-
-  <section class="card ticket">
-
-    <div class="ticket-top">
-
-      <div
-        class="ticket-character"
-        id="ticketCharacter"
-      >
-        🐸
-      </div>
-
-      <div class="eyebrow">
-        Date Ticket
-      </div>
-
-      <div class="ticket-title">
-        Свидание принято ❤️
-      </div>
-
-      <div class="ticket-subtitle">
-        Этот билет принадлежит тебе.
-      </div>
-
-    </div>
-
-
-    <div class="ticket-line"></div>
-
-
-    <div class="ticket-info">
-
-      <div class="ticket-item">
-        <span>Для</span>
-        <strong id="ticketName">
-          Солнышко
-        </strong>
-      </div>
-
-      <div class="ticket-item">
-        <span>Дата</span>
-        <strong id="ticketDate">
-          —
-        </strong>
-      </div>
-
-      <div class="ticket-item">
-        <span>Время</span>
-        <strong id="ticketTime">
-          —
-        </strong>
-      </div>
-
-      <div class="ticket-item">
-        <span>Место</span>
-        <strong id="ticketPlace">
-          —
-        </strong>
-      </div>
-
-    </div>
-
-
-    <div
-      id="ticketStatus"
-      class="ticket-status"
-    >
-
-      <strong id="ticketStatusTitle">
-        Проверяем дату…
-      </strong>
-
-      <p id="ticketStatusText">
-        Подожди немного.
-      </p>
-
-    </div>
-
-  </section>
-
-
-  <section class="card">
-
-    <div class="eyebrow">
-      Твои ответы
-    </div>
-
-    <div
-      id="answerSummary"
-      class="summary"
-    ></div>
-
-  </section>
-
-
-  <section
-    id="letterCard"
-    class="card letter"
-  >
-
-    <div class="eyebrow">
-      Личное письмо
-    </div>
-
-    <div
-      id="letterState"
-      class="status"
-      style="padding:25px 0"
-    >
-      Проверяем доступ…
-    </div>
-
-    <div
-      id="letterText"
-      class="letter-text hidden"
-    ></div>
-
-  </section>
-
-
-  <div class="actions">
-
-    <button
-      class="btn secondary"
-      id="reloadBtn"
-    >
-      Обновить
-    </button>
 
   </div>
+
+
+  <!-- PERSONAL MESSAGE -->
+
+  <div class="card letter">
+
+    <div
+      id="letterIcon"
+      class="lock">
+      🔒
+    </div>
+
+    <h2>
+      Личное письмо
+    </h2>
+
+    <p
+      id="letterInfo"
+      class="letter-info">
+      Здесь может появиться сообщение,
+      которое автор приготовил специально для тебя.
+    </p>
+
+    <div
+      id="letterContent"
+      class="letter-content hidden">
+    </div>
+
+    <div class="actions">
+
+      <button
+        id="openLetterBtn"
+        class="btn secondary hidden"
+        type="button">
+        Открыть письмо 💌
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- RESPONSE RESULT -->
+
+  <div
+    id="responseResult"
+    class="card response-box hidden">
+
+    <div class="success-icon">
+      💖
+    </div>
+
+    <h2 class="success-title">
+      Ответ отправлен!
+    </h2>
+
+    <p class="success-text">
+      Автор приглашения узнает,
+      что ты выбрал(а).
+    </p>
+
+  </div>
+
+
+</section>
 
 </main>
 
 
 <footer>
-  Date Ticket · Сделано для особенного свидания ❤️
+  Date Ticket · сделано с любовью 💌
 </footer>
 
 </div>
@@ -1087,21 +957,22 @@ footer{
 
 <script type="module">
 
+/* =====================================================
+   FIREBASE
+===================================================== */
+
 import {
   initializeApp
-} from
-"https://www.gstatic.com/firebasejs/12.17.0/firebase-app.js";
+} from "https://www.gstatic.com/firebasejs/12.17.0/firebase-app.js";
 
 import {
   getFirestore,
   doc,
   getDoc,
-  setDoc
-} from
-"https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js";
+  updateDoc,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js";
 
-
-/* FIREBASE */
 
 const firebaseConfig = {
 
@@ -1135,144 +1006,161 @@ const db =
   getFirestore(app);
 
 
-/* ID */
-
-const inviteId =
-  new URLSearchParams(
-    location.search
-  ).get("id");
-
-
-/* ELEMENTS */
+/* =====================================================
+   ELEMENTS
+===================================================== */
 
 const loading =
   document.querySelector("#loading");
 
-const error =
-  document.querySelector("#error");
+const errorScreen =
+  document.querySelector("#errorScreen");
 
-const intro =
-  document.querySelector("#intro");
+const errorText =
+  document.querySelector("#errorText");
 
-const survey =
-  document.querySelector("#survey");
+const invitePage =
+  document.querySelector("#invitePage");
 
-const dateStep =
-  document.querySelector("#dateStep");
+const character =
+  document.querySelector("#character");
 
-const result =
-  document.querySelector("#result");
+const title =
+  document.querySelector("#title");
+
+const subtitle =
+  document.querySelector("#subtitle");
+
+const dates =
+  document.querySelector("#dates");
+
+const time =
+  document.querySelector("#time");
+
+const options =
+  document.querySelector("#options");
+
+const surveyMessage =
+  document.querySelector("#surveyMessage");
+
+const sendResponseBtn =
+  document.querySelector("#sendResponseBtn");
+
+const responseResult =
+  document.querySelector("#responseResult");
+
+const letterIcon =
+  document.querySelector("#letterIcon");
+
+const letterInfo =
+  document.querySelector("#letterInfo");
+
+const letterContent =
+  document.querySelector("#letterContent");
+
+const openLetterBtn =
+  document.querySelector("#openLetterBtn");
 
 
-/* DATA */
+/* =====================================================
+   GET ID
+===================================================== */
+
+const params =
+  new URLSearchParams(location.search);
+
+const invitationId =
+  params.get("id");
+
+
+/* =====================================================
+   STATE
+===================================================== */
 
 let invitation = null;
 
-let questions = [];
+let selectedOption = null;
 
-let currentQuestion = 0;
-
-let answers = {
-
-  place:"",
-  food:"",
-  drink:"",
-  important:"",
-  activity:""
-
-};
-
-let selectedDate = "";
+let selectedEmoji = null;
 
 
-/*
-  Варианты вопросов.
-  Первый вопрос использует
-  варианты, которые создатель
-  выбрал в create.html.
-*/
+/* =====================================================
+   SURVEY DATA
+===================================================== */
 
-const defaultOptions = {
+const surveyEmoji = {
 
-  food:[
-    ["🍕","Пицца"],
-    ["🍔","Бургеры"],
-    ["🍣","Суши"],
-    ["🍰","Что-нибудь сладкое"]
-  ],
+  "Кофейня":"☕",
 
-  drink:[
-    ["☕","Кофе"],
-    ["🧋","Бабл-ти"],
-    ["🥤","Лимонад"],
-    ["🍵","Чай"]
-  ],
+  "Кино":"🎬",
 
-  important:[
-    ["💗","Поговорить"],
-    ["😂","Повеселиться"],
-    ["✨","Попробовать что-то новое"],
-    ["🌙","Спокойно провести время"]
-  ]
+  "Парк":"🌳",
+
+  "Боулинг":"🎳",
+
+  "Набережная":"🌅",
+
+  "Мастер-класс":"🎨",
+
+  "Пикник":"🧺",
+
+  "Аттракционы":"🎡"
 
 };
 
 
-/* SCREEN */
+/* =====================================================
+   ERROR
+===================================================== */
 
-function hideAll(){
+function showError(message){
 
-  [
-    intro,
-    survey,
-    dateStep,
-    result,
-    error,
-    loading
-  ].forEach(
-    x => x.classList.add("hidden")
-  );
+  loading.classList.add("hidden");
+
+  invitePage.classList.add("hidden");
+
+  errorScreen.classList.remove("hidden");
+
+  errorText.textContent =
+    message;
+
 }
 
 
-function show(element){
+/* =====================================================
+   FORMAT DATE
+===================================================== */
 
-  hideAll();
+function formatDate(dateString){
 
-  element.classList.remove("hidden");
+  if(!dateString){
+    return "—";
+  }
 
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-}
+  const parts =
+    dateString.split("-");
 
+  if(parts.length !== 3){
+    return dateString;
+  }
 
-/* DATE */
+  const year =
+    Number(parts[0]);
 
-function parseDate(value){
+  const month =
+    Number(parts[1]);
 
-  if(!value) return null;
+  const day =
+    Number(parts[2]);
 
-  const d =
+  const date =
     new Date(
-      value + "T12:00:00"
+      year,
+      month - 1,
+      day
     );
 
-  return Number.isNaN(
-    d.getTime()
-  ) ? null : d;
-}
-
-
-function formatDate(value){
-
-  const d =
-    parseDate(value);
-
-  if(!d) return value || "—";
-
-  return d.toLocaleDateString(
+  return date.toLocaleDateString(
     "ru-RU",
     {
       day:"numeric",
@@ -1280,816 +1168,484 @@ function formatDate(value){
       year:"numeric"
     }
   );
+
 }
 
 
-function formatShortDate(value){
+/* =====================================================
+   FORMAT RANGE
+===================================================== */
 
-  const d =
-    parseDate(value);
+function formatDateRange(from,to){
 
-  if(!d) return value;
-
-  return d.toLocaleDateString(
-    "ru-RU",
-    {
-      day:"numeric",
-      month:"long"
-    }
-  );
-}
-
-
-function todayString(){
-
-  const d =
-    new Date();
-
-  const year =
-    d.getFullYear();
-
-  const month =
-    String(
-      d.getMonth()+1
-    ).padStart(2,"0");
-
-  const day =
-    String(
-      d.getDate()
-    ).padStart(2,"0");
-
-  return `${year}-${month}-${day}`;
-}
-
-
-/* DATE RANGE */
-
-function getDates(from,to){
-
-  const result = [];
-
-  if(!from || !to)
-    return result;
-
-  const start =
-    parseDate(from);
-
-  const end =
-    parseDate(to);
-
-  if(!start || !end)
-    return result;
-
-  let current =
-    new Date(start);
-
-  let safety = 0;
-
-  while(
-    current <= end &&
-    safety < 60
-  ){
-
-    const y =
-      current.getFullYear();
-
-    const m =
-      String(
-        current.getMonth()+1
-      ).padStart(2,"0");
-
-    const d =
-      String(
-        current.getDate()
-      ).padStart(2,"0");
-
-    result.push(
-      `${y}-${m}-${d}`
-    );
-
-    current.setDate(
-      current.getDate()+1
-    );
-
-    safety++;
+  if(!from && !to){
+    return "Дата не указана";
   }
 
-  return result;
+  if(from === to){
+    return formatDate(from);
+  }
+
+  return (
+    formatDate(from) +
+    " — " +
+    formatDate(to)
+  );
+
 }
 
 
-/* RENDER DATE */
+/* =====================================================
+   THEME
+===================================================== */
 
-function renderDates(){
+function applyTheme(theme){
 
-  const box =
-    document.querySelector(
-      "#dateOptions"
-    );
+  document.body.classList.remove(
+    "theme-sakura",
+    "theme-galaxy",
+    "theme-sunset",
+    "theme-rain",
+    "theme-ocean",
+    "theme-city"
+  );
 
-  box.innerHTML = "";
 
-  const dates =
-    getDates(
-      invitation.from,
-      invitation.to
-    );
+  const themes = {
 
-  if(!dates.length){
+    "Сакура":"theme-sakura",
 
-    box.innerHTML =
-      `<div class="option">
-        <strong>Даты недоступны</strong>
-        <small>Создатель приглашения ещё не указал диапазон.</small>
-      </div>`;
+    "Галактика":"theme-galaxy",
+
+    "Закат":"theme-sunset",
+
+    "Дождь":"theme-rain",
+
+    "Океан":"theme-ocean",
+
+    "Ночной город":"theme-city"
+
+  };
+
+
+  document.body.classList.add(
+    themes[theme] || "theme-sakura"
+  );
+
+}
+
+
+/* =====================================================
+   RENDER OPTIONS
+===================================================== */
+
+function renderOptions(){
+
+  options.innerHTML = "";
+
+  const list =
+    Array.isArray(invitation.survey)
+      ? invitation.survey
+      : [];
+
+
+  if(!list.length){
+
+    options.innerHTML = `
+      <div
+        style="
+          grid-column:1/-1;
+          color:#aeb6c8;
+          font-size:13px;
+          text-align:center;
+          padding:20px;
+        ">
+        Автор не добавил варианты.
+      </div>
+    `;
 
     return;
   }
 
 
-  dates.forEach(
-    date => {
+  list.forEach(name => {
 
-      const d =
-        parseDate(date);
+    const option =
+      document.createElement("div");
 
-      const el =
-        document.createElement(
-          "div"
-        );
-
-      el.className =
-        "date-option" +
-        (
-          selectedDate === date
-            ? " selected"
-            : ""
-        );
-
-
-      const weekday =
-        d.toLocaleDateString(
-          "ru-RU",
-          {
-            weekday:"long"
-          }
-        );
-
-
-      el.innerHTML = `
-        <div class="date-day">
-          ${d.getDate()}
-        </div>
-
-        <div class="date-week">
-          ${weekday}
-        </div>
-
-        <div class="date-week">
-          ${d.toLocaleDateString(
-            "ru-RU",
-            {month:"long"}
-          )}
-        </div>
-      `;
-
-
-      el.addEventListener(
-        "click",
-        () => {
-
-          selectedDate =
-            date;
-
-          renderDates();
-
-        }
-      );
-
-
-      box.appendChild(el);
-
-    }
-  );
-}
-
-
-/* QUESTIONS */
-
-function buildQuestions(){
-
-  const custom =
-    Array.isArray(
-      invitation.survey
-    )
-      ? invitation.survey
-      : [];
-
-
-  questions = [
-
-    {
-      key:"place",
-      title:"Куда хочется пойти?",
-      text:"Выбери вариант, который тебе больше всего нравится.",
-      options:
-        custom.length
-          ? custom.map(
-              (name,index) => {
-
-                const emojis =
-                  [
-                    "☕",
-                    "🎬",
-                    "🌳",
-                    "🎨"
-                  ];
-
-                return [
-                  emojis[index] || "✨",
-                  name
-                ];
-
-              }
-            )
-          : [
-              ["☕","Кофейня"],
-              ["🎬","Кино"],
-              ["🌳","Парк"],
-              ["🎨","Мастер-класс"]
-            ]
-    },
-
-    {
-      key:"food",
-      title:"Что будем есть?",
-      text:"Выбери то, что тебе хочется.",
-      options:
-        defaultOptions.food
-    },
-
-    {
-      key:"drink",
-      title:"А что будем пить?",
-      text:"Выбирай свой вариант.",
-      options:
-        defaultOptions.drink
-    },
-
-    {
-      key:"important",
-      title:"Что главное на свидании?",
-      text:"Выбери настроение этого вечера.",
-      options:
-        defaultOptions.important
-    },
-
-    {
-      key:"activity",
-      title:"Чем хочется заняться?",
-      text:"Выбери занятие для вашего свидания.",
-      options:
-        custom.length
-          ? custom.map(
-              (name,index) => {
-
-                const emojis =
-                  [
-                    "✨",
-                    "🎨",
-                    "🌳",
-                    "🎡"
-                  ];
-
-                return [
-                  emojis[index] || "💫",
-                  name
-                ];
+    option.className =
+      "option";
 
-              }
-            )
-          : [
-              ["🎬","Кино"],
-              ["🌳","Прогулка"],
-              ["🎨","Мастер-класс"],
-              ["🎡","Аттракционы"]
-            ]
-    }
+    option.dataset.value =
+      name;
 
-  ];
 
-}
+    const emoji =
+      surveyEmoji[name] || "💗";
 
 
-/* RENDER QUESTION */
+    option.innerHTML = `
 
-function renderQuestion(){
+      <div class="option-check">
+        ✓
+      </div>
 
-  const question =
-    questions[currentQuestion];
+      <div class="option-emoji">
+        ${emoji}
+      </div>
 
-  document.querySelector(
-    "#questionTitle"
-  ).textContent =
-    question.title;
+      <div class="option-name">
+        ${escapeHtml(name)}
+      </div>
 
-  document.querySelector(
-    "#questionText"
-  ).textContent =
-    question.text;
+    `;
 
 
-  const box =
-    document.querySelector(
-      "#options"
-    );
+    option.addEventListener(
+      "click",
+      () => {
 
-  box.innerHTML = "";
+        document
+          .querySelectorAll(".option")
+          .forEach(
+            item =>
+              item.classList.remove("selected")
+          );
 
 
-  question.options.forEach(
-    ([emoji,name]) => {
+        option.classList.add("selected");
 
-      const option =
-        document.createElement(
-          "div"
-        );
 
-      option.className =
-        "option" +
-        (
-          answers[question.key] === name
-            ? " selected"
-            : ""
-        );
+        selectedOption =
+          name;
 
+        selectedEmoji =
+          emoji;
 
-      option.innerHTML = `
 
-        <div class="emoji">
-          ${emoji}
-        </div>
+        sendResponseBtn.disabled =
+          false;
 
-        <strong>
-          ${name}
-        </strong>
 
-      `;
-
-
-      option.addEventListener(
-        "click",
-        () => {
-
-          answers[
-            question.key
-          ] = name;
-
-          renderQuestion();
-
-        }
-      );
-
-
-      box.appendChild(option);
-
-    }
-  );
-
-
-  document.querySelector(
-    "#prevBtn"
-  ).disabled =
-    currentQuestion === 0;
-
-
-  document.querySelector(
-    "#nextBtn"
-  ).textContent =
-    currentQuestion ===
-    questions.length-1
-      ? "Выбрать дату →"
-      : "Далее →";
-
-}
-
-
-/* SAVE RESPONSE */
-
-async function saveResponse(){
-
-  const response = {
-
-    ...answers,
-
-    date:selectedDate,
-
-    time:
-      invitation.time ||
-      "18:00",
-
-    completedAt:
-      new Date().toISOString()
-
-  };
-
-
-  await setDoc(
-    doc(
-      db,
-      "invitations",
-      inviteId
-    ),
-    {
-      response:response,
-      status:"accepted"
-    },
-    {
-      merge:true
-    }
-  );
-
-
-  localStorage.setItem(
-    "dateTicketResponse_"+inviteId,
-    JSON.stringify(response)
-  );
-
-
-  return response;
-}
-
-
-/* SHOW RESULT */
-
-async function showResult(response){
-
-  document.querySelector(
-    "#ticketCharacter"
-  ).textContent =
-    invitation.character ||
-    "🐸";
-
-
-  document.querySelector(
-    "#ticketName"
-  ).textContent =
-    invitation.nickname ||
-    "Солнышко";
-
-
-  document.querySelector(
-    "#ticketDate"
-  ).textContent =
-    formatDate(
-      response.date
-    );
-
-
-  document.querySelector(
-    "#ticketTime"
-  ).textContent =
-    response.time ||
-    "—";
-
-
-  document.querySelector(
-    "#ticketPlace"
-  ).textContent =
-    response.place ||
-    "—";
-
-
-  const summary =
-    document.querySelector(
-      "#answerSummary"
-    );
-
-
-  const labels = {
-
-    place:"📍 Место",
-
-    food:"🍽️ Еда",
-
-    drink:"🥤 Напиток",
-
-    important:"❤️ Главное",
-
-    activity:"✨ Занятие"
-
-  };
-
-
-  summary.innerHTML = "";
-
-
-  Object.keys(labels)
-    .forEach(
-      key => {
-
-        if(!response[key])
-          return;
-
-        summary.insertAdjacentHTML(
-          "beforeend",
-          `
-          <div class="summary-row">
-
-            <span>
-              ${labels[key]}
-            </span>
-
-            <strong>
-              ${response[key]}
-            </strong>
-
-          </div>
-          `
-        );
+        surveyMessage.textContent =
+          `Выбрано: ${name}`;
 
       }
     );
 
 
-  updateTicketStatus(
-    response.date
-  );
+    options.appendChild(option);
 
-
-  await loadLetter();
-
-
-  show(result);
+  });
 
 }
 
 
-/* TICKET STATUS */
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
 
-function updateTicketStatus(date){
+function escapeHtml(value){
 
-  const box =
-    document.querySelector(
-      "#ticketStatus"
-    );
+  const div =
+    document.createElement("div");
 
-  const title =
-    document.querySelector(
-      "#ticketStatusTitle"
-    );
+  div.textContent =
+    value ?? "";
 
-  const text =
-    document.querySelector(
-      "#ticketStatusText"
-    );
-
-
-  const today =
-    todayString();
-
-
-  box.className =
-    "ticket-status";
-
-
-  if(!date){
-
-    title.textContent =
-      "🎫 Билет создан";
-
-    text.textContent =
-      "Дата свидания ещё не выбрана.";
-
-    return;
-  }
-
-
-  if(date === today){
-
-    box.classList.add(
-      "today"
-    );
-
-    title.textContent =
-      "🎟️ Сегодня день свидания!";
-
-    text.textContent =
-      "Билет можно предъявить сегодня.";
-
-    return;
-
-  }
-
-
-  if(date > today){
-
-    box.classList.add(
-      "future"
-    );
-
-    title.textContent =
-      "⏳ Свидание ещё впереди";
-
-    text.textContent =
-      `Билет можно предъявить ${formatDate(date)}.`;
-
-    return;
-
-  }
-
-
-  box.classList.add(
-    "past"
-  );
-
-  title.textContent =
-    "🥀 Свидание уже прошло";
-
-  text.textContent =
-    "Этот билет больше нельзя предъявить.";
+  return div.innerHTML;
 
 }
 
 
-/* LETTER */
+/* =====================================================
+   LOAD INVITATION
+===================================================== */
 
-async function loadLetter(){
+async function loadInvitation(){
 
-  const state =
-    document.querySelector(
-      "#letterState"
+  if(!invitationId){
+
+    showError(
+      "В ссылке отсутствует ID приглашения."
     );
 
-  const text =
-    document.querySelector(
-      "#letterText"
-    );
+    return;
 
-
-  state.classList.remove(
-    "hidden"
-  );
-
-  text.classList.add(
-    "hidden"
-  );
+  }
 
 
   try{
 
-    const snap =
-      await getDoc(
-        doc(
-          db,
-          "invitations",
-          inviteId,
-          "private",
-          "letter"
-        )
+    const ref =
+      doc(
+        db,
+        "invitations",
+        invitationId
       );
 
 
-    if(!snap.exists()){
+    const snapshot =
+      await getDoc(ref);
 
-      state.textContent =
-        "Личного письма нет.";
+
+    if(!snapshot.exists()){
+
+      showError(
+        "Такого приглашения не существует или оно было удалено."
+      );
 
       return;
 
     }
 
 
-    const letter =
-      snap.data();
+    invitation = {
+
+      id:
+        snapshot.id,
+
+      ...snapshot.data()
+
+    };
 
 
-    const unlock =
-      letter.letterUnlock
-        ? new Date(
-            letter.letterUnlock
-          )
-        : null;
+    renderInvitation();
+
+
+  }catch(error){
+
+    console.error(error);
+
+    showError(
+      "Не удалось загрузить приглашение. Проверь подключение к интернету."
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   RENDER INVITATION
+===================================================== */
+
+function renderInvitation(){
+
+  loading.classList.add("hidden");
+
+  errorScreen.classList.add("hidden");
+
+  invitePage.classList.remove("hidden");
+
+
+  /* CHARACTER */
+
+  character.textContent =
+    invitation.character || "🐸";
+
+
+  /* NAME */
+
+  const nickname =
+    invitation.nickname?.trim();
+
+
+  if(nickname){
+
+    title.textContent =
+      `Привет, ${nickname} ❤️`;
+
+    subtitle.textContent =
+      `Для тебя приготовили особенное приглашение.`;
+
+  }else{
+
+    title.textContent =
+      "Привет ❤️";
+
+  }
+
+
+  /* THEME */
+
+  applyTheme(
+    invitation.theme
+  );
+
+
+  /* DATE */
+
+  dates.textContent =
+    formatDateRange(
+      invitation.from,
+      invitation.to
+    );
+
+
+  /* TIME */
+
+  time.textContent =
+    invitation.time || "—";
+
+
+  /* OPTIONS */
+
+  renderOptions();
+
+
+  /* LETTER */
+
+  setupLetter();
+
+
+  /* EXISTING RESPONSE */
+
+  if(invitation.response){
+
+    const response =
+      invitation.response;
 
 
     if(
-      !unlock ||
-      Date.now() >=
-      unlock.getTime()
+      typeof response === "object" &&
+      response.option
     ){
 
-      state.classList.add(
-        "hidden"
-      );
+      selectedOption =
+        response.option;
 
-      text.textContent =
-        letter.letter ||
-        "Письмо пустое.";
+      selectedEmoji =
+        response.emoji || surveyEmoji[
+          response.option
+        ] || "💗";
 
-      text.classList.remove(
-        "hidden"
-      );
+
+      document
+        .querySelectorAll(".option")
+        .forEach(option => {
+
+          if(
+            option.dataset.value ===
+            selectedOption
+          ){
+
+            option.classList.add(
+              "selected"
+            );
+
+          }
+
+        });
+
+
+      surveyMessage.textContent =
+        `Ты уже выбрал(а): ${selectedOption}`;
+
+      sendResponseBtn.disabled =
+        true;
+
+      sendResponseBtn.textContent =
+        "Ответ уже отправлен ✓";
 
     }
-    else{
-
-      state.textContent =
-        `💌 Письмо откроется ${unlock.toLocaleString("ru-RU")}.`;
-
-    }
-
-  }
-  catch(e){
-
-    console.error(e);
-
-    state.textContent =
-      "Личное письмо пока недоступно.";
 
   }
 
 }
 
 
-/* CHECK EXISTING RESPONSE */
+/* =====================================================
+   LETTER
+===================================================== */
 
-async function checkInvitation(){
+let privateLetter = null;
+
+
+async function setupLetter(){
+
+  letterIcon.textContent =
+    "🔒";
+
+
+  letterInfo.textContent =
+    "Личное письмо будет доступно после наступления указанного времени.";
+
+
+  letterContent.classList.add(
+    "hidden"
+  );
+
+
+  openLetterBtn.classList.add(
+    "hidden"
+  );
+
 
   try{
 
-    if(!inviteId){
-
-      document.querySelector(
-        "#errorText"
-      ).textContent =
-        "В ссылке отсутствует ID приглашения.";
-
-      show(error);
-
-      return;
-
-    }
-
-
-    const snap =
-      await getDoc(
-        doc(
-          db,
-          "invitations",
-          inviteId
-        )
+    const ref =
+      doc(
+        db,
+        "invitations",
+        invitationId,
+        "private",
+        "letter"
       );
 
 
-    if(!snap.exists()){
+    const snapshot =
+      await getDoc(ref);
 
-      document.querySelector(
-        "#errorText"
-      ).textContent =
-        "Приглашение с таким ID не найдено.";
 
-      show(error);
+    if(!snapshot.exists()){
+
+      letterInfo.textContent =
+        "Автор не оставил личного письма.";
+
+      letterIcon.textContent =
+        "💌";
 
       return;
 
     }
 
 
-    invitation =
-      snap.data();
+    privateLetter =
+      snapshot.data();
 
 
-    document.title =
-      `Приглашение · ${
-        invitation.nickname ||
-        "Date Ticket"
-      }`;
+    const text =
+      privateLetter.letter || "";
 
 
-    document.querySelector(
-      "#introCharacter"
-    ).textContent =
-      invitation.character ||
-      "🐸";
+    const unlock =
+      privateLetter.letterUnlock || null;
 
 
-    document.querySelector(
-      "#introName"
-    ).textContent =
-      invitation.nickname ||
-      "Солнышко";
+    if(!text){
+
+      letterInfo.textContent =
+        "Автор не оставил личного письма.";
+
+      letterIcon.textContent =
+        "💌";
+
+      return;
+
+    }
 
 
-    /*
-      ВАЖНО:
-      если response уже есть,
-      опрос больше НЕ показывается.
-    */
+    if(!unlock){
 
-    if(invitation.response){
+      letterInfo.textContent =
+        "Для тебя есть личное письмо.";
 
-      await showResult(
-        invitation.response
+      letterIcon.textContent =
+        "💌";
+
+      openLetterBtn.classList.remove(
+        "hidden"
       );
 
       return;
@@ -2097,178 +1653,218 @@ async function checkInvitation(){
     }
 
 
-    /*
-      Дополнительная защита:
-      если пользователь уже проходил
-      этот ID на этом устройстве.
-    */
+    const unlockDate =
+      new Date(unlock);
 
-    const local =
-      localStorage.getItem(
-        "dateTicketResponse_"+inviteId
+
+    if(
+      Number.isNaN(
+        unlockDate.getTime()
+      )
+    ){
+
+      letterInfo.textContent =
+        "Для тебя есть личное письмо.";
+
+      letterIcon.textContent =
+        "💌";
+
+      openLetterBtn.classList.remove(
+        "hidden"
       );
 
+      return;
 
-    if(local){
+    }
 
-      try{
 
-        const response =
-          JSON.parse(local);
+    const now =
+      new Date();
 
-        await showResult(
-          response
+
+    if(now >= unlockDate){
+
+      letterInfo.textContent =
+        "Письмо уже можно открыть 💗";
+
+      letterIcon.textContent =
+        "💌";
+
+      openLetterBtn.classList.remove(
+        "hidden"
+      );
+
+    }else{
+
+      letterInfo.textContent =
+        "Письмо пока закрыто. Оно откроется " +
+        formatDateTime(unlockDate) +
+        ".";
+
+      letterIcon.textContent =
+        "🔒";
+
+      startLetterTimer(
+        unlockDate
+      );
+
+    }
+
+  }catch(error){
+
+    console.error(error);
+
+    letterInfo.textContent =
+      "Не удалось загрузить личное письмо.";
+
+  }
+
+}
+
+
+/* =====================================================
+   FORMAT DATETIME
+===================================================== */
+
+function formatDateTime(date){
+
+  return date.toLocaleString(
+    "ru-RU",
+    {
+      day:"numeric",
+      month:"long",
+      year:"numeric",
+      hour:"2-digit",
+      minute:"2-digit"
+    }
+  );
+
+}
+
+
+/* =====================================================
+   LETTER TIMER
+===================================================== */
+
+function startLetterTimer(unlockDate){
+
+  const timer =
+    setInterval(
+      () => {
+
+        const now =
+          new Date();
+
+
+        if(now >= unlockDate){
+
+          clearInterval(timer);
+
+
+          letterIcon.textContent =
+            "💌";
+
+
+          letterInfo.textContent =
+            "Письмо уже можно открыть 💗";
+
+
+          openLetterBtn.classList.remove(
+            "hidden"
+          );
+
+        }
+
+      },
+      1000
+    );
+
+}
+
+
+/* =====================================================
+   OPEN LETTER
+===================================================== */
+
+openLetterBtn.addEventListener(
+  "click",
+  () => {
+
+    if(!privateLetter){
+      return;
+    }
+
+
+    const unlock =
+      privateLetter.letterUnlock;
+
+
+    if(unlock){
+
+      const unlockDate =
+        new Date(unlock);
+
+
+      if(
+        !Number.isNaN(
+          unlockDate.getTime()
+        ) &&
+        new Date() < unlockDate
+      ){
+
+        alert(
+          "Это письмо пока закрыто 💌"
         );
 
         return;
 
       }
-      catch(e){
-
-        localStorage.removeItem(
-          "dateTicketResponse_"+inviteId
-        );
-
-      }
 
     }
 
 
-    buildQuestions();
-
-    show(intro);
-
-  }
-  catch(e){
-
-    console.error(e);
-
-    document.querySelector(
-      "#errorText"
-    ).textContent =
-      "Не удалось загрузить приглашение. Проверь интернет и правила Firestore.";
-
-    show(error);
-
-  }
-
-}
+    letterContent.textContent =
+      privateLetter.letter || "";
 
 
-/* START */
+    letterContent.classList.remove(
+      "hidden"
+    );
 
-document.querySelector(
-  "#startBtn"
-).addEventListener(
-  "click",
-  () => {
 
-    currentQuestion = 0;
+    openLetterBtn.classList.add(
+      "hidden"
+    );
 
-    renderQuestion();
 
-    show(survey);
+    letterIcon.textContent =
+      "💖";
+
+
+    letterInfo.textContent =
+      "Это письмо было написано специально для тебя.";
 
   }
 );
 
 
-/* NEXT */
+/* =====================================================
+   SEND RESPONSE
+===================================================== */
 
-document.querySelector(
-  "#nextBtn"
-).addEventListener(
-  "click",
-  () => {
-
-    const question =
-      questions[currentQuestion];
-
-
-    if(!answers[question.key]){
-
-      alert(
-        "Сначала выбери вариант ❤️"
-      );
-
-      return;
-
-    }
-
-
-    if(
-      currentQuestion <
-      questions.length-1
-    ){
-
-      currentQuestion++;
-
-      renderQuestion();
-
-    }
-    else{
-
-      renderDates();
-
-      show(dateStep);
-
-    }
-
-  }
-);
-
-
-/* PREVIOUS */
-
-document.querySelector(
-  "#prevBtn"
-).addEventListener(
-  "click",
-  () => {
-
-    if(currentQuestion > 0){
-
-      currentQuestion--;
-
-      renderQuestion();
-
-    }
-
-  }
-);
-
-
-/* DATE BACK */
-
-document.querySelector(
-  "#dateBackBtn"
-).addEventListener(
-  "click",
-  () => {
-
-    currentQuestion =
-      questions.length-1;
-
-    renderQuestion();
-
-    show(survey);
-
-  }
-);
-
-
-/* FINISH */
-
-document.querySelector(
-  "#finishBtn"
-).addEventListener(
+sendResponseBtn.addEventListener(
   "click",
   async () => {
 
-    if(!selectedDate){
+    if(!invitation){
+      return;
+    }
+
+
+    if(!selectedOption){
 
       alert(
-        "Выбери дату свидания ❤️"
+        "Сначала выбери вариант."
       );
 
       return;
@@ -2276,44 +1872,97 @@ document.querySelector(
     }
 
 
-    const button =
-      document.querySelector(
-        "#finishBtn"
-      );
+    sendResponseBtn.disabled =
+      true;
 
-
-    button.disabled = true;
-
-    button.textContent =
-      "Сохраняем…";
+    sendResponseBtn.textContent =
+      "Отправляем…";
 
 
     try{
 
-      const response =
-        await saveResponse();
+      const ref =
+        doc(
+          db,
+          "invitations",
+          invitationId
+        );
 
 
-      await showResult(
-        response
+      const response = {
+
+        option:
+          selectedOption,
+
+        emoji:
+          selectedEmoji ||
+          surveyEmoji[selectedOption] ||
+          "💗",
+
+        answeredAt:
+          serverTimestamp()
+
+      };
+
+
+      await updateDoc(
+        ref,
+        {
+          response:
+            response,
+
+          status:
+            "answered"
+        }
       );
 
-    }
-    catch(e){
 
-      console.error(e);
+      invitation.response =
+        response;
+
+
+      surveyMessage.textContent =
+        `Ты выбрал(а): ${selectedOption} 💗`;
+
+
+      sendResponseBtn.textContent =
+        "Ответ отправлен ✓";
+
+
+      responseResult.classList.remove(
+        "hidden"
+      );
+
+
+      setTimeout(
+        () => {
+
+          responseResult.scrollIntoView({
+            behavior:"smooth",
+            block:"center"
+          });
+
+        },
+        100
+      );
+
+
+    }catch(error){
+
+      console.error(error);
+
 
       alert(
-        "Не удалось сохранить ответ. Проверь интернет и попробуй ещё раз."
+        "Не удалось отправить ответ.\n\n" +
+        "Попробуй ещё раз."
       );
 
-    }
-    finally{
 
-      button.disabled = false;
+      sendResponseBtn.disabled =
+        false;
 
-      button.textContent =
-        "Получить билет 🎫";
+      sendResponseBtn.textContent =
+        "Ответить 💌";
 
     }
 
@@ -2321,26 +1970,13 @@ document.querySelector(
 );
 
 
-/* RELOAD */
+/* =====================================================
+   START
+===================================================== */
 
-document.querySelector(
-  "#reloadBtn"
-).addEventListener(
-  "click",
-  () => {
-
-    location.reload();
-
-  }
-);
-
-
-/* START */
-
-checkInvitation();
+loadInvitation();
 
 </script>
 
 </body>
 </html>
-```
