@@ -3,8 +3,7 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Вход — Date Ticket</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,21 +14,22 @@
 :root{
   --bg:#090d16;
   --bg2:#111728;
-  --card:rgba(19,25,42,.78);
+  --card:rgba(19,25,42,.82);
   --line:rgba(255,255,255,.10);
   --text:#fff;
   --muted:#aeb6c8;
   --pink:#ff6fae;
   --pink2:#ff91bf;
   --danger:#ff667d;
-  --green:#73d6a0;
+  --green:#71d6a1;
 }
 
 *{
   box-sizing:border-box;
 }
 
-html,body{
+html,
+body{
   margin:0;
   min-height:100%;
 }
@@ -38,12 +38,10 @@ body{
   min-height:100vh;
   color:var(--text);
   font-family:"Manrope",sans-serif;
-
   background:
-    radial-gradient(circle at 75% 10%,rgba(255,105,170,.15),transparent 28%),
-    radial-gradient(circle at 10% 90%,rgba(95,100,255,.12),transparent 30%),
+    radial-gradient(circle at 75% 10%,rgba(255,105,170,.16),transparent 28%),
+    radial-gradient(circle at 10% 90%,rgba(95,100,255,.13),transparent 30%),
     linear-gradient(135deg,var(--bg),var(--bg2));
-
   overflow-x:hidden;
 }
 
@@ -53,16 +51,14 @@ body:before{
   inset:0;
   pointer-events:none;
   opacity:.28;
-
   background-image:
     radial-gradient(circle at 20% 20%,#fff 0 1px,transparent 1.5px),
     radial-gradient(circle at 75% 35%,#fff 0 1px,transparent 1.5px),
     radial-gradient(circle at 45% 80%,#fff 0 1px,transparent 1.5px);
-
   background-size:
     270px 240px,
     330px 290px,
-    390px 340px;
+    370px 320px;
 }
 
 a{
@@ -70,13 +66,20 @@ a{
   text-decoration:none;
 }
 
+button,
+input{
+  font-family:"Manrope",sans-serif;
+}
+
 .container{
   width:min(1100px,92%);
   margin:auto;
 }
 
+/* HEADER */
+
 header{
-  height:78px;
+  min-height:78px;
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -89,269 +92,110 @@ header{
   font-style:italic;
 }
 
-.back{
-  color:var(--muted);
-  font-size:13px;
-  transition:.2s;
-}
+/* LOGIN */
 
-.back:hover{
-  color:#fff;
-}
-
-main{
+.auth{
   min-height:calc(100vh - 78px);
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:40px 0 80px;
-}
-
-.login-layout{
-  width:100%;
-  display:grid;
-  grid-template-columns:1fr 460px;
-  gap:70px;
-  align-items:center;
-}
-
-.hero-copy{
-  max-width:560px;
-}
-
-.badge{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-
-  padding:8px 13px;
-
-  border:1px solid rgba(255,111,174,.25);
-  background:rgba(255,111,174,.07);
-  border-radius:999px;
-
-  color:#ffc1d9;
-  font-size:12px;
-
-  margin-bottom:22px;
-}
-
-.hero-copy h1{
-  font:700 clamp(45px,5vw,68px)/1.04 "Playfair Display",serif;
-  margin:0 0 22px;
-  letter-spacing:-1.5px;
-}
-
-.hero-copy h1 span{
-  color:var(--pink2);
-}
-
-.hero-copy p{
-  color:var(--muted);
-  line-height:1.8;
-  font-size:15px;
-  max-width:520px;
-}
-
-.login-card{
-  border:1px solid var(--line);
-  background:var(--card);
-  border-radius:28px;
-  padding:34px;
-
-  backdrop-filter:blur(18px);
-
-  box-shadow:
-    0 30px 80px rgba(0,0,0,.3);
-
-  position:relative;
-  overflow:hidden;
-}
-
-.login-card:before{
-  content:"";
-  position:absolute;
-
-  width:300px;
-  height:300px;
-
-  border-radius:50%;
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(255,111,174,.18),
-      transparent 65%
-    );
-
-  top:-150px;
-  right:-130px;
-
-  pointer-events:none;
-}
-
-.card-content{
+  padding:30px 0 70px;
   position:relative;
   z-index:1;
 }
 
-.icon{
-  font-size:52px;
-  margin-bottom:15px;
+.auth-card{
+  width:min(470px,100%);
+  padding:38px;
+  border:1px solid var(--line);
+  border-radius:28px;
+  background:var(--card);
+  backdrop-filter:blur(18px);
+  box-shadow:0 30px 90px rgba(0,0,0,.35);
 }
 
-.login-card h2{
-  font:700 34px/1.1 "Playfair Display",serif;
-  margin:0 0 10px;
+.icon{
+  text-align:center;
+  font-size:62px;
+  margin-bottom:15px;
+  animation:float 4s ease-in-out infinite;
+}
+
+h1{
+  margin:0;
+  text-align:center;
+  font:700 42px/1.05 "Playfair Display",serif;
 }
 
 .subtitle{
   color:var(--muted);
-  font-size:13px;
-  line-height:1.6;
-  margin-bottom:26px;
+  text-align:center;
+  font-size:14px;
+  line-height:1.7;
+  margin:15px auto 28px;
+  max-width:390px;
 }
 
 .field{
-  margin-top:17px;
+  margin-top:18px;
 }
 
 label{
   display:block;
-  font-size:12px;
-  font-weight:700;
   margin-bottom:9px;
+  font-size:13px;
+  font-weight:700;
 }
 
 input{
   width:100%;
-
+  padding:16px 17px;
+  border-radius:15px;
   border:1px solid var(--line);
   outline:none;
-
-  border-radius:15px;
-
   background:rgba(255,255,255,.055);
   color:#fff;
-
-  padding:16px 17px;
-
-  font:500 14px "Manrope",sans-serif;
-
+  font-size:14px;
   transition:.2s;
 }
 
 input::placeholder{
-  color:#737d92;
+  color:#788196;
 }
 
 input:focus{
   border-color:rgba(255,111,174,.65);
-
-  box-shadow:
-    0 0 0 4px rgba(255,111,174,.08);
+  box-shadow:0 0 0 4px rgba(255,111,174,.08);
 }
 
-.password-wrap{
-  position:relative;
-}
-
-.password-wrap input{
-  padding-right:50px;
-}
-
-.show-password{
-  position:absolute;
-  right:13px;
-  top:50%;
-  transform:translateY(-50%);
-
-  border:0;
-  background:transparent;
-
-  color:#929bad;
-
-  cursor:pointer;
-  font-size:18px;
-}
-
-.error{
-  display:none;
-
-  margin-top:15px;
-
-  padding:12px 14px;
-
-  border-radius:13px;
-
-  background:rgba(255,102,125,.08);
-  border:1px solid rgba(255,102,125,.18);
-
-  color:#ff9aaa;
-
-  font-size:12px;
-  line-height:1.5;
-}
-
-.error.show{
-  display:block;
-}
-
-.success{
-  display:none;
-
-  margin-top:15px;
-
-  padding:12px 14px;
-
-  border-radius:13px;
-
-  background:rgba(115,214,160,.08);
-  border:1px solid rgba(115,214,160,.18);
-
-  color:var(--green);
-
-  font-size:12px;
-}
-
-.success.show{
-  display:block;
+.actions{
+  display:flex;
+  gap:10px;
+  margin-top:25px;
 }
 
 .btn{
-  width:100%;
-
+  flex:1;
   border:0;
-  cursor:pointer;
-
   border-radius:15px;
-
-  padding:16px 22px;
-
-  margin-top:23px;
-
+  padding:15px 20px;
   color:#fff;
-
-  font:700 13px "Manrope",sans-serif;
-
-  background:
-    linear-gradient(
-      135deg,
-      var(--pink),
-      var(--pink2)
-    );
-
-  box-shadow:
-    0 12px 35px rgba(255,105,170,.22);
-
+  cursor:pointer;
+  font-weight:800;
+  font-size:13px;
+  background:linear-gradient(135deg,var(--pink),var(--pink2));
+  box-shadow:0 12px 35px rgba(255,105,170,.22);
   transition:.2s;
 }
 
 .btn:hover{
   transform:translateY(-2px);
+}
 
-  box-shadow:
-    0 16px 40px rgba(255,105,170,.32);
+.btn.secondary{
+  background:rgba(255,255,255,.055);
+  border:1px solid var(--line);
+  box-shadow:none;
 }
 
 .btn:disabled{
@@ -360,112 +204,59 @@ input:focus{
   transform:none;
 }
 
-.links{
+.error{
+  min-height:20px;
+  color:var(--danger);
+  text-align:center;
+  font-size:12px;
+  line-height:1.5;
+  margin-top:15px;
+}
+
+.switch{
   text-align:center;
   margin-top:22px;
-
+  color:var(--muted);
   font-size:12px;
-  color:var(--muted);
 }
 
-.links a{
+.switch a{
   color:#ff91bf;
+  font-weight:800;
 }
 
-.links a:hover{
-  text-decoration:underline;
-}
-
-.divider{
-  display:flex;
-  align-items:center;
-  gap:12px;
-
-  margin:25px 0;
-
-  color:#626b7e;
+.footer{
+  text-align:center;
+  color:#697287;
   font-size:11px;
+  margin-top:25px;
 }
 
-.divider:before,
-.divider:after{
-  content:"";
-  flex:1;
-  height:1px;
-  background:var(--line);
-}
-
-.info{
-  margin-top:22px;
-
-  padding:14px;
-
-  border-radius:15px;
-
-  background:rgba(255,255,255,.035);
-  border:1px solid rgba(255,255,255,.06);
-
-  color:var(--muted);
-
-  font-size:11px;
-  line-height:1.6;
-}
-
-@media(max-width:850px){
-
-  .login-layout{
-    grid-template-columns:1fr;
-    gap:35px;
+@keyframes float{
+  0%,100%{
+    transform:translateY(0);
   }
-
-  .hero-copy{
-    text-align:center;
-    margin:auto;
-  }
-
-  .hero-copy p{
-    margin:auto;
-  }
-
-  .badge{
-    margin-bottom:17px;
-  }
-
-  .hero-copy h1{
-    font-size:48px;
-  }
-
-  .login-card{
-    width:min(460px,100%);
-    margin:auto;
+  50%{
+    transform:translateY(-8px);
   }
 }
 
 @media(max-width:520px){
 
-  header{
-    height:68px;
+  .auth-card{
+    padding:28px 20px;
   }
 
-  main{
-    padding:25px 0 50px;
+  h1{
+    font-size:36px;
   }
 
-  .hero-copy h1{
-    font-size:42px;
+  .actions{
+    flex-direction:column;
   }
 
-  .hero-copy p{
-    font-size:14px;
-  }
-
-  .login-card{
-    padding:24px 20px;
-    border-radius:23px;
-  }
-
-  .login-card h2{
-    font-size:30px;
+  .btn{
+    width:100%;
   }
 }
 </style>
@@ -477,160 +268,78 @@ input:focus{
 <div class="container">
 
 <header>
-
-  <a class="logo" href="index.html">
-    Date Ticket
-  </a>
-
-  <a class="back" href="index.html">
-    ← На главную
-  </a>
-
+  <a href="index.html" class="logo">Date Ticket</a>
 </header>
 
-<main>
+<section class="auth">
 
-<div class="login-layout">
-
-  <section class="hero-copy">
+  <div class="auth-card">
 
 ```
-<div class="badge">
-  💌 Твой личный кабинет
-</div>
+<div class="icon">💌</div>
 
-<h1>
-  С возвращением в
-  <span>Date Ticket</span>
-</h1>
+<h1>С возвращением</h1>
 
-<p>
-  Войди в аккаунт, чтобы создавать приглашения,
-  смотреть ответы приглашённых и управлять всеми
-  своими свиданиями в одном месте.
+<p class="subtitle">
+  Войди в аккаунт, чтобы создавать приглашения
+  и управлять уже созданными билетами.
 </p>
-```
 
-  </section>
+<div class="field">
+  <label for="email">Email</label>
 
-  <section class="login-card">
-
-```
-<div class="card-content">
-
-  <div class="icon">🔐</div>
-
-  <h2>Войти</h2>
-
-  <div class="subtitle">
-    Используй email и пароль своего аккаунта.
-  </div>
-
-
-  <form id="loginForm">
-
-    <div class="field">
-
-      <label for="email">
-        Email
-      </label>
-
-      <input
-        id="email"
-        type="email"
-        autocomplete="email"
-        placeholder="example@mail.com"
-        required
-      >
-
-    </div>
-
-
-    <div class="field">
-
-      <label for="password">
-        Пароль
-      </label>
-
-      <div class="password-wrap">
-
-        <input
-          id="password"
-          type="password"
-          autocomplete="current-password"
-          placeholder="Введите пароль"
-          required
-        >
-
-        <button
-          class="show-password"
-          id="showPassword"
-          type="button"
-          aria-label="Показать пароль"
-        >
-          👁
-        </button>
-
-      </div>
-
-    </div>
-
-
-    <div
-      id="error"
-      class="error"
-    ></div>
-
-
-    <div
-      id="success"
-      class="success"
-    >
-      Вход выполнен. Открываем аккаунт…
-    </div>
-
-
-    <button
-      class="btn"
-      id="loginBtn"
-      type="submit"
-    >
-      Войти →
-    </button>
-
-  </form>
-
-
-  <div class="divider">
-    или
-  </div>
-
-
-  <div class="links">
-
-    Нет аккаунта?
-    <a href="register.html">
-      Создать аккаунт
-    </a>
-
-  </div>
-
-
-  <div class="info">
-
-    🔒 Вход выполняется через Firebase Authentication.
-    Пароль не сохраняется в этом сайте.
-
-  </div>
-
+  <input
+    id="email"
+    type="email"
+    autocomplete="email"
+    placeholder="you@example.com">
 </div>
-```
 
-  </section>
+<div class="field">
+  <label for="password">Пароль</label>
+
+  <input
+    id="password"
+    type="password"
+    autocomplete="current-password"
+    placeholder="Введите пароль">
+</div>
+
+<div class="actions">
+
+  <a
+    href="index.html"
+    class="btn secondary">
+    На главную
+  </a>
+
+  <button
+    id="loginBtn"
+    class="btn"
+    type="button">
+    Войти
+  </button>
 
 </div>
 
-</main>
+<div
+  id="error"
+  class="error">
+</div>
+
+<div class="switch">
+  Нет аккаунта?
+  <a href="create.html">Создать аккаунт</a>
+</div>
+
+<div class="footer">
+  Date Ticket · Твои моменты в одном билете ❤️
+</div>
+```
+
+  </div>
+
+</section>
 
 </div>
 
@@ -647,10 +356,14 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-auth.js";
 
 
+/* =========================
+   FIREBASE
+========================= */
+
 const firebaseConfig = {
 
   apiKey:
-    "AIzaSyC2es1T9S8AnTBPyrHVfxTy-Z_u-GiGpWo",
+    "AIzaSyC2esT1S9A8SnTBPyrHVfxTy-Z_u-GiGpWo",
 
   authDomain:
     "date-ticket-2e786.firebaseapp.com",
@@ -679,8 +392,9 @@ const auth =
   getAuth(app);
 
 
-const form =
-  document.querySelector("#loginForm");
+/* =========================
+   ELEMENTS
+========================= */
 
 const emailInput =
   document.querySelector("#email");
@@ -694,204 +408,138 @@ const loginBtn =
 const errorBox =
   document.querySelector("#error");
 
-const successBox =
-  document.querySelector("#success");
 
-const showPassword =
-  document.querySelector("#showPassword");
+/* =========================
+   LOGIN
+========================= */
 
+async function login(){
 
-function showError(message){
+  const email =
+    emailInput.value.trim();
 
-  errorBox.textContent = message;
-  errorBox.classList.add("show");
+  const password =
+    passwordInput.value;
 
-  successBox.classList.remove("show");
-
-}
-
-
-function clearMessages(){
-
-  errorBox.classList.remove("show");
-  successBox.classList.remove("show");
-
-}
+  errorBox.textContent = "";
 
 
-function firebaseError(error){
+  if(!email){
 
-  switch(error.code){
+    errorBox.textContent =
+      "Введи email.";
 
-    case "auth/invalid-credential":
-      return "Неверный email или пароль.";
+    emailInput.focus();
 
-    case "auth/invalid-login-credentials":
-      return "Неверный email или пароль.";
+    return;
+  }
 
-    case "auth/user-not-found":
-      return "Аккаунт с таким email не найден.";
 
-    case "auth/wrong-password":
-      return "Неверный пароль.";
+  if(!password){
 
-    case "auth/invalid-email":
-      return "Проверь правильность email.";
+    errorBox.textContent =
+      "Введи пароль.";
 
-    case "auth/user-disabled":
-      return "Этот аккаунт отключён.";
+    passwordInput.focus();
 
-    case "auth/too-many-requests":
-      return "Слишком много попыток входа. Попробуй немного позже.";
+    return;
+  }
 
-    case "auth/network-request-failed":
-      return "Нет соединения с интернетом.";
 
-    default:
-      return "Не удалось выполнить вход. Проверь данные и попробуй ещё раз.";
+  loginBtn.disabled = true;
+
+  loginBtn.textContent =
+    "Входим…";
+
+
+  try{
+
+    await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+
+  }catch(error){
+
+    console.error(error);
+
+    const messages = {
+
+      "auth/invalid-email":
+        "Неверный формат email.",
+
+      "auth/user-not-found":
+        "Пользователь с таким email не найден.",
+
+      "auth/wrong-password":
+        "Неверный пароль.",
+
+      "auth/invalid-credential":
+        "Неверный email или пароль.",
+
+      "auth/too-many-requests":
+        "Слишком много попыток. Попробуй позже.",
+
+      "auth/user-disabled":
+        "Этот аккаунт отключён."
+
+    };
+
+
+    errorBox.textContent =
+      messages[error.code] ||
+      "Не удалось выполнить вход. Проверь данные.";
+
+  }finally{
+
+    loginBtn.disabled = false;
+
+    loginBtn.textContent =
+      "Войти";
 
   }
 
 }
 
 
-showPassword.addEventListener(
+/* =========================
+   BUTTON
+========================= */
+
+loginBtn.addEventListener(
   "click",
-  () => {
+  login
+);
 
-    const visible =
-      passwordInput.type === "text";
 
-    passwordInput.type =
-      visible ? "password" : "text";
+/* =========================
+   ENTER
+========================= */
 
-    showPassword.textContent =
-      visible ? "👁" : "🙈";
+[emailInput,passwordInput].forEach(
+  input => {
+
+    input.addEventListener(
+      "keydown",
+      event => {
+
+        if(event.key === "Enter"){
+
+          login();
+
+        }
+
+      }
+    );
 
   }
 );
 
 
-form.addEventListener(
-  "submit",
-  async event => {
-
-    event.preventDefault();
-
-    clearMessages();
-
-    const email =
-      emailInput.value.trim();
-
-    const password =
-      passwordInput.value;
-
-
-    if(!email){
-
-      showError(
-        "Введи email."
-      );
-
-      emailInput.focus();
-
-      return;
-
-    }
-
-
-    if(!password){
-
-      showError(
-        "Введи пароль."
-      );
-
-      passwordInput.focus();
-
-      return;
-
-    }
-
-
-    loginBtn.disabled = true;
-    loginBtn.textContent = "Входим…";
-
-
-    try{
-
-      await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-
-
-      successBox.classList.add("show");
-
-      loginBtn.textContent =
-        "Готово ✓";
-
-
-      /*
-       * Если пользователь пришёл на login.html
-       * по ссылке с приглашением, сохраняем её.
-       * После входа account.html сможет вернуть
-       * его туда при необходимости.
-       */
-
-      const returnUrl =
-        new URLSearchParams(
-          location.search
-        ).get("return");
-
-
-      setTimeout(
-        () => {
-
-          if(returnUrl){
-
-            location.href =
-              decodeURIComponent(returnUrl);
-
-          }else{
-
-            location.href =
-              "account.html";
-
-          }
-
-        },
-        500
-      );
-
-
-    }catch(error){
-
-      console.error(
-        "Firebase login error:",
-        error
-      );
-
-      showError(
-        firebaseError(error)
-      );
-
-      loginBtn.disabled = false;
-
-      loginBtn.textContent =
-        "Войти →";
-
-    }
-
-  }
-);
-
-
-/*
- * Если пользователь уже вошёл,
- * повторно показывать форму входа
- * не нужно.
- */
+/* =========================
+   AUTH STATE
+========================= */
 
 onAuthStateChanged(
   auth,
@@ -900,20 +548,12 @@ onAuthStateChanged(
     if(user){
 
       /*
-       * Не делаем мгновенный редирект,
-       * если форма сейчас отображает
-       * результат успешного входа.
+       * Если пользователь уже вошёл,
+       * отправляем его в creator.
        */
 
-      if(
-        !successBox.classList.contains("show") &&
-        !form.dataset.submitted
-      ){
-
-        location.href =
-          "account.html";
-
-      }
+      window.location.href =
+        "create.html";
 
     }
 
