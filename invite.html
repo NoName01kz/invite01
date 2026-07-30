@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Создание приглашения — Date Ticket</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#090d16;--bg2:#111728;--card:rgba(19,25,42,.78);
+  --line:rgba(255,255,255,.10);--text:#fff;--muted:#aeb6c8;
+  --pink:#ff6fae;--pink2:#ff91bf;--gold:#f6c667;--danger:#ff667d;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;min-height:100vh;color:var(--text);font-family:"Manrope",sans-serif;
+  background:radial-gradient(circle at 75% 10%,rgba(255,105,170,.14),transparent 28%),
+  radial-gradient(circle at 10% 90%,rgba(95,100,255,.12),transparent 30%),
+  linear-gradient(135deg,var(--bg),var(--bg2));overflow-x:hidden;
+}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.28;
+background-image:radial-gradient(circle at 20% 20%,#fff 0 1px,transparent 1.5px),
+radial-gradient(circle at 75% 35%,#fff 0 1px,transparent 1.5px);
+background-size:270px 240px,330px 290px}
+.container{width:min(1100px,92%);margin:auto}
+header{height:78px;display:flex;align-items:center;justify-content:space-between;position:relative;z-index:2}
+.logo{font:700 24px "Playfair Display",serif;font-style:italic}
+.save{color:var(--muted);font-size:12px}
+.progress-wrap{position:relative;z-index:2}
+.progress-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.step-label{font-size:12px;color:var(--muted)}
+.step-title{font-size:13px;font-weight:700}
+.progress{height:5px;background:rgba(255,255,255,.08);border-radius:99px;overflow:hidden}
+.progress-bar{height:100%;width:12.5%;background:linear-gradient(90deg,var(--pink),var(--gold));transition:.45s}
+main{padding:44px 0 70px}
+.step{display:none;animation:enter .45s ease}
+.step.active{display:block}
+.step-layout{display:grid;grid-template-columns:1.05fr .95fr;gap:50px;align-items:center;min-height:610px}
+.copy h1{font:700 clamp(40px,5vw,62px)/1.05 "Playfair Display",serif;margin:0 0 18px;letter-spacing:-1px}
+.copy p{color:var(--muted);line-height:1.7;max-width:570px}
+.eyebrow{display:inline-block;color:#ffc0d8;font-size:11px;text-transform:uppercase;letter-spacing:1.7px;margin-bottom:14px}
+.field{margin-top:28px}
+label{display:block;font-size:13px;font-weight:700;margin-bottom:10px}
+input,textarea,select{
+width:100%;border:1px solid var(--line);outline:none;border-radius:16px;background:rgba(255,255,255,.055);
+color:#fff;padding:17px 18px;font:500 14px "Manrope",sans-serif;transition:.2s
+}
+textarea{min-height:180px;resize:vertical;line-height:1.7}
+input:focus,textarea:focus,select:focus{border-color:rgba(255,111,174,.65);box-shadow:0 0 0 4px rgba(255,111,174,.08)}
+.preview{
+border:1px solid var(--line);background:var(--card);border-radius:28px;padding:30px;
+backdrop-filter:blur(18px);box-shadow:0 30px 80px rgba(0,0,0,.28);min-height:470px;
+display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;
+position:relative;overflow:hidden
+}
+.preview:before{content:"";position:absolute;width:320px;height:320px;border-radius:50%;
+background:radial-gradient(circle,rgba(255,111,174,.20),transparent 65%);top:-110px;right:-100px}
+.preview .character{font-size:145px;position:relative;z-index:1;filter:drop-shadow(0 20px 20px rgba(0,0,0,.25));animation:float 4s ease-in-out infinite}
+.preview .bubble{position:relative;z-index:1;margin-top:15px;max-width:300px;padding:13px 17px;border-radius:17px;background:rgba(255,255,255,.07);border:1px solid var(--line);font-size:13px;color:#e8ebf3}
+.option-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:18px}
+.option{
+border:1px solid var(--line);background:rgba(255,255,255,.045);border-radius:17px;padding:17px;
+cursor:pointer;text-align:left;transition:.22s;min-height:78px
+}
+.option:hover{transform:translateY(-2px);background:rgba(255,255,255,.075)}
+.option.selected{border-color:rgba(255,111,174,.72);background:rgba(255,111,174,.10);box-shadow:0 0 0 2px rgba(255,111,174,.08) inset}
+.option .emoji{font-size:28px;margin-bottom:8px}.option strong{font-size:13px}.option small{display:block;color:var(--muted);margin-top:3px;font-size:11px}
+.counter{color:var(--muted);font-size:12px;margin-top:12px}
+.counter b{color:#fff}
+.date-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.notice{margin-top:14px;color:#9ea8bc;font-size:11px;line-height:1.6}
+.actions{display:flex;justify-content:space-between;gap:12px;margin-top:30px}
+.btn{border:0;cursor:pointer;border-radius:15px;padding:15px 23px;color:#fff;font:700 13px "Manrope";background:linear-gradient(135deg,var(--pink),var(--pink2));box-shadow:0 12px 35px rgba(255,105,170,.22);transition:.2s}
+.btn:hover{transform:translateY(-2px)}
+.btn.secondary{background:rgba(255,255,255,.055);border:1px solid var(--line);box-shadow:none}
+.btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.theme-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+.theme{height:105px;border-radius:17px;border:2px solid transparent;cursor:pointer;position:relative;overflow:hidden;transition:.2s}
+.theme.selected{border-color:#fff}
+.theme span{position:absolute;left:12px;bottom:10px;font-size:11px;font-weight:700;text-shadow:0 2px 8px #000}
+.sakura{background:linear-gradient(135deg,#4a203f,#11162d)}
+.galaxy{background:linear-gradient(135deg,#171c50,#080b17)}
+.sunset{background:linear-gradient(135deg,#8e3c48,#f0a45e)}
+.rain{background:linear-gradient(135deg,#172c43,#50677b)}
+.ocean{background:linear-gradient(135deg,#0b5260,#122238)}
+.city{background:linear-gradient(135deg,#201b3f,#0b0d15)}
+.char-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+.char{border:1px solid var(--line);border-radius:18px;padding:15px;background:rgba(255,255,255,.045);cursor:pointer;text-align:center;transition:.2s}
+.char.selected{border-color:rgba(255,111,174,.75);background:rgba(255,111,174,.09)}
+.char .big{font-size:55px}.char div:last-child{font-size:11px;margin-top:5px}
+.limit{color:var(--muted);font-size:12px;margin-top:8px}.limit.ok{color:#ffc0d8}
+.review{border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.045);padding:18px;margin-top:18px}
+.review-row{display:flex;justify-content:space-between;gap:15px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:12px}
+.review-row:last-child{border-bottom:0}.review-row span{color:var(--muted)}
+.success{font-size:80px;margin-bottom:15px}
+.linkbox{display:flex;gap:8px;margin-top:18px}.linkbox input{font-size:12px}
+@keyframes enter{from{opacity:0;transform:translateY(12px);filter:blur(3px)}to{opacity:1;transform:none;filter:none}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@media(max-width:800px){.step-layout{grid-template-columns:1fr;gap:25px}.preview{min-height:330px}.nav-hide{display:none}.theme-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){main{padding-top:25px}.option-grid,.char-grid,.theme-grid{grid-template-columns:1fr 1fr}.option-grid .option{min-height:70px}.date-row{grid-template-columns:1fr}.preview{padding:22px}.preview .character{font-size:105px}.actions .btn{padding:14px 16px}}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <a class="logo" href="index.html">Date Ticket</a>
+  <div class="save">Черновик сохраняется локально</div>
+</header>
+
+<div class="progress-wrap">
+  <div class="progress-top">
+    <div><span class="step-label">Шаг <span id="stepNum">1</span> из 8</span> · <span class="step-title" id="stepTitle">Обращение</span></div>
+    <div class="step-label" id="progressPercent">13%</div>
+  </div>
+  <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+</div>
+
+<main>
+<!-- 1 -->
+<section class="step active" data-title="Обращение">
+<div class="step-layout">
+<div class="copy">
+<span class="eyebrow">Шаг 1 · Персонализация</span>
+<h1>Как сайт будет обращаться к получателю?</h1>
+<p>Это обращение будет использоваться во всём путешествии: в приветствии, репликах персонажа и на финальном билете.</p>
+<div class="field">
+<label for="nickname">Обращение</label>
+<input id="nickname" maxlength="35" placeholder="Например: Солнышко, Алина, Любимая..." />
+<div class="notice">Можно написать что угодно. Главное — чтобы получателю было приятно это увидеть.</div>
+</div>
+</div>
+<div class="preview"><div class="character" id="charPreview">🐸</div><div class="bubble" id="bubblePreview">Привет! Я приготовил для тебя кое-что особенное ❤️</div></div>
+</div>
+<div class="actions"><span></span><button class="btn next">Продолжить →</button></div>
+</section>
+
+<!-- 2 -->
+<section class="step" data-title="Персонаж">
+<div class="step-layout">
+<div class="copy">
+<span class="eyebrow">Шаг 2 · Почтальон</span>
+<h1>Кто доставит приглашение?</h1>
+<p>Этот персонаж будет сопровождать получателя во время опроса и в финале вручит ему билет.</p>
+<div class="char-grid">
+<div class="char selected" data-char="🐸"><div class="big">🐸</div><div>Лягушка</div></div>
+<div class="char" data-char="🦊"><div class="big">🦊</div><div>Лисёнок</div></div>
+<div class="char" data-char="🐱"><div class="big">🐱</div><div>Котик</div></div>
+<div class="char" data-char="🤖"><div class="big">🤖</div><div>Робот</div></div>
+<div class="char" data-char="👼"><div class="big">👼</div><div>Купидон</div></div>
+</div>
+</div>
+<div class="preview"><div class="character" id="characterBig">🐸</div><div class="bubble" id="characterText">Я доставлю твоё приглашение лично 💌</div></div>
+</div>
+<div class="actions"><button class="btn secondary prev">← Назад</button><button class="btn next">Продолжить →</button></div>
+</section>
+
+<!-- 3 -->
+<section class="step" data-title="Фон">
+<div class="step-layout">
+<div class="copy">
+<span class="eyebrow">Шаг 3 · Атмосфера</span>
+<h1>Выбери фон для истории</h1>
+<p>Он будет использоваться на странице получателя и вокруг финального билета.</p>
+<div class="theme-grid">
+<div class="theme sakura selected" data-theme="Сакура"><span>🌸 Сакура</span></div>
+<div class="theme galaxy" data-theme="Звёздное небо"><span>🌌 Звёздное небо</span></div>
+<div class="theme sunset" data-theme="Закат"><span>🌅 Закат</span></div>
+<div class="theme rain" data-theme="Дождь"><span>🌧 Дождь</span></div>
+<div class="theme ocean" data-theme="Море"><span>🌊 Море</span></div>
+<div class="theme city" data-theme="Ночной город"><span>🌃 Ночной город</span></div>
+</div>
+</div>
+<div class="preview" id="themePreview"><div class="character">🌸</div><div class="bubble">Твоя история начинается здесь...</div></div>
+</div>
+<div class="actions"><button class="btn secondary prev">← Назад</button><button class="btn next">Продолжить →</button></div>
+</section>
+
+<!-- 4 -->
+<section class="step" data-title="Музыка">
+<div class="step-layout">
+<div class="copy">
+<span class="eyebrow">Шаг 4 · Звук</span>
+<h1>Добавим немного музыки?</h1>
+<p>Музыка будет играть на странице получателя. Этот шаг необязательный.</p>
+<div class="option-grid">
+<div class="option selected" data-music="none"><div class="emoji">🔇</div><strong>Без музыки</strong><small>Тишина</small></div>
+<div class="option" data-music="piano"><div class="emoji">🎹</div><strong>Нежное пианино</strong><small>Спокойное</small></div>
+<div class="option" data-music="lofi"><div class="emoji">🎧</div><strong>Dreamy lo-fi</strong><small>Мягкое и уютное</small></div>
+<div class="option" data-music="romantic"><div class="emoji">🎻</div><strong>Романтичная мелодия</strong><small>Киношная</small></div>
+</div>
+<div class="notice">В прототипе музыка не загружается. Позже здесь можно подключить готовые треки или загрузку своей композиции.</div>
+</div>
+<div class="preview"><div class="character">🎵</div><div class="bubble">Иногда музыка говорит больше слов.</div></div>
+</div>
+<div class="actions"><button class="btn secondary prev">← Назад</button><button class="btn next">Продолжить →</button></div>
+</section>
+
+<!-- 5 -->
+<section class="step" data-title="Даты">
+<div class="step-layout">
+<div class="copy">
+<span class="eyebrow">Шаг 5 · Когда</span>
+<h1>Когда можно будет встретиться?</h1>
+<p>Ты задаёшь диапазон. После опроса получатель сможет выбрать только одну дату внутри него.</p>
+<div class="field">
+<div class="date-row">
+<div><label>С этой даты</label><input type="date" id="dateFrom"></div>
+<div><label>По эту дату</label><input type="date" id="dateTo"></div>
+</div>
+</div>
+<div class="field">
+<label>Доступное время</label>
+<select id="time">
+<option value="18:00">18:00</option>
+<option value="18:30">18:30</option>
+<option value="19:00">19:00</option>
+<option value="19:30">19:30</option>
+<option value="20:00">20:00</option>
+</select>
+<div class="notice">В первой версии отправитель задаёт одно время. Позже можно сделать несколько доступных вариантов.</div>
+</div>
+</div>
+<div class="preview"><div class="character">📅</div><div class="bubble">Ты выбираешь период, а получатель выберет конкретный день.</div></div>
+</div>
+<div class="actions"><button class="btn secondary prev">← Назад</button><button class="btn next">Продолжить →</button></div>
+</section>
+
+<!-- 6 -->
+<section class="step" data-title="Письмо">
+<div class="step-layout">
+<div class="copy">
+<span class="eyebrow">Шаг 6 · Секрет</span>
+<h1>Напиши личное письмо</h1>
+<p>Оно будет спрятано внизу билета и откроется автоматически в установленную тобой дату и время.</p>
+<div class="field">
+<label for="letter">Текст письма</label>
+<textarea id="letter" maxlength="1500" placeholder="Напиши то, что хочешь сказать лично..."></textarea>
+<div class="counter"><b id="letterCount">0</b> / 1500</div>
+</div>
+<div class="field">
+<label>Когда открыть письмо?</label>
+<input type="datetime-local" id="letterDate">
+<div class="notice">Получатель будет видеть маленький таймер до открытия письма прямо на билете.</div>
+</div>
+</div>
+<div class="preview"><div class="character">💌</div><div class="bubble">Письмо останется закрытым до выбранного момента.</div></div>
+</div>
+<div class="actions"><button class="btn secondary prev">← Назад</button><button class="btn next">Продолжить →</button></div>
+</section>
+
+<!-- 7 -->
+<section class="step" data-title="Опрос">
+<div class="step-layout">
+<div class="copy">
+<span class="eyebrow">Шаг 7 · Идеальное свидание</span>
+<h1>Выбери варианты для каждого вопроса</h1>
+<p>У получателя будет выбор только из отмеченных тобой четырёх вариантов. Здесь мы показываем первый вопрос-пример.</p>
+<label style="margin-top:24px">Где хотелось бы встретиться?</label>
+<div class="option-grid" id="surveyOptions"></div>
+<div class="limit">Выбрано: <b id="surveyCount">0</b> / 4</div>
+<div class="notice">Нужно выбрать ровно четыре варианта. В финальной версии здесь будут все вопросы один за другим.</div>
+</div>
+<div class="preview"><div class="character">🐸</div><div class="bubble">Я предложу только те варианты, которые ты выберешь. Остальное останется за кадром 😉</div></div>
+</div>
+<div class="actions"><button class="btn secondary prev">← Назад</button><button class="btn next" id="surveyNext">Продолжить →</button></div>
+</section>
+
+<!-- 8 -->
+<section class="step" data-title="Проверка">
+<div class="step-layout">
+<div class="copy">
+<span class="eyebrow">Шаг 8 · Почти готово</span>
+<h1>Проверь приглашение</h1>
+<p>После создания ты получишь уникальную ссылку, которую можно отправить получателю.</p>
+<div class="review">
+<div class="review-row"><span>Обращение</span><b id="rNick">—</b></div>
+<div class="review-row"><span>Персонаж</span><b id="rChar">—</b></div>
+<div class="review-row"><span>Фон</span><b id="rTheme">—</b></div>
+<div class="review-row"><span>Даты</span><b id="rDates">—</b></div>
+<div class="review-row"><span>Время</span><b id="rTime">—</b></div>
+<div class="review-row"><span>Личное письмо</span><b id="rLetter">—</b></div>
+<div class="review-row"><span>Вариантов в вопросе</span><b id="rSurvey">—</b></div>
+</div>
+</div>
+<div class="preview"><div class="success">🎫</div><div class="bubble">Всё готово. После нажатия кнопки появится ссылка на твоё приглашение.</div></div>
+</div>
+<div class="actions"><button class="btn secondary prev">← Назад</button><button class="btn" id="createBtn">Создать приглашение ✨</button></div>
+</section>
+
+<section class="step" data-title="Готово">
+<div style="max-width:760px;margin:60px auto;text-align:center">
+<div class="success">💌</div>
+<span class="eyebrow">Приглашение создано</span>
+<h1 style="font-size:56px">Твоя ссылка готова</h1>
+<p style="color:var(--muted);line-height:1.8">Отправь её человеку, для которого ты всё это придумал. Ссылка сохранена в черновике этого браузера.</p>
+<div class="linkbox"><input id="shareLink" readonly><button class="btn" id="copyBtn">Копировать</button></div>
+<div class="actions" style="justify-content:center"><a class="btn secondary" href="index.html">На главную</a><button class="btn" id="previewBtn">Открыть превью</button></div>
+</div>
+</section>
+</main>
+</div>
+
+<script>
+const steps=[...document.querySelectorAll(".step")];
+let current=0;
+const state={
+ nickname:"",
+ character:"🐸",
+ theme:"Сакура",
+ music:"none",
+ from:"",
+ to:"",
+ time:"18:00",
+ letter:"",
+ letterDate:"",
+ survey:[]
+};
+
+const surveyData=[
+ ["☕","Кофейня"],["🎬","Кино"],["🌳","Парк"],["🎳","Боулинг"],
+ ["🌅","Набережная"],["🎨","Мастер-класс"],["🧺","Пикник"],["🎡","Аттракционы"]
+];
+
+const save=()=>localStorage.setItem("dateTicketDraft",JSON.stringify(state));
+const load=()=>{
+ try{Object.assign(state,JSON.parse(localStorage.getItem("dateTicketDraft")||"{}"))}catch(e){}
+ if(state.nickname) document.querySelector("#nickname").value=state.nickname;
+ if(state.letter) {document.querySelector("#letter").value=state.letter;document.querySelector("#letterCount").textContent=state.letter.length}
+ if(state.from) document.querySelector("#dateFrom").value=state.from;
+ if(state.to) document.querySelector("#dateTo").value=state.to;
+ if(state.time) document.querySelector("#time").value=state.time;
+ if(state.letterDate) document.querySelector("#letterDate").value=state.letterDate;
+};
+function updateProgress(){
+ const pct=Math.round(((current+1)/8)*100);
+ document.querySelector("#stepNum").textContent=Math.min(current+1,8);
+ document.querySelector("#stepTitle").textContent=steps[current].dataset.title;
+ document.querySelector("#progressPercent").textContent=pct+"%";
+ document.querySelector("#progressBar").style.width=pct+"%";
+}
+function show(n){
+ current=Math.max(0,Math.min(n,steps.length-1));
+ steps.forEach((s,i)=>s.classList.toggle("active",i===current));
+ updateProgress();
+ if(current===7) updateReview();
+ if(current===6) renderSurvey();
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+document.querySelectorAll(".next").forEach(btn=>btn.addEventListener("click",()=>{
+ if(current===0 && !document.querySelector("#nickname").value.trim()){
+   document.querySelector("#nickname").focus(); return;
+ }
+ if(current===6 && state.survey.length!==4){alert("Выбери ровно 4 варианта.");return}
+ show(current+1);
+}));
+document.querySelectorAll(".prev").forEach(btn=>btn.addEventListener("click",()=>show(current-1)));
+
+document.querySelector("#nickname").addEventListener("input",e=>{
+ state.nickname=e.target.value.trim();
+ document.querySelector("#bubblePreview").textContent=state.nickname?`Привет, ${state.nickname}! Я приготовил для тебя кое-что особенное ❤️`:"Привет! Я приготовил для тебя кое-что особенное ❤️";
+ save();
+});
+document.querySelectorAll(".char").forEach(el=>el.addEventListener("click",()=>{
+ document.querySelectorAll(".char").forEach(x=>x.classList.remove("selected"));
+ el.classList.add("selected");state.character=el.dataset.char;
+ document.querySelector("#characterBig").textContent=state.character;
+ save();
+}));
+document.querySelectorAll(".theme").forEach(el=>el.addEventListener("click",()=>{
+ document.querySelectorAll(".theme").forEach(x=>x.classList.remove("selected"));
+ el.classList.add("selected");state.theme=el.dataset.theme;save();
+}));
+document.querySelectorAll("[data-music]").forEach(el=>el.addEventListener("click",()=>{
+ document.querySelectorAll("[data-music]").forEach(x=>x.classList.remove("selected"));
+ el.classList.add("selected");state.music=el.dataset.music;save();
+}));
+["dateFrom","dateTo","time","letterDate"].forEach(id=>document.querySelector("#"+id).addEventListener("input",e=>{state[id==="dateFrom"?"from":id==="dateTo"?"to":id]=e.target.value;save()}));
+document.querySelector("#letter").addEventListener("input",e=>{
+ state.letter=e.target.value;document.querySelector("#letterCount").textContent=e.target.value.length;save();
+});
+function renderSurvey(){
+ const box=document.querySelector("#surveyOptions");box.innerHTML="";
+ surveyData.forEach(([emoji,name])=>{
+   const div=document.createElement("div");div.className="option"+(state.survey.includes(name)?" selected":"");
+   div.innerHTML=`<div class="emoji">${emoji}</div><strong>${name}</strong>`;
+   div.onclick=()=>{
+     if(state.survey.includes(name)) state.survey=state.survey.filter(x=>x!==name);
+     else if(state.survey.length<4) state.survey.push(name);
+     renderSurvey();save();
+   };
+   box.appendChild(div);
+ });
+ document.querySelector("#surveyCount").textContent=state.survey.length;
+}
+function updateReview(){
+ document.querySelector("#rNick").textContent=state.nickname||"—";
+ document.querySelector("#rChar").textContent=state.character;
+ document.querySelector("#rTheme").textContent=state.theme;
+ document.querySelector("#rDates").textContent=(state.from||"—")+" → "+(state.to||"—");
+ document.querySelector("#rTime").textContent=state.time||"—";
+ document.querySelector("#rLetter").textContent=state.letter?"Написано":"Не заполнено";
+ document.querySelector("#rSurvey").textContent=state.survey.length+" / 4";
+}
+document.querySelector("#createBtn").addEventListener("click",()=>{
+ const id=Math.random().toString(36).slice(2,10).toUpperCase();
+ const payload={...state,id,status:"created",createdAt:new Date().toISOString()};
+ localStorage.setItem("dateTicketInvitation",JSON.stringify(payload));
+ document.querySelector("#shareLink").value=location.origin+location.pathname.replace("create.html","invite.html")+"?id="+id;
+ show(8);
+});
+document.querySelector("#copyBtn").addEventListener("click",async()=>{
+ try{await navigator.clipboard.writeText(document.querySelector("#shareLink").value);document.querySelector("#copyBtn").textContent="Скопировано ✓";setTimeout(()=>document.querySelector("#copyBtn").textContent="Копировать",1500)}
+ catch(e){document.querySelector("#shareLink").select()}
+});
+document.querySelector("#previewBtn").addEventListener("click",()=>{
+ const id=(JSON.parse(localStorage.getItem("dateTicketInvitation")||"{}").id||"");
+ location.href="invite.html?id="+id;
+});
+load();updateProgress();
+</script>
+</body>
+</html>
