@@ -403,12 +403,23 @@ function updateReview(){
  document.querySelector("#rLetter").textContent=state.letter?"Написано":"Не заполнено";
  document.querySelector("#rSurvey").textContent=state.survey.length+" / 4";
 }
-document.querySelector("#createBtn").addEventListener("click",()=>{
- const id=Math.random().toString(36).slice(2,10).toUpperCase();
- const payload={...state,id,status:"created",createdAt:new Date().toISOString()};
- localStorage.setItem("dateTicketInvitation",JSON.stringify(payload));
- document.querySelector("#shareLink").value=location.origin+location.pathname.replace("create.html","invite.html")+"?id="+id;
- show(8);
+document.querySelector("#createBtn").addEventListener("click",async()=>{
+ if(state.survey.length!==4){alert("Выбери ровно 4 варианта.");return}
+ if(!state.from||!state.to){alert("Укажи диапазон дат.");return}
+ if(state.from>state.to){alert("Дата начала не может быть позже даты окончания.");return}
+ const btn=document.querySelector("#createBtn"); btn.disabled=true; btn.textContent="Создаём приглашение…";
+ try{
+  const id=Math.random().toString(36).slice(2,10).toUpperCase();
+  const payload={nickname:state.nickname,character:state.character,theme:state.theme,music:state.music,from:state.from,to:state.to,time:state.time,survey:state.survey,status:"created",createdAt:new Date().toISOString()};
+  const privateLetter={letter:state.letter,letterUnlock:state.letterDate||null};
+  const {db,doc,setDoc}=window.dateTicketFirebase;
+  await setDoc(doc(db,"invitations",id),payload);
+  await setDoc(doc(db,"invitations",id,"private","letter"),privateLetter);
+  localStorage.setItem("dateTicketInvitation",JSON.stringify({...payload,...privateLetter,id}));
+  const base=location.href.substring(0,location.href.lastIndexOf("/")+1);
+  document.querySelector("#shareLink").value=base+"invite.html?id="+id; show(8);
+ }catch(error){console.error(error);alert("Не удалось создать приглашение. Проверь правила Firestore и интернет.");}
+ finally{btn.disabled=false;btn.textContent="Создать приглашение ✨";}
 });
 document.querySelector("#copyBtn").addEventListener("click",async()=>{
  try{await navigator.clipboard.writeText(document.querySelector("#shareLink").value);document.querySelector("#copyBtn").textContent="Скопировано ✓";setTimeout(()=>document.querySelector("#copyBtn").textContent="Копировать",1500)}
@@ -419,6 +430,15 @@ document.querySelector("#previewBtn").addEventListener("click",()=>{
  location.href="invite.html?id="+id;
 });
 load();updateProgress();
+</script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-app.js";
+import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js";
+const firebaseConfig = {
+ apiKey:"AIzaSyC2es1T9S8AnTBPyrHVfxTy-Z_u-GiGpWo", authDomain:"date-ticket-2e786.firebaseapp.com", databaseURL:"https://date-ticket-2e786-default-rtdb.europe-west1.firebasedatabase.app", projectId:"date-ticket-2e786", storageBucket:"date-ticket-2e786.firebasestorage.app", messagingSenderId:"576969359516", appId:"1:576969359516:web:2b9e622d7b2de86acc6d59"
+};
+const app=initializeApp(firebaseConfig); const db=getFirestore(app);
+window.dateTicketFirebase={db,doc,setDoc};
 </script>
 </body>
 </html>
