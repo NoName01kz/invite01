@@ -374,12 +374,40 @@ document.querySelector("#questionNext").onclick=()=>{
  else{buildDates();show("dateScreen")}
 };
 document.querySelector("#dateNext").onclick=async()=>{
- if(!chosenDate){alert("Выбери дату.");return}
- try{
-  const {db,doc,updateDoc}=window.dateTicketFirebase;
-  await updateDoc(doc(db,"invitations",inviteId),{response:{place:answers.place||null,food:answers.food||null,drink:answers.drink||null,mood:answers.mood||null,activity:answers.activity||null,date:chosenDate,time:data.time||"18:00",completedAt:new Date().toISOString()},status:"completed"});
- }catch(e){console.error(e);alert("Не удалось сохранить ответы. Попробуй ещё раз.");return;}
- updateTicket();show("ticketScreen");startTicketTimers();
+  if(!chosenDate){
+    alert("Выбери дату.");
+    return;
+  }
+
+  try{
+    const {db,doc,updateDoc}=window;
+
+    await updateDoc(
+      doc(db,"invitations",inviteId),
+      {
+        response:{
+          place:answers.place||null,
+          food:answers.food||null,
+          drink:answers.drink||null,
+          mood:answers.mood||null,
+          activity:answers.activity||null,
+          date:chosenDate,
+          time:data.time||"18:00",
+          completedAt:new Date().toISOString()
+        },
+        status:"completed"
+      }
+    );
+
+  }catch(e){
+    console.error(e);
+    alert("Не удалось сохранить ответы. Попробуй ещё раз.");
+    return;
+  }
+
+  updateTicket();
+  show("ticketScreen");
+  startTicketTimers();
 };
 document.querySelector("#presentBtn").onclick=()=>{
  localStorage.setItem("dateTicketUsed_"+(data.id||"DEMO"),new Date().toISOString());
