@@ -449,6 +449,18 @@ await window.setDoc(
     btn.textContent = "Создать приглашение ✨";
   }
 });
+
+  document.querySelector("#previewBtn").onclick = () => {
+  const link = document.querySelector("#shareLink").value;
+
+  if (!link) {
+    alert("Сначала создай приглашение.");
+    return;
+  }
+
+  window.open(link, "_blank");
+};
+  
 document.querySelector("#copyBtn")?.addEventListener("click",async()=>{const x=document.querySelector("#shareLink");try{await navigator.clipboard.writeText(x.value);document.querySelector("#copyBtn").textContent="Скопировано ✓"}catch(e){x.select()}});
 document.querySelector("#answersBtn")?.addEventListener("click",()=>{const id=document.querySelector("#answersBtn").dataset.id;if(id)location.href="admin.html?id="+encodeURIComponent(id)});
 
