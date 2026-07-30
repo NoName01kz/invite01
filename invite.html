@@ -223,17 +223,26 @@ p{color:var(--muted);line-height:1.8}
 </div>
 
 <script>
-const fallback={
- nickname:"Солнышко",character:"🐸",theme:"Сакура",time:"18:00",
- from:"",to:"",letter:"Я очень жду нашей встречи ❤️",letterDate:"",survey:["Кофейня","Кино","Парк","Боулинг"],id:"DEMO"
-};
-
-let data=fallback;
-try{
- const saved=JSON.parse(localStorage.getItem("dateTicketInvitation")||"null");
- if(saved) data={...fallback,...saved};
-}catch(e){}
-
+const fallback={nickname:"Солнышко",character:"🐸",theme:"Сакура",time:"18:00",from:"",to:"",survey:["Кино","Кофейня","Парк","Боулинг"],id:""};
+let data={...fallback};
+let privateLetter={letter:"",letterUnlock:null};
+const inviteId=new URLSearchParams(location.search).get("id");
+async function loadInvitation(){
+ if(!inviteId){showError("В ссылке нет ID приглашения.");return false;}
+ try{
+  const {db,doc,getDoc}=window.dateTicketFirebase;
+  const snap=await getDoc(doc(db,"invitations",inviteId));
+  if(!snap.exists()){showError("Приглашение не найдено.");return false;}
+  data={...fallback,...snap.data(),id:inviteId};
+  const letterSnap=await getDoc(doc(db,"invitations",inviteId,"private","letter"));
+  if(letterSnap.exists()) privateLetter=letterSnap.data();
+  document.querySelector("#inviteId").textContent=`# ${inviteId}`;
+  document.querySelector("#welcomeChar").textContent=data.character||"🐸";
+  document.querySelector("#welcomeTitle").textContent=`Привет, ${data.nickname||"Солнышко"}`;
+  return true;
+ }catch(e){console.error(e);showError("Не удалось загрузить приглашение.");return false;}
+}
+function showError(message){document.querySelector("#welcomeTitle").textContent="Упс…";document.querySelector("#welcomeSpeech").textContent=message;document.querySelector("#startBtn").style.display="none";}
 const questions=[
  {title:"Где тебе хотелось бы встретиться?",key:"place",emoji:{
   "Кофейня":"☕","Кино":"🎬","Парк":"🌳","Боулинг":"🎳","Набережная":"🌅","Мастер-класс":"🎨","Пикник":"🧺","Аттракционы":"🎡"
@@ -262,7 +271,7 @@ function show(id){
  window.scrollTo({top:0,behavior:"smooth"});
 }
 function optionsFor(q){
- if(q.key==="place" && data.survey?.length===4) return data.survey;
+ if(q.key==="place") return Array.isArray(data.survey)&&data.survey.length===4 ? data.survey : q.fallback;
  return q.fallback||Object.keys(q.emoji);
 }
 function renderQuestion(){
@@ -286,8 +295,9 @@ function renderQuestion(){
 }
 function buildDates(){
  const box=document.querySelector("#dateOptions");box.innerHTML="";
- const from=data.from?new Date(data.from+"T12:00:00"):new Date();
- const to=data.to?new Date(data.to+"T12:00:00"):new Date(from.getTime()+7*86400000);
+ if(!data.from || !data.to){box.innerHTML='<p>Отправитель не указал диапазон дат.</p>';return;}
+ const from=new Date(data.from+"T12:00:00");
+ const to=new Date(data.to+"T12:00:00");
  let d=new Date(from);
  let safety=0;
  while(d<=to && safety<31){
@@ -338,13 +348,13 @@ function startTicketTimers(){
  const meet=ticketDateTime();
  if(meet) countdown(meet,document.querySelector("#meetCountdown"),"Сегодня ❤️");
  else document.querySelector("#meetCountdown").textContent="Дата выбрана";
- const letterDate=data.letterDate?new Date(data.letterDate):null;
+ const letterDate=privateLetter.letterUnlock?new Date(privateLetter.letterUnlock):null;
  const lock=document.querySelector("#letterLock"), locked=document.querySelector("#letterLocked"), open=document.querySelector("#letterOpen");
  if(!letterDate){lock.textContent="Закрыто";document.querySelector("#letterCountdown").textContent="Время открытия не задано";return}
  const check=()=>{
    const diff=letterDate-new Date();
    if(diff<=0){
-    lock.textContent="Открыто 💗";locked.style.display="none";open.style.display="block";open.textContent=data.letter||"Твоё письмо здесь ❤️";return
+    lock.textContent="Открыто 💗";locked.style.display="none";open.style.display="block";open.textContent=privateLetter.letter||"Твоё письмо здесь ❤️";return
    }
    lock.textContent="Откроется позже";
    const sec=Math.floor(diff/1000),d=Math.floor(sec/86400),h=Math.floor(sec%86400/3600),m=Math.floor(sec%3600/60),s=sec%60;
@@ -353,19 +363,22 @@ function startTicketTimers(){
  };check();
 }
 
-document.querySelector("#inviteId").textContent=data.id?`# ${data.id}`:"";
-document.querySelector("#welcomeChar").textContent=data.character||"🐸";
-document.querySelector("#welcomeTitle").textContent=`Привет, ${data.nickname||"Солнышко"}`;
-document.querySelector("#welcomeSpeech").textContent=`Я кое-что для тебя приготовил. Но сначала мне нужно задать тебе несколько вопросов 💌`;
-
-document.querySelector("#startBtn").onclick=()=>{qIndex=0;renderQuestion();show("survey")};
+document.querySelector("#startBtn").onclick=async()=>{
+ const ok=await loadInvitation(); if(!ok)return;
+ qIndex=0;renderQuestion();show("survey");
+};
+loadInvitation();
 document.querySelector("#questionNext").onclick=()=>{
  if(!answers[questions[qIndex].key]){alert("Выбери один вариант.");return}
  if(qIndex<questions.length-1){qIndex++;renderQuestion()}
  else{buildDates();show("dateScreen")}
 };
-document.querySelector("#dateNext").onclick=()=>{
+document.querySelector("#dateNext").onclick=async()=>{
  if(!chosenDate){alert("Выбери дату.");return}
+ try{
+  const {db,doc,updateDoc}=window.dateTicketFirebase;
+  await updateDoc(doc(db,"invitations",inviteId),{response:{place:answers.place||null,food:answers.food||null,drink:answers.drink||null,mood:answers.mood||null,activity:answers.activity||null,date:chosenDate,time:data.time||"18:00",completedAt:new Date().toISOString()},status:"completed"});
+ }catch(e){console.error(e);alert("Не удалось сохранить ответы. Попробуй ещё раз.");return;}
  updateTicket();show("ticketScreen");startTicketTimers();
 };
 document.querySelector("#presentBtn").onclick=()=>{
