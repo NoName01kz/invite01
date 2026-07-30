@@ -1,229 +1,767 @@
-<!DOCTYPE html>
+<!doctype html>
+
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Тебе пришло приглашение 💌</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Date Ticket · Приглашение</title>
+
 <style>
 :root{
- --bg:#090d16;--bg2:#111728;--card:rgba(19,25,42,.80);
- --line:rgba(255,255,255,.11);--text:#fff;--muted:#aeb6c8;
- --pink:#ff6fae;--pink2:#ff91bf;--gold:#f6c667;
+  --ink:#342c31;
+  --muted:#8c7d83;
+  --paper:#fffaf6;
+  --rose:#d99aa7;
+  --rose2:#f2d9de;
+  --line:#eadfe0;
+  --green:#789b86;
 }
-*{box-sizing:border-box}
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
 body{
- margin:0;min-height:100vh;color:var(--text);font-family:"Manrope",sans-serif;
- background:radial-gradient(circle at 75% 10%,rgba(255,105,170,.16),transparent 28%),
- radial-gradient(circle at 10% 85%,rgba(95,100,255,.12),transparent 32%),
- linear-gradient(135deg,var(--bg),var(--bg2));overflow-x:hidden;
+  margin:0;
+  min-height:100vh;
+  font-family:Georgia,"Times New Roman",serif;
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 20% 10%,#fff 0,#f8e9ec 35%,#eadde8 100%);
+  overflow-x:hidden;
 }
+
 body:before{
- content:"";position:fixed;inset:0;pointer-events:none;opacity:.3;
- background-image:radial-gradient(circle at 20% 20%,#fff 0 1px,transparent 1.5px),
- radial-gradient(circle at 72% 36%,#fff 0 1px,transparent 1.5px),
- radial-gradient(circle at 44% 76%,#fff 0 1px,transparent 1.5px);
- background-size:270px 240px,330px 290px,390px 340px;
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.35;
+  background-image:radial-gradient(#fff 1px,transparent 1px);
+  background-size:28px 28px;
 }
-.container{width:min(900px,92%);margin:auto}
-header{height:78px;display:flex;align-items:center;justify-content:space-between;position:relative;z-index:2}
-.logo{font:700 24px "Playfair Display",serif;font-style:italic}
-.id{font-size:10px;color:#6f788b;letter-spacing:1px}
-.screen{display:none;min-height:calc(100vh - 78px);padding:35px 0 70px;animation:in .5s ease}
-.screen.active{display:flex;align-items:center;justify-content:center}
-.center{text-align:center;width:100%}
-.eyebrow{display:inline-block;color:#ffc0d8;font-size:11px;text-transform:uppercase;letter-spacing:1.7px;margin-bottom:15px}
-h1{font:700 clamp(43px,7vw,72px)/1.04 "Playfair Display",serif;margin:0 0 20px;letter-spacing:-1.5px}
-p{color:var(--muted);line-height:1.8}
-.character{
- font-size:160px;line-height:1;margin:20px auto;
- filter:drop-shadow(0 25px 25px rgba(0,0,0,.3));
- animation:float 4s ease-in-out infinite;
+
+.wrap{
+  width:min(760px,calc(100% - 28px));
+  margin:0 auto;
+  padding:38px 0 70px;
 }
-.speech{
- max-width:520px;margin:0 auto 28px;padding:17px 20px;border:1px solid var(--line);
- background:rgba(255,255,255,.055);border-radius:19px;color:#eef1f8;
- box-shadow:0 20px 60px rgba(0,0,0,.16);font-size:14px;
+
+.header{
+  text-align:center;
+  margin-bottom:24px;
 }
+
+.eyebrow{
+  font:700 11px Arial,sans-serif;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:#9d7c84;
+}
+
+h1{
+  font-size:clamp(34px,7vw,56px);
+  font-weight:400;
+  margin:12px 0 8px;
+}
+
+.subtitle{
+  color:var(--muted);
+  font:15px Arial,sans-serif;
+  line-height:1.6;
+}
+
+.screen{
+  display:none;
+}
+
+.screen.active{
+  display:block;
+}
+
+.card{
+  background:rgba(255,250,246,.92);
+  border:1px solid rgba(150,120,130,.18);
+  border-radius:28px;
+  box-shadow:0 18px 55px rgba(90,55,70,.12);
+  padding:26px;
+  margin:18px 0;
+  backdrop-filter:blur(10px);
+}
+
+.center{
+  text-align:center;
+}
+
+.hero{
+  padding:38px 25px;
+  text-align:center;
+}
+
+.hero-char{
+  width:105px;
+  height:105px;
+  margin:0 auto 18px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:#f3dce1;
+  font-size:58px;
+  box-shadow:0 12px 30px rgba(90,55,70,.12);
+}
+
+.hero h2{
+  font-size:34px;
+  font-weight:400;
+  margin:8px 0 12px;
+}
+
+.hero p{
+  max-width:500px;
+  margin:0 auto;
+  color:var(--muted);
+  font:15px Arial,sans-serif;
+  line-height:1.7;
+}
+
 .btn{
- border:0;cursor:pointer;border-radius:15px;padding:16px 25px;color:#fff;
- font:700 13px "Manrope";background:linear-gradient(135deg,var(--pink),var(--pink2));
- box-shadow:0 12px 35px rgba(255,105,170,.22);transition:.2s
+  display:inline-flex;
+  justify-content:center;
+  align-items:center;
+  border:0;
+  border-radius:999px;
+  padding:15px 24px;
+  background:#4b3d43;
+  color:#fff;
+  font:700 13px Arial,sans-serif;
+  cursor:pointer;
+  text-decoration:none;
+  transition:.2s;
 }
-.btn:hover{transform:translateY(-2px)}
-.question-card{
- width:min(700px,100%);margin:auto;border:1px solid var(--line);
- background:var(--card);backdrop-filter:blur(18px);border-radius:28px;padding:32px;
- box-shadow:0 30px 90px rgba(0,0,0,.28)
+
+.btn:hover{
+  transform:translateY(-1px);
+  opacity:.94;
 }
-.question-number{font-size:11px;color:#ffb5d2;letter-spacing:1.4px;text-transform:uppercase;margin-bottom:12px}
-.question-card h2{font:700 35px "Playfair Display",serif;margin:0 0 25px}
-.options{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+.btn:disabled{
+  opacity:.45;
+  cursor:not-allowed;
+  transform:none;
+}
+
+.btn.secondary{
+  background:#fff;
+  color:var(--ink);
+  border:1px solid var(--line);
+}
+
+.actions{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:22px;
+}
+
+.label{
+  font:700 10px Arial,sans-serif;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+
+.question-number{
+  text-align:center;
+  color:var(--muted);
+  font:700 11px Arial,sans-serif;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  margin-bottom:12px;
+}
+
+.question-title{
+  text-align:center;
+  font-size:30px;
+  font-weight:400;
+  margin:0 0 22px;
+}
+
+.option-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+
 .option{
- border:1px solid var(--line);background:rgba(255,255,255,.045);border-radius:18px;
- padding:19px;text-align:left;cursor:pointer;transition:.2s;min-height:88px
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:20px 12px;
+  text-align:center;
+  cursor:pointer;
+  transition:.2s;
 }
-.option:hover{background:rgba(255,255,255,.075);transform:translateY(-2px)}
-.option.selected{border-color:rgba(255,111,174,.78);background:rgba(255,111,174,.11);box-shadow:0 0 0 2px rgba(255,111,174,.07) inset}
-.option .emoji{font-size:30px;margin-bottom:8px}.option strong{font-size:13px}.option small{display:block;color:var(--muted);font-size:11px;margin-top:3px}
-.bottom{display:flex;justify-content:flex-end;margin-top:20px}
-.hint{font-size:11px;color:#778197;margin-top:15px}
-.date-options{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+
+.option:hover{
+  transform:translateY(-2px);
+}
+
+.option.selected{
+  border-color:var(--rose);
+  background:#fff1f4;
+  box-shadow:0 0 0 2px rgba(217,154,167,.15);
+}
+
+.option .emoji{
+  font-size:32px;
+  margin-bottom:8px;
+}
+
+.option strong{
+  font:700 14px Arial,sans-serif;
+}
+
+.date-options{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+
 .date-option{
- border:1px solid var(--line);background:rgba(255,255,255,.045);border-radius:18px;
- padding:18px 10px;cursor:pointer;text-align:center;transition:.2s
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:15px 8px;
+  text-align:center;
+  cursor:pointer;
+  transition:.2s;
 }
-.date-option:hover{transform:translateY(-2px);background:rgba(255,255,255,.075)}
-.date-option.selected{border-color:rgba(255,111,174,.78);background:rgba(255,111,174,.11)}
-.date-option .day{font-size:25px;font-weight:800}.date-option .month{font-size:11px;color:var(--muted);margin-top:2px}
-.ticket-wrap{width:min(720px,100%);margin:auto}
+
+.date-option:hover{
+  transform:translateY(-2px);
+}
+
+.date-option.selected{
+  background:#fff1f4;
+  border-color:var(--rose);
+}
+
+.date-option .weekday{
+  font:700 10px Arial,sans-serif;
+  color:var(--muted);
+  text-transform:uppercase;
+}
+
+.date-option .day{
+  font-size:30px;
+  margin:4px 0;
+}
+
+.date-option .month{
+  font:12px Arial,sans-serif;
+  color:var(--muted);
+}
+
 .ticket{
- color:#17141b;border-radius:27px;overflow:hidden;position:relative;
- background:linear-gradient(145deg,#fffdf9,#f6f0e7);
- box-shadow:0 35px 100px rgba(0,0,0,.42);
+  position:relative;
+  overflow:hidden;
 }
-.ticket:before,.ticket:after{
- content:"";position:absolute;top:53%;width:34px;height:34px;border-radius:50%;
- background:var(--bg);transform:translateY(-50%);z-index:3
+
+.ticket:before{
+  content:"";
+  position:absolute;
+  inset:12px;
+  border:1px dashed #d9c4ca;
+  border-radius:20px;
+  pointer-events:none;
 }
-.ticket:before{left:-17px}.ticket:after{right:-17px}
-.ticket-top{padding:38px 42px 28px;border-bottom:1px dashed #b9b0a7;text-align:center}
-.ticket-kicker{font-size:10px;letter-spacing:2.3px;font-weight:800;color:#927e82}
-.ticket h2{font:700 40px/1.05 "Playfair Display",serif;margin:10px 0 18px}
-.receiver{font:700 19px "Playfair Display",serif}
-.ticket-message{color:#625c61;font-size:12px;line-height:1.7;max-width:430px;margin:12px auto 0}
-.ticket-info{display:grid;grid-template-columns:1fr 1fr;gap:0;border-bottom:1px dashed #b9b0a7}
-.info{padding:25px 20px;text-align:center;border-right:1px dashed #b9b0a7}
-.info:nth-child(2){border-right:0}
-.info span{display:block;color:#9a8f93;font-size:9px;text-transform:uppercase;letter-spacing:1.3px;margin-bottom:7px}
-.info strong{font-size:17px}
-.countdown{padding:25px;text-align:center;border-bottom:1px dashed #b9b0a7}
-.countdown .small{font-size:9px;letter-spacing:1.5px;color:#9a8f93;text-transform:uppercase}
-.count{font-size:28px;font-weight:800;margin-top:6px}
-.letter{padding:27px 30px 30px}
-.letter-title{display:flex;justify-content:space-between;align-items:center}
-.letter-title strong{font:700 20px "Playfair Display",serif}
-.letter-lock{font-size:10px;color:#a18f92}
-.letter-box{margin-top:15px;min-height:90px;border:1px solid #e1d8cf;border-radius:16px;background:#faf6ef;display:flex;align-items:center;justify-content:center;text-align:center;padding:20px;color:#857a7e;font-size:12px}
-.letter-open{display:none;color:#5e565a;line-height:1.8;white-space:pre-wrap;text-align:left}
-.ticket-footer{padding:20px 30px 28px;text-align:center;background:#f0e9df}
-.present{display:inline-block;border:0;border-radius:13px;padding:14px 25px;background:#18151a;color:white;font:800 12px "Manrope";cursor:pointer;transition:.2s}
-.present:hover{transform:translateY(-2px)}
-.ticket-id{font-size:8px;color:#978c8e;letter-spacing:1.5px;margin-top:12px}
-.qr-screen{text-align:center}
-.qr{
- width:230px;height:230px;margin:20px auto;border-radius:18px;background:white;
- padding:14px;display:grid;place-items:center;color:#111;font-weight:900;font-size:28px;
+
+.ticket-inner{
+  position:relative;
+  z-index:1;
+  text-align:center;
+  padding:20px 10px;
 }
-.qr-pattern{width:100%;height:100%;background:
- repeating-linear-gradient(90deg,#111 0 7px,#fff 7px 14px),
- repeating-linear-gradient(0deg,transparent 0 7px,rgba(255,255,255,.0) 7px 14px);
- mix-blend-mode:multiply;
+
+.ticket-id{
+  font:11px monospace;
+  letter-spacing:2px;
+  color:var(--muted);
+  margin-bottom:25px;
 }
-.status{font-size:12px;color:#aeb6c8}
-@keyframes in{from{opacity:0;transform:translateY(15px);filter:blur(3px)}to{opacity:1;transform:none;filter:none}}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
-@media(max-width:600px){
- .options{grid-template-columns:1fr}.date-options{grid-template-columns:1fr 1fr}
- .question-card{padding:22px}.question-card h2{font-size:29px}
- .ticket-top{padding:30px 24px}.ticket h2{font-size:33px}
- .info{padding:20px 10px}.count{font-size:23px}
- .letter{padding:23px 20px}
+
+.ticket-heart{
+  font-size:50px;
+  margin-bottom:8px;
+}
+
+.ticket h2{
+  font-size:34px;
+  font-weight:400;
+  margin:5px 0 8px;
+}
+
+.ticket-message{
+  color:var(--muted);
+  font:14px Arial,sans-serif;
+  line-height:1.7;
+  max-width:500px;
+  margin:0 auto 24px;
+}
+
+.ticket-info{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-top:20px;
+}
+
+.ticket-info-item{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:17px;
+}
+
+.ticket-info-item span{
+  display:block;
+  color:var(--muted);
+  font:10px Arial,sans-serif;
+  letter-spacing:1px;
+  text-transform:uppercase;
+}
+
+.ticket-info-item strong{
+  display:block;
+  font-size:21px;
+  margin-top:6px;
+}
+
+.countdown{
+  margin:18px 0;
+  padding:15px;
+  background:#f7edef;
+  border-radius:16px;
+  font:700 14px Arial,sans-serif;
+}
+
+.letter{
+  position:relative;
+  overflow:hidden;
+}
+
+.letter:before{
+  content:"✉";
+  position:absolute;
+  right:22px;
+  top:12px;
+  font-size:54px;
+  opacity:.07;
+}
+
+.letter-text{
+  white-space:pre-wrap;
+  font-size:19px;
+  line-height:1.75;
+  margin-top:15px;
+}
+
+.letter-lock{
+  color:var(--muted);
+  font:14px Arial,sans-serif;
+  line-height:1.6;
+}
+
+.status{
+  text-align:center;
+  padding:38px 20px;
+}
+
+.status-icon{
+  font-size:50px;
+}
+
+.status h2{
+  font-size:30px;
+  font-weight:400;
+  margin:10px 0;
+}
+
+.status p{
+  color:var(--muted);
+  font:14px Arial,sans-serif;
+  line-height:1.6;
+}
+
+.qr-screen{
+  text-align:center;
+}
+
+.qr-box{
+  background:#fff;
+  border-radius:24px;
+  padding:30px;
+  margin:20px auto;
+  max-width:430px;
+  border:1px solid var(--line);
+}
+
+.qr-placeholder{
+  width:220px;
+  height:220px;
+  margin:0 auto 20px;
+  display:grid;
+  place-items:center;
+  background:
+    linear-gradient(45deg,#222 25%,transparent 25%),
+    linear-gradient(-45deg,#222 25%,transparent 25%),
+    linear-gradient(45deg,transparent 75%,#222 75%),
+    linear-gradient(-45deg,transparent 75%,#222 75%);
+  background-size:28px 28px;
+  background-position:0 0,0 14px,14px -14px,-14px 0;
+  border:12px solid #fff;
+}
+
+.qr-placeholder span{
+  background:#fff;
+  padding:8px;
+  font:700 12px Arial,sans-serif;
+}
+
+.used{
+  padding:16px;
+  border-radius:16px;
+  background:#edf5ef;
+  color:#496653;
+  font:700 13px Arial,sans-serif;
+}
+
+.error{
+  color:#a34e5c;
+}
+
+.hidden{
+  display:none!important;
+}
+
+.small{
+  font:12px Arial,sans-serif;
+  color:var(--muted);
+}
+
+@media(max-width:560px){
+  .card{
+    padding:20px;
+  }
+
+  .option-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .date-options{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .ticket-info{
+    grid-template-columns:1fr;
+  }
+
+  .hero h2{
+    font-size:29px;
+  }
 }
 </style>
+
 </head>
+
 <body>
-<div class="container">
-<header>
-<a class="logo" href="#">Date Ticket</a>
-<div class="id" id="inviteId"></div>
+
+<div class="wrap">
+
+<header class="header">
+  <div class="eyebrow">Date Ticket · Приглашение</div>
+  <h1 id="pageTitle">Особенное приглашение</h1>
+  <div class="subtitle" id="pageSubtitle">
+    Для тебя приготовили кое-что особенное ❤️
+  </div>
 </header>
 
-<!-- Welcome -->
-<section class="screen active" id="welcome">
-<div class="center">
-<div class="character" id="welcomeChar">🐸</div>
-<div class="eyebrow">Тебе пришло кое-что особенное</div>
-<h1 id="welcomeTitle">Привет, Солнышко</h1>
-<div class="speech" id="welcomeSpeech">Я кое-что для тебя приготовил. Но сначала мне нужно задать тебе несколько вопросов 💌</div>
-<button class="btn" id="startBtn">Узнать, что это →</button>
-</div>
+<!-- =========================
+     ЗАГРУЗКА
+========================= -->
+
+<section id="loadingScreen" class="screen active">
+  <div class="card status">
+    <div class="status-icon">💌</div>
+    <h2>Открываем приглашение…</h2>
+    <p>Подожди немного.</p>
+  </div>
 </section>
 
-<!-- Survey -->
-<section class="screen" id="survey">
-<div class="question-card">
-<div class="question-number" id="questionNumber">Вопрос 1</div>
-<h2 id="questionTitle">Где тебе хотелось бы встретиться?</h2>
-<div class="options" id="questionOptions"></div>
-<div class="hint">Выбери один вариант</div>
-<div class="bottom"><button class="btn" id="questionNext">Дальше →</button></div>
+<!-- =========================
+     ПРИВЕТСТВИЕ
+========================= -->
+
+<section id="welcomeScreen" class="screen">
+
+  <div class="card hero">
+
+```
+<div class="hero-char" id="welcomeChar">🐸</div>
+
+<div class="label">Для тебя</div>
+
+<h2 id="welcomeTitle">Привет ❤️</h2>
+
+<p id="welcomeSpeech">
+  Тебе оставили приглашение на особенное свидание.
+  Ответь на несколько вопросов — и мы узнаем,
+  каким будет ваш идеальный день.
+</p>
+
+<div class="actions">
+  <button class="btn" id="startBtn">
+    Открыть приглашение ✨
+  </button>
 </div>
+```
+
+  </div>
+
 </section>
 
-<!-- Date -->
-<section class="screen" id="dateScreen">
-<div class="question-card">
-<div class="question-number">Последний выбор</div>
-<h2>Какой день тебе подходит?</h2>
-<p style="margin-top:-10px;margin-bottom:22px">Выбери один день из тех, которые были предложены.</p>
+<!-- =========================
+     ОПРОС
+========================= -->
+
+<section id="surveyScreen" class="screen">
+
+  <div class="card">
+
+```
+<div class="question-number" id="questionNumber">
+  Вопрос 1 из 5
+</div>
+
+<h2 class="question-title" id="questionTitle">
+  Где тебе хотелось бы встретиться?
+</h2>
+
+<div class="option-grid" id="questionOptions"></div>
+
+<div class="actions">
+  <button class="btn" id="questionNext">
+    Дальше →
+  </button>
+</div>
+```
+
+  </div>
+
+</section>
+
+<!-- =========================
+     ВЫБОР ДАТЫ
+========================= -->
+
+<section id="dateScreen" class="screen">
+
+  <div class="card">
+
+```
+<div class="label">Последний шаг</div>
+
+<h2 class="question-title">
+  Когда тебе удобно встретиться?
+</h2>
+
+<p class="subtitle" style="text-align:center;margin-bottom:22px">
+  Выбери один день из предложенного диапазона.
+</p>
+
 <div class="date-options" id="dateOptions"></div>
-<div class="bottom"><button class="btn" id="dateNext">Получить приглашение ✨</button></div>
+
+<div class="actions">
+  <button class="btn" id="dateNext">
+    Подтвердить дату ❤️
+  </button>
 </div>
+```
+
+  </div>
+
 </section>
 
-<!-- Ticket -->
-<section class="screen" id="ticketScreen">
-<div class="ticket-wrap">
-<div class="ticket">
-<div class="ticket-top">
-<div class="ticket-kicker">ЭЛЕКТРОННЫЙ БИЛЕТ</div>
-<h2>Приглашение<br>на свидание</h2>
-<div class="receiver" id="ticketReceiver">Для тебя, Солнышко ❤️</div>
-<div class="ticket-message" id="ticketMessage">Я хочу провести этот день именно с тобой.</div>
+<!-- =========================
+     БИЛЕТ
+========================= -->
+
+<section id="ticketScreen" class="screen">
+
+  <div class="card ticket">
+
+```
+<div class="ticket-inner">
+
+  <div class="ticket-id" id="ticketId">
+    DATE TICKET · INVITATION
+  </div>
+
+  <div class="ticket-heart">💌</div>
+
+  <h2 id="ticketReceiver">
+    Для тебя ❤️
+  </h2>
+
+  <div class="ticket-message" id="ticketMessage">
+    Я хочу провести этот день именно с тобой.
+    Надеюсь, ты примешь это приглашение ❤️
+  </div>
+
+  <div class="ticket-info">
+
+    <div class="ticket-info-item">
+      <span>Дата</span>
+      <strong id="ticketDate">—</strong>
+    </div>
+
+    <div class="ticket-info-item">
+      <span>Время</span>
+      <strong id="ticketTime">—</strong>
+    </div>
+
+  </div>
+
+  <div class="countdown" id="meetCountdown">
+    Проверяем дату…
+  </div>
+
+  <div class="actions">
+    <button class="btn" id="presentBtn">
+      Предъявить билет 🎟️
+    </button>
+  </div>
+
+  <p class="small" id="presentHint" style="margin-top:15px">
+    Предъявить билет можно только в день свидания.
+  </p>
+
 </div>
-<div class="ticket-info">
-<div class="info"><span>Место</span><strong id="ticketPlace">Кино</strong></div>
-<div class="info"><span>Время</span><strong id="ticketTime">18:00</strong></div>
+```
+
+  </div>
+
+  <!-- Письмо -->
+
+  <div class="card letter">
+
+```
+<div class="label">Личное письмо</div>
+
+<div id="letterLock" class="letter-lock" style="margin-top:12px">
+  Проверяем доступ…
 </div>
-<div class="countdown">
-<div class="small">До нашей встречи</div>
-<div class="count" id="meetCountdown">—</div>
+
+<div id="letterCountdown"
+     class="small"
+     style="margin-top:8px">
 </div>
-<div class="letter">
-<div class="letter-title">
-<strong>💌 Личное письмо</strong>
-<span class="letter-lock" id="letterLock">Открывается позже</span>
+
+<div id="letterOpen"
+     class="letter-text hidden">
 </div>
-<div class="letter-box">
-<div id="letterLocked">🔒<br><br><span>Письмо пока закрыто</span><br><small id="letterCountdown">—</small></div>
-<div class="letter-open" id="letterOpen"></div>
+```
+
+  </div>
+
+  <div class="card">
+
+```
+<div class="label">Твои ответы</div>
+
+<div id="savedAnswers"
+     style="margin-top:16px">
 </div>
-</div>
-<div class="ticket-footer">
-<button class="present" id="presentBtn">🎫 Предъявить билет</button>
-<div class="ticket-id" id="ticketId">DATE TICKET</div>
-</div>
-</div>
-</div>
+```
+
+  </div>
+
 </section>
 
-<!-- QR -->
-<section class="screen" id="qrScreen">
-<div class="center qr-screen">
-<div class="eyebrow">Билет предъявлен</div>
-<h1>До встречи ❤️</h1>
-<div class="qr"><div class="qr-pattern"></div></div>
-<p>Покажи этот экран тому, кто тебя пригласил.</p>
-<div class="status" id="usedStatus"></div>
+<!-- =========================
+     ПРЕДЪЯВЛЕННЫЙ БИЛЕТ
+========================= -->
+
+<section id="qrScreen" class="screen">
+
+  <div class="card qr-screen">
+
+```
+<div class="status-icon">🎟️</div>
+
+<h2>
+  Билет предъявлен ❤️
+</h2>
+
+<p class="subtitle">
+  Этот билет использован для вашего свидания.
+</p>
+
+<div class="qr-box">
+
+  <div class="qr-placeholder">
+    <span id="qrId">DATE TICKET</span>
+  </div>
+
+  <div class="used" id="usedStatus">
+    Билет предъявлен.
+  </div>
+
 </div>
+```
+
+  </div>
+
 </section>
+
+<!-- =========================
+     ОШИБКА
+========================= -->
+
+<section id="errorScreen" class="screen">
+
+  <div class="card status">
+
+```
+<div class="status-icon">🥲</div>
+
+<h2>Упс…</h2>
+
+<p class="error" id="errorText">
+  Не удалось открыть приглашение.
+</p>
+
+<div class="actions">
+  <button class="btn secondary"
+          onclick="location.reload()">
+    Попробовать снова
+  </button>
+</div>
+```
+
+  </div>
+
+</section>
+
 </div>
 
-```html
 <script type="module">
+
 import {
   initializeApp
 } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-app.js";
@@ -235,432 +773,302 @@ import {
   updateDoc
 } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js";
 
-/* =========================
+
+/* =========================================================
    FIREBASE
-========================= */
+========================================================= */
 
 const firebaseConfig = {
-  apiKey: "AIzaSyC2esT1S9A8SnTBPyrHVfxTy-Z_u-GiGpWo",
-  authDomain: "date-ticket-2e786.firebaseapp.com",
-  databaseURL: "https://date-ticket-2e786-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "date-ticket-2e786",
-  storageBucket: "date-ticket-2e786.firebasestorage.app",
-  messagingSenderId: "576969359516",
-  appId: "1:576969359516:web:2b9e622d7b2de86acc6d59"
+  apiKey:"AIzaSyC2es1T9S8AnTBPyrHVfxTy-Z_u-GiGpWo",
+  authDomain:"date-ticket-2e786.firebaseapp.com",
+  databaseURL:"https://date-ticket-2e786-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId:"date-ticket-2e786",
+  storageBucket:"date-ticket-2e786.firebasestorage.app",
+  messagingSenderId:"576969359516",
+  appId:"1:576969359516:web:2b9e622d7b2de86acc6d59"
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+const inviteId =
+  new URLSearchParams(location.search).get("id");
 
-/* =========================
-   ДАННЫЕ
-========================= */
+
+/* =========================================================
+   СОСТОЯНИЕ
+========================================================= */
 
 const fallback = {
-  nickname: "Солнышко",
-  character: "🐸",
-  theme: "Сакура",
-  music: "none",
-  time: "18:00",
-  from: "",
-  to: "",
-  questions: {
-    place: ["Кино", "Кофейня", "Парк", "Боулинг"],
-    food: ["Пицца", "Суши", "Бургер", "Паста"],
-    drink: ["Лимонад", "Кофе", "Чай", "Милкшейк"],
-    important: ["Поговорить", "Посмеяться", "Уют", "Новые впечатления"],
-    activity: ["Прогуляться", "Посмотреть фильм", "Поиграть", "Сделать что-то новое"]
-  },
-  id: ""
+  nickname:"Солнышко",
+  character:"🐸",
+  theme:"Сакура",
+  time:"18:00",
+  from:"",
+  to:"",
+  questions:{
+    place:[],
+    food:[],
+    drink:[],
+    important:[],
+    activity:[]
+  }
 };
 
-let data = { ...fallback };
+let data = {
+  ...fallback
+};
+
 let privateLetter = {
-  letter: "",
-  letterUnlock: null
+  letter:"",
+  letterUnlock:null
 };
-
-const inviteId = new URLSearchParams(location.search).get("id");
 
 let qIndex = 0;
-const answers = {};
-let chosenDate = "";
 
-
-/* =========================
-   ВОПРОСЫ
-========================= */
-
-const questionMeta = {
-  place: {
-    title: "Где тебе хотелось бы встретиться?",
-    emoji: {
-      "Кофейня": "☕",
-      "Кино": "🎬",
-      "Парк": "🌳",
-      "Боулинг": "🎳",
-      "Набережная": "🌅",
-      "Мастер-класс": "🎨",
-      "Пикник": "🧺",
-      "Аттракционы": "🎡"
-    }
-  },
-
-  food: {
-    title: "Что бы тебе хотелось покушать?",
-    emoji: {
-      "Пицца": "🍕",
-      "Суши": "🍣",
-      "Бургер": "🍔",
-      "Паста": "🍝",
-      "Тако": "🌮",
-      "Рамен": "🍜",
-      "Десерт": "🍰",
-      "Салат": "🥗"
-    }
-  },
-
-  drink: {
-    title: "Что выпить?",
-    emoji: {
-      "Лимонад": "🥤",
-      "Кофе": "☕",
-      "Чай": "🍵",
-      "Милкшейк": "🥛",
-      "Сок": "🧃",
-      "Бабл-ти": "🧋",
-      "Какао": "🍫",
-      "Вода": "💧"
-    }
-  },
-
-  important: {
-    title: "Что главное в свидании?",
-    emoji: {
-      "Поговорить": "💬",
-      "Посмеяться": "😂",
-      "Уют": "🕯️",
-      "Новые впечатления": "✨",
-      "Романтика": "❤️",
-      "Быть собой": "🤝",
-      "Запомнить день": "📸",
-      "Спокойствие": "🌿"
-    }
-  },
-
-  activity: {
-    title: "Чем хотелось бы заняться?",
-    emoji: {
-      "Прогуляться": "🚶",
-      "Посмотреть фильм": "🎬",
-      "Поиграть": "🎲",
-      "Сделать что-то новое": "🌟",
-      "Сделать фотографии": "📸",
-      "Приготовить вместе": "🍳",
-      "Порисовать": "🎨",
-      "Послушать музыку": "🎶"
-    }
-  }
+const answers = {
+  place:"",
+  food:"",
+  drink:"",
+  mood:"",
+  activity:""
 };
 
+let chosenDate = "";
 
-/* =========================
-   ПОРЯДОК ВОПРОСОВ
-========================= */
-
-const questions = [
-  {
-    key: "place",
-    title: questionMeta.place.title,
-    emoji: questionMeta.place.emoji
-  },
-  {
-    key: "food",
-    title: questionMeta.food.title,
-    emoji: questionMeta.food.emoji
-  },
-  {
-    key: "drink",
-    title: questionMeta.drink.title,
-    emoji: questionMeta.drink.emoji
-  },
-  {
-    key: "important",
-    title: questionMeta.important.title,
-    emoji: questionMeta.important.emoji
-  },
-  {
-    key: "activity",
-    title: questionMeta.activity.title,
-    emoji: questionMeta.activity.emoji
-  }
-];
+let countdownTimer = null;
+let letterTimer = null;
 
 
-/* =========================
-   ЗАГРУЗКА ПРИГЛАШЕНИЯ
-========================= */
-
-async function loadInvitation() {
-
-  if (!inviteId) {
-    showError("В ссылке нет ID приглашения.");
-    return false;
-  }
-
-  try {
-
-    const invitationRef = doc(
-      db,
-      "invitations",
-      inviteId
-    );
-
-    const snap = await getDoc(invitationRef);
-
-    if (!snap.exists()) {
-      showError("Приглашение не найдено.");
-      return false;
-    }
-
-    const firebaseData = snap.data();
-
-    data = {
-      ...fallback,
-      ...firebaseData,
-      id: inviteId,
-
-      questions: {
-        ...fallback.questions,
-        ...(firebaseData.questions || {})
-      }
-    };
-
-
-    /* Загружаем личное письмо */
-
-    try {
-
-      const letterRef = doc(
-        db,
-        "invitations",
-        inviteId,
-        "private",
-        "letter"
-      );
-
-      const letterSnap = await getDoc(letterRef);
-
-      if (letterSnap.exists()) {
-        privateLetter = {
-          ...privateLetter,
-          ...letterSnap.data()
-        };
-      }
-
-    } catch (letterError) {
-
-      console.warn(
-        "Личное письмо пока недоступно:",
-        letterError
-      );
-
-    }
-
-
-    /* Заполняем приветственный экран */
-
-    const idEl = document.querySelector("#inviteId");
-    const charEl = document.querySelector("#welcomeChar");
-    const titleEl = document.querySelector("#welcomeTitle");
-
-    if (idEl) {
-      idEl.textContent = `# ${inviteId}`;
-    }
-
-    if (charEl) {
-      charEl.textContent = data.character || "🐸";
-    }
-
-    if (titleEl) {
-      titleEl.textContent =
-        `Привет, ${data.nickname || "Солнышко"}`;
-    }
-
-    return true;
-
-  } catch (error) {
-
-    console.error(
-      "Ошибка загрузки приглашения:",
-      error
-    );
-
-    showError(
-      "Не удалось загрузить приглашение. Проверь ссылку и правила Firestore."
-    );
-
-    return false;
-  }
-}
-
-
-/* =========================
-   ОШИБКА
-========================= */
-
-function showError(message) {
-
-  const title = document.querySelector("#welcomeTitle");
-  const speech = document.querySelector("#welcomeSpeech");
-  const start = document.querySelector("#startBtn");
-
-  if (title) {
-    title.textContent = "Упс…";
-  }
-
-  if (speech) {
-    speech.textContent = message;
-  }
-
-  if (start) {
-    start.style.display = "none";
-  }
-}
-
-
-/* =========================
+/* =========================================================
    ЭКРАНЫ
-========================= */
+========================================================= */
 
-function show(id) {
+function show(screenId){
 
   document
     .querySelectorAll(".screen")
-    .forEach(screen => {
-      screen.classList.remove("active");
-    });
+    .forEach(x => x.classList.remove("active"));
 
-  const target = document.querySelector("#" + id);
+  const screen =
+    document.querySelector("#" + screenId);
 
-  if (target) {
-    target.classList.add("active");
+  if(screen){
+    screen.classList.add("active");
   }
 
   window.scrollTo({
-    top: 0,
-    behavior: "smooth"
+    top:0,
+    behavior:"smooth"
   });
 }
 
 
-/* =========================
-   ВАРИАНТЫ ВОПРОСА
-========================= */
+/* =========================================================
+   ОШИБКА
+========================================================= */
 
-function optionsFor(question) {
+function showError(message){
 
-  const selectedBySender =
-    data.questions?.[question.key];
+  document.querySelector("#errorText").textContent =
+    message;
 
-  if (
-    Array.isArray(selectedBySender) &&
-    selectedBySender.length > 0
-  ) {
-    return selectedBySender;
-  }
-
-  return Object.keys(question.emoji);
+  show("errorScreen");
 }
 
 
-/* =========================
-   РЕНДЕР ВОПРОСА
-========================= */
+/* =========================================================
+   ВОПРОСЫ
+========================================================= */
 
-function renderQuestion() {
+const questions = [
 
-  const question = questions[qIndex];
+  {
+    title:"Где тебе хотелось бы встретиться?",
+    key:"place",
 
-  const number = document.querySelector("#questionNumber");
-  const title = document.querySelector("#questionTitle");
-  const box = document.querySelector("#questionOptions");
-  const next = document.querySelector("#questionNext");
+    emoji:{
+      "Кофейня":"☕",
+      "Кино":"🎬",
+      "Парк":"🌳",
+      "Боулинг":"🎳",
+      "Набережная":"🌅",
+      "Мастер-класс":"🎨",
+      "Пикник":"🧺",
+      "Аттракционы":"🎡"
+    }
+  },
 
-  if (!number || !title || !box || !next) {
-    console.error("Элементы вопроса не найдены.");
-    return;
+  {
+    title:"Что бы тебе хотелось покушать?",
+    key:"food",
+
+    emoji:{
+      "Пицца":"🍕",
+      "Суши":"🍣",
+      "Бургер":"🍔",
+      "Паста":"🍝",
+      "Тако":"🌮",
+      "Рамен":"🍜",
+      "Десерт":"🍰",
+      "Салат":"🥗"
+    }
+  },
+
+  {
+    title:"Что выпить?",
+    key:"drink",
+
+    emoji:{
+      "Лимонад":"🥤",
+      "Кофе":"☕",
+      "Чай":"🍵",
+      "Милкшейк":"🥛",
+      "Сок":"🧃",
+      "Бабл-ти":"🧋",
+      "Какао":"🍫",
+      "Вода":"💧"
+    }
+  },
+
+  {
+    title:"Что главное в свидании?",
+    key:"mood",
+
+    emoji:{
+      "Поговорить":"💬",
+      "Посмеяться":"😂",
+      "Уют":"🕯️",
+      "Новые впечатления":"✨",
+      "Романтика":"❤️",
+      "Быть собой":"🤝",
+      "Запомнить день":"📸",
+      "Спокойствие":"🌿"
+    }
+  },
+
+  {
+    title:"Чем хотелось бы заняться?",
+    key:"activity",
+
+    emoji:{
+      "Прогуляться":"🚶",
+      "Посмотреть фильм":"🎬",
+      "Поиграть":"🎲",
+      "Сделать что-то новое":"🌟",
+      "Сделать фотографии":"📸",
+      "Приготовить вместе":"🍳",
+      "Порисовать":"🎨",
+      "Послушать музыку":"🎶"
+    }
   }
 
-  number.textContent =
-    `Вопрос ${qIndex + 1} из ${questions.length}`;
+];
 
-  title.textContent = question.title;
+
+/* =========================================================
+   ВАРИАНТЫ ИЗ CREATE
+========================================================= */
+
+function optionsFor(q){
+
+  const source =
+    data.questions &&
+    Array.isArray(data.questions[q.key])
+      ? data.questions[q.key]
+      : [];
+
+  if(source.length === 4){
+    return source;
+  }
+
+  return Object.keys(q.emoji);
+}
+
+
+/* =========================================================
+   РЕНДЕР ВОПРОСА
+========================================================= */
+
+function renderQuestion(){
+
+  const q = questions[qIndex];
+
+  document.querySelector("#questionNumber")
+    .textContent =
+      `Вопрос ${qIndex + 1} из ${questions.length}`;
+
+  document.querySelector("#questionTitle")
+    .textContent = q.title;
+
+  const box =
+    document.querySelector("#questionOptions");
 
   box.innerHTML = "";
 
-  const options = optionsFor(question);
+  const options = optionsFor(q);
 
   options.forEach(name => {
 
-    const div = document.createElement("div");
+    const div =
+      document.createElement("div");
 
     div.className =
       "option" +
-      (answers[question.key] === name
+      (answers[q.key] === name
         ? " selected"
         : "");
 
     div.innerHTML = `
       <div class="emoji">
-        ${question.emoji[name] || "✨"}
+        ${q.emoji[name] || "✨"}
       </div>
-
       <strong>${name}</strong>
     `;
 
-    div.addEventListener("click", () => {
+    div.onclick = () => {
 
-      answers[question.key] = name;
+      answers[q.key] = name;
 
       box
         .querySelectorAll(".option")
-        .forEach(option => {
-          option.classList.remove("selected");
-        });
+        .forEach(x =>
+          x.classList.remove("selected")
+        );
 
       div.classList.add("selected");
-
-    });
+    };
 
     box.appendChild(div);
 
   });
 
-  next.textContent =
-    qIndex === questions.length - 1
-      ? "Выбрать дату →"
-      : "Дальше →";
+  document.querySelector("#questionNext")
+    .textContent =
+      qIndex === questions.length - 1
+        ? "Выбрать дату →"
+        : "Дальше →";
 }
 
 
-/* =========================
+/* =========================================================
    ДАТЫ
-========================= */
+========================================================= */
 
-function buildDates() {
+function buildDates(){
 
-  const box = document.querySelector("#dateOptions");
-
-  if (!box) return;
+  const box =
+    document.querySelector("#dateOptions");
 
   box.innerHTML = "";
 
-  if (!data.from || !data.to) {
+  if(!data.from || !data.to){
 
-    box.innerHTML =
-      "<p>Отправитель не указал диапазон дат.</p>";
+    box.innerHTML = `
+      <p class="small">
+        Отправитель не указал диапазон дат.
+      </p>
+    `;
 
     return;
   }
@@ -671,21 +1079,24 @@ function buildDates() {
   const to =
     new Date(data.to + "T12:00:00");
 
-  let currentDate = new Date(from);
+  let d = new Date(from);
 
   let safety = 0;
 
-  while (
-    currentDate <= to &&
-    safety < 31
-  ) {
+  while(d <= to && safety < 31){
 
-    const date = new Date(currentDate);
+    const date = new Date(d);
 
-    const div =
-      document.createElement("div");
+    const iso =
+      date.toISOString().slice(0,10);
 
-    div.className = "date-option";
+    const weekday =
+      date
+        .toLocaleDateString(
+          "ru-RU",
+          {weekday:"short"}
+        )
+        .replace(".","");
 
     const day =
       date.getDate();
@@ -694,553 +1105,867 @@ function buildDates() {
       date
         .toLocaleDateString(
           "ru-RU",
-          { month: "short" }
+          {month:"short"}
         )
-        .replace(".", "");
+        .replace(".","");
 
-    const weekday =
-      date
-        .toLocaleDateString(
-          "ru-RU",
-          { weekday: "short" }
-        )
-        .replace(".", "");
+    const div =
+      document.createElement("div");
+
+    div.className =
+      "date-option" +
+      (chosenDate === iso
+        ? " selected"
+        : "");
 
     div.innerHTML = `
-      <div class="month">${weekday}</div>
+      <div class="weekday">${weekday}</div>
       <div class="day">${day}</div>
       <div class="month">${month}</div>
     `;
 
-    div.addEventListener("click", () => {
+    div.onclick = () => {
 
-      chosenDate =
-        date.toISOString().slice(0, 10);
+      chosenDate = iso;
 
       box
         .querySelectorAll(".date-option")
-        .forEach(option => {
-          option.classList.remove("selected");
-        });
+        .forEach(x =>
+          x.classList.remove("selected")
+        );
 
       div.classList.add("selected");
 
-    });
+    };
 
     box.appendChild(div);
 
-    currentDate.setDate(
-      currentDate.getDate() + 1
-    );
-
+    d.setDate(d.getDate() + 1);
     safety++;
   }
 
-  if (!box.children.length) {
-    box.innerHTML =
-      "<p>Дата пока не задана.</p>";
+  if(!box.children.length){
+
+    box.innerHTML = `
+      <p class="small">
+        Даты пока не заданы.
+      </p>
+    `;
   }
 }
 
 
-/* =========================
-   ВРЕМЯ СВИДАНИЯ
-========================= */
+/* =========================================================
+   ФОРМАТ ДАТЫ
+========================================================= */
 
-function ticketDateTime() {
+function formatDate(value){
 
-  if (!chosenDate) {
-    return null;
+  if(!value) return "—";
+
+  const d =
+    new Date(value + "T12:00:00");
+
+  if(Number.isNaN(d.getTime())){
+    return value;
   }
 
-  const time =
-    data.time || "18:00";
-
-  return new Date(
-    `${chosenDate}T${time}:00`
+  return d.toLocaleDateString(
+    "ru-RU",
+    {
+      weekday:"long",
+      day:"numeric",
+      month:"long",
+      year:"numeric"
+    }
   );
 }
 
 
-/* =========================
-   БИЛЕТ
-========================= */
+/* =========================================================
+   ДАТА СВИДАНИЯ
+========================================================= */
 
-function updateTicket() {
+function getMeetingDate(){
 
-  const nick =
-    data.nickname || "Солнышко";
-
-  const receiver =
-    document.querySelector("#ticketReceiver");
-
-  const place =
-    document.querySelector("#ticketPlace");
-
-  const time =
-    document.querySelector("#ticketTime");
-
-  const message =
-    document.querySelector("#ticketMessage");
-
-  const id =
-    document.querySelector("#ticketId");
-
-  if (receiver) {
-    receiver.textContent =
-      `Для тебя, ${nick} ❤️`;
+  if(!chosenDate){
+    return null;
   }
 
-  if (place) {
-    place.textContent =
-      answers.place ||
-      "—";
-  }
-
-  if (time) {
-    time.textContent =
-      data.time || "18:00";
-  }
-
-  if (message) {
-    message.textContent =
-      "Я хочу провести этот день именно с тобой. Надеюсь, ты примешь это приглашение ❤️";
-  }
-
-  if (id) {
-    id.textContent =
-      `DATE TICKET · ${data.id || "INVITATION"}`;
-  }
+  return new Date(
+    chosenDate +
+    "T" +
+    (data.time || "18:00") +
+    ":00"
+  );
 }
 
 
-/* =========================
-   ТАЙМЕР
-========================= */
+/* =========================================================
+   ПРОВЕРКА: СЕГОДНЯ ЛИ СВИДАНИЕ
+========================================================= */
 
-function countdown(
-  target,
-  element,
-  doneText
-) {
+function isMeetingDay(){
 
-  if (!element) return;
-
-  function tick() {
-
-    const diff =
-      target - new Date();
-
-    if (diff <= 0) {
-      element.textContent =
-        doneText;
-
-      return;
-    }
-
-    const sec =
-      Math.floor(diff / 1000);
-
-    const days =
-      Math.floor(sec / 86400);
-
-    const hours =
-      Math.floor(
-        (sec % 86400) / 3600
-      );
-
-    const minutes =
-      Math.floor(
-        (sec % 3600) / 60
-      );
-
-    const seconds =
-      sec % 60;
-
-    element.textContent =
-      `${days}д ` +
-      `${String(hours).padStart(2, "0")}ч ` +
-      `${String(minutes).padStart(2, "0")}м ` +
-      `${String(seconds).padStart(2, "0")}с`;
-
-    setTimeout(tick, 1000);
+  if(!chosenDate){
+    return false;
   }
 
-  tick();
+  const now = new Date();
+
+  const today =
+    now.getFullYear() +
+    "-" +
+    String(now.getMonth()+1).padStart(2,"0") +
+    "-" +
+    String(now.getDate()).padStart(2,"0");
+
+  return today === chosenDate;
 }
 
 
-/* =========================
-   ТАЙМЕРЫ БИЛЕТА
-========================= */
+/* =========================================================
+   ОБРАТНЫЙ ОТСЧЁТ
+========================================================= */
 
-function startTicketTimers() {
+function startCountdown(){
 
-  const meet =
-    ticketDateTime();
-
-  const meetCountdown =
+  const el =
     document.querySelector("#meetCountdown");
 
-  if (meet) {
-
-    countdown(
-      meet,
-      meetCountdown,
-      "Сегодня ❤️"
-    );
-
-  } else if (meetCountdown) {
-
-    meetCountdown.textContent =
-      "Дата выбрана";
-
+  if(countdownTimer){
+    clearInterval(countdownTimer);
   }
 
+  const target =
+    getMeetingDate();
 
-  /* Личное письмо */
+  if(!target){
 
-  const lock =
-    document.querySelector("#letterLock");
-
-  const locked =
-    document.querySelector("#letterLocked");
-
-  const open =
-    document.querySelector("#letterOpen");
-
-  const letterCountdown =
-    document.querySelector("#letterCountdown");
-
-
-  if (!privateLetter.letterUnlock) {
-
-    if (lock) {
-      lock.textContent = "Закрыто";
-    }
-
-    if (letterCountdown) {
-      letterCountdown.textContent =
-        "Время открытия не задано";
-    }
+    el.textContent =
+      "Дата свидания не выбрана.";
 
     return;
   }
 
+  function update(){
 
-  const letterDate =
-    new Date(
-      privateLetter.letterUnlock
-    );
+    const now = new Date();
+    const diff = target - now;
+
+    if(diff <= 0){
+
+      if(isMeetingDay()){
+
+        el.textContent =
+          "Сегодня ваш день ❤️";
+
+      }else{
+
+        el.textContent =
+          "Свидание уже прошло.";
+
+      }
+
+      updatePresentButton();
+
+      return;
+    }
+
+    const total =
+      Math.floor(diff / 1000);
+
+    const days =
+      Math.floor(total / 86400);
+
+    const hours =
+      Math.floor(
+        (total % 86400) / 3600
+      );
+
+    const minutes =
+      Math.floor(
+        (total % 3600) / 60
+      );
+
+    const seconds =
+      total % 60;
+
+    if(isMeetingDay()){
+
+      el.textContent =
+        `Сегодня · до ${data.time || "18:00"} осталось ` +
+        `${String(hours).padStart(2,"0")}:` +
+        `${String(minutes).padStart(2,"0")}:` +
+        `${String(seconds).padStart(2,"0")}`;
+
+    }else{
+
+      el.textContent =
+        `До свидания: ${days}д ` +
+        `${String(hours).padStart(2,"0")}ч ` +
+        `${String(minutes).padStart(2,"0")}м`;
+
+    }
+
+    updatePresentButton();
+  }
+
+  update();
+
+  countdownTimer =
+    setInterval(update,1000);
+}
 
 
-  function checkLetter() {
+/* =========================================================
+   КНОПКА ПРЕДЪЯВЛЕНИЯ
+========================================================= */
+
+function updatePresentButton(){
+
+  const btn =
+    document.querySelector("#presentBtn");
+
+  const hint =
+    document.querySelector("#presentHint");
+
+  if(!btn) return;
+
+  /*
+    ВАЖНО:
+    Билет можно предъявить ТОЛЬКО
+    если календарная дата сегодня.
+  */
+
+  const allowed =
+    isMeetingDay();
+
+  btn.disabled = !allowed;
+
+  if(allowed){
+
+    btn.textContent =
+      "Предъявить билет 🎟️";
+
+    hint.textContent =
+      "Сегодня день вашего свидания ❤️ Билет можно предъявить.";
+
+  }else{
+
+    btn.textContent =
+      "Предъявить можно в день свидания";
+
+    if(chosenDate){
+
+      hint.textContent =
+        `Билет станет доступен ${formatDate(chosenDate)}.`;
+
+    }else{
+
+      hint.textContent =
+        "Дата свидания пока не выбрана.";
+    }
+  }
+}
+
+
+/* =========================================================
+   БИЛЕТ
+========================================================= */
+
+function updateTicket(){
+
+  const nick =
+    data.nickname || "Солнышко";
+
+  document.querySelector("#ticketReceiver")
+    .textContent =
+      `Для тебя, ${nick} ❤️`;
+
+  document.querySelector("#ticketDate")
+    .textContent =
+      formatDate(chosenDate);
+
+  document.querySelector("#ticketTime")
+    .textContent =
+      data.time || "18:00";
+
+  document.querySelector("#ticketId")
+    .textContent =
+      `DATE TICKET · ${data.id || inviteId}`;
+
+  document.querySelector("#qrId")
+    .textContent =
+      data.id || inviteId;
+
+  renderSavedAnswers();
+
+  updatePresentButton();
+
+  startCountdown();
+}
+
+
+/* =========================================================
+   ОТВЕТЫ
+========================================================= */
+
+function renderSavedAnswers(){
+
+  const box =
+    document.querySelector("#savedAnswers");
+
+  box.innerHTML = "";
+
+  const labels = {
+    place:"📍 Место",
+    food:"🍽️ Еда",
+    drink:"🥤 Напиток",
+    mood:"❤️ Главное",
+    activity:"✨ Занятие"
+  };
+
+  Object.keys(labels).forEach(key => {
+
+    if(!answers[key]) return;
+
+    const row =
+      document.createElement("div");
+
+    row.style.cssText = `
+      display:flex;
+      justify-content:space-between;
+      gap:15px;
+      padding:12px 0;
+      border-bottom:1px dashed #ded2d5;
+      font-family:Arial,sans-serif;
+      font-size:13px;
+    `;
+
+    row.innerHTML = `
+      <span style="color:#8c7d83">
+        ${labels[key]}
+      </span>
+
+      <strong>
+        ${answers[key]}
+      </strong>
+    `;
+
+    box.appendChild(row);
+  });
+}
+
+
+/* =========================================================
+   ПИСЬМО
+========================================================= */
+
+function startLetterTimer(){
+
+  const lock =
+    document.querySelector("#letterLock");
+
+  const countdown =
+    document.querySelector("#letterCountdown");
+
+  const open =
+    document.querySelector("#letterOpen");
+
+  if(letterTimer){
+    clearInterval(letterTimer);
+  }
+
+  const raw =
+    privateLetter.letterUnlock;
+
+  if(!raw){
+
+    lock.textContent =
+      "Письмо доступно.";
+
+    countdown.textContent = "";
+
+    open.textContent =
+      privateLetter.letter ||
+      "Твоё письмо здесь ❤️";
+
+    open.classList.remove("hidden");
+
+    return;
+  }
+
+  const unlock =
+    new Date(raw);
+
+  function check(){
 
     const diff =
-      letterDate - new Date();
+      unlock.getTime() - Date.now();
 
-    if (diff <= 0) {
+    if(diff <= 0){
 
-      if (lock) {
-        lock.textContent =
-          "Открыто 💗";
+      lock.textContent =
+        "Письмо открыто 💗";
+
+      countdown.textContent = "";
+
+      open.textContent =
+        privateLetter.letter ||
+        "Твоё письмо здесь ❤️";
+
+      open.classList.remove("hidden");
+
+      clearInterval(letterTimer);
+
+      return;
+    }
+
+    lock.textContent =
+      "Письмо пока закрыто 💌";
+
+    const total =
+      Math.floor(diff / 1000);
+
+    const days =
+      Math.floor(total / 86400);
+
+    const hours =
+      Math.floor(
+        (total % 86400) / 3600
+      );
+
+    const minutes =
+      Math.floor(
+        (total % 3600) / 60
+      );
+
+    const seconds =
+      total % 60;
+
+    countdown.textContent =
+      `Откроется через ${days}д ` +
+      `${String(hours).padStart(2,"0")}ч ` +
+      `${String(minutes).padStart(2,"0")}м ` +
+      `${String(seconds).padStart(2,"0")}с`;
+
+    open.classList.add("hidden");
+  }
+
+  check();
+
+  letterTimer =
+    setInterval(check,1000);
+}
+
+
+/* =========================================================
+   ЗАГРУЗКА ПРИГЛАШЕНИЯ
+========================================================= */
+
+async function loadInvitation(){
+
+  if(!inviteId){
+
+    showError(
+      "В ссылке нет ID приглашения."
+    );
+
+    return;
+  }
+
+  try{
+
+    const snap =
+      await getDoc(
+        doc(
+          db,
+          "invitations",
+          inviteId
+        )
+      );
+
+    if(!snap.exists()){
+
+      showError(
+        "Приглашение не найдено."
+      );
+
+      return;
+    }
+
+    data = {
+      ...fallback,
+      ...snap.data(),
+      id:inviteId
+    };
+
+
+    /* =====================================================
+       ЛИЧНОЕ ПИСЬМО
+    ===================================================== */
+
+    try{
+
+      const letterSnap =
+        await getDoc(
+          doc(
+            db,
+            "invitations",
+            inviteId,
+            "private",
+            "letter"
+          )
+        );
+
+      if(letterSnap.exists()){
+
+        privateLetter =
+          letterSnap.data();
+
       }
 
-      if (locked) {
-        locked.style.display =
-          "none";
-      }
+    }catch(e){
 
-      if (open) {
+      console.error(
+        "Letter error:",
+        e
+      );
+    }
 
-        open.style.display =
-          "block";
 
-        open.textContent =
-          privateLetter.letter ||
-          "Твоё письмо здесь ❤️";
-      }
+    /* =====================================================
+       ДАННЫЕ НА ЭКРАНЕ
+    ===================================================== */
+
+    document.querySelector("#pageTitle")
+      .textContent =
+        `Привет, ${data.nickname || "Солнышко"} ❤️`;
+
+    document.querySelector("#pageSubtitle")
+      .textContent =
+        "Для тебя приготовили особенное приглашение.";
+
+
+    document.querySelector("#welcomeChar")
+      .textContent =
+        data.character || "🐸";
+
+    document.querySelector("#welcomeTitle")
+      .textContent =
+        `Привет, ${data.nickname || "Солнышко"} ❤️`;
+
+
+    /* =====================================================
+       ПРОВЕРЯЕМ, ПРОХОДИЛ ЛИ УЖЕ ОПРОС
+    ===================================================== */
+
+    if(
+      data.response &&
+      data.response.completedAt
+    ){
+
+      /*
+        Получатель уже проходил опрос.
+        Поэтому НИКАКОГО повторного опроса.
+        Сразу восстанавливаем билет.
+      */
+
+      const r = data.response;
+
+      answers.place =
+        r.place || "";
+
+      answers.food =
+        r.food || "";
+
+      answers.drink =
+        r.drink || "";
+
+      answers.mood =
+        r.mood || "";
+
+      answers.activity =
+        r.activity || "";
+
+      chosenDate =
+        r.date || "";
+
+
+      updateTicket();
+
+      show("ticketScreen");
 
       return;
     }
 
 
-    if (lock) {
-      lock.textContent =
-        "Откроется позже";
-    }
+    /*
+      Если response ещё нет —
+      показываем приветствие.
+    */
 
+    show("welcomeScreen");
 
-    const sec =
-      Math.floor(diff / 1000);
+  }catch(e){
 
-    const days =
-      Math.floor(sec / 86400);
+    console.error(
+      "Firebase error:",
+      e
+    );
 
-    const hours =
-      Math.floor(
-        (sec % 86400) / 3600
-      );
-
-    const minutes =
-      Math.floor(
-        (sec % 3600) / 60
-      );
-
-    const seconds =
-      sec % 60;
-
-
-    if (letterCountdown) {
-
-      letterCountdown.textContent =
-        `через ${days}д ` +
-        `${String(hours).padStart(2, "0")}ч ` +
-        `${String(minutes).padStart(2, "0")}м ` +
-        `${String(seconds).padStart(2, "0")}с`;
-    }
-
-    setTimeout(
-      checkLetter,
-      1000
+    showError(
+      "Не удалось загрузить приглашение. Проверь интернет."
     );
   }
-
-  checkLetter();
 }
 
 
-/* =========================
-   СТАРТ
-========================= */
+/* =========================================================
+   НАЧАТЬ
+========================================================= */
 
-document
-  .querySelector("#startBtn")
-  ?.addEventListener(
-    "click",
-    () => {
+document.querySelector("#startBtn")
+  .onclick = () => {
 
-      qIndex = 0;
+    qIndex = 0;
 
-      Object.keys(answers)
-        .forEach(key => {
-          delete answers[key];
-        });
+    renderQuestion();
+
+    show("surveyScreen");
+  };
+
+
+/* =========================================================
+   ДАЛЬШЕ
+========================================================= */
+
+document.querySelector("#questionNext")
+  .onclick = () => {
+
+    const key =
+      questions[qIndex].key;
+
+    if(!answers[key]){
+
+      alert(
+        "Выбери один вариант."
+      );
+
+      return;
+    }
+
+    if(
+      qIndex <
+      questions.length - 1
+    ){
+
+      qIndex++;
 
       renderQuestion();
 
-      show("survey");
+      return;
     }
-  );
+
+    buildDates();
+
+    show("dateScreen");
+  };
 
 
-/* =========================
-   ДАЛЬШЕ
-========================= */
+/* =========================================================
+   ПОДТВЕРДИТЬ ДАТУ
+========================================================= */
 
-document
-  .querySelector("#questionNext")
-  ?.addEventListener(
-    "click",
-    () => {
+document.querySelector("#dateNext")
+  .onclick = async () => {
 
-      const question =
-        questions[qIndex];
+    if(!chosenDate){
 
-      if (!answers[question.key]) {
+      alert(
+        "Выбери дату."
+      );
 
-        alert(
-          "Выбери один вариант."
-        );
-
-        return;
-      }
-
-
-      if (
-        qIndex <
-        questions.length - 1
-      ) {
-
-        qIndex++;
-
-        renderQuestion();
-
-      } else {
-
-        buildDates();
-
-        show("dateScreen");
-      }
+      return;
     }
-  );
+
+    const btn =
+      document.querySelector("#dateNext");
+
+    btn.disabled = true;
+    btn.textContent =
+      "Сохраняем…";
 
 
-/* =========================
-   СОХРАНЕНИЕ ОТВЕТОВ
-========================= */
+    try{
 
-document
-  .querySelector("#dateNext")
-  ?.addEventListener(
-    "click",
-    async () => {
+      await updateDoc(
+        doc(
+          db,
+          "invitations",
+          inviteId
+        ),
+        {
 
-      if (!chosenDate) {
+          response:{
 
-        alert(
-          "Выбери дату."
-        );
+            place:
+              answers.place || null,
 
-        return;
-      }
+            food:
+              answers.food || null,
 
+            drink:
+              answers.drink || null,
 
-      const button =
-        document.querySelector("#dateNext");
+            mood:
+              answers.mood || null,
 
-      if (button) {
-        button.disabled = true;
-        button.textContent =
-          "Сохраняем выбор…";
-      }
+            activity:
+              answers.activity || null,
 
+            date:
+              chosenDate,
 
-      try {
+            time:
+              data.time || "18:00",
 
-        const invitationRef =
-          doc(
-            db,
-            "invitations",
-            inviteId
-          );
+            completedAt:
+              new Date().toISOString()
+          },
 
+          status:"completed"
 
-        await updateDoc(
-          invitationRef,
-          {
-
-            response: {
-
-              place:
-                answers.place || null,
-
-              food:
-                answers.food || null,
-
-              drink:
-                answers.drink || null,
-
-              important:
-                answers.important || null,
-
-              activity:
-                answers.activity || null,
-
-              date:
-                chosenDate,
-
-              time:
-                data.time || "18:00",
-
-              completedAt:
-                new Date().toISOString()
-            },
-
-            status:
-              "completed"
-          }
-        );
-
-
-        updateTicket();
-
-        show("ticketScreen");
-
-        startTicketTimers();
-
-
-      } catch (error) {
-
-        console.error(
-          "Ошибка сохранения ответов:",
-          error
-        );
-
-        alert(
-          "Не удалось сохранить ответы. Проверь правила Firestore."
-        );
-
-      } finally {
-
-        if (button) {
-
-          button.disabled = false;
-
-          button.textContent =
-            "Получить приглашение ✨";
         }
-      }
+      );
+
+
+      /*
+        Очень важно:
+        после успешного сохранения сразу
+        открываем билет.
+      */
+
+      updateTicket();
+
+      show("ticketScreen");
+
+    }catch(e){
+
+      console.error(
+        "Save response error:",
+        e
+      );
+
+      alert(
+        "Не удалось сохранить ответы. Попробуй ещё раз."
+      );
+
+    }finally{
+
+      btn.disabled = false;
+
+      btn.textContent =
+        "Подтвердить дату ❤️";
     }
-  );
+
+  };
 
 
-/* =========================
+/* =========================================================
    ПРЕДЪЯВИТЬ БИЛЕТ
-========================= */
+========================================================= */
 
-document
-  .querySelector("#presentBtn")
-  ?.addEventListener(
-    "click",
-    () => {
+document.querySelector("#presentBtn")
+  .onclick = async () => {
+
+    /*
+      Дополнительная защита:
+      даже если кто-то попытается вызвать
+      функцию вручную, Firebase ничего не меняем,
+      если сегодня не день свидания.
+    */
+
+    if(!isMeetingDay()){
+
+      alert(
+        "Предъявить билет можно только в день свидания ❤️"
+      );
+
+      updatePresentButton();
+
+      return;
+    }
+
+
+    const btn =
+      document.querySelector("#presentBtn");
+
+    btn.disabled = true;
+
+    try{
+
+      /*
+        Записываем время предъявления.
+      */
+
+      await updateDoc(
+        doc(
+          db,
+          "invitations",
+          inviteId
+        ),
+        {
+          ticketPresented:true,
+          ticketPresentedAt:
+            new Date().toISOString()
+        }
+      );
+
 
       localStorage.setItem(
-        "dateTicketUsed_" +
-        (data.id || "DEMO"),
-
+        "dateTicketUsed_" + inviteId,
         new Date().toISOString()
       );
 
 
-      const status =
-        document.querySelector(
-          "#usedStatus"
-        );
-
-      if (status) {
-
-        status.textContent =
-          `Билет ${data.id || ""} предъявлен ` +
+      document.querySelector("#usedStatus")
+        .textContent =
+          `Билет ${inviteId} предъявлен ` +
           `${new Date().toLocaleString("ru-RU")}`;
-      }
 
 
       show("qrScreen");
+
+    }catch(e){
+
+      console.error(
+        "Present ticket error:",
+        e
+      );
+
+      /*
+        Даже если запись не прошла,
+        не показываем фальшивое подтверждение.
+      */
+
+      alert(
+        "Не удалось предъявить билет. Проверь интернет."
+      );
+
+      btn.disabled = false;
     }
-  );
+  };
 
 
-/* =========================
-   САМАЯ ВАЖНАЯ ЧАСТЬ
-   ЗАГРУЖАЕМ ПОСЛЕ FIREBASE
-========================= */
+/* =========================================================
+   СТАРТ
+========================================================= */
 
-const loaded =
-  await loadInvitation();
-
-if (loaded) {
-
-  /*
-     После успешной загрузки
-     показываем данные приглашения.
-  */
-
-  show("welcome");
-}
+loadInvitation();
 
 </script>
 
 </body>
 </html>
-```
