@@ -1,10 +1,9 @@
+```html
 <!DOCTYPE html>
-
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Создание приглашения — Date Ticket</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,7 +14,7 @@
 :root{
   --bg:#090d16;
   --bg2:#111728;
-  --card:rgba(19,25,42,.78);
+  --card:rgba(19,25,42,.82);
   --line:rgba(255,255,255,.10);
   --text:#fff;
   --muted:#aeb6c8;
@@ -42,12 +41,12 @@ body{
   overflow-x:hidden;
 }
 
-body:before{
+body::before{
   content:"";
   position:fixed;
   inset:0;
   pointer-events:none;
-  opacity:.28;
+  opacity:.25;
   background-image:
     radial-gradient(circle at 20% 20%,#fff 0 1px,transparent 1.5px),
     radial-gradient(circle at 75% 35%,#fff 0 1px,transparent 1.5px),
@@ -56,20 +55,25 @@ body:before{
 }
 
 a{
-  text-decoration:none;
   color:inherit;
+  text-decoration:none;
 }
 
-button,
-input,
-textarea,
-select{
+button,input,textarea,select{
   font-family:"Manrope",sans-serif;
+}
+
+button{
+  -webkit-tap-highlight-color:transparent;
 }
 
 .container{
   width:min(1100px,92%);
   margin:auto;
+}
+
+.hidden{
+  display:none!important;
 }
 
 /* HEADER */
@@ -81,7 +85,7 @@ header{
   justify-content:space-between;
   gap:20px;
   position:relative;
-  z-index:3;
+  z-index:10;
 }
 
 .logo{
@@ -108,6 +112,11 @@ header{
   padding:10px 14px;
   cursor:pointer;
   font-size:12px;
+  transition:.2s;
+}
+
+.header-btn:hover{
+  background:rgba(255,255,255,.10);
 }
 
 /* AUTH */
@@ -117,7 +126,7 @@ header{
   display:flex;
   justify-content:center;
   align-items:center;
-  padding:40px 0 80px;
+  padding:35px 0 70px;
 }
 
 .auth-card{
@@ -131,9 +140,9 @@ header{
 }
 
 .auth-icon{
-  font-size:60px;
+  font-size:58px;
   text-align:center;
-  margin-bottom:15px;
+  margin-bottom:12px;
 }
 
 .auth-card h1{
@@ -147,6 +156,7 @@ header{
   text-align:center;
   line-height:1.6;
   font-size:14px;
+  margin:0;
 }
 
 .auth-tabs{
@@ -163,12 +173,63 @@ header{
   padding:12px;
   border-radius:12px;
   cursor:pointer;
+  transition:.2s;
 }
 
 .auth-tab.active{
   color:#fff;
   background:rgba(255,111,174,.12);
   border-color:rgba(255,111,174,.45);
+}
+
+/* FORM */
+
+.field{
+  margin-top:22px;
+}
+
+label{
+  display:block;
+  font-size:13px;
+  font-weight:700;
+  margin-bottom:10px;
+}
+
+input,
+textarea,
+select{
+  width:100%;
+  border:1px solid var(--line);
+  outline:none;
+  border-radius:16px;
+  background:rgba(255,255,255,.055);
+  color:#fff;
+  padding:16px 18px;
+  font-size:14px;
+  transition:.2s;
+}
+
+input::placeholder,
+textarea::placeholder{
+  color:#788196;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+  border-color:rgba(255,111,174,.65);
+  box-shadow:0 0 0 4px rgba(255,111,174,.08);
+}
+
+textarea{
+  min-height:180px;
+  resize:vertical;
+  line-height:1.7;
+}
+
+select option{
+  background:#151b2b;
+  color:#fff;
 }
 
 .auth-error{
@@ -184,6 +245,7 @@ header{
 .progress-wrap{
   position:relative;
   z-index:2;
+  padding-top:5px;
 }
 
 .progress-top{
@@ -220,12 +282,12 @@ header{
 /* MAIN */
 
 main{
-  padding:44px 0 70px;
+  padding:40px 0 70px;
 }
 
 .step{
   display:none;
-  animation:enter .45s ease;
+  animation:enter .4s ease;
 }
 
 .step.active{
@@ -237,7 +299,7 @@ main{
   grid-template-columns:1.05fr .95fr;
   gap:50px;
   align-items:center;
-  min-height:610px;
+  min-height:590px;
 }
 
 .copy h1{
@@ -250,6 +312,7 @@ main{
   color:var(--muted);
   line-height:1.7;
   max-width:570px;
+  margin:0;
 }
 
 .eyebrow{
@@ -261,53 +324,7 @@ main{
   margin-bottom:14px;
 }
 
-.field{
-  margin-top:28px;
-}
-
-label{
-  display:block;
-  font-size:13px;
-  font-weight:700;
-  margin-bottom:10px;
-}
-
-input,
-textarea,
-select{
-  width:100%;
-  border:1px solid var(--line);
-  outline:none;
-  border-radius:16px;
-  background:rgba(255,255,255,.055);
-  color:#fff;
-  padding:17px 18px;
-  font:500 14px "Manrope",sans-serif;
-  transition:.2s;
-}
-
-input::placeholder,
-textarea::placeholder{
-  color:#788196;
-}
-
-select option{
-  background:#151b2b;
-  color:#fff;
-}
-
-textarea{
-  min-height:180px;
-  resize:vertical;
-  line-height:1.7;
-}
-
-input:focus,
-textarea:focus,
-select:focus{
-  border-color:rgba(255,111,174,.65);
-  box-shadow:0 0 0 4px rgba(255,111,174,.08);
-}
+/* PREVIEW */
 
 .preview{
   border:1px solid var(--line);
@@ -316,7 +333,7 @@ select:focus{
   padding:30px;
   backdrop-filter:blur(18px);
   box-shadow:0 30px 80px rgba(0,0,0,.28);
-  min-height:470px;
+  min-height:440px;
   display:flex;
   flex-direction:column;
   justify-content:center;
@@ -326,7 +343,7 @@ select:focus{
   overflow:hidden;
 }
 
-.preview:before{
+.preview::before{
   content:"";
   position:absolute;
   width:320px;
@@ -349,13 +366,14 @@ select:focus{
   position:relative;
   z-index:1;
   margin-top:15px;
-  max-width:300px;
+  max-width:310px;
   padding:13px 17px;
   border-radius:17px;
   background:rgba(255,255,255,.07);
   border:1px solid var(--line);
   font-size:13px;
   color:#e8ebf3;
+  line-height:1.5;
 }
 
 /* OPTIONS */
@@ -398,13 +416,6 @@ select:focus{
   font-size:13px;
 }
 
-.option small{
-  display:block;
-  color:var(--muted);
-  margin-top:3px;
-  font-size:11px;
-}
-
 .counter{
   color:var(--muted);
   font-size:12px;
@@ -413,6 +424,43 @@ select:focus{
 
 .counter b{
   color:#fff;
+}
+
+/* CHARACTERS */
+
+.char-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-top:18px;
+}
+
+.char{
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:15px;
+  background:rgba(255,255,255,.045);
+  cursor:pointer;
+  text-align:center;
+  transition:.2s;
+}
+
+.char:hover{
+  transform:translateY(-2px);
+}
+
+.char.selected{
+  border-color:rgba(255,111,174,.75);
+  background:rgba(255,111,174,.09);
+}
+
+.char .big{
+  font-size:55px;
+}
+
+.char div:last-child{
+  font-size:11px;
+  margin-top:5px;
 }
 
 /* THEMES */
@@ -432,6 +480,10 @@ select:focus{
   position:relative;
   overflow:hidden;
   transition:.2s;
+}
+
+.theme:hover{
+  transform:translateY(-2px);
 }
 
 .theme.selected{
@@ -454,39 +506,6 @@ select:focus{
 .ocean{background:linear-gradient(135deg,#0b5260,#122238)}
 .city{background:linear-gradient(135deg,#201b3f,#0b0d15)}
 
-/* CHARACTERS */
-
-.char-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
-  margin-top:18px;
-}
-
-.char{
-  border:1px solid var(--line);
-  border-radius:18px;
-  padding:15px;
-  background:rgba(255,255,255,.045);
-  cursor:pointer;
-  text-align:center;
-  transition:.2s;
-}
-
-.char.selected{
-  border-color:rgba(255,111,174,.75);
-  background:rgba(255,111,174,.09);
-}
-
-.char .big{
-  font-size:55px;
-}
-
-.char div:last-child{
-  font-size:11px;
-  margin-top:5px;
-}
-
 /* MUSIC */
 
 .music-grid{
@@ -503,6 +522,10 @@ select:focus{
   padding:18px;
   cursor:pointer;
   transition:.2s;
+}
+
+.music:hover{
+  transform:translateY(-2px);
 }
 
 .music.selected{
@@ -529,7 +552,7 @@ select:focus{
 }
 
 .notice{
-  margin-top:14px;
+  margin-top:12px;
   color:#9ea8bc;
   font-size:11px;
   line-height:1.6;
@@ -541,7 +564,7 @@ select:focus{
   display:flex;
   justify-content:space-between;
   gap:12px;
-  margin-top:30px;
+  margin-top:28px;
   flex-wrap:wrap;
 }
 
@@ -567,18 +590,14 @@ select:focus{
   box-shadow:none;
 }
 
-.btn:disabled{
-  opacity:.4;
-  cursor:not-allowed;
-  transform:none;
-}
-
 .btn.green{
   background:linear-gradient(135deg,#4bbf85,#71d6a1);
 }
 
-.btn.danger{
-  background:linear-gradient(135deg,#d94d66,#ff667d);
+.btn:disabled{
+  opacity:.45;
+  cursor:not-allowed;
+  transform:none;
 }
 
 /* REVIEW */
@@ -608,20 +627,15 @@ select:focus{
   color:var(--muted);
 }
 
-.success{
-  font-size:80px;
-  margin-bottom:15px;
-  text-align:center;
+.review-row strong{
+  text-align:right;
+  word-break:break-word;
 }
 
-.linkbox{
-  display:flex;
-  gap:8px;
-  margin-top:18px;
-}
+/* CREATED */
 
-.linkbox input{
-  font-size:12px;
+#createdSection{
+  padding:70px 0 100px;
 }
 
 .created-card{
@@ -633,6 +647,12 @@ select:focus{
   padding:40px;
   text-align:center;
   backdrop-filter:blur(18px);
+  box-shadow:0 30px 80px rgba(0,0,0,.28);
+}
+
+.success{
+  font-size:80px;
+  margin-bottom:15px;
 }
 
 .created-card h1{
@@ -645,27 +665,36 @@ select:focus{
   line-height:1.7;
 }
 
-.error-box{
-  color:var(--danger);
-  font-size:12px;
-  line-height:1.6;
-  margin-top:15px;
+.linkbox{
+  display:flex;
+  gap:8px;
+  margin-top:20px;
 }
 
-.hidden{
-  display:none!important;
+.linkbox input{
+  font-size:12px;
 }
+
+.created-actions{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:20px;
+}
+
+/* ANIMATIONS */
 
 @keyframes enter{
   from{
     opacity:0;
     transform:translateY(12px);
-    filter:blur(3px)
+    filter:blur(3px);
   }
   to{
     opacity:1;
     transform:none;
-    filter:none
+    filter:none;
   }
 }
 
@@ -674,30 +703,41 @@ select:focus{
   50%{transform:translateY(-10px)}
 }
 
+/* MOBILE */
+
 @media(max-width:800px){
 
   .step-layout{
     grid-template-columns:1fr;
     gap:25px;
+    min-height:0;
   }
 
   .preview{
     min-height:330px;
   }
 
-  .theme-grid{
-    grid-template-columns:1fr 1fr;
-  }
-
   .user-email{
     display:none;
+  }
+
+  .theme-grid{
+    grid-template-columns:1fr 1fr;
   }
 }
 
 @media(max-width:520px){
 
+  header{
+    min-height:68px;
+  }
+
   main{
     padding-top:25px;
+  }
+
+  .copy h1{
+    font-size:40px;
   }
 
   .option-grid,
@@ -730,9 +770,16 @@ select:focus{
   .created-card{
     padding:28px 20px;
   }
+
+  .linkbox{
+    flex-direction:column;
+  }
+
+  .header-btn{
+    padding:9px 10px;
+  }
 }
 </style>
-
 </head>
 
 <body>
@@ -745,992 +792,840 @@ select:focus{
   <div class="header-right">
     <span id="userEmail" class="user-email"></span>
 
-```
-<button
-  id="myInvitesBtn"
-  class="header-btn hidden"
-  type="button">
-  Мои приглашения
-</button>
+    <button id="myInvitesBtn" class="header-btn hidden" type="button">
+      Мои приглашения
+    </button>
 
-<button
-  id="logoutBtn"
-  class="header-btn hidden"
-  type="button">
-  Выйти
-</button>
-```
-
+    <button id="logoutBtn" class="header-btn hidden" type="button">
+      Выйти
+    </button>
   </div>
 </header>
 
-<!-- AUTH -->
+
+<!-- =========================
+     AUTH
+========================= -->
 
 <section id="authSection" class="auth">
 
   <div class="auth-card">
 
-```
-<div class="auth-icon">💌</div>
+    <div class="auth-icon">💌</div>
 
-<h1 id="authTitle">Твой Date Ticket</h1>
+    <h1 id="authTitle">Твой Date Ticket</h1>
 
-<p id="authSubtitle">
-  Создай аккаунт, чтобы сохранять свои приглашения
-  и видеть ответы получателя после повторного входа.
-</p>
+    <p id="authSubtitle">
+      Войди или создай аккаунт, чтобы сохранять
+      свои приглашения.
+    </p>
 
-<div class="auth-tabs">
+    <div class="auth-tabs">
 
-  <button
-    id="loginTab"
-    class="auth-tab active"
-    type="button">
-    Войти
-  </button>
+      <button id="loginTab" class="auth-tab active" type="button">
+        Войти
+      </button>
 
-  <button
-    id="registerTab"
-    class="auth-tab"
-    type="button">
-    Регистрация
-  </button>
+      <button id="registerTab" class="auth-tab" type="button">
+        Регистрация
+      </button>
 
-</div>
+    </div>
 
-<div class="field">
+    <div class="field">
 
-  <label for="authEmail">
-    Email
-  </label>
+      <label for="authEmail">Email</label>
 
-  <input
-    id="authEmail"
-    type="email"
-    autocomplete="email"
-    placeholder="you@example.com">
+      <input
+        id="authEmail"
+        type="email"
+        autocomplete="email"
+        placeholder="you@example.com">
 
-</div>
+    </div>
 
-<div class="field">
+    <div class="field">
 
-  <label for="authPassword">
-    Пароль
-  </label>
+      <label for="authPassword">Пароль</label>
 
-  <input
-    id="authPassword"
-    type="password"
-    autocomplete="current-password"
-    placeholder="Минимум 6 символов">
+      <input
+        id="authPassword"
+        type="password"
+        autocomplete="current-password"
+        placeholder="Минимум 6 символов">
 
-</div>
+    </div>
 
-<div
-  id="authConfirmWrap"
-  class="field hidden">
+    <div id="authConfirmWrap" class="field hidden">
 
-  <label for="authConfirm">
-    Повтори пароль
-  </label>
+      <label for="authConfirm">Повтори пароль</label>
 
-  <input
-    id="authConfirm"
-    type="password"
-    autocomplete="new-password"
-    placeholder="Повтори пароль">
+      <input
+        id="authConfirm"
+        type="password"
+        autocomplete="new-password"
+        placeholder="Повтори пароль">
 
-</div>
+    </div>
 
-<div class="actions">
+    <div class="actions">
 
-  <a
-    class="btn secondary"
-    href="index.html">
-    На главную
-  </a>
+      <a class="btn secondary" href="index.html">
+        На главную
+      </a>
 
-  <button
-    id="authBtn"
-    class="btn"
-    type="button">
-    Войти
-  </button>
+      <button id="authBtn" class="btn" type="button">
+        Войти
+      </button>
 
-</div>
+    </div>
 
-<div
-  id="authError"
-  class="auth-error">
-</div>
-```
+    <div id="authError" class="auth-error"></div>
 
   </div>
 
 </section>
 
-<!-- CREATE -->
+
+<!-- =========================
+     CREATE
+========================= -->
 
 <section id="createSection" class="hidden">
 
-<div class="progress-wrap">
+  <div class="progress-wrap">
 
-  <div class="progress-top">
+    <div class="progress-top">
 
-```
-<div>
-  <span class="step-label">
-    Шаг <span id="stepNum">1</span> из 8
-  </span>
+      <div>
+        <span class="step-label">
+          Шаг <span id="stepNum">1</span> из 8
+        </span>
 
-  ·
+        <span class="step-label"> · </span>
 
-  <span
-    class="step-title"
-    id="stepTitle">
-    Обращение
-  </span>
-</div>
+        <span id="stepTitle" class="step-title">
+          Обращение
+        </span>
+      </div>
 
-<div
-  class="step-label"
-  id="progressPercent">
-  13%
-</div>
-```
+      <div id="progressPercent" class="step-label">
+        13%
+      </div>
 
-  </div>
-
-  <div class="progress">
-    <div
-      class="progress-bar"
-      id="progressBar">
     </div>
-  </div>
 
-</div>
-
-<main>
-
-<!-- STEP 1 -->
-
-<section
-  class="step active"
-  data-title="Обращение">
-
-  <div class="step-layout">
-
-```
-<div class="copy">
-
-  <span class="eyebrow">
-    Шаг 1 · Персонализация
-  </span>
-
-  <h1>
-    Как сайт будет обращаться к получателю?
-  </h1>
-
-  <p>
-    Это обращение будет использоваться
-    в приветствии, репликах персонажа
-    и на финальном билете.
-  </p>
-
-  <div class="field">
-
-    <label for="nickname">
-      Обращение
-    </label>
-
-    <input
-      id="nickname"
-      maxlength="35"
-      placeholder="Например: Солнышко, Алина, Любимая...">
-
-    <div class="notice">
-      Можно написать что угодно.
-      Главное — чтобы получателю было приятно это увидеть.
+    <div class="progress">
+      <div id="progressBar" class="progress-bar"></div>
     </div>
 
   </div>
 
-</div>
 
-<div class="preview">
+  <main>
 
-  <div
-    class="character"
-    id="charPreview">
-    🐸
-  </div>
+    <!-- STEP 1 -->
 
-  <div
-    class="bubble"
-    id="bubblePreview">
-    Привет! Я приготовил для тебя кое-что особенное ❤️
-  </div>
+    <section class="step active" data-title="Обращение">
 
-</div>
-```
+      <div class="step-layout">
 
-  </div>
+        <div class="copy">
 
-  <div class="actions">
+          <span class="eyebrow">
+            Шаг 1 · Персонализация
+          </span>
 
-```
-<a
-  class="btn secondary"
-  href="index.html">
-  На главную
-</a>
+          <h1>
+            Как сайт будет обращаться к получателю?
+          </h1>
 
-<button
-  class="btn next"
-  type="button">
-  Далее →
-</button>
-```
+          <p>
+            Это обращение будет использоваться
+            в приветствии, репликах персонажа
+            и на финальном билете.
+          </p>
 
-  </div>
+          <div class="field">
+
+            <label for="nickname">
+              Обращение
+            </label>
+
+            <input
+              id="nickname"
+              maxlength="35"
+              placeholder="Например: Солнышко, Алина, Любимая...">
+
+            <div class="notice">
+              Можно написать что угодно.
+              Главное — чтобы получателю было приятно это увидеть.
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="preview">
+
+          <div id="charPreview" class="character">
+            🐸
+          </div>
+
+          <div id="bubblePreview" class="bubble">
+            Привет! Я приготовил для тебя кое-что особенное ❤️
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="actions">
+
+        <a class="btn secondary" href="index.html">
+          На главную
+        </a>
+
+        <button class="btn next" type="button">
+          Далее →
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- STEP 2 -->
+
+    <section class="step" data-title="Персонаж">
+
+      <div class="step-layout">
+
+        <div class="copy">
+
+          <span class="eyebrow">
+            Шаг 2 · Персонаж
+          </span>
+
+          <h1>
+            Кто будет сопровождать приглашение?
+          </h1>
+
+          <p>
+            Выбери персонажа, который встретит
+            получателя в начале приглашения.
+          </p>
+
+          <div id="characterGrid" class="char-grid">
+
+            <div class="char selected" data-char="🐸">
+              <div class="big">🐸</div>
+              <div>Лягушка</div>
+            </div>
+
+            <div class="char" data-char="🦊">
+              <div class="big">🦊</div>
+              <div>Лисёнок</div>
+            </div>
+
+            <div class="char" data-char="🐱">
+              <div class="big">🐱</div>
+              <div>Котик</div>
+            </div>
+
+            <div class="char" data-char="🐻">
+              <div class="big">🐻</div>
+              <div>Мишка</div>
+            </div>
+
+            <div class="char" data-char="🐰">
+              <div class="big">🐰</div>
+              <div>Зайчик</div>
+            </div>
+
+            <div class="char" data-char="🤖">
+              <div class="big">🤖</div>
+              <div>Робот</div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="preview">
+
+          <div id="characterBig" class="character">
+            🐸
+          </div>
+
+          <div class="bubble">
+            Я буду ждать тебя внутри 💌
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="actions">
+
+        <button class="btn secondary prev" type="button">
+          ← Назад
+        </button>
+
+        <button class="btn next" type="button">
+          Далее →
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- STEP 3 -->
+
+    <section class="step" data-title="Оформление">
+
+      <div class="step-layout">
+
+        <div class="copy">
+
+          <span class="eyebrow">
+            Шаг 3 · Оформление
+          </span>
+
+          <h1>
+            Выбери атмосферу свидания.
+          </h1>
+
+          <p>
+            Тема будет использоваться
+            на странице приглашения.
+          </p>
+
+          <div class="theme-grid">
+
+            <div class="theme sakura selected" data-theme="Сакура">
+              <span>🌸 Сакура</span>
+            </div>
+
+            <div class="theme galaxy" data-theme="Галактика">
+              <span>🌌 Галактика</span>
+            </div>
+
+            <div class="theme sunset" data-theme="Закат">
+              <span>🌅 Закат</span>
+            </div>
+
+            <div class="theme rain" data-theme="Дождь">
+              <span>🌧️ Дождь</span>
+            </div>
+
+            <div class="theme ocean" data-theme="Океан">
+              <span>🌊 Океан</span>
+            </div>
+
+            <div class="theme city" data-theme="Ночной город">
+              <span>🌃 Город</span>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="preview">
+
+          <div class="character">
+            🌸
+          </div>
+
+          <div class="bubble">
+            Каждая деталь может стать частью вашей истории ✨
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="actions">
+
+        <button class="btn secondary prev" type="button">
+          ← Назад
+        </button>
+
+        <button class="btn next" type="button">
+          Далее →
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- STEP 4 -->
+
+    <section class="step" data-title="Музыка">
+
+      <div class="step-layout">
+
+        <div class="copy">
+
+          <span class="eyebrow">
+            Шаг 4 · Музыка
+          </span>
+
+          <h1>
+            Добавим немного настроения?
+          </h1>
+
+          <p>
+            Можно выбрать вариант музыкального
+            оформления или оставить приглашение без музыки.
+          </p>
+
+          <div class="music-grid">
+
+            <div class="music selected" data-music="none">
+              <strong>🔇 Без музыки</strong>
+              <small>Классический вариант</small>
+            </div>
+
+            <div class="music" data-music="romantic">
+              <strong>💗 Романтика</strong>
+              <small>Нежное настроение</small>
+            </div>
+
+            <div class="music" data-music="dream">
+              <strong>🌙 Dream</strong>
+              <small>Спокойная атмосфера</small>
+            </div>
+
+            <div class="music" data-music="cinematic">
+              <strong>🎬 Cinematic</strong>
+              <small>Как маленький фильм</small>
+            </div>
+
+          </div>
+
+          <div class="notice">
+            Музыка сохраняется как настройка приглашения.
+            Само воспроизведение зависит от браузера получателя.
+          </div>
+
+        </div>
+
+        <div class="preview">
+
+          <div class="character">
+            🎵
+          </div>
+
+          <div class="bubble">
+            Пусть у вашего свидания будет свой саундтрек ❤️
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="actions">
+
+        <button class="btn secondary prev" type="button">
+          ← Назад
+        </button>
+
+        <button class="btn next" type="button">
+          Далее →
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- STEP 5 -->
+
+    <section class="step" data-title="Дата">
+
+      <div class="step-layout">
+
+        <div class="copy">
+
+          <span class="eyebrow">
+            Шаг 5 · Дата и время
+          </span>
+
+          <h1>
+            Когда состоится ваше свидание?
+          </h1>
+
+          <p>
+            Получатель сможет выбрать дату
+            только из указанного тобой диапазона.
+          </p>
+
+          <div class="field">
+
+            <label>
+              Доступные даты
+            </label>
+
+            <div class="date-row">
+
+              <input id="dateFrom" type="date">
+
+              <input id="dateTo" type="date">
+
+            </div>
+
+          </div>
+
+          <div class="field">
+
+            <label for="time">
+              Время
+            </label>
+
+            <input
+              id="time"
+              type="time"
+              value="18:00">
+
+          </div>
+
+          <div class="notice">
+            Первое поле — начало диапазона,
+            второе — конец диапазона.
+          </div>
+
+        </div>
+
+        <div class="preview">
+
+          <div class="character">
+            🎫
+          </div>
+
+          <div class="bubble">
+            В конце появится настоящий цифровой билет.
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="actions">
+
+        <button class="btn secondary prev" type="button">
+          ← Назад
+        </button>
+
+        <button class="btn next" type="button">
+          Далее →
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- STEP 6 -->
+
+    <section class="step" data-title="Письмо">
+
+      <div class="step-layout">
+
+        <div class="copy">
+
+          <span class="eyebrow">
+            Шаг 6 · Личное письмо
+          </span>
+
+          <h1>
+            Оставь сообщение, которое откроется позже.
+          </h1>
+
+          <p>
+            Напиши всё, что хочешь сказать получателю.
+            Можно оставить письмо пустым.
+          </p>
+
+          <div class="field">
+
+            <label for="letter">
+              Личное письмо
+            </label>
+
+            <textarea
+              id="letter"
+              maxlength="3000"
+              placeholder="Напиши здесь что-нибудь особенное..."></textarea>
+
+            <div class="notice">
+              Символов:
+              <span id="letterCount">0</span> / 3000
+            </div>
+
+          </div>
+
+          <div class="field">
+
+            <label for="letterDate">
+              Когда открыть письмо?
+            </label>
+
+            <input
+              id="letterDate"
+              type="datetime-local">
+
+          </div>
+
+        </div>
+
+        <div class="preview">
+
+          <div class="character">
+            💌
+          </div>
+
+          <div class="bubble">
+            Иногда самые важные слова должны
+            подождать своего момента.
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="actions">
+
+        <button class="btn secondary prev" type="button">
+          ← Назад
+        </button>
+
+        <button class="btn next" type="button">
+          Далее →
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- STEP 7 -->
+
+    <section class="step" data-title="Опрос">
+
+      <div class="step-layout">
+
+        <div class="copy">
+
+          <span class="eyebrow">
+            Шаг 7 · Опрос
+          </span>
+
+          <h1>
+            Что предложить выбрать получателю?
+          </h1>
+
+          <p>
+            Выбери ровно четыре варианта.
+            Получатель увидит их и сможет выбрать один.
+          </p>
+
+          <div id="surveyOptions" class="option-grid"></div>
+
+          <div class="counter">
+            Выбрано:
+            <b id="surveyCount">0</b> / 4
+          </div>
+
+        </div>
+
+        <div class="preview">
+
+          <div class="character">
+            🥰
+          </div>
+
+          <div class="bubble">
+            А что тебе больше всего хочется
+            на свидании?
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="actions">
+
+        <button class="btn secondary prev" type="button">
+          ← Назад
+        </button>
+
+        <button class="btn next" type="button">
+          Проверить →
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- STEP 8 -->
+
+    <section class="step" data-title="Проверка">
+
+      <div class="step-layout">
+
+        <div class="copy">
+
+          <span class="eyebrow">
+            Шаг 8 · Финальная проверка
+          </span>
+
+          <h1>
+            Всё готово?
+          </h1>
+
+          <p>
+            Проверь настройки перед созданием приглашения.
+          </p>
+
+          <div class="review">
+
+            <div class="review-row">
+              <span>Обращение</span>
+              <strong id="rNick">—</strong>
+            </div>
+
+            <div class="review-row">
+              <span>Персонаж</span>
+              <strong id="rChar">🐸</strong>
+            </div>
+
+            <div class="review-row">
+              <span>Тема</span>
+              <strong id="rTheme">—</strong>
+            </div>
+
+            <div class="review-row">
+              <span>Музыка</span>
+              <strong id="rMusic">—</strong>
+            </div>
+
+            <div class="review-row">
+              <span>Даты</span>
+              <strong id="rDates">—</strong>
+            </div>
+
+            <div class="review-row">
+              <span>Время</span>
+              <strong id="rTime">—</strong>
+            </div>
+
+            <div class="review-row">
+              <span>Письмо</span>
+              <strong id="rLetter">—</strong>
+            </div>
+
+            <div class="review-row">
+              <span>Опрос</span>
+              <strong id="rSurvey">0 / 4</strong>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="preview">
+
+          <div class="character">
+            🎟️
+          </div>
+
+          <div class="bubble">
+            После создания ты получишь ссылку,
+            которую можно отправить получателю.
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="actions">
+
+        <button class="btn secondary prev" type="button">
+          ← Назад
+        </button>
+
+        <button id="createBtn" class="btn green" type="button">
+          Создать приглашение ✨
+        </button>
+
+      </div>
+
+    </section>
+
+  </main>
 
 </section>
 
-<!-- STEP 2 -->
 
-<section
-  class="step"
-  data-title="Персонаж">
+<!-- =========================
+     CREATED
+========================= -->
 
-  <div class="step-layout">
-
-```
-<div class="copy">
-
-  <span class="eyebrow">
-    Шаг 2 · Персонаж
-  </span>
-
-  <h1>
-    Кто будет сопровождать приглашение?
-  </h1>
-
-  <p>
-    Выбери персонажа, который встретит получателя
-    в начале приглашения.
-  </p>
-
-  <div
-    class="char-grid"
-    id="characterGrid">
-
-    <div class="char selected" data-char="🐸">
-      <div class="big">🐸</div>
-      <div>Лягушка</div>
-    </div>
-
-    <div class="char" data-char="🦊">
-      <div class="big">🦊</div>
-      <div>Лисёнок</div>
-    </div>
-
-    <div class="char" data-char="🐱">
-      <div class="big">🐱</div>
-      <div>Котик</div>
-    </div>
-
-    <div class="char" data-char="🐻">
-      <div class="big">🐻</div>
-      <div>Мишка</div>
-    </div>
-
-    <div class="char" data-char="🐰">
-      <div class="big">🐰</div>
-      <div>Зайчик</div>
-    </div>
-
-    <div class="char" data-char="🤖">
-      <div class="big">🤖</div>
-      <div>Робот</div>
-    </div>
-
-  </div>
-
-</div>
-
-<div class="preview">
-
-  <div
-    class="character"
-    id="characterBig">
-    🐸
-  </div>
-
-  <div class="bubble">
-    Я буду ждать тебя внутри 💌
-  </div>
-
-</div>
-```
-
-  </div>
-
-  <div class="actions">
-
-```
-<button
-  class="btn secondary prev"
-  type="button">
-  ← Назад
-</button>
-
-<button
-  class="btn next"
-  type="button">
-  Далее →
-</button>
-```
-
-  </div>
-
-</section>
-
-<!-- STEP 3 -->
-
-<section
-  class="step"
-  data-title="Оформление">
-
-  <div class="step-layout">
-
-```
-<div class="copy">
-
-  <span class="eyebrow">
-    Шаг 3 · Оформление
-  </span>
-
-  <h1>
-    Выбери атмосферу свидания.
-  </h1>
-
-  <p>
-    Тема будет использоваться на странице приглашения.
-  </p>
-
-  <div class="theme-grid">
-
-    <div class="theme sakura selected" data-theme="Сакура">
-      <span>🌸 Сакура</span>
-    </div>
-
-    <div class="theme galaxy" data-theme="Галактика">
-      <span>🌌 Галактика</span>
-    </div>
-
-    <div class="theme sunset" data-theme="Закат">
-      <span>🌅 Закат</span>
-    </div>
-
-    <div class="theme rain" data-theme="Дождь">
-      <span>🌧️ Дождь</span>
-    </div>
-
-    <div class="theme ocean" data-theme="Океан">
-      <span>🌊 Океан</span>
-    </div>
-
-    <div class="theme city" data-theme="Ночной город">
-      <span>🌃 Город</span>
-    </div>
-
-  </div>
-
-</div>
-
-<div class="preview">
-
-  <div class="character">
-    🌸
-  </div>
-
-  <div class="bubble">
-    Каждая деталь может стать частью вашей истории ✨
-  </div>
-
-</div>
-```
-
-  </div>
-
-  <div class="actions">
-
-```
-<button
-  class="btn secondary prev"
-  type="button">
-  ← Назад
-</button>
-
-<button
-  class="btn next"
-  type="button">
-  Далее →
-</button>
-```
-
-  </div>
-
-</section>
-
-<!-- STEP 4 -->
-
-<section
-  class="step"
-  data-title="Музыка">
-
-  <div class="step-layout">
-
-```
-<div class="copy">
-
-  <span class="eyebrow">
-    Шаг 4 · Музыка
-  </span>
-
-  <h1>
-    Добавим немного настроения?
-  </h1>
-
-  <p>
-    Можно выбрать вариант музыкального оформления
-    или оставить приглашение без музыки.
-  </p>
-
-  <div class="music-grid">
-
-    <div
-      class="music selected"
-      data-music="none">
-
-      <strong>🔇 Без музыки</strong>
-      <small>
-        Классический вариант
-      </small>
-
-    </div>
-
-    <div
-      class="music"
-      data-music="romantic">
-
-      <strong>💗 Романтика</strong>
-      <small>
-        Нежное настроение
-      </small>
-
-    </div>
-
-    <div
-      class="music"
-      data-music="dream">
-
-      <strong>🌙 Dream</strong>
-      <small>
-        Спокойная атмосфера
-      </small>
-
-    </div>
-
-    <div
-      class="music"
-      data-music="cinematic">
-
-      <strong>🎬 Cinematic</strong>
-      <small>
-        Как маленький фильм
-      </small>
-
-    </div>
-
-  </div>
-
-  <div class="notice">
-    Музыка сохраняется как настройка приглашения.
-    Само воспроизведение зависит от браузера получателя.
-  </div>
-
-</div>
-
-<div class="preview">
-
-  <div class="character">
-    🎵
-  </div>
-
-  <div class="bubble">
-    Пусть у вашего свидания будет свой саундтрек ❤️
-  </div>
-
-</div>
-```
-
-  </div>
-
-  <div class="actions">
-
-```
-<button
-  class="btn secondary prev"
-  type="button">
-  ← Назад
-</button>
-
-<button
-  class="btn next"
-  type="button">
-  Далее →
-</button>
-```
-
-  </div>
-
-</section>
-
-<!-- STEP 5 -->
-
-<section
-  class="step"
-  data-title="Дата">
-
-  <div class="step-layout">
-
-```
-<div class="copy">
-
-  <span class="eyebrow">
-    Шаг 5 · Дата и время
-  </span>
-
-  <h1>
-    Когда состоится ваше свидание?
-  </h1>
-
-  <p>
-    Получатель сможет выбрать дату только
-    из указанного тобой диапазона.
-  </p>
-
-  <div class="field">
-
-    <label>
-      Доступные даты
-    </label>
-
-    <div class="date-row">
-
-      <input
-        id="dateFrom"
-        type="date">
-
-      <input
-        id="dateTo"
-        type="date">
-
-    </div>
-
-  </div>
-
-  <div class="field">
-
-    <label for="time">
-      Время
-    </label>
-
-    <input
-      id="time"
-      type="time"
-      value="18:00">
-
-  </div>
-
-  <div class="notice">
-    Первое поле — начало диапазона,
-    второе — конец диапазона.
-  </div>
-
-</div>
-
-<div class="preview">
-
-  <div class="character">
-    🎫
-  </div>
-
-  <div class="bubble">
-    В конце появится настоящий цифровой билет.
-  </div>
-
-</div>
-```
-
-  </div>
-
-  <div class="actions">
-
-```
-<button
-  class="btn secondary prev"
-  type="button">
-  ← Назад
-</button>
-
-<button
-  class="btn next"
-  type="button">
-  Далее →
-</button>
-```
-
-  </div>
-
-</section>
-
-<!-- STEP 6 -->
-
-<section
-  class="step"
-  data-title="Письмо">
-
-  <div class="step-layout">
-
-```
-<div class="copy">
-
-  <span class="eyebrow">
-    Шаг 6 · Личное письмо
-  </span>
-
-  <h1>
-    Оставь сообщение, которое откроется позже.
-  </h1>
-
-  <p>
-    Напиши всё, что хочешь сказать получателю.
-    Можно сделать его секретным.
-  </p>
-
-  <div class="field">
-
-    <label for="letter">
-      Личное письмо
-    </label>
-
-    <textarea
-      id="letter"
-      maxlength="3000"
-      placeholder="Напиши здесь что-нибудь особенное..."></textarea>
-
-    <div class="notice">
-      Символов:
-      <span id="letterCount">0</span> / 3000
-    </div>
-
-  </div>
-
-  <div class="field">
-
-    <label for="letterDate">
-      Когда открыть письмо?
-    </label>
-
-    <input
-      id="letterDate"
-      type="datetime-local">
-
-  </div>
-
-</div>
-
-<div class="preview">
-
-  <div class="character">
-    💌
-  </div>
-
-  <div class="bubble">
-    Иногда самые важные слова должны подождать своего момента.
-  </div>
-
-</div>
-```
-
-  </div>
-
-  <div class="actions">
-
-```
-<button
-  class="btn secondary prev"
-  type="button">
-  ← Назад
-</button>
-
-<button
-  class="btn next"
-  type="button">
-  Далее →
-</button>
-```
-
-  </div>
-
-</section>
-
-<!-- STEP 7 -->
-
-<section
-  class="step"
-  data-title="Опрос">
-
-  <div class="step-layout">
-
-```
-<div class="copy">
-
-  <span class="eyebrow">
-    Шаг 7 · Опрос
-  </span>
-
-  <h1>
-    Что предложить выбрать получателю?
-  </h1>
-
-  <p>
-    Выбери ровно четыре варианта.
-    Получатель увидит их и сможет выбрать один.
-  </p>
-
-  <div
-    class="option-grid"
-    id="surveyOptions">
-  </div>
-
-  <div class="counter">
-    Выбрано:
-    <b id="surveyCount">0</b> / 4
-  </div>
-
-</div>
-
-<div class="preview">
-
-  <div class="character">
-    🥰
-  </div>
-
-  <div class="bubble">
-    А что тебе больше всего хочется на свидании?
-  </div>
-
-</div>
-```
-
-  </div>
-
-  <div class="actions">
-
-```
-<button
-  class="btn secondary prev"
-  type="button">
-  ← Назад
-</button>
-
-<button
-  class="btn next"
-  type="button">
-  Проверить →
-</button>
-```
-
-  </div>
-
-</section>
-
-<!-- STEP 8 -->
-
-<section
-  class="step"
-  data-title="Проверка">
-
-  <div class="step-layout">
-
-```
-<div class="copy">
-
-  <span class="eyebrow">
-    Шаг 8 · Финальная проверка
-  </span>
-
-  <h1>
-    Всё готово?
-  </h1>
-
-  <p>
-    Проверь настройки перед созданием приглашения.
-  </p>
-
-  <div class="review">
-
-    <div class="review-row">
-      <span>Обращение</span>
-      <strong id="rNick">—</strong>
-    </div>
-
-    <div class="review-row">
-      <span>Персонаж</span>
-      <strong id="rChar">🐸</strong>
-    </div>
-
-    <div class="review-row">
-      <span>Тема</span>
-      <strong id="rTheme">—</strong>
-    </div>
-
-    <div class="review-row">
-      <span>Музыка</span>
-      <strong id="rMusic">—</strong>
-    </div>
-
-    <div class="review-row">
-      <span>Даты</span>
-      <strong id="rDates">—</strong>
-    </div>
-
-    <div class="review-row">
-      <span>Время</span>
-      <strong id="rTime">—</strong>
-    </div>
-
-    <div class="review-row">
-      <span>Письмо</span>
-      <strong id="rLetter">—</strong>
-    </div>
-
-    <div class="review-row">
-      <span>Опрос</span>
-      <strong id="rSurvey">0 / 4</strong>
-    </div>
-
-  </div>
-
-</div>
-
-<div class="preview">
-
-  <div class="character">
-    🎟️
-  </div>
-
-  <div class="bubble">
-    После создания ты получишь ссылку,
-    которую можно отправить получателю.
-  </div>
-
-</div>
-```
-
-  </div>
-
-  <div class="actions">
-
-```
-<button
-  class="btn secondary prev"
-  type="button">
-  ← Назад
-</button>
-
-<button
-  class="btn green"
-  id="createBtn"
-  type="button">
-  Создать приглашение ✨
-</button>
-```
-
-  </div>
-
-</section>
-
-<!-- CREATED -->
-
-<section
-  id="createdSection"
-  class="hidden">
+<section id="createdSection" class="hidden">
 
   <div class="created-card">
 
-```
-<div class="success">
-  💌
-</div>
+    <div class="success">
+      💌
+    </div>
 
-<h1>
-  Приглашение готово!
-</h1>
+    <h1>
+      Приглашение готово!
+    </h1>
 
-<p>
-  Ссылка создана и сохранена за твоим аккаунтом.
-  Теперь её можно отправить получателю.
-</p>
+    <p>
+      Ссылка создана и сохранена за твоим аккаунтом.
+      Теперь её можно отправить получателю.
+    </p>
 
-<div class="linkbox">
+    <div class="linkbox">
 
-  <input
-    id="shareLink"
-    readonly>
+      <input id="shareLink" readonly>
 
-  <button
-    id="copyLinkBtn"
-    class="btn secondary"
-    type="button">
-    Копировать
-  </button>
+      <button id="copyLinkBtn" class="btn secondary" type="button">
+        Копировать
+      </button>
 
-</div>
+    </div>
 
-<div class="actions">
+    <div class="created-actions">
 
-  <button
-    id="openInviteBtn"
-    class="btn"
-    type="button">
-    Открыть приглашение
-  </button>
+      <button id="openInviteBtn" class="btn" type="button">
+        Открыть приглашение
+      </button>
 
-  <button
-    id="answersBtn"
-    class="btn secondary"
-    type="button">
-    Мои приглашения 💌
-  </button>
+      <button id="answersBtn" class="btn secondary" type="button">
+        Мои приглашения 💌
+      </button>
 
-</div>
-```
+    </div>
 
   </div>
 
 </section>
 
-</main>
-
-</section>
-
 </div>
 
+
 <script type="module">
+
+/* =====================================================
+   FIREBASE
+===================================================== */
 
 import {
   initializeApp
@@ -1752,414 +1647,329 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js";
 
 
-/* =========================
-   FIREBASE
-========================= */
-
 const firebaseConfig = {
-
   apiKey:"AIzaSyC2esT1S9A8SnTBPyrHVfxTy-Z_u-GiGpWo",
-
   authDomain:"date-ticket-2e786.firebaseapp.com",
-
-  databaseURL:
-    "https://date-ticket-2e786-default-rtdb.europe-west1.firebasedatabase.app",
-
+  databaseURL:"https://date-ticket-2e786-default-rtdb.europe-west1.firebasedatabase.app",
   projectId:"date-ticket-2e786",
-
-  storageBucket:
-    "date-ticket-2e786.firebasestorage.app",
-
+  storageBucket:"date-ticket-2e786.firebasestorage.app",
   messagingSenderId:"576969359516",
-
-  appId:
-    "1:576969359516:web:2b9e622d7b2de86acc6d59"
+  appId:"1:576969359516:web:2b9e622d7b2de86acc6d59"
 };
 
 const app = initializeApp(firebaseConfig);
-
 const auth = getAuth(app);
-
 const db = getFirestore(app);
 
 
-/* =========================
+/* =====================================================
    ELEMENTS
-========================= */
+===================================================== */
 
-const authSection =
-  document.querySelector("#authSection");
+const authSection = document.getElementById("authSection");
+const createSection = document.getElementById("createSection");
+const createdSection = document.getElementById("createdSection");
 
-const createSection =
-  document.querySelector("#createSection");
+const authBtn = document.getElementById("authBtn");
+const authEmail = document.getElementById("authEmail");
+const authPassword = document.getElementById("authPassword");
+const authConfirm = document.getElementById("authConfirm");
+const authConfirmWrap = document.getElementById("authConfirmWrap");
+const authError = document.getElementById("authError");
 
-const createdSection =
-  document.querySelector("#createdSection");
+const loginTab = document.getElementById("loginTab");
+const registerTab = document.getElementById("registerTab");
 
-const authBtn =
-  document.querySelector("#authBtn");
-
-const authEmail =
-  document.querySelector("#authEmail");
-
-const authPassword =
-  document.querySelector("#authPassword");
-
-const authConfirm =
-  document.querySelector("#authConfirm");
-
-const authConfirmWrap =
-  document.querySelector("#authConfirmWrap");
-
-const authError =
-  document.querySelector("#authError");
-
-const loginTab =
-  document.querySelector("#loginTab");
-
-const registerTab =
-  document.querySelector("#registerTab");
-
-const userEmail =
-  document.querySelector("#userEmail");
-
-const logoutBtn =
-  document.querySelector("#logoutBtn");
-
-const myInvitesBtn =
-  document.querySelector("#myInvitesBtn");
+const userEmail = document.getElementById("userEmail");
+const logoutBtn = document.getElementById("logoutBtn");
+const myInvitesBtn = document.getElementById("myInvitesBtn");
 
 
-/* =========================
+/* =====================================================
    AUTH MODE
-========================= */
+===================================================== */
 
 let authMode = "login";
-
 
 function setAuthMode(mode){
 
   authMode = mode;
 
-  const login =
-    mode === "login";
+  const isLogin = mode === "login";
 
-  loginTab.classList.toggle(
-    "active",
-    login
-  );
+  loginTab.classList.toggle("active",isLogin);
+  registerTab.classList.toggle("active",!isLogin);
 
-  registerTab.classList.toggle(
-    "active",
-    !login
-  );
-
-  authConfirmWrap.classList.toggle(
-    "hidden",
-    login
-  );
+  authConfirmWrap.classList.toggle("hidden",isLogin);
 
   authBtn.textContent =
-    login ? "Войти" : "Создать аккаунт";
+    isLogin ? "Войти" : "Создать аккаунт";
 
   authError.textContent = "";
 
+  authPassword.value = "";
+  authConfirm.value = "";
+
 }
 
+loginTab.addEventListener("click",()=>{
+  setAuthMode("login");
+});
 
-loginTab.addEventListener(
-  "click",
-  () => setAuthMode("login")
-);
-
-
-registerTab.addEventListener(
-  "click",
-  () => setAuthMode("register")
-);
+registerTab.addEventListener("click",()=>{
+  setAuthMode("register");
+});
 
 
-/* =========================
-   FIREBASE AUTH
-========================= */
+/* =====================================================
+   AUTH
+===================================================== */
 
-authBtn.addEventListener(
-  "click",
-  async () => {
+authBtn.addEventListener("click",async()=>{
 
-    const email =
-      authEmail.value.trim();
+  const email = authEmail.value.trim().toLowerCase();
+  const password = authPassword.value;
 
-    const password =
-      authPassword.value;
+  authError.textContent = "";
 
-    authError.textContent = "";
+  if(!email){
 
-    if(!email){
+    authError.textContent =
+      "Введи email.";
 
-      authError.textContent =
-        "Введи email.";
-
-      return;
-    }
-
-    if(!password || password.length < 6){
-
-      authError.textContent =
-        "Пароль должен содержать минимум 6 символов.";
-
-      return;
-    }
-
-    if(
-      authMode === "register" &&
-      authConfirm.value !== password
-    ){
-
-      authError.textContent =
-        "Пароли не совпадают.";
-
-      return;
-    }
-
-    authBtn.disabled = true;
-
-    authBtn.textContent =
-      authMode === "login"
-        ? "Входим…"
-        : "Создаём аккаунт…";
-
-    try{
-
-      if(authMode === "login"){
-
-        await signInWithEmailAndPassword(
-          auth,
-          email,
-          password
-        );
-
-      }else{
-
-        await createUserWithEmailAndPassword(
-          auth,
-          email,
-          password
-        );
-
-      }
-
-    }catch(error){
-
-      console.error(error);
-
-      const code =
-        error?.code || "";
-
-      const messages = {
-
-        "auth/invalid-email":
-          "Неверный формат email.",
-
-        "auth/user-not-found":
-          "Пользователь с таким email не найден.",
-
-        "auth/wrong-password":
-          "Неверный пароль.",
-
-        "auth/invalid-credential":
-          "Неверный email или пароль.",
-
-        "auth/email-already-in-use":
-          "Этот email уже зарегистрирован.",
-
-        "auth/weak-password":
-          "Пароль слишком слабый.",
-
-        "auth/too-many-requests":
-          "Слишком много попыток. Попробуй позже."
-
-      };
-
-      authError.textContent =
-        messages[code] ||
-        "Не удалось выполнить вход. Проверь данные.";
-
-    }finally{
-
-      authBtn.disabled = false;
-
-      authBtn.textContent =
-        authMode === "login"
-          ? "Войти"
-          : "Создать аккаунт";
-
-    }
-
+    return;
   }
-);
 
+  if(!password || password.length < 6){
 
-/* =========================
-   LOGOUT
-========================= */
+    authError.textContent =
+      "Пароль должен содержать минимум 6 символов.";
 
-logoutBtn.addEventListener(
-  "click",
-  async () => {
-
-    await signOut(auth);
-
+    return;
   }
-);
 
+  if(
+    authMode === "register" &&
+    authConfirm.value !== password
+  ){
 
-/* =========================
-   MY INVITATIONS
-========================= */
+    authError.textContent =
+      "Пароли не совпадают.";
 
-myInvitesBtn.addEventListener(
-  "click",
-  () => {
-
-    location.href =
-      "admin.html";
-
+    return;
   }
-);
 
+  authBtn.disabled = true;
 
-/* =========================
-   AUTH STATE
-========================= */
+  authBtn.textContent =
+    authMode === "login"
+      ? "Входим…"
+      : "Создаём аккаунт…";
 
-onAuthStateChanged(
-  auth,
-  user => {
+  try{
 
-    if(user){
+    if(authMode === "login"){
 
-      authSection.classList.add(
-        "hidden"
+      await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
       );
-
-      createSection.classList.remove(
-        "hidden"
-      );
-
-      createdSection.classList.add(
-        "hidden"
-      );
-
-      userEmail.textContent =
-        user.email || "";
-
-      logoutBtn.classList.remove(
-        "hidden"
-      );
-
-      myInvitesBtn.classList.remove(
-        "hidden"
-      );
-
-      loadDraft();
 
     }else{
 
-      authSection.classList.remove(
-        "hidden"
+      await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
       );
-
-      createSection.classList.add(
-        "hidden"
-      );
-
-      createdSection.classList.add(
-        "hidden"
-      );
-
-      logoutBtn.classList.add(
-        "hidden"
-      );
-
-      myInvitesBtn.classList.add(
-        "hidden"
-      );
-
-      userEmail.textContent = "";
 
     }
 
+  }catch(error){
+
+    console.error(error);
+
+    const code = error?.code || "";
+
+    const messages = {
+
+      "auth/invalid-email":
+        "Неверный формат email.",
+
+      "auth/user-not-found":
+        "Пользователь с таким email не найден.",
+
+      "auth/wrong-password":
+        "Неверный пароль.",
+
+      "auth/invalid-credential":
+        "Неверный email или пароль.",
+
+      "auth/email-already-in-use":
+        "Этот email уже зарегистрирован.",
+
+      "auth/weak-password":
+        "Пароль слишком слабый. Используй минимум 6 символов.",
+
+      "auth/operation-not-allowed":
+        "Регистрация по email отключена в Firebase.",
+
+      "auth/network-request-failed":
+        "Ошибка сети. Проверь подключение к интернету.",
+
+      "auth/too-many-requests":
+        "Слишком много попыток. Попробуй позже."
+
+    };
+
+    authError.textContent =
+      messages[code] ||
+      "Не удалось выполнить операцию. Проверь данные.";
+
+  }finally{
+
+    authBtn.disabled = false;
+
+    authBtn.textContent =
+      authMode === "login"
+        ? "Войти"
+        : "Создать аккаунт";
+
   }
+
+});
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+logoutBtn.addEventListener("click",async()=>{
+
+  try{
+
+    await signOut(auth);
+
+  }catch(error){
+
+    console.error(error);
+
+  }
+
+});
+
+
+/* =====================================================
+   MY INVITATIONS
+===================================================== */
+
+function openMyInvitations(){
+
+  location.href = "admin.html";
+
+}
+
+myInvitesBtn.addEventListener(
+  "click",
+  openMyInvitations
 );
 
 
-/* =========================
+/* =====================================================
+   AUTH STATE
+===================================================== */
+
+onAuthStateChanged(auth,user=>{
+
+  if(user){
+
+    authSection.classList.add("hidden");
+    createSection.classList.remove("hidden");
+    createdSection.classList.add("hidden");
+
+    userEmail.textContent =
+      user.email || "";
+
+    logoutBtn.classList.remove("hidden");
+    myInvitesBtn.classList.remove("hidden");
+
+    loadDraft();
+
+  }else{
+
+    authSection.classList.remove("hidden");
+    createSection.classList.add("hidden");
+    createdSection.classList.add("hidden");
+
+    logoutBtn.classList.add("hidden");
+    myInvitesBtn.classList.add("hidden");
+
+    userEmail.textContent = "";
+
+  }
+
+});
+
+
+/* =====================================================
    CREATE STATE
-========================= */
+===================================================== */
 
 const steps =
   [...document.querySelectorAll(".step")];
 
-let current = 0;
-
+let currentStep = 0;
 
 const state = {
 
   nickname:"",
-
   character:"🐸",
-
   theme:"Сакура",
-
   music:"none",
-
   from:"",
-
   to:"",
-
   time:"18:00",
-
   letter:"",
-
   letterDate:"",
-
   survey:[]
 
 };
 
-
 const surveyData = [
 
   ["☕","Кофейня"],
-
   ["🎬","Кино"],
-
   ["🌳","Парк"],
-
   ["🎳","Боулинг"],
-
   ["🌅","Набережная"],
-
   ["🎨","Мастер-класс"],
-
   ["🧺","Пикник"],
-
   ["🎡","Аттракционы"]
 
 ];
 
+const draftKey = "dateTicketDraft";
 
-const draftKey =
-  "dateTicketDraft";
 
+/* =====================================================
+   DRAFT
+===================================================== */
 
 function saveDraft(){
 
-  localStorage.setItem(
-    draftKey,
-    JSON.stringify(state)
-  );
+  try{
+
+    localStorage.setItem(
+      draftKey,
+      JSON.stringify(state)
+    );
+
+  }catch(error){
+
+    console.error("Draft save error:",error);
+
+  }
 
 }
 
@@ -2173,159 +1983,145 @@ function loadDraft(){
         localStorage.getItem(draftKey) || "{}"
       );
 
-    Object.assign(
-      state,
-      saved
-    );
+    if(saved && typeof saved === "object"){
+
+      Object.assign(state,saved);
+
+    }
 
   }catch(error){
 
-    console.error(error);
+    console.error("Draft load error:",error);
 
   }
 
 
-  document.querySelector("#nickname").value =
+  document.getElementById("nickname").value =
     state.nickname || "";
 
-  document.querySelector("#dateFrom").value =
+  document.getElementById("dateFrom").value =
     state.from || "";
 
-  document.querySelector("#dateTo").value =
+  document.getElementById("dateTo").value =
     state.to || "";
 
-  document.querySelector("#time").value =
+  document.getElementById("time").value =
     state.time || "18:00";
 
-  document.querySelector("#letter").value =
+  document.getElementById("letter").value =
     state.letter || "";
 
-  document.querySelector("#letterCount").textContent =
+  document.getElementById("letterCount").textContent =
     (state.letter || "").length;
 
-  document.querySelector("#letterDate").value =
+  document.getElementById("letterDate").value =
     state.letterDate || "";
 
 
-  document.querySelectorAll(".char")
-    .forEach(el => {
+  document.querySelectorAll(".char").forEach(el=>{
 
-      el.classList.toggle(
-        "selected",
-        el.dataset.char === state.character
-      );
+    el.classList.toggle(
+      "selected",
+      el.dataset.char === state.character
+    );
 
-    });
-
-
-  document.querySelectorAll(".theme")
-    .forEach(el => {
-
-      el.classList.toggle(
-        "selected",
-        el.dataset.theme === state.theme
-      );
-
-    });
+  });
 
 
-  document.querySelectorAll(".music")
-    .forEach(el => {
+  document.querySelectorAll(".theme").forEach(el=>{
 
-      el.classList.toggle(
-        "selected",
-        el.dataset.music === state.music
-      );
+    el.classList.toggle(
+      "selected",
+      el.dataset.theme === state.theme
+    );
 
-    });
+  });
 
 
-  document.querySelector("#charPreview")
-    .textContent =
+  document.querySelectorAll(".music").forEach(el=>{
+
+    el.classList.toggle(
+      "selected",
+      el.dataset.music === state.music
+    );
+
+  });
+
+
+  document.getElementById("charPreview").textContent =
     state.character;
 
-  document.querySelector("#characterBig")
-    .textContent =
+  document.getElementById("characterBig").textContent =
     state.character;
 
-
-  document.querySelector("#bubblePreview")
-    .textContent =
-    state.nickname
-      ? `Привет, ${state.nickname}! Я приготовил для тебя кое-что особенное ❤️`
-      : "Привет! Я приготовил для тебя кое-что особенное ❤️";
-
+  updateNicknamePreview();
 
   renderSurvey();
 
+  updateProgress();
+
 }
 
 
-/* =========================
+/* =====================================================
    PROGRESS
-========================= */
+===================================================== */
 
 function updateProgress(){
 
-  const pct =
+  const percent =
     Math.round(
-      ((current + 1) / 8) * 100
+      ((currentStep + 1) / steps.length) * 100
     );
 
-  document.querySelector("#stepNum")
-    .textContent =
-    current + 1;
+  document.getElementById("stepNum").textContent =
+    currentStep + 1;
 
-  document.querySelector("#stepTitle")
-    .textContent =
-    steps[current].dataset.title;
+  document.getElementById("stepTitle").textContent =
+    steps[currentStep].dataset.title;
 
-  document.querySelector("#progressPercent")
-    .textContent =
-    pct + "%";
+  document.getElementById("progressPercent").textContent =
+    percent + "%";
 
-  document.querySelector("#progressBar")
-    .style.width =
-    pct + "%";
+  document.getElementById("progressBar").style.width =
+    percent + "%";
 
 }
 
 
-/* =========================
+/* =====================================================
    SHOW STEP
-========================= */
+===================================================== */
 
-function show(n){
+function showStep(index){
 
-  current =
+  currentStep =
     Math.max(
       0,
       Math.min(
-        n,
+        index,
         steps.length - 1
       )
     );
 
-  steps.forEach(
-    (step,index) => {
+  steps.forEach((step,i)=>{
 
-      step.classList.toggle(
-        "active",
-        index === current
-      );
+    step.classList.toggle(
+      "active",
+      i === currentStep
+    );
 
-    }
-  );
+  });
 
   updateProgress();
 
-  if(current === 6){
+  if(currentStep === 6){
 
     renderSurvey();
 
   }
 
-  if(current === 7){
+  if(currentStep === 7){
 
     updateReview();
 
@@ -2339,425 +2135,395 @@ function show(n){
 }
 
 
-/* =========================
-   NEXT
-========================= */
+/* =====================================================
+   VALIDATION
+===================================================== */
 
-document.querySelectorAll(".next")
-  .forEach(btn => {
+function validateCurrentStep(){
 
-    btn.addEventListener(
-      "click",
-      () => {
+  if(currentStep === 0){
 
-        if(current === 0){
+    const nickname =
+      document.getElementById("nickname").value.trim();
 
-          if(
-            !document
-              .querySelector("#nickname")
-              .value
-              .trim()
-          ){
+    if(!nickname){
 
-            document
-              .querySelector("#nickname")
-              .focus();
+      alert("Напиши обращение к получателю.");
 
-            return;
+      document.getElementById("nickname").focus();
 
-          }
+      return false;
 
-        }
+    }
+
+    state.nickname = nickname;
+
+  }
 
 
-        if(current === 4){
+  if(currentStep === 4){
 
-          if(
-            !state.from ||
-            !state.to
-          ){
+    if(!state.from || !state.to){
 
-            alert(
-              "Укажи диапазон дат."
-            );
+      alert("Укажи диапазон дат.");
 
-            return;
+      return false;
 
-          }
+    }
 
-          if(
-            state.from > state.to
-          ){
+    if(state.from > state.to){
 
-            alert(
-              "Дата начала не может быть позже даты окончания."
-            );
+      alert(
+        "Дата начала не может быть позже даты окончания."
+      );
 
-            return;
+      return false;
 
-          }
+    }
 
-        }
+  }
 
 
-        if(current === 6){
+  if(currentStep === 6){
 
-          if(
-            state.survey.length !== 4
-          ){
+    if(state.survey.length !== 4){
 
-            alert(
-              "Выбери ровно 4 варианта."
-            );
+      alert("Выбери ровно 4 варианта.");
 
-            return;
+      return false;
 
-          }
+    }
 
-        }
+  }
+
+  return true;
+
+}
 
 
-        show(current + 1);
+/* =====================================================
+   NEXT / PREVIOUS
+===================================================== */
 
-      }
-    );
+document.querySelectorAll(".next").forEach(button=>{
+
+  button.addEventListener("click",()=>{
+
+    if(!validateCurrentStep()) return;
+
+    showStep(currentStep + 1);
 
   });
 
+});
 
-/* =========================
-   PREVIOUS
-========================= */
 
-document.querySelectorAll(".prev")
-  .forEach(btn => {
+document.querySelectorAll(".prev").forEach(button=>{
 
-    btn.addEventListener(
-      "click",
-      () => show(current - 1)
-    );
+  button.addEventListener("click",()=>{
+
+    showStep(currentStep - 1);
 
   });
 
+});
 
-/* =========================
+
+/* =====================================================
    NICKNAME
-========================= */
+===================================================== */
 
-document.querySelector("#nickname")
-  .addEventListener(
-    "input",
-    event => {
+function updateNicknamePreview(){
 
-      state.nickname =
-        event.target.value.trim();
+  const nickname =
+    state.nickname.trim();
 
-      document.querySelector("#bubblePreview")
-        .textContent =
-        state.nickname
-          ? `Привет, ${state.nickname}! Я приготовил для тебя кое-что особенное ❤️`
-          : "Привет! Я приготовил для тебя кое-что особенное ❤️";
+  document.getElementById("bubblePreview").textContent =
+    nickname
+      ? `Привет, ${nickname}! Я приготовил для тебя кое-что особенное ❤️`
+      : "Привет! Я приготовил для тебя кое-что особенное ❤️";
 
-      saveDraft();
-
-    }
-  );
+}
 
 
-/* =========================
+document.getElementById("nickname")
+  .addEventListener("input",event=>{
+
+    state.nickname =
+      event.target.value.trim();
+
+    updateNicknamePreview();
+
+    saveDraft();
+
+  });
+
+
+/* =====================================================
    CHARACTERS
-========================= */
+===================================================== */
 
-document.querySelectorAll(".char")
-  .forEach(el => {
+document.querySelectorAll(".char").forEach(element=>{
 
-    el.addEventListener(
-      "click",
-      () => {
+  element.addEventListener("click",()=>{
 
-        document.querySelectorAll(".char")
-          .forEach(
-            x => x.classList.remove("selected")
-          );
+    document.querySelectorAll(".char").forEach(item=>{
 
-        el.classList.add("selected");
+      item.classList.remove("selected");
 
-        state.character =
-          el.dataset.char;
+    });
 
-        document.querySelector("#charPreview")
-          .textContent =
-          state.character;
+    element.classList.add("selected");
 
-        document.querySelector("#characterBig")
-          .textContent =
-          state.character;
+    state.character =
+      element.dataset.char;
 
-        saveDraft();
+    document.getElementById("charPreview").textContent =
+      state.character;
 
-      }
-    );
+    document.getElementById("characterBig").textContent =
+      state.character;
+
+    saveDraft();
 
   });
 
+});
 
-/* =========================
+
+/* =====================================================
    THEMES
-========================= */
+===================================================== */
 
-document.querySelectorAll(".theme")
-  .forEach(el => {
+document.querySelectorAll(".theme").forEach(element=>{
 
-    el.addEventListener(
-      "click",
-      () => {
+  element.addEventListener("click",()=>{
 
-        document.querySelectorAll(".theme")
-          .forEach(
-            x => x.classList.remove("selected")
-          );
+    document.querySelectorAll(".theme").forEach(item=>{
 
-        el.classList.add("selected");
+      item.classList.remove("selected");
 
-        state.theme =
-          el.dataset.theme;
+    });
 
-        saveDraft();
+    element.classList.add("selected");
 
-      }
-    );
+    state.theme =
+      element.dataset.theme;
+
+    saveDraft();
 
   });
 
+});
 
-/* =========================
+
+/* =====================================================
    MUSIC
-========================= */
+===================================================== */
 
-document.querySelectorAll(".music")
-  .forEach(el => {
+document.querySelectorAll(".music").forEach(element=>{
 
-    el.addEventListener(
-      "click",
-      () => {
+  element.addEventListener("click",()=>{
 
-        document.querySelectorAll(".music")
-          .forEach(
-            x => x.classList.remove("selected")
-          );
+    document.querySelectorAll(".music").forEach(item=>{
 
-        el.classList.add("selected");
+      item.classList.remove("selected");
 
-        state.music =
-          el.dataset.music;
+    });
 
-        saveDraft();
+    element.classList.add("selected");
 
-      }
-    );
+    state.music =
+      element.dataset.music;
+
+    saveDraft();
+
+  });
+
+});
+
+
+/* =====================================================
+   DATES
+===================================================== */
+
+document.getElementById("dateFrom")
+  .addEventListener("input",event=>{
+
+    state.from =
+      event.target.value;
+
+    saveDraft();
 
   });
 
 
-/* =========================
-   DATES
-========================= */
+document.getElementById("dateTo")
+  .addEventListener("input",event=>{
 
-document.querySelector("#dateFrom")
-  .addEventListener(
-    "input",
-    event => {
+    state.to =
+      event.target.value;
 
-      state.from =
-        event.target.value;
+    saveDraft();
 
-      saveDraft();
-
-    }
-  );
+  });
 
 
-document.querySelector("#dateTo")
-  .addEventListener(
-    "input",
-    event => {
+document.getElementById("time")
+  .addEventListener("input",event=>{
 
-      state.to =
-        event.target.value;
+    state.time =
+      event.target.value;
 
-      saveDraft();
+    saveDraft();
 
-    }
-  );
+  });
 
 
-document.querySelector("#time")
-  .addEventListener(
-    "input",
-    event => {
-
-      state.time =
-        event.target.value;
-
-      saveDraft();
-
-    }
-  );
-
-
-/* =========================
+/* =====================================================
    LETTER
-========================= */
+===================================================== */
 
-document.querySelector("#letter")
-  .addEventListener(
-    "input",
-    event => {
+document.getElementById("letter")
+  .addEventListener("input",event=>{
 
-      state.letter =
-        event.target.value;
+    state.letter =
+      event.target.value;
 
-      document.querySelector("#letterCount")
-        .textContent =
-        event.target.value.length;
+    document.getElementById("letterCount").textContent =
+      event.target.value.length;
 
-      saveDraft();
+    saveDraft();
 
-    }
-  );
+  });
 
 
-document.querySelector("#letterDate")
-  .addEventListener(
-    "input",
-    event => {
+document.getElementById("letterDate")
+  .addEventListener("input",event=>{
 
-      state.letterDate =
-        event.target.value;
+    state.letterDate =
+      event.target.value;
 
-      saveDraft();
+    saveDraft();
 
-    }
-  );
+  });
 
 
-/* =========================
+/* =====================================================
    SURVEY
-========================= */
+===================================================== */
 
 function renderSurvey(){
 
   const box =
-    document.querySelector("#surveyOptions");
+    document.getElementById("surveyOptions");
 
   box.innerHTML = "";
 
-  surveyData.forEach(
-    ([emoji,name]) => {
+  surveyData.forEach(([emoji,name])=>{
 
-      const div =
-        document.createElement("div");
+    const item =
+      document.createElement("div");
 
-      div.className =
-        "option" +
-        (
-          state.survey.includes(name)
-            ? " selected"
-            : ""
-        );
+    item.className =
+      "option" +
+      (
+        state.survey.includes(name)
+          ? " selected"
+          : ""
+      );
 
-      div.innerHTML = `
-        <div class="emoji">${emoji}</div>
-        <strong>${name}</strong>
-      `;
+    const emojiElement =
+      document.createElement("div");
 
-      div.onclick =
-        () => {
+    emojiElement.className = "emoji";
+    emojiElement.textContent = emoji;
 
-          if(
-            state.survey.includes(name)
-          ){
+    const nameElement =
+      document.createElement("strong");
 
-            state.survey =
-              state.survey.filter(
-                x => x !== name
-              );
+    nameElement.textContent = name;
 
-          }else if(
-            state.survey.length < 4
-          ){
+    item.appendChild(emojiElement);
+    item.appendChild(nameElement);
 
-            state.survey.push(name);
+    item.addEventListener("click",()=>{
 
-          }
+      if(state.survey.includes(name)){
 
-          renderSurvey();
+        state.survey =
+          state.survey.filter(
+            value => value !== name
+          );
 
-          saveDraft();
+      }else if(state.survey.length < 4){
 
-        };
+        state.survey.push(name);
 
-      box.appendChild(div);
+      }
 
-    }
-  );
+      renderSurvey();
+      saveDraft();
 
+    });
 
-  document.querySelector("#surveyCount")
-    .textContent =
+    box.appendChild(item);
+
+  });
+
+  document.getElementById("surveyCount").textContent =
     state.survey.length;
 
 }
 
 
-/* =========================
+/* =====================================================
    REVIEW
-========================= */
+===================================================== */
 
 function updateReview(){
 
-  document.querySelector("#rNick")
-    .textContent =
+  document.getElementById("rNick").textContent =
     state.nickname || "—";
 
-  document.querySelector("#rChar")
-    .textContent =
+  document.getElementById("rChar").textContent =
     state.character;
 
-  document.querySelector("#rTheme")
-    .textContent =
+  document.getElementById("rTheme").textContent =
     state.theme;
 
-  document.querySelector("#rMusic")
-    .textContent =
-    state.music === "none"
-      ? "Без музыки"
-      : state.music;
+  const musicNames = {
 
-  document.querySelector("#rDates")
-    .textContent =
+    none:"Без музыки",
+    romantic:"Романтика",
+    dream:"Dream",
+    cinematic:"Cinematic"
+
+  };
+
+  document.getElementById("rMusic").textContent =
+    musicNames[state.music] || state.music;
+
+  document.getElementById("rDates").textContent =
     `${state.from || "—"} → ${state.to || "—"}`;
 
-  document.querySelector("#rTime")
-    .textContent =
+  document.getElementById("rTime").textContent =
     state.time || "—";
 
-  document.querySelector("#rLetter")
-    .textContent =
+  document.getElementById("rLetter").textContent =
     state.letter
       ? "Написано"
       : "Не заполнено";
 
-  document.querySelector("#rSurvey")
-    .textContent =
+  document.getElementById("rSurvey").textContent =
     `${state.survey.length} / 4`;
 
 }
 
 
-/* =========================
+/* =====================================================
    ID
-========================= */
+===================================================== */
 
 function generateId(){
 
@@ -2782,328 +2548,353 @@ function generateId(){
 }
 
 
-/* =========================
+/* =====================================================
    CREATE INVITATION
-========================= */
+===================================================== */
 
-document.querySelector("#createBtn")
-  .addEventListener(
-    "click",
-    async () => {
+document.getElementById("createBtn")
+  .addEventListener("click",async()=>{
 
-      const user =
-        auth.currentUser;
+    const user =
+      auth.currentUser;
 
-      if(!user){
+    if(!user){
 
-        alert(
-          "Сначала войди в аккаунт."
-        );
+      alert("Сначала войди в аккаунт.");
 
-        return;
-
-      }
-
-
-      if(
-        state.survey.length !== 4
-      ){
-
-        alert(
-          "Выбери ровно 4 варианта."
-        );
-
-        return;
-
-      }
-
-
-      if(
-        !state.from ||
-        !state.to
-      ){
-
-        alert(
-          "Укажи диапазон дат."
-        );
-
-        return;
-
-      }
-
-
-      if(
-        state.from > state.to
-      ){
-
-        alert(
-          "Дата начала не может быть позже даты окончания."
-        );
-
-        return;
-
-      }
-
-
-      const btn =
-        document.querySelector("#createBtn");
-
-      btn.disabled = true;
-
-      btn.textContent =
-        "Создаём приглашение…";
-
-
-      try{
-
-        const id =
-          generateId();
-
-
-        const payload = {
-
-          ownerUid:
-            user.uid,
-
-          ownerEmail:
-            user.email || "",
-
-          nickname:
-            state.nickname,
-
-          character:
-            state.character,
-
-          theme:
-            state.theme,
-
-          music:
-            state.music,
-
-          from:
-            state.from,
-
-          to:
-            state.to,
-
-          time:
-            state.time,
-
-          survey:
-            state.survey,
-
-          status:
-            "created",
-
-          response:
-            null,
-
-          createdAt:
-            serverTimestamp()
-
-        };
-
-
-        const privateLetter = {
-
-          letter:
-            state.letter || "",
-
-          letterUnlock:
-            state.letterDate || null
-
-        };
-
-
-        await setDoc(
-          doc(
-            db,
-            "invitations",
-            id
-          ),
-          payload
-        );
-
-
-        await setDoc(
-          doc(
-            db,
-            "invitations",
-            id,
-            "private",
-            "letter"
-          ),
-          privateLetter
-        );
-
-
-        const base =
-          location.href.substring(
-            0,
-            location.href.lastIndexOf("/") + 1
-          );
-
-
-        const inviteUrl =
-          base +
-          "invite.html?id=" +
-          encodeURIComponent(id);
-
-
-        localStorage.setItem(
-          "dateTicketInvitation",
-          JSON.stringify({
-            ...payload,
-            ...privateLetter,
-            id
-          })
-        );
-
-
-        localStorage.removeItem(
-          draftKey
-        );
-
-
-        document.querySelector("#shareLink")
-          .value =
-          inviteUrl;
-
-
-        document.querySelector("#createSection")
-          .classList.add("hidden");
-
-
-        createdSection
-          .classList.remove("hidden");
-
-
-        window.scrollTo({
-          top:0,
-          behavior:"smooth"
-        });
-
-
-      }catch(error){
-
-        console.error(error);
-
-        alert(
-          "Не удалось создать приглашение.\n\n" +
-          "Проверь Firebase Authentication и правила Firestore."
-        );
-
-      }finally{
-
-        btn.disabled = false;
-
-        btn.textContent =
-          "Создать приглашение ✨";
-
-      }
+      return;
 
     }
-  );
+
+    if(state.survey.length !== 4){
+
+      alert("Выбери ровно 4 варианта.");
+
+      return;
+
+    }
+
+    if(!state.from || !state.to){
+
+      alert("Укажи диапазон дат.");
+
+      return;
+
+    }
+
+    if(state.from > state.to){
+
+      alert(
+        "Дата начала не может быть позже даты окончания."
+      );
+
+      return;
+
+    }
+
+    if(!state.nickname.trim()){
+
+      alert("Напиши обращение к получателю.");
+
+      showStep(0);
+
+      return;
+
+    }
 
 
-/* =========================
-   COPY
-========================= */
+    const button =
+      document.getElementById("createBtn");
 
-document.querySelector("#copyLinkBtn")
-  .addEventListener(
-    "click",
-    async () => {
+    button.disabled = true;
+    button.textContent =
+      "Создаём приглашение…";
 
-      const input =
-        document.querySelector("#shareLink");
 
-      if(!input.value)
-        return;
+    try{
 
-      try{
+      const id =
+        generateId();
 
-        await navigator.clipboard.writeText(
-          input.value
+
+      const payload = {
+
+        ownerUid:user.uid,
+
+        ownerEmail:user.email || "",
+
+        nickname:state.nickname,
+
+        character:state.character,
+
+        theme:state.theme,
+
+        music:state.music,
+
+        from:state.from,
+
+        to:state.to,
+
+        time:state.time,
+
+        survey:[...state.survey],
+
+        status:"created",
+
+        response:null,
+
+        createdAt:serverTimestamp()
+
+      };
+
+
+      const privateLetter = {
+
+        letter:state.letter || "",
+
+        letterUnlock:
+          state.letterDate || null
+
+      };
+
+
+      /*
+       * Основная запись приглашения
+       */
+
+      await setDoc(
+        doc(db,"invitations",id),
+        payload
+      );
+
+
+      /*
+       * Приватное письмо
+       */
+
+      await setDoc(
+        doc(
+          db,
+          "invitations",
+          id,
+          "private",
+          "letter"
+        ),
+        privateLetter
+      );
+
+
+      /*
+       * Ссылка
+       */
+
+      const base =
+        location.href.substring(
+          0,
+          location.href.lastIndexOf("/") + 1
         );
 
-        const btn =
-          document.querySelector("#copyLinkBtn");
 
-        const old =
-          btn.textContent;
+      const inviteUrl =
+        base +
+        "invite.html?id=" +
+        encodeURIComponent(id);
 
-        btn.textContent =
-          "Скопировано ✓";
 
-        setTimeout(
-          () => {
-            btn.textContent = old;
-          },
-          1500
-        );
+      /*
+       * Сохраняем последнее созданное
+       */
 
-      }catch(error){
+      localStorage.setItem(
+        "dateTicketInvitation",
+        JSON.stringify({
 
-        input.select();
+          ...payload,
+          ...privateLetter,
+          id
 
-        alert(
-          "Ссылка выделена. Нажми Ctrl+C."
-        );
+        })
+      );
+
+
+      /*
+       * Удаляем черновик
+       */
+
+      localStorage.removeItem(draftKey);
+
+
+      /*
+       * Показываем результат
+       */
+
+      document.getElementById("shareLink").value =
+        inviteUrl;
+
+      createSection.classList.add("hidden");
+      createdSection.classList.remove("hidden");
+
+      window.scrollTo({
+        top:0,
+        behavior:"smooth"
+      });
+
+
+    }catch(error){
+
+      console.error(
+        "CREATE INVITATION ERROR:",
+        error
+      );
+
+      let message =
+        "Не удалось создать приглашение.";
+
+      if(error?.code === "permission-denied"){
+
+        message +=
+          "\n\nFirebase отклонил запись. Проверь правила Firestore.";
+
+      }else if(error?.code === "unavailable"){
+
+        message +=
+          "\n\nFirebase временно недоступен. Проверь интернет.";
+
+      }else{
+
+        message +=
+          "\n\nПроверь Firebase Authentication и Firestore.";
 
       }
 
+      alert(message);
+
+    }finally{
+
+      button.disabled = false;
+
+      button.textContent =
+        "Создать приглашение ✨";
+
     }
-  );
+
+  });
 
 
-/* =========================
+/* =====================================================
+   COPY LINK
+===================================================== */
+
+document.getElementById("copyLinkBtn")
+  .addEventListener("click",async()=>{
+
+    const input =
+      document.getElementById("shareLink");
+
+    if(!input.value) return;
+
+    try{
+
+      await navigator.clipboard.writeText(
+        input.value
+      );
+
+      const button =
+        document.getElementById("copyLinkBtn");
+
+      const old =
+        button.textContent;
+
+      button.textContent =
+        "Скопировано ✓";
+
+      setTimeout(()=>{
+
+        button.textContent =
+          old;
+
+      },1500);
+
+    }catch(error){
+
+      input.focus();
+      input.select();
+
+      alert(
+        "Ссылка выделена. Нажми Ctrl+C."
+      );
+
+    }
+
+  });
+
+
+/* =====================================================
    OPEN INVITE
-========================= */
+===================================================== */
 
-document.querySelector("#openInviteBtn")
-  .addEventListener(
-    "click",
-    () => {
+document.getElementById("openInviteBtn")
+  .addEventListener("click",()=>{
 
-      const link =
-        document.querySelector("#shareLink").value;
+    const link =
+      document.getElementById("shareLink").value;
 
-      if(link){
+    if(link){
 
-        location.href = link;
-
-      }
+      location.href = link;
 
     }
-  );
+
+  });
 
 
-/* =========================
+/* =====================================================
    MY INVITATIONS AFTER CREATE
-========================= */
+===================================================== */
 
-document.querySelector("#answersBtn")
-  .addEventListener(
-    "click",
-    () => {
+document.getElementById("answersBtn")
+  .addEventListener("click",()=>{
 
-      location.href =
-        "admin.html";
+    location.href = "admin.html";
 
-    }
-  );
+  });
 
 
-/* =========================
+/* =====================================================
+   ENTER KEY
+===================================================== */
+
+authPassword.addEventListener("keydown",event=>{
+
+  if(event.key === "Enter"){
+
+    authBtn.click();
+
+  }
+
+});
+
+authConfirm.addEventListener("keydown",event=>{
+
+  if(event.key === "Enter"){
+
+    authBtn.click();
+
+  }
+
+});
+
+
+/* =====================================================
    INITIAL
-========================= */
+===================================================== */
 
 setAuthMode("login");
-
 updateProgress();
+renderSurvey();
 
 </script>
 
 </body>
 </html>
+```
