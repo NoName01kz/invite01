@@ -1,10 +1,9 @@
+```html
 <!DOCTYPE html>
-
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Регистрация — Date Ticket</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,30 +14,29 @@
 :root{
   --bg:#090d16;
   --bg2:#111728;
-  --card:rgba(19,25,42,.78);
+  --card:rgba(19,25,42,.82);
   --line:rgba(255,255,255,.10);
   --text:#fff;
   --muted:#aeb6c8;
   --pink:#ff6fae;
   --pink2:#ff91bf;
+  --gold:#f6c667;
   --danger:#ff667d;
-  --green:#73d6a0;
+  --green:#71d6a2;
 }
 
 *{box-sizing:border-box}
 
-html,body{
-  margin:0;
-  min-height:100%;
-}
+html{scroll-behavior:smooth}
 
 body{
+  margin:0;
   min-height:100vh;
   color:var(--text);
   font-family:"Manrope",sans-serif;
   background:
-    radial-gradient(circle at 75% 10%,rgba(255,105,170,.15),transparent 28%),
-    radial-gradient(circle at 10% 90%,rgba(95,100,255,.12),transparent 30%),
+    radial-gradient(circle at 78% 12%,rgba(255,105,170,.16),transparent 29%),
+    radial-gradient(circle at 15% 85%,rgba(95,100,255,.13),transparent 31%),
     linear-gradient(135deg,var(--bg),var(--bg2));
   overflow-x:hidden;
 }
@@ -48,17 +46,17 @@ body:before{
   position:fixed;
   inset:0;
   pointer-events:none;
-  opacity:.28;
+  opacity:.32;
   background-image:
-    radial-gradient(circle at 20% 20%,#fff 0 1px,transparent 1.5px),
-    radial-gradient(circle at 75% 35%,#fff 0 1px,transparent 1.5px),
-    radial-gradient(circle at 45% 80%,#fff 0 1px,transparent 1.5px);
-  background-size:270px 240px,330px 290px,390px 340px;
+    radial-gradient(circle at 15% 20%,rgba(255,255,255,.35) 0 1px,transparent 1.5px),
+    radial-gradient(circle at 70% 35%,rgba(255,255,255,.25) 0 1px,transparent 1.5px),
+    radial-gradient(circle at 40% 75%,rgba(255,255,255,.22) 0 1px,transparent 1.5px);
+  background-size:240px 220px,310px 270px,370px 320px;
 }
 
 a{
-  color:inherit;
   text-decoration:none;
+  color:inherit;
 }
 
 .container{
@@ -80,33 +78,33 @@ header{
   font-style:italic;
 }
 
-.back{
+.header-link{
   color:var(--muted);
   font-size:13px;
+  transition:.2s;
 }
 
-.back:hover{
+.header-link:hover{
   color:#fff;
 }
 
 main{
   min-height:calc(100vh - 78px);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:40px 0 80px;
-}
-
-.layout{
-  width:100%;
   display:grid;
-  grid-template-columns:1fr 460px;
-  gap:70px;
+  place-items:center;
+  padding:35px 0 70px;
+}
+
+.register-layout{
+  width:min(920px,100%);
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:45px;
   align-items:center;
 }
 
-.hero{
-  max-width:560px;
+.intro{
+  padding:20px 0;
 }
 
 .badge{
@@ -122,94 +120,88 @@ main{
   margin-bottom:22px;
 }
 
-.hero h1{
-  font:700 clamp(45px,5vw,68px)/1.04 "Playfair Display",serif;
-  margin:0 0 22px;
+.intro h1{
+  font:700 clamp(44px,5vw,66px)/1.04 "Playfair Display",serif;
+  margin:0 0 20px;
   letter-spacing:-1.5px;
 }
 
-.hero h1 span{
+.intro h1 span{
   color:var(--pink2);
 }
 
-.hero p{
+.intro p{
   color:var(--muted);
   line-height:1.8;
   font-size:15px;
-  max-width:520px;
+  max-width:480px;
 }
 
 .points{
-  margin-top:28px;
   display:grid;
   gap:12px;
+  margin-top:28px;
 }
 
 .point{
   display:flex;
-  gap:12px;
   align-items:center;
-  color:#dce1ed;
+  gap:12px;
+  color:#dfe3ec;
   font-size:13px;
 }
 
 .point-icon{
-  width:34px;
-  height:34px;
-  border-radius:11px;
+  width:35px;
+  height:35px;
   display:grid;
   place-items:center;
+  border-radius:11px;
   background:rgba(255,111,174,.08);
-  border:1px solid rgba(255,111,174,.15);
+  border:1px solid rgba(255,111,174,.16);
+  flex:none;
 }
 
 .card{
   border:1px solid var(--line);
   background:var(--card);
   border-radius:28px;
-  padding:34px;
+  padding:32px;
   backdrop-filter:blur(18px);
-  box-shadow:0 30px 80px rgba(0,0,0,.3);
-  position:relative;
-  overflow:hidden;
+  box-shadow:0 30px 80px rgba(0,0,0,.30);
 }
 
-.card:before{
-  content:"";
-  position:absolute;
-  width:300px;
-  height:300px;
-  border-radius:50%;
-  background:radial-gradient(circle,rgba(255,111,174,.18),transparent 65%);
-  top:-150px;
-  right:-130px;
-  pointer-events:none;
-}
-
-.card-content{
-  position:relative;
-  z-index:1;
-}
-
-.icon{
-  font-size:52px;
-  margin-bottom:15px;
-}
-
-.card h2{
-  font:700 34px/1.1 "Playfair Display",serif;
-  margin:0 0 10px;
-}
-
-.subtitle{
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.6;
+.card-top{
+  text-align:center;
   margin-bottom:25px;
 }
 
+.card-icon{
+  width:62px;
+  height:62px;
+  margin:0 auto 15px;
+  border-radius:19px;
+  display:grid;
+  place-items:center;
+  font-size:30px;
+  background:rgba(255,111,174,.10);
+  border:1px solid rgba(255,111,174,.18);
+  box-shadow:0 12px 35px rgba(255,105,170,.10);
+}
+
+.card h2{
+  font:700 31px "Playfair Display",serif;
+  margin:0 0 8px;
+}
+
+.card-subtitle{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.6;
+}
+
 .field{
-  margin-top:16px;
+  margin-top:18px;
 }
 
 label{
@@ -232,7 +224,7 @@ input{
 }
 
 input::placeholder{
-  color:#737d92;
+  color:#70798c;
 }
 
 input:focus{
@@ -245,170 +237,204 @@ input:focus{
 }
 
 .password-wrap input{
-  padding-right:50px;
+  padding-right:52px;
 }
 
-.show-password{
+.password-toggle{
   position:absolute;
-  right:13px;
-  top:50%;
-  transform:translateY(-50%);
+  right:7px;
+  top:7px;
+  width:40px;
+  height:40px;
   border:0;
+  border-radius:11px;
   background:transparent;
-  color:#929bad;
+  color:#8992a5;
   cursor:pointer;
-  font-size:18px;
+  font-size:17px;
+}
+
+.password-toggle:hover{
+  color:#fff;
+  background:rgba(255,255,255,.05);
+}
+
+.password-strength{
+  height:4px;
+  background:rgba(255,255,255,.07);
+  border-radius:99px;
+  overflow:hidden;
+  margin-top:9px;
+}
+
+.password-strength-bar{
+  width:0;
+  height:100%;
+  background:linear-gradient(90deg,var(--pink),var(--gold));
+  transition:.25s;
 }
 
 .password-hint{
-  margin-top:7px;
-  color:#737d92;
+  color:#737d91;
   font-size:10px;
+  margin-top:6px;
+}
+
+.error,
+.success{
+  display:none;
+  border-radius:13px;
+  padding:12px 14px;
+  margin-top:16px;
+  font-size:12px;
   line-height:1.5;
 }
 
 .error{
-  display:none;
-  margin-top:15px;
-  padding:12px 14px;
-  border-radius:13px;
+  color:#ff9bab;
   background:rgba(255,102,125,.08);
   border:1px solid rgba(255,102,125,.18);
-  color:#ff9aaa;
-  font-size:12px;
-  line-height:1.5;
 }
 
-.error.show{
+.success{
+  color:#9ae5bb;
+  background:rgba(113,214,162,.08);
+  border:1px solid rgba(113,214,162,.18);
+}
+
+.error.show,
+.success.show{
   display:block;
 }
 
-.btn{
+.register-btn{
   width:100%;
   border:0;
   cursor:pointer;
   border-radius:15px;
-  padding:16px 22px;
-  margin-top:23px;
+  padding:16px 23px;
+  margin-top:22px;
   color:#fff;
-  font:700 13px "Manrope",sans-serif;
+  font:700 14px "Manrope",sans-serif;
   background:linear-gradient(135deg,var(--pink),var(--pink2));
-  box-shadow:0 12px 35px rgba(255,105,170,.22);
-  transition:.2s;
+  box-shadow:0 12px 35px rgba(255,105,170,.24);
+  transition:.25s;
 }
 
-.btn:hover{
+.register-btn:hover{
   transform:translateY(-2px);
-  box-shadow:0 16px 40px rgba(255,105,170,.32);
+  box-shadow:0 16px 40px rgba(255,105,170,.34);
 }
 
-.btn:disabled{
-  opacity:.5;
+.register-btn:disabled{
+  opacity:.55;
   cursor:not-allowed;
   transform:none;
 }
 
-.links{
+.login-link{
   text-align:center;
-  margin-top:22px;
+  margin-top:20px;
+  color:var(--muted);
   font-size:12px;
-  color:var(--muted);
 }
 
-.links a{
-  color:#ff91bf;
+.login-link a{
+  color:#ff9ac2;
+  font-weight:700;
 }
 
-.links a:hover{
-  text-decoration:underline;
+.login-link a:hover{
+  color:#ffc0d8;
 }
 
-.divider{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  margin:25px 0;
-  color:#626b7e;
-  font-size:11px;
-}
-
-.divider:before,
-.divider:after{
-  content:"";
-  flex:1;
-  height:1px;
-  background:var(--line);
-}
-
-.info{
-  margin-top:22px;
-  padding:14px;
-  border-radius:15px;
-  background:rgba(255,255,255,.035);
-  border:1px solid rgba(255,255,255,.06);
-  color:var(--muted);
-  font-size:11px;
+.terms{
+  text-align:center;
+  color:#6f788b;
+  font-size:10px;
   line-height:1.6;
+  margin-top:17px;
 }
 
-@media(max-width:850px){
+.loader{
+  display:none;
+  width:17px;
+  height:17px;
+  border:2px solid rgba(255,255,255,.35);
+  border-top-color:#fff;
+  border-radius:50%;
+  animation:spin .7s linear infinite;
+  margin:auto;
+}
 
-  .layout{
+.register-btn.loading .button-text{
+  display:none;
+}
+
+.register-btn.loading .loader{
+  display:block;
+}
+
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
+
+@media(max-width:800px){
+  .register-layout{
     grid-template-columns:1fr;
-    gap:35px;
+    gap:25px;
+    max-width:550px;
   }
 
-  .hero{
+  .intro{
     text-align:center;
-    margin:auto;
   }
 
-  .hero p{
-    margin:auto;
+  .intro p{
+    margin-left:auto;
+    margin-right:auto;
   }
 
   .points{
-    width:max-content;
-    max-width:100%;
-    margin:28px auto 0;
     text-align:left;
   }
 
-  .card{
-    width:min(460px,100%);
-    margin:auto;
+  main{
+    padding-top:20px;
   }
 }
 
 @media(max-width:520px){
-
   header{
     height:68px;
   }
 
-  main{
-    padding:25px 0 50px;
+  .logo{
+    font-size:21px;
   }
 
-  .hero h1{
-    font-size:42px;
-  }
-
-  .hero p{
-    font-size:14px;
+  .header-link{
+    font-size:11px;
   }
 
   .card{
-    padding:24px 20px;
+    padding:23px 19px;
     border-radius:23px;
   }
 
   .card h2{
-    font-size:30px;
+    font-size:27px;
+  }
+
+  .intro h1{
+    font-size:43px;
+  }
+
+  .badge{
+    font-size:10px;
   }
 }
 </style>
-
 </head>
 
 <body>
@@ -416,220 +442,195 @@ input:focus{
 <div class="container">
 
 <header>
+  <a class="logo" href="index.html">Date Ticket</a>
 
-  <a class="logo" href="index.html">
-    Date Ticket
+  <a class="header-link" href="login.html">
+    Уже есть аккаунт? Войти →
   </a>
-
-  <a class="back" href="index.html">
-    ← На главную
-  </a>
-
 </header>
 
 <main>
 
-<div class="layout">
+  <div class="register-layout">
 
-<section class="hero">
+    <section class="intro">
 
-  <div class="badge">
-    💌 Создай свой Date Ticket
-  </div>
+      <div class="badge">
+        💌 Создай свой аккаунт
+      </div>
 
-  <h1>
-    Один аккаунт —
-    <span>все приглашения</span>
-  </h1>
+      <h1>
+        Твои свидания<br>
+        <span>в одном месте</span>
+      </h1>
 
-  <p>
-    Зарегистрируйся, чтобы сохранять свои приглашения,
-    возвращаться к ним в любое время и смотреть ответы
-    человека, которого ты пригласил.
-  </p>
+      <p>
+        Создай аккаунт Date Ticket, чтобы сохранять свои приглашения,
+        видеть ответы приглашённых и управлять всеми свиданиями
+        из одного места.
+      </p>
 
-  <div class="points">
+      <div class="points">
 
-```
-<div class="point">
-  <div class="point-icon">💗</div>
-  <span>Все приглашения сохраняются в твоём аккаунте</span>
-</div>
+        <div class="point">
+          <div class="point-icon">💗</div>
+          <span>Все созданные приглашения сохраняются в аккаунте</span>
+        </div>
 
-<div class="point">
-  <div class="point-icon">💌</div>
-  <span>Ответы приглашённых всегда доступны</span>
-</div>
+        <div class="point">
+          <div class="point-icon">💌</div>
+          <span>Смотри ответы приглашённых после прохождения опроса</span>
+        </div>
 
-<div class="point">
-  <div class="point-icon">🎫</div>
-  <span>Можно создавать новые билеты когда угодно</span>
-</div>
-```
+        <div class="point">
+          <div class="point-icon">🎫</div>
+          <span>Управляй билетами и деталями свиданий</span>
+        </div>
 
-  </div>
+      </div>
 
-</section>
-
-<section class="card">
-
-<div class="card-content">
-
-  <div class="icon">✨</div>
-
-  <h2>Создать аккаунт</h2>
-
-  <div class="subtitle">
-    Заполни данные — это займёт меньше минуты.
-  </div>
-
-  <form id="registerForm">
-
-```
-<div class="field">
-
-  <label for="name">
-    Имя
-  </label>
-
-  <input
-    id="name"
-    type="text"
-    maxlength="40"
-    autocomplete="name"
-    placeholder="Например: Артём"
-    required
-  >
-
-</div>
+    </section>
 
 
-<div class="field">
+    <section class="card">
 
-  <label for="email">
-    Email
-  </label>
+      <div class="card-top">
 
-  <input
-    id="email"
-    type="email"
-    autocomplete="email"
-    placeholder="example@mail.com"
-    required
-  >
+        <div class="card-icon">✨</div>
 
-</div>
+        <h2>Создать аккаунт</h2>
+
+        <div class="card-subtitle">
+          Это займёт всего несколько секунд
+        </div>
+
+      </div>
 
 
-<div class="field">
+      <form id="registerForm">
 
-  <label for="password">
-    Пароль
-  </label>
+        <div class="field">
 
-  <div class="password-wrap">
+          <label for="name">
+            Имя
+          </label>
 
-    <input
-      id="password"
-      type="password"
-      minlength="6"
-      autocomplete="new-password"
-      placeholder="Минимум 6 символов"
-      required
-    >
+          <input
+            id="name"
+            type="text"
+            maxlength="50"
+            autocomplete="name"
+            placeholder="Например, Артём"
+            required
+          >
 
-    <button
-      class="show-password"
-      id="showPassword"
-      type="button"
-    >
-      👁
-    </button>
-
-  </div>
-
-  <div class="password-hint">
-    Пароль должен содержать минимум 6 символов.
-  </div>
-
-</div>
+        </div>
 
 
-<div class="field">
+        <div class="field">
 
-  <label for="password2">
-    Повтори пароль
-  </label>
+          <label for="email">
+            Email
+          </label>
 
-  <div class="password-wrap">
+          <input
+            id="email"
+            type="email"
+            autocomplete="email"
+            placeholder="you@example.com"
+            required
+          >
 
-    <input
-      id="password2"
-      type="password"
-      minlength="6"
-      autocomplete="new-password"
-      placeholder="Повтори пароль"
-      required
-    >
-
-    <button
-      class="show-password"
-      id="showPassword2"
-      type="button"
-    >
-      👁
-    </button>
-
-  </div>
-
-</div>
+        </div>
 
 
-<div
-  id="error"
-  class="error"
-></div>
+        <div class="field">
+
+          <label for="password">
+            Пароль
+          </label>
+
+          <div class="password-wrap">
+
+            <input
+              id="password"
+              type="password"
+              minlength="6"
+              autocomplete="new-password"
+              placeholder="Минимум 6 символов"
+              required
+            >
+
+            <button
+              class="password-toggle"
+              id="togglePassword"
+              type="button"
+              aria-label="Показать пароль"
+            >
+              👁
+            </button>
+
+          </div>
+
+          <div class="password-strength">
+            <div
+              class="password-strength-bar"
+              id="passwordStrength"
+            ></div>
+          </div>
+
+          <div class="password-hint" id="passwordHint">
+            Минимум 6 символов
+          </div>
+
+        </div>
 
 
-<button
-  class="btn"
-  id="registerBtn"
-  type="submit"
->
-  Создать аккаунт →
-</button>
-```
+        <div
+          class="error"
+          id="errorBox"
+        ></div>
 
-  </form>
 
-  <div class="divider">
-    уже есть аккаунт?
-  </div>
+        <div
+          class="success"
+          id="successBox"
+        ></div>
 
-  <div class="links">
 
-```
-<a href="login.html">
-  Войти в аккаунт
-</a>
-```
+        <button
+          class="register-btn"
+          id="registerBtn"
+          type="submit"
+        >
+          <span class="button-text">
+            Создать аккаунт ✨
+          </span>
+
+          <span class="loader"></span>
+        </button>
+
+
+        <div class="login-link">
+          Уже зарегистрирован?
+          <a href="login.html">Войти</a>
+        </div>
+
+        <div class="terms">
+          Регистрируясь, ты создаёшь аккаунт Date Ticket
+          для управления своими приглашениями.
+        </div>
+
+      </form>
+
+    </section>
 
   </div>
-
-  <div class="info">
-    🔒 Аккаунт создаётся через Firebase Authentication.
-    Пароль не сохраняется в базе приглашений.
-  </div>
-
-</div>
-
-</section>
-
-</div>
 
 </main>
 
 </div>
+
 
 <script type="module">
 
@@ -640,8 +641,7 @@ import {
 import {
   getAuth,
   createUserWithEmailAndPassword,
-  updateProfile,
-  onAuthStateChanged
+  updateProfile
 } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-auth.js";
 
 import {
@@ -651,6 +651,10 @@ import {
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js";
 
+
+/* =========================================
+   FIREBASE
+========================================= */
 
 const firebaseConfig = {
 
@@ -677,15 +681,16 @@ const firebaseConfig = {
 };
 
 
-const app =
-  initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 
-const auth =
-  getAuth(app);
+const auth = getAuth(app);
 
-const db =
-  getFirestore(app);
+const db = getFirestore(app);
 
+
+/* =========================================
+   ELEMENTS
+========================================= */
 
 const form =
   document.querySelector("#registerForm");
@@ -699,17 +704,145 @@ const emailInput =
 const passwordInput =
   document.querySelector("#password");
 
-const password2Input =
-  document.querySelector("#password2");
-
 const registerBtn =
   document.querySelector("#registerBtn");
 
 const errorBox =
-  document.querySelector("#error");
+  document.querySelector("#errorBox");
 
+const successBox =
+  document.querySelector("#successBox");
+
+const passwordStrength =
+  document.querySelector("#passwordStrength");
+
+const passwordHint =
+  document.querySelector("#passwordHint");
+
+const togglePassword =
+  document.querySelector("#togglePassword");
+
+
+/* =========================================
+   PASSWORD VISIBILITY
+========================================= */
+
+togglePassword.addEventListener("click",()=>{
+
+  const isPassword =
+    passwordInput.type === "password";
+
+  passwordInput.type =
+    isPassword ? "text" : "password";
+
+  togglePassword.textContent =
+    isPassword ? "🙈" : "👁";
+
+});
+
+
+/* =========================================
+   PASSWORD STRENGTH
+========================================= */
+
+passwordInput.addEventListener("input",()=>{
+
+  const value =
+    passwordInput.value;
+
+  let strength = 0;
+
+  if(value.length >= 6)
+    strength++;
+
+  if(value.length >= 10)
+    strength++;
+
+  if(/[A-ZА-Я]/.test(value))
+    strength++;
+
+  if(/[0-9]/.test(value))
+    strength++;
+
+  if(/[^A-Za-zА-Яа-я0-9]/.test(value))
+    strength++;
+
+
+  const width =
+    Math.min(strength * 20,100);
+
+  passwordStrength.style.width =
+    width + "%";
+
+
+  if(!value){
+
+    passwordHint.textContent =
+      "Минимум 6 символов";
+
+  }else if(value.length < 6){
+
+    passwordHint.textContent =
+      "Пароль слишком короткий";
+
+  }else if(strength <= 2){
+
+    passwordHint.textContent =
+      "Слабый пароль";
+
+  }else if(strength <= 3){
+
+    passwordHint.textContent =
+      "Нормальный пароль";
+
+  }else{
+
+    passwordHint.textContent =
+      "Хороший пароль ✓";
+
+  }
+
+});
+
+
+/* =========================================
+   FIREBASE ERRORS
+========================================= */
+
+function firebaseError(error){
+
+  switch(error.code){
+
+    case "auth/email-already-in-use":
+      return "Этот email уже зарегистрирован. Попробуй войти.";
+
+    case "auth/invalid-email":
+      return "Введи корректный email.";
+
+    case "auth/weak-password":
+      return "Пароль слишком слабый. Используй минимум 6 символов.";
+
+    case "auth/network-request-failed":
+      return "Нет соединения с интернетом. Проверь подключение.";
+
+    case "auth/operation-not-allowed":
+      return "Регистрация по Email отключена в Firebase Authentication.";
+
+    default:
+      return "Не удалось создать аккаунт. Проверь введённые данные.";
+
+  }
+
+}
+
+
+/* =========================================
+   SHOW ERROR
+========================================= */
 
 function showError(message){
+
+  successBox.classList.remove("show");
 
   errorBox.textContent =
     message;
@@ -719,259 +852,161 @@ function showError(message){
 }
 
 
-function clearError(){
+/* =========================================
+   REGISTER
+========================================= */
+
+form.addEventListener("submit",async(event)=>{
+
+  event.preventDefault();
+
 
   errorBox.classList.remove("show");
 
-  errorBox.textContent =
-    "";
-
-}
+  successBox.classList.remove("show");
 
 
-function firebaseError(error){
+  const name =
+    nameInput.value.trim();
 
-  switch(error.code){
+  const email =
+    emailInput.value.trim();
 
-    case "auth/email-already-in-use":
-      return "Аккаунт с таким email уже существует.";
+  const password =
+    passwordInput.value;
 
-    case "auth/invalid-email":
-      return "Проверь правильность email.";
 
-    case "auth/weak-password":
-      return "Пароль слишком слабый. Используй минимум 6 символов.";
+  if(!name){
 
-    case "auth/network-request-failed":
-      return "Нет соединения с интернетом.";
+    showError("Введи своё имя.");
 
-    case "auth/operation-not-allowed":
-      return "Регистрация по email пока не включена в Firebase Authentication.";
+    nameInput.focus();
 
-    default:
-      return "Не удалось создать аккаунт. Попробуй ещё раз.";
+    return;
 
   }
 
-}
+
+  if(name.length < 2){
+
+    showError("Имя должно содержать хотя бы 2 символа.");
+
+    nameInput.focus();
+
+    return;
+
+  }
 
 
-function setupPasswordToggle(button,input){
+  if(!email){
 
-  button.addEventListener(
-    "click",
-    () => {
+    showError("Введи email.");
 
-      const visible =
-        input.type === "text";
+    emailInput.focus();
 
-      input.type =
-        visible ? "password" : "text";
+    return;
 
-      button.textContent =
-        visible ? "👁" : "🙈";
-
-    }
-  );
-
-}
+  }
 
 
-setupPasswordToggle(
-  document.querySelector("#showPassword"),
-  passwordInput
-);
+  if(password.length < 6){
+
+    showError("Пароль должен содержать минимум 6 символов.");
+
+    passwordInput.focus();
+
+    return;
+
+  }
 
 
-setupPasswordToggle(
-  document.querySelector("#showPassword2"),
-  password2Input
-);
+  registerBtn.disabled = true;
+
+  registerBtn.classList.add("loading");
 
 
-form.addEventListener(
-  "submit",
-  async event => {
+  try{
 
-    event.preventDefault();
+    /* Создаём пользователя Firebase */
 
-    clearError();
-
-    const name =
-      nameInput.value.trim();
-
-    const email =
-      emailInput.value.trim();
-
-    const password =
-      passwordInput.value;
-
-    const password2 =
-      password2Input.value;
-
-
-    if(name.length < 2){
-
-      showError(
-        "Введи имя минимум из 2 символов."
-      );
-
-      nameInput.focus();
-
-      return;
-
-    }
-
-
-    if(!email){
-
-      showError(
-        "Введи email."
-      );
-
-      emailInput.focus();
-
-      return;
-
-    }
-
-
-    if(password.length < 6){
-
-      showError(
-        "Пароль должен содержать минимум 6 символов."
-      );
-
-      passwordInput.focus();
-
-      return;
-
-    }
-
-
-    if(password !== password2){
-
-      showError(
-        "Пароли не совпадают."
-      );
-
-      password2Input.focus();
-
-      return;
-
-    }
-
-
-    registerBtn.disabled = true;
-
-    registerBtn.textContent =
-      "Создаём аккаунт…";
-
-
-    try{
-
-      const credential =
-        await createUserWithEmailAndPassword(
-          auth,
-          email,
-          password
-        );
-
-
-      const user =
-        credential.user;
-
-
-      /*
-       * Сохраняем имя в Firebase Authentication.
-       */
-
-      await updateProfile(
-        user,
-        {
-          displayName:name
-        }
+    const credential =
+      await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
       );
 
 
-      /*
-       * Дополнительно сохраняем профиль
-       * в Firestore.
-       */
-
-      await setDoc(
-        doc(
-          db,
-          "users",
-          user.uid
-        ),
-        {
-          uid:user.uid,
-          name:name,
-          email:user.email,
-          createdAt:serverTimestamp()
-        },
-        {
-          merge:true
-        }
-      );
+    const user =
+      credential.user;
 
 
-      /*
-       * После регистрации пользователь
-       * сразу попадает в личный кабинет.
-       */
+    /* Сохраняем имя в Firebase Authentication */
+
+    await updateProfile(
+      user,
+      {
+        displayName:name
+      }
+    );
+
+
+    /* Создаём профиль в Firestore */
+
+    await setDoc(
+      doc(db,"users",user.uid),
+      {
+        uid:user.uid,
+        name:name,
+        email:user.email,
+        createdAt:serverTimestamp()
+      },
+      {
+        merge:true
+      }
+    );
+
+
+    successBox.textContent =
+      "Аккаунт создан! Переходим в твой профиль…";
+
+    successBox.classList.add("show");
+
+
+    /*
+      Небольшая задержка нужна,
+      чтобы пользователь успел увидеть сообщение.
+    */
+
+    setTimeout(()=>{
 
       location.href =
         "account.html";
 
+    },700);
 
-    }catch(error){
 
-      console.error(
-        "Firebase registration error:",
-        error
-      );
+  }catch(error){
 
-      showError(
-        firebaseError(error)
-      );
+    console.error(
+      "Registration error:",
+      error
+    );
 
-      registerBtn.disabled =
-        false;
+    showError(
+      firebaseError(error)
+    );
 
-      registerBtn.textContent =
-        "Создать аккаунт →";
+    registerBtn.disabled = false;
 
-    }
+    registerBtn.classList.remove("loading");
 
   }
-);
 
-
-/*
- * Если пользователь уже авторизован,
- * регистрация ему больше не нужна.
- */
-
-onAuthStateChanged(
-  auth,
-  user => {
-
-    if(
-      user &&
-      !registerBtn.disabled
-    ){
-
-      location.href =
-        "account.html";
-
-    }
-
-  }
-);
+});
 
 </script>
 
 </body>
 </html>
+```
