@@ -1,12 +1,15 @@
+```html
 <!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Date Ticket — Приглашение на свидание</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
 <style>
 :root{
   --bg:#090d16;
@@ -18,20 +21,25 @@
   --pink:#ff6fae;
   --pink2:#ff91bf;
   --gold:#f6c667;
+  --green:#79d6a2;
 }
+
 *{box-sizing:border-box}
+
 html{scroll-behavior:smooth}
+
 body{
   margin:0;
+  min-height:100vh;
   color:var(--text);
   font-family:"Manrope",sans-serif;
   background:
     radial-gradient(circle at 80% 15%,rgba(255,105,170,.16),transparent 28%),
     radial-gradient(circle at 15% 80%,rgba(100,90,255,.12),transparent 30%),
     linear-gradient(135deg,var(--bg),var(--bg2));
-  min-height:100vh;
   overflow-x:hidden;
 }
+
 body:before{
   content:"";
   position:fixed;
@@ -44,24 +52,53 @@ body:before{
   background-size:240px 220px,310px 270px,370px 320px;
   opacity:.35;
 }
-a{text-decoration:none;color:inherit}
-.container{width:min(1180px,92%);margin:auto}
+
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+.container{
+  width:min(1180px,92%);
+  margin:auto;
+}
+
 nav{
   height:78px;
   display:flex;
   align-items:center;
   justify-content:space-between;
   position:relative;
-  z-index:2;
+  z-index:5;
 }
+
 .logo{
   font-family:"Playfair Display",serif;
   font-size:25px;
   font-style:italic;
 }
-.nav-links{display:flex;gap:30px;color:var(--muted);font-size:13px}
-.nav-links a{transition:.25s}
-.nav-links a:hover{color:#fff}
+
+.nav-links{
+  display:flex;
+  gap:30px;
+  color:var(--muted);
+  font-size:13px;
+}
+
+.nav-links a{
+  transition:.25s;
+}
+
+.nav-links a:hover{
+  color:#fff;
+}
+
+.nav-actions{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
 .btn{
   border:0;
   cursor:pointer;
@@ -73,12 +110,24 @@ nav{
   box-shadow:0 12px 35px rgba(255,105,170,.24);
   transition:.25s;
 }
-.btn:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(255,105,170,.34)}
+
+.btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 16px 40px rgba(255,105,170,.34);
+}
+
 .btn.secondary{
   background:rgba(255,255,255,.055);
   border:1px solid var(--line);
   box-shadow:none;
 }
+
+.btn.small{
+  padding:11px 16px;
+  font-size:12px;
+  border-radius:12px;
+}
+
 .hero{
   min-height:650px;
   display:grid;
@@ -87,6 +136,7 @@ nav{
   gap:50px;
   padding:50px 0 80px;
 }
+
 .badge{
   display:inline-flex;
   align-items:center;
@@ -99,6 +149,7 @@ nav{
   font-size:12px;
   margin-bottom:22px;
 }
+
 h1{
   font-family:"Playfair Display",serif;
   font-size:clamp(48px,6vw,78px);
@@ -106,14 +157,25 @@ h1{
   margin:0 0 24px;
   letter-spacing:-2px;
 }
-h1 span{color:var(--pink2)}
+
+h1 span{
+  color:var(--pink2);
+}
+
 .hero p{
   color:var(--muted);
   line-height:1.8;
   max-width:570px;
   font-size:16px;
 }
-.actions{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}
+
+.actions{
+  display:flex;
+  gap:12px;
+  margin-top:30px;
+  flex-wrap:wrap;
+}
+
 .hero-visual{
   min-height:480px;
   position:relative;
@@ -121,16 +183,20 @@ h1 span{color:var(--pink2)}
   align-items:center;
   justify-content:center;
 }
+
 .glow{
   position:absolute;
-  width:390px;height:390px;
+  width:390px;
+  height:390px;
   border-radius:50%;
   background:radial-gradient(circle,rgba(255,105,170,.28),transparent 65%);
   filter:blur(10px);
 }
+
 .mascot{
   position:relative;
-  width:310px;height:360px;
+  width:310px;
+  height:360px;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -138,6 +204,7 @@ h1 span{color:var(--pink2)}
   filter:drop-shadow(0 30px 35px rgba(0,0,0,.35));
   animation:float 4s ease-in-out infinite;
 }
+
 .envelope{
   position:absolute;
   bottom:35px;
@@ -149,16 +216,20 @@ h1 span{color:var(--pink2)}
   backdrop-filter:blur(16px);
   border-radius:16px;
   transform:rotate(-8deg);
-  display:flex;align-items:center;justify-content:center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   box-shadow:0 25px 60px rgba(0,0,0,.25);
   font-size:42px;
 }
+
 .features{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:14px;
   margin-bottom:90px;
 }
+
 .feature{
   border:1px solid var(--line);
   background:rgba(255,255,255,.035);
@@ -166,20 +237,40 @@ h1 span{color:var(--pink2)}
   padding:22px;
   backdrop-filter:blur(14px);
 }
-.feature strong{display:block;margin-bottom:6px}
-.feature span{font-size:13px;color:var(--muted);line-height:1.6}
-.section-title{text-align:center;margin-bottom:35px}
+
+.feature strong{
+  display:block;
+  margin-bottom:6px;
+}
+
+.feature span{
+  font-size:13px;
+  color:var(--muted);
+  line-height:1.6;
+}
+
+.section-title{
+  text-align:center;
+  margin-bottom:35px;
+}
+
 .section-title h2{
   font-family:"Playfair Display",serif;
-  font-size:42px;margin:0 0 10px
+  font-size:42px;
+  margin:0 0 10px;
 }
-.section-title p{color:var(--muted)}
+
+.section-title p{
+  color:var(--muted);
+}
+
 .examples{
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:16px;
   padding-bottom:110px;
 }
+
 .example{
   height:210px;
   border-radius:22px;
@@ -188,105 +279,510 @@ h1 span{color:var(--pink2)}
   border:1px solid var(--line);
   background:linear-gradient(145deg,#202a48,#111522);
 }
-.example:nth-child(2){background:linear-gradient(145deg,#35213c,#121522)}
-.example:nth-child(3){background:linear-gradient(145deg,#21364a,#101522)}
-.example:nth-child(4){background:linear-gradient(145deg,#3d2920,#121522)}
-.example .emoji{font-size:75px;position:absolute;left:50%;top:35%;transform:translate(-50%,-50%)}
-.example label{
-  position:absolute;left:16px;bottom:14px;
-  font-size:13px;font-weight:700
+
+.example:nth-child(2){
+  background:linear-gradient(145deg,#35213c,#121522);
 }
+
+.example:nth-child(3){
+  background:linear-gradient(145deg,#21364a,#101522);
+}
+
+.example:nth-child(4){
+  background:linear-gradient(145deg,#3d2920,#121522);
+}
+
+.example .emoji{
+  font-size:75px;
+  position:absolute;
+  left:50%;
+  top:35%;
+  transform:translate(-50%,-50%);
+}
+
+.example label{
+  position:absolute;
+  left:16px;
+  bottom:14px;
+  font-size:13px;
+  font-weight:700;
+}
+
+.account-card{
+  display:none;
+  position:absolute;
+  right:4%;
+  top:70px;
+  width:260px;
+  padding:18px;
+  border-radius:20px;
+  background:rgba(17,23,40,.96);
+  border:1px solid var(--line);
+  box-shadow:0 25px 70px rgba(0,0,0,.4);
+  z-index:20;
+  backdrop-filter:blur(18px);
+}
+
+.account-card.open{
+  display:block;
+}
+
+.account-name{
+  font-weight:700;
+  margin-bottom:4px;
+}
+
+.account-email{
+  color:var(--muted);
+  font-size:12px;
+  word-break:break-all;
+  margin-bottom:15px;
+}
+
+.account-menu{
+  display:grid;
+  gap:8px;
+}
+
+.account-menu a,
+.account-menu button{
+  width:100%;
+  text-align:left;
+  padding:12px 14px;
+  border-radius:12px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.04);
+  color:#fff;
+  font:600 12px "Manrope",sans-serif;
+  cursor:pointer;
+}
+
+.account-menu a:hover,
+.account-menu button:hover{
+  background:rgba(255,255,255,.08);
+}
+
+#accountBtn{
+  display:none;
+}
+
+#guestButtons{
+  display:flex;
+  gap:10px;
+}
+
+.status{
+  color:var(--muted);
+  font-size:12px;
+}
+
 footer{
   border-top:1px solid var(--line);
   padding:25px 0;
   color:#7f899d;
   font-size:12px;
 }
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-13px)}}
-@media(max-width:850px){
-  .nav-links{display:none}
-  .hero{grid-template-columns:1fr;text-align:center;padding-top:35px}
-  .hero p{margin:auto}
-  .actions{justify-content:center}
-  .hero-visual{min-height:400px}
-  .features{grid-template-columns:1fr}
-  .examples{grid-template-columns:1fr 1fr}
+
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-13px)}
 }
+
+@media(max-width:850px){
+
+  .nav-links{
+    display:none;
+  }
+
+  .hero{
+    grid-template-columns:1fr;
+    text-align:center;
+    padding-top:35px;
+  }
+
+  .hero p{
+    margin:auto;
+  }
+
+  .actions{
+    justify-content:center;
+  }
+
+  .hero-visual{
+    min-height:400px;
+  }
+
+  .features{
+    grid-template-columns:1fr;
+  }
+
+  .examples{
+    grid-template-columns:1fr 1fr;
+  }
+}
+
+@media(max-width:600px){
+
+  nav{
+    height:70px;
+  }
+
+  .logo{
+    font-size:21px;
+  }
+
+  #guestButtons .secondary{
+    display:none;
+  }
+
+  .btn.small{
+    padding:10px 12px;
+  }
+
+  .account-card{
+    right:4%;
+    left:4%;
+    width:auto;
+  }
+}
+
 @media(max-width:520px){
-  .examples{grid-template-columns:1fr}
-  h1{font-size:48px}
-  .mascot{font-size:160px}
-  .envelope{right:0}
+
+  .examples{
+    grid-template-columns:1fr;
+  }
+
+  h1{
+    font-size:48px;
+  }
+
+  .mascot{
+    font-size:160px;
+  }
+
+  .envelope{
+    right:0;
+  }
 }
 </style>
 </head>
+
 <body>
+
 <div class="container">
-  <nav>
-    <a class="logo" href="#">Date Ticket</a>
-    <div class="nav-links">
-      <a href="#how">Как это работает</a>
-      <a href="#examples">Примеры</a>
-      <a href="#why">Преимущества</a>
+
+<nav>
+
+  <a class="logo" href="index.html">Date Ticket</a>
+
+  <div class="nav-links">
+    <a href="#how">Как это работает</a>
+    <a href="#examples">Примеры</a>
+    <a href="#why">Преимущества</a>
+  </div>
+
+  <div class="nav-actions">
+
+    <div id="guestButtons">
+      <a class="btn secondary small" href="login.html">Войти</a>
+      <a class="btn small" href="create.html">Создать приглашение</a>
     </div>
-    <a class="btn" href="create.html">Создать приглашение</a>
-  </nav>
 
-  <main>
-    <section class="hero">
-      <div>
-        <div class="badge">💌 Особенное приглашение для особенного человека</div>
-        <h1>Создай <span>идеальное</span> приглашение на свидание</h1>
-        <p>
-          Небольшой интерактивный опрос, любимый персонаж и настоящий
-          цифровой билет. Получатель сам выбирает детали свидания,
-          а личное письмо открывается именно в тот момент, который выберешь ты.
-        </p>
-        <div class="actions">
-          <a class="btn" href="create.html">Создать приглашение →</a>
-          <a class="btn secondary" href="#how">Посмотреть как это работает</a>
-        </div>
-      </div>
+    <button id="accountBtn" class="btn small">
+      👤 Аккаунт
+    </button>
 
-      <div class="hero-visual" aria-label="Иллюстрация">
-        <div class="glow"></div>
-        <div class="mascot">🐸</div>
-        <div class="envelope">💌</div>
-      </div>
-    </section>
+  </div>
 
-    <section id="how" class="features">
-      <div class="feature">
-        <strong>💗 Персональный опыт</strong>
-        <span>Выбираешь обращение, персонажа, фон, вопросы и личное письмо.</span>
-      </div>
-      <div class="feature">
-        <strong>✨ Интерактивный опрос</strong>
-        <span>Ты выбираешь 4 варианта из списка, а получатель выбирает один.</span>
-      </div>
-      <div class="feature">
-        <strong>🎫 Настоящий цифровой билет</strong>
-        <span>В конце появляется билет со свиданием, таймерами и возможностью предъявить его.</span>
-      </div>
-    </section>
+</nav>
 
-    <section id="examples">
-      <div class="section-title">
-        <h2>Примеры приглашений</h2>
-        <p>Каждое приглашение можно сделать своим.</p>
-      </div>
-      <div class="examples">
-        <div class="example"><div class="emoji">🐸</div><label>Лягушка · Сакура</label></div>
-        <div class="example"><div class="emoji">🦊</div><label>Лисёнок · Ночной город</label></div>
-        <div class="example"><div class="emoji">🐱</div><label>Котик · Звёздное небо</label></div>
-        <div class="example"><div class="emoji">🤖</div><label>Робот · Закат</label></div>
-      </div>
-    </section>
-  </main>
+<div id="accountCard" class="account-card">
 
-  <footer id="why">
-    <div>© 2026 Date Ticket · Сделано для особенных свиданий ❤️</div>
-  </footer>
+  <div class="account-name" id="accountName">Пользователь</div>
+
+  <div class="account-email" id="accountEmail"></div>
+
+  <div class="account-menu">
+
+    <a href="account.html">
+      👤 Профиль
+    </a>
+
+    <a href="account.html#invitations">
+      💌 Мои приглашения
+    </a>
+
+    <a href="create.html">
+      ✨ Создать приглашение
+    </a>
+
+    <button id="logoutBtn">
+      🚪 Выйти
+    </button>
+
+  </div>
+
 </div>
+
+<main>
+
+<section class="hero">
+
+  <div>
+
+    <div class="badge">
+      💌 Особенное приглашение для особенного человека
+    </div>
+
+    <h1>
+      Создай <span>идеальное</span>
+      приглашение на свидание
+    </h1>
+
+    <p>
+      Небольшой интерактивный опрос, любимый персонаж
+      и настоящий цифровой билет. Получатель сам выбирает
+      детали свидания, а личное письмо открывается именно
+      в тот момент, который выберешь ты.
+    </p>
+
+    <div class="actions">
+
+      <a class="btn" href="create.html">
+        Создать приглашение →
+      </a>
+
+      <a class="btn secondary" href="#how">
+        Посмотреть как это работает
+      </a>
+
+    </div>
+
+  </div>
+
+  <div class="hero-visual">
+
+    <div class="glow"></div>
+
+    <div class="mascot">
+      🐸
+    </div>
+
+    <div class="envelope">
+      💌
+    </div>
+
+  </div>
+
+</section>
+
+<section id="how" class="features">
+
+  <div class="feature">
+    <strong>💗 Персональный опыт</strong>
+    <span>
+      Выбираешь обращение, персонажа, фон,
+      вопросы и личное письмо.
+    </span>
+  </div>
+
+  <div class="feature">
+    <strong>✨ Интерактивный опрос</strong>
+    <span>
+      Получатель проходит небольшой опрос
+      и сам выбирает детали будущего свидания.
+    </span>
+  </div>
+
+  <div class="feature">
+    <strong>🎫 Настоящий цифровой билет</strong>
+    <span>
+      После выбора даты появляется билет,
+      который можно предъявить только в день свидания.
+    </span>
+  </div>
+
+</section>
+
+<section id="examples">
+
+  <div class="section-title">
+
+    <h2>
+      Примеры приглашений
+    </h2>
+
+    <p>
+      Каждое приглашение можно сделать своим.
+    </p>
+
+  </div>
+
+  <div class="examples">
+
+    <div class="example">
+      <div class="emoji">🐸</div>
+      <label>Лягушка · Сакура</label>
+    </div>
+
+    <div class="example">
+      <div class="emoji">🦊</div>
+      <label>Лисёнок · Ночной город</label>
+    </div>
+
+    <div class="example">
+      <div class="emoji">🐱</div>
+      <label>Котик · Звёздное небо</label>
+    </div>
+
+    <div class="example">
+      <div class="emoji">🤖</div>
+      <label>Робот · Закат</label>
+    </div>
+
+  </div>
+
+</section>
+
+</main>
+
+<footer id="why">
+  <div>
+    © 2026 Date Ticket · Сделано для особенных свиданий ❤️
+  </div>
+</footer>
+
+</div>
+
+<script type="module">
+
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/12.17.0/firebase-app.js";
+
+import {
+  getAuth,
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/12.17.0/firebase-auth.js";
+
+
+const firebaseConfig = {
+
+  apiKey:"AIzaSyC2esT1S9A8SnTBPyrHVfxTy-Z_u-GiGpWo",
+
+  authDomain:"date-ticket-2e786.firebaseapp.com",
+
+  databaseURL:
+    "https://date-ticket-2e786-default-rtdb.europe-west1.firebasedatabase.app",
+
+  projectId:"date-ticket-2e786",
+
+  storageBucket:
+    "date-ticket-2e786.firebasestorage.app",
+
+  messagingSenderId:"576969359516",
+
+  appId:"1:576969359516:web:2b9e622d7b2de86acc6d59"
+
+};
+
+
+const app =
+  initializeApp(firebaseConfig);
+
+const auth =
+  getAuth(app);
+
+
+const guestButtons =
+  document.querySelector("#guestButtons");
+
+const accountBtn =
+  document.querySelector("#accountBtn");
+
+const accountCard =
+  document.querySelector("#accountCard");
+
+const accountName =
+  document.querySelector("#accountName");
+
+const accountEmail =
+  document.querySelector("#accountEmail");
+
+const logoutBtn =
+  document.querySelector("#logoutBtn");
+
+
+onAuthStateChanged(auth,user=>{
+
+  if(user){
+
+    guestButtons.style.display="none";
+
+    accountBtn.style.display="inline-flex";
+
+    accountName.textContent =
+      user.displayName ||
+      "Пользователь";
+
+    accountEmail.textContent =
+      user.email || "";
+
+  }else{
+
+    guestButtons.style.display="flex";
+
+    accountBtn.style.display="none";
+
+    accountCard.classList.remove("open");
+
+  }
+
+});
+
+
+accountBtn.addEventListener("click",()=>{
+
+  accountCard.classList.toggle("open");
+
+});
+
+
+logoutBtn.addEventListener("click",async()=>{
+
+  try{
+
+    await signOut(auth);
+
+    location.reload();
+
+  }catch(error){
+
+    console.error(error);
+
+    alert("Не удалось выйти из аккаунта.");
+
+  }
+
+});
+
+
+document.addEventListener("click",event=>{
+
+  if(
+    !accountCard.contains(event.target) &&
+    event.target!==accountBtn
+  ){
+
+    accountCard.classList.remove("open");
+
+  }
+
+});
+
+</script>
+
 </body>
 </html>
+```
