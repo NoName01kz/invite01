@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-<style>
+<style>.survey-card{margin:16px 0;padding:16px;border:1px solid #eadfe0;border-radius:18px}.survey-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.survey-count{margin-top:8px;font:12px Arial;color:#8c7d83}@media(max-width:650px){.survey-grid{grid-template-columns:1fr}}</style><style>
 :root{
   --bg:#090d16;--bg2:#111728;--card:rgba(19,25,42,.78);
   --line:rgba(255,255,255,.10);--text:#fff;--muted:#aeb6c8;
@@ -100,7 +100,7 @@ cursor:pointer;text-align:left;transition:.22s;min-height:78px
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 @media(max-width:800px){.step-layout{grid-template-columns:1fr;gap:25px}.preview{min-height:330px}.nav-hide{display:none}.theme-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:520px){main{padding-top:25px}.option-grid,.char-grid,.theme-grid{grid-template-columns:1fr 1fr}.option-grid .option{min-height:70px}.date-row{grid-template-columns:1fr}.preview{padding:22px}.preview .character{font-size:105px}.actions .btn{padding:14px 16px}}
-<style>.survey-card{margin:20px 0;padding:20px;border:1px solid rgba(120,100,110,.16);border-radius:20px;background:rgba(255,255,255,.55)}.survey-card h3{margin:0 0 14px;font-size:18px}.survey-grid{grid-template-columns:repeat(2,minmax(0,1fr))}@media(max-width:650px){.survey-grid{grid-template-columns:1fr}}</style>
+</style>
 </head>
 <body>
 <div class="container">
@@ -252,13 +252,7 @@ cursor:pointer;text-align:left;transition:.22s;min-height:78px
 
 <!-- 7 -->
 <section class="step" data-title="Опрос">
-<div class="step-layout"><div class="copy">
-<span class="eyebrow">Шаг 7 · Идеальное свидание</span>
-<h1>Выбери по 4 варианта для каждого вопроса</h1>
-<p>Получатель увидит только те варианты, которые ты отметишь. Для каждого вопроса нужно выбрать ровно четыре.</p>
-<div id="surveyQuestions"></div>
-<div class="notice">Пять вопросов × четыре варианта. Получатель выберет по одному варианту в каждом вопросе.</div>
-</div><div class="preview"><div class="character">🐸</div><div class="bubble">Я предложу только твои варианты. Пусть выбор будет за вами двоими 😉</div></div></div>
+<div class="step-layout"><div class="copy"><span class="eyebrow">Шаг 7 · Идеальное свидание</span><h1>Выбери по 4 варианта для каждого вопроса</h1><p>Получатель увидит только отмеченные тобой варианты.</p><div id="surveyQuestions"></div></div><div class="preview"><div class="character">🐸</div><div class="bubble">Пусть выбор будет за вами двоими 😉</div></div></div>
 <div class="actions"><button class="btn secondary prev">← Назад</button><button class="btn next" id="surveyNext">Продолжить →</button></div>
 </section>
 
@@ -276,7 +270,7 @@ cursor:pointer;text-align:left;transition:.22s;min-height:78px
 <div class="review-row"><span>Даты</span><b id="rDates">—</b></div>
 <div class="review-row"><span>Время</span><b id="rTime">—</b></div>
 <div class="review-row"><span>Личное письмо</span><b id="rLetter">—</b></div>
-<div class="review-row"><span>Опрос</span><b id="rSurvey">—</b></div>
+<div class="review-row"><span>Вариантов в вопросе</span><b id="rSurvey">—</b></div>
 </div>
 </div>
 <div class="preview"><div class="success">🎫</div><div class="bubble">Всё готово. После нажатия кнопки появится ссылка на твоё приглашение.</div></div>
@@ -310,103 +304,25 @@ const state={
  time:"18:00",
  letter:"",
  letterDate:"",
- survey:[]
+ survey:[],questions:{place:[],food:[],drink:[],important:[],activity:[]}
 };
 
 const surveyQuestions=[
- {key:"place",title:"Где хотелось бы встретиться?",items:[["☕","Кофейня"],["🎬","Кино"],["🌳","Парк"],["🎳","Боулинг"],["🌅","Набережная"],["🎨","Мастер-класс"],["🧺","Пикник"],["🎡","Аттракционы"]]},
- {key:"food",title:"Что бы хотелось покушать?",items:[["🍕","Пицца"],["🍣","Суши"],["🍔","Бургер"],["🍝","Паста"],["🌮","Тако"],["🍜","Рамен"],["🍰","Десерт"],["🥗","Салат"]]},
- {key:"drink",title:"Что выпить?",items:[["🥤","Лимонад"],["☕","Кофе"],["🍵","Чай"],["🥛","Милкшейк"],["🧃","Сок"],["🧋","Бабл-ти"],["🍫","Какао"],["💧","Вода"]]},
- {key:"important",title:"Что главное в свидании?",items:[["💬","Поговорить"],["😂","Посмеяться"],["🕯️","Уют"],["✨","Новые впечатления"],["❤️","Романтика"],["🤝","Быть собой"],["📸","Запомнить день"],["🌿","Спокойствие"]]},
- {key:"activity",title:"Чем хотелось бы заняться?",items:[["🚶","Прогуляться"],["🎬","Посмотреть фильм"],["🎲","Поиграть"],["🌟","Сделать что-то новое"],["📸","Сделать фотографии"],["🍳","Приготовить вместе"],["🎨","Порисовать"],["🎶","Послушать музыку"]]}
+{key:"place",title:"Где встретиться?",items:[["☕","Кофейня"],["🎬","Кино"],["🌳","Парк"],["🎳","Боулинг"],["🌅","Набережная"],["🎨","Мастер-класс"],["🧺","Пикник"],["🎡","Аттракционы"]]},
+{key:"food",title:"Что покушать?",items:[["🍕","Пицца"],["🍣","Суши"],["🍔","Бургер"],["🍝","Паста"],["🌮","Тако"],["🍜","Рамен"],["🍰","Десерт"],["🥗","Салат"]]},
+{key:"drink",title:"Что выпить?",items:[["🥤","Лимонад"],["☕","Кофе"],["🍵","Чай"],["🥛","Милкшейк"],["🧃","Сок"],["🧋","Бабл-ти"],["🍫","Какао"],["💧","Вода"]]},
+{key:"important",title:"Что главное в свидании?",items:[["💬","Поговорить"],["😂","Посмеяться"],["🕯️","Уют"],["✨","Новые впечатления"],["❤️","Романтика"],["🤝","Быть собой"],["📸","Запомнить день"],["🌿","Спокойствие"]]},
+{key:"activity",title:"Чем заняться?",items:[["🚶","Прогуляться"],["🎬","Посмотреть фильм"],["🎲","Поиграть"],["🌟","Сделать что-то новое"],["📸","Сделать фотографии"],["🍳","Приготовить вместе"],["🎨","Порисовать"],["🎶","Послушать музыку"]]}
 ];
-
-
-const save=()=>localStorage.setItem("dateTicketDraft",JSON.stringify(state));
-const load=()=>{
- try{Object.assign(state,JSON.parse(localStorage.getItem("dateTicketDraft")||"{}"))}catch(e){}
- if(state.nickname) document.querySelector("#nickname").value=state.nickname;
- if(state.letter) {document.querySelector("#letter").value=state.letter;document.querySelector("#letterCount").textContent=state.letter.length}
- if(state.from) document.querySelector("#dateFrom").value=state.from;
- if(state.to) document.querySelector("#dateTo").value=state.to;
- if(state.time) document.querySelector("#time").value=state.time;
- if(state.letterDate) document.querySelector("#letterDate").value=state.letterDate;
-};
-function updateProgress(){
- const pct=Math.round(((current+1)/8)*100);
- document.querySelector("#stepNum").textContent=Math.min(current+1,8);
- document.querySelector("#stepTitle").textContent=steps[current].dataset.title;
- document.querySelector("#progressPercent").textContent=pct+"%";
- document.querySelector("#progressBar").style.width=pct+"%";
-}
-function show(n){
- current=Math.max(0,Math.min(n,steps.length-1));
- steps.forEach((s,i)=>s.classList.toggle("active",i===current));
- updateProgress();
- if(current===7) updateReview();
- if(current===6) renderSurvey();
- window.scrollTo({top:0,behavior:"smooth"});
-}
-document.querySelectorAll(".next").forEach(btn=>btn.addEventListener("click",()=>{
- if(current===0 && !document.querySelector("#nickname").value.trim()){
-   document.querySelector("#nickname").focus(); return;
- }
- if(current===6 && !validateSurvey()){return}
- show(current+1);
-}));
-document.querySelectorAll(".prev").forEach(btn=>btn.addEventListener("click",()=>show(current-1)));
-
-document.querySelector("#nickname").addEventListener("input",e=>{
- state.nickname=e.target.value.trim();
- document.querySelector("#bubblePreview").textContent=state.nickname?`Привет, ${state.nickname}! Я приготовил для тебя кое-что особенное ❤️`:"Привет! Я приготовил для тебя кое-что особенное ❤️";
- save();
-});
-document.querySelectorAll(".char").forEach(el=>el.addEventListener("click",()=>{
- document.querySelectorAll(".char").forEach(x=>x.classList.remove("selected"));
- el.classList.add("selected");state.character=el.dataset.char;
- document.querySelector("#characterBig").textContent=state.character;
- save();
-}));
-document.querySelectorAll(".theme").forEach(el=>el.addEventListener("click",()=>{
- document.querySelectorAll(".theme").forEach(x=>x.classList.remove("selected"));
- el.classList.add("selected");state.theme=el.dataset.theme;save();
-}));
-document.querySelectorAll("[data-music]").forEach(el=>el.addEventListener("click",()=>{
- document.querySelectorAll("[data-music]").forEach(x=>x.classList.remove("selected"));
- el.classList.add("selected");state.music=el.dataset.music;save();
-}));
-["dateFrom","dateTo","time","letterDate"].forEach(id=>document.querySelector("#"+id).addEventListener("input",e=>{state[id==="dateFrom"?"from":id==="dateTo"?"to":id]=e.target.value;save()}));
-document.querySelector("#letter").addEventListener("input",e=>{
- state.letter=e.target.value;document.querySelector("#letterCount").textContent=e.target.value.length;save();
-});
-function renderSurvey(){
- const box=document.querySelector("#surveyQuestions");box.innerHTML="";
- surveyQuestions.forEach(q=>{
-  const card=document.createElement("div");card.className="survey-card";
-  card.innerHTML=`<h3>${q.title}</h3><div class="option-grid survey-grid"></div><div class="limit">Выбрано: <b>0</b> / 4</div>`;
-  const grid=card.querySelector(".survey-grid"),count=card.querySelector(".limit b"),selected=Array.isArray(state.questions[q.key])?state.questions[q.key]:[];
-  q.items.forEach(([emoji,name])=>{const div=document.createElement("div");div.className="option"+(selected.includes(name)?" selected":"");div.innerHTML=`<div class="emoji">${emoji}</div><strong>${name}</strong>`;div.onclick=()=>{const list=state.questions[q.key]||[];if(list.includes(name))state.questions[q.key]=list.filter(x=>x!==name);else if(list.length<4)state.questions[q.key]=[...list,name];renderSurvey();save()};grid.appendChild(div)});
-  count.textContent=selected.length;box.appendChild(card);
- });
-}
-function validateSurvey(){for(const q of surveyQuestions){if(!Array.isArray(state.questions[q.key])||state.questions[q.key].length!==4){alert(`Выбери ровно 4 варианта для вопроса: «${q.title}»`);return false}}return true}
-function updateReview(){
- document.querySelector("#rNick").textContent=state.nickname||"—";document.querySelector("#rChar").textContent=state.character;document.querySelector("#rTheme").textContent=state.theme;document.querySelector("#rDates").textContent=(state.from||"—")+" → "+(state.to||"—");document.querySelector("#rTime").textContent=state.time||"—";document.querySelector("#rLetter").textContent=state.letter?"Написано":"Не заполнено";document.querySelector("#rSurvey").textContent=surveyQuestions.map(q=>`${q.key}: ${(state.questions[q.key]||[]).length}/4`).join(" · ");
-}
-document.querySelector("#createBtn").addEventListener("click",async()=>{
- if(!validateSurvey())return;if(!state.from||!state.to){alert("Укажи диапазон дат.");return}if(state.from>state.to){alert("Дата начала не может быть позже даты окончания.");return}
- const btn=document.querySelector("#createBtn");btn.disabled=true;btn.textContent="Создаём приглашение…";
- try{const id=Math.random().toString(36).slice(2,10).toUpperCase();const payload={nickname:state.nickname,character:state.character,theme:state.theme,music:state.music,from:state.from,to:state.to,time:state.time,questions:state.questions,status:"created",createdAt:new Date().toISOString()};const privateLetter={letter:state.letter||"",letterUnlock:state.letterDate||null};const {db,doc,setDoc}=window.dateTicketFirebase;await setDoc(doc(db,"invitations",id),payload);await setDoc(doc(db,"invitations",id,"private","letter"),privateLetter);localStorage.setItem("dateTicketInvitation",JSON.stringify({...payload,...privateLetter,id}));const base=location.href.substring(0,location.href.lastIndexOf("/")+1);document.querySelector("#shareLink").value=base+"invite.html?id="+id;show(8)}catch(e){console.error(e);alert("Не удалось создать приглашение. Проверь правила Firestore и подключение к интернету.")}finally{btn.disabled=false;btn.textContent="Создать приглашение ✨"}
-});
-document.querySelector("#copyBtn").addEventListener("click",async()=>{
- try{await navigator.clipboard.writeText(document.querySelector("#shareLink").value);document.querySelector("#copyBtn").textContent="Скопировано ✓";setTimeout(()=>document.querySelector("#copyBtn").textContent="Копировать",1500)}
- catch(e){document.querySelector("#shareLink").select()}
-});
-document.querySelector("#previewBtn").addEventListener("click",()=>{
- const id=(JSON.parse(localStorage.getItem("dateTicketInvitation")||"{}").id||"");
- location.href="invite.html?id="+id;
-});
-load();updateProgress();
+state.questions=state.questions||{place:[],food:[],drink:[],important:[],activity:[]};
+function renderSurvey(){const box=document.querySelector('#surveyQuestions');box.innerHTML='';surveyQuestions.forEach(q=>{const card=document.createElement('div');card.className='survey-card';card.innerHTML=`<h3>${q.title}</h3><div class="option-grid survey-grid"></div><div class="survey-count">Выбрано: <b>0</b> / 4</div>`;const grid=card.querySelector('.survey-grid'),count=card.querySelector('.survey-count b'),sel=state.questions[q.key]||[];q.items.forEach(([e,n])=>{const x=document.createElement('div');x.className='option'+(sel.includes(n)?' selected':'');x.innerHTML=`<div class="emoji">${e}</div><strong>${n}</strong>`;x.onclick=()=>{let a=state.questions[q.key]||[];state.questions[q.key]=a.includes(n)?a.filter(v=>v!==n):a.length<4?[...a,n]:a;renderSurvey();save()};grid.appendChild(x)});count.textContent=sel.length;box.appendChild(card)})}
+function validateSurvey(){for(const q of surveyQuestions)if((state.questions[q.key]||[]).length!==4){alert(`Выбери ровно 4 варианта для вопроса «${q.title}»`);return false}return true}
+function updateReview(){document.querySelector('#rNick').textContent=state.nickname||'—';document.querySelector('#rChar').textContent=state.character;document.querySelector('#rTheme').textContent=state.theme;document.querySelector('#rDates').textContent=(state.from||'—')+' → '+(state.to||'—');document.querySelector('#rTime').textContent=state.time||'—';document.querySelector('#rLetter').textContent=state.letter?'Написано':'Не заполнено';document.querySelector('#rSurvey').textContent=surveyQuestions.map(q=>`${q.title}: ${(state.questions[q.key]||[]).length}/4`).join(' · ')}
+document.querySelector('#surveyNext').onclick=()=>{if(validateSurvey()){show(7);updateReview()}};
+document.querySelector('#createBtn').addEventListener('click',async()=>{if(!validateSurvey()||!state.from||!state.to)return;const btn=document.querySelector('#createBtn');btn.disabled=true;try{const id=Math.random().toString(36).slice(2,10).toUpperCase();const payload={nickname:state.nickname,character:state.character,theme:state.theme,music:state.music,from:state.from,to:state.to,time:state.time,questions:state.questions,status:'created',createdAt:new Date().toISOString()};await setDoc(doc(db,'invitations',id),payload);await setDoc(doc(db,'invitations',id,'private','letter'),{letter:state.letter||'',letterUnlock:state.letterDate||null});const base=location.href.substring(0,location.href.lastIndexOf('/')+1);document.querySelector('#shareLink').value=base+'invite.html?id='+id;document.querySelector('#answersBtn').dataset.id=id;show(8)}catch(e){console.error(e);alert('Ошибка Firebase.')}finally{btn.disabled=false}});
+document.querySelector('#copyLinkBtn').onclick=async()=>{try{await navigator.clipboard.writeText(document.querySelector('#shareLink').value);document.querySelector('#copyLinkBtn').textContent='Скопировано ✓'}catch(e){}};
+document.querySelector('#answersBtn').onclick=()=>{const id=document.querySelector('#answersBtn').dataset.id;if(id)location.href='admin.html?id='+id};
+renderSurvey();load();updateProgress();
 </script>
-<script type="module">import{initializeApp}from"https://www.gstatic.com/firebasejs/12.17.0/firebase-app.js";import{getFirestore,doc,setDoc}from"https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js";const firebaseConfig={apiKey:"AIzaSyC2es1T9S8AnTBPyrHVfxTy-Z_u-GiGpWo",authDomain:"date-ticket-2e786.firebaseapp.com",databaseURL:"https://date-ticket-2e786-default-rtdb.europe-west1.firebasedatabase.app",projectId:"date-ticket-2e786",storageBucket:"date-ticket-2e786.firebasestorage.app",messagingSenderId:"576969359516",appId:"1:576969359516:web:2b9e622d7b2de86acc6d59"};window.dateTicketFirebase={db:getFirestore(initializeApp(firebaseConfig)),doc,setDoc};</script></body>
+<script type="module">import{initializeApp}from"https://www.gstatic.com/firebasejs/12.17.0/firebase-app.js";import{getFirestore,doc,setDoc}from"https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js";const app=initializeApp({apiKey:"AIzaSyC2es1T9S8AnTBPyrHVfxTy-Z_u-GiGpWo",authDomain:"date-ticket-2e786.firebaseapp.com",databaseURL:"https://date-ticket-2e786-default-rtdb.europe-west1.firebasedatabase.app",projectId:"date-ticket-2e786",storageBucket:"date-ticket-2e786.firebasestorage.app",messagingSenderId:"576969359516",appId:"1:576969359516:web:2b9e622d7b2de86acc6d59"});window.db=getFirestore(app);window.doc=doc;window.setDoc=setDoc;</script></body>
 </html>
