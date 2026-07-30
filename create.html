@@ -294,177 +294,1294 @@ cursor:pointer;text-align:left;transition:.22s;min-height:78px
 <script>
 const steps=[...document.querySelectorAll(".step")];
 let current=0;
-const state={nickname:"",character:"🐸",theme:"Сакура",music:"none",from:"",to:"",time:"18:00",letter:"",letterDate:"",questions:{place:[],food:[],drink:[],important:[],activity:[]}};
 
-const surveyQuestions=[
-{key:"place",title:"Где встретиться?",items:[["☕","Кофейня"],["🎬","Кино"],["🌳","Парк"],["🎳","Боулинг"],["🌅","Набережная"],["🎨","Мастер-класс"],["🧺","Пикник"],["🎡","Аттракционы"]]},
-{key:"food",title:"Что покушать?",items:[["🍕","Пицца"],["🍣","Суши"],["🍔","Бургер"],["🍝","Паста"],["🌮","Тако"],["🍜","Рамен"],["🍰","Десерт"],["🥗","Салат"]]},
-{key:"drink",title:"Что выпить?",items:[["🥤","Лимонад"],["☕","Кофе"],["🍵","Чай"],["🥛","Милкшейк"],["🧃","Сок"],["🧋","Бабл-ти"],["🍫","Какао"],["💧","Вода"]]},
-{key:"important",title:"Что главное в свидании?",items:[["💬","Поговорить"],["😂","Посмеяться"],["🕯️","Уют"],["✨","Новые впечатления"],["❤️","Романтика"],["🤝","Быть собой"],["📸","Запомнить день"],["🌿","Спокойствие"]]},
-{key:"activity",title:"Чем заняться?",items:[["🚶","Прогуляться"],["🎬","Посмотреть фильм"],["🎲","Поиграть"],["🌟","Сделать что-то новое"],["📸","Сделать фотографии"],["🍳","Приготовить вместе"],["🎨","Порисовать"],["🎶","Послушать музыку"]]}
-];
-
-function save(){try{localStorage.setItem("dateTicketDraft",JSON.stringify(state))}catch(e){}}
-function load(){
- try{const x=JSON.parse(localStorage.getItem("dateTicketDraft")||"null");if(x){Object.assign(state,x);state.questions={...state.questions,...(x.questions||{})}}}catch(e){}
- const set=(id,v)=>{const el=document.querySelector(id);if(el)el.value=v||""};
- set("#nickname",state.nickname);set("#dateFrom",state.from);set("#dateTo",state.to);set("#time",state.time);set("#letter",state.letter);set("#letterDate",state.letterDate);
- const lc=document.querySelector("#letterCount");if(lc)lc.textContent=(state.letter||"").length;
- const cp=document.querySelector("#charPreview");if(cp)cp.textContent=state.character;
- const cb=document.querySelector("#characterBig");if(cb)cb.textContent=state.character;
- document.querySelectorAll(".char").forEach(x=>x.classList.toggle("selected",x.dataset.char===state.character));
- document.querySelectorAll(".theme").forEach(x=>x.classList.toggle("selected",x.dataset.theme===state.theme));
- document.querySelectorAll("[data-music]").forEach(x=>x.classList.toggle("selected",x.dataset.music===state.music));
- renderSurvey();updateProgress();
-}
-function show(n){current=n;steps.forEach((s,i)=>s.classList.toggle("active",i===n));window.scrollTo({top:0,behavior:"smooth"});updateProgress()}
-function updateProgress(){const p=document.querySelector("#progress");if(p)p.style.width=(current/(steps.length-1)*100)+"%"}
-function updateReview(){
- document.querySelector("#rNick").textContent=state.nickname||"—";
- document.querySelector("#rChar").textContent=state.character;
- document.querySelector("#rTheme").textContent=state.theme;
- document.querySelector("#rDates").textContent=(state.from||"—")+" → "+(state.to||"—");
- document.querySelector("#rTime").textContent=state.time||"—";
- document.querySelector("#rLetter").textContent=state.letter?"Написано":"Не заполнено";
- document.querySelector("#rSurvey").textContent=surveyQuestions.map(q=>`${q.title}: ${(state.questions[q.key]||[]).length}/4`).join(" · ");
-}
-function validateSurvey(){
- for(const q of surveyQuestions)if((state.questions[q.key]||[]).length!==4){alert(`Выбери ровно 4 варианта для вопроса «${q.title}»`);return false}
- return true
-}
-function renderSurvey(){
- const box=document.querySelector("#surveyQuestions");if(!box)return;box.innerHTML="";
- surveyQuestions.forEach(q=>{
-  const card=document.createElement("div");card.className="survey-card";
-  const selected=state.questions[q.key]||[];
-  card.innerHTML=`<h3>${q.title}</h3><div class="option-grid survey-grid"></div><div class="survey-count">Выбрано: <b>${selected.length}</b> / 4</div>`;
-  const grid=card.querySelector(".survey-grid");
-  q.items.forEach(([emoji,name])=>{
-   const x=document.createElement("div");x.className="option"+(selected.includes(name)?" selected":"");x.innerHTML=`<div class="emoji">${emoji}</div><strong>${name}</strong>`;
-   x.onclick=()=>{const a=state.questions[q.key]||[];if(a.includes(name))state.questions[q.key]=a.filter(v=>v!==name);else if(a.length<4)state.questions[q.key]=[...a,name];renderSurvey();save()};
-   grid.appendChild(x)
-  });
-  box.appendChild(card)
- })
-}
-
-const nick=document.querySelector("#nickname");
-if(nick)nick.addEventListener("input",e=>{state.nickname=e.target.value;save()});
-document.querySelector("#dateFrom")?.addEventListener("change",e=>{state.from=e.target.value;save()});
-document.querySelector("#dateTo")?.addEventListener("change",e=>{state.to=e.target.value;save()});
-document.querySelector("#time")?.addEventListener("change",e=>{state.time=e.target.value;save()});
-document.querySelector("#letter")?.addEventListener("input",e=>{state.letter=e.target.value;const c=document.querySelector("#letterCount");if(c)c.textContent=state.letter.length;save()});
-document.querySelector("#letterDate")?.addEventListener("change",e=>{state.letterDate=e.target.value;save()});
-
-document.querySelectorAll(".char").forEach(x=>x.addEventListener("click",()=>{state.character=x.dataset.char;document.querySelectorAll(".char").forEach(y=>y.classList.remove("selected"));x.classList.add("selected");document.querySelector("#charPreview").textContent=state.character;document.querySelector("#characterBig").textContent=state.character;save()}));
-document.querySelectorAll(".theme").forEach(x=>x.addEventListener("click",()=>{state.theme=x.dataset.theme;document.querySelectorAll(".theme").forEach(y=>y.classList.remove("selected"));x.classList.add("selected");save()}));
-document.querySelectorAll("[data-music]").forEach(x=>x.addEventListener("click",()=>{state.music=x.dataset.music;document.querySelectorAll("[data-music]").forEach(y=>y.classList.remove("selected"));x.classList.add("selected");save()}));
-
-document.querySelectorAll(".next").forEach(btn=>btn.addEventListener("click",()=>{
- if(current===0 && !state.nickname.trim()){alert("Введи обращение.");return}
- if(current===4 && (!state.from||!state.to)){alert("Укажи обе даты.");return}
- if(current===4 && state.from>state.to){alert("Дата начала не может быть позже даты окончания.");return}
- if(current===5 && !state.letterDate){alert("Выбери дату открытия письма.");return}
- if(current===6 && !validateSurvey())return;
- if(current===6)updateReview();
- show(Math.min(current+1,steps.length-1))
-}));
-document.querySelectorAll(".prev").forEach(btn=>btn.addEventListener("click",()=>show(Math.max(current-1,0))));
-
-document.querySelector("#createBtn")?.addEventListener("click", async () => {
-  if (!validateSurvey()) {
-    show(6);
-    return;
+const state={
+  nickname:"",
+  character:"🐸",
+  theme:"Сакура",
+  music:"none",
+  from:"",
+  to:"",
+  time:"18:00",
+  letter:"",
+  letterDate:"",
+  questions:{
+    place:[],
+    food:[],
+    drink:[],
+    important:[],
+    activity:[]
   }
+};
 
-  if (!state.nickname.trim()) {
-    alert("Введи обращение.");
-    show(0);
-    return;
-  }
 
-  if (!state.from || !state.to) {
-    alert("Укажи диапазон дат.");
-    show(4);
-    return;
-  }
+/* =========================================================
+   FIREBASE READY
+========================================================= */
 
-  const btn = document.querySelector("#createBtn");
-  btn.disabled = true;
-  btn.textContent = "Создаём приглашение…";
-
-  try {
-    const id = Math.random().toString(36).slice(2, 10).toUpperCase();
-
-    const payload = {
-      nickname: state.nickname,
-      character: state.character,
-      theme: state.theme,
-      music: state.music,
-      from: state.from,
-      to: state.to,
-      time: state.time,
-      questions: state.questions,
-      status: "created",
-      createdAt: new Date().toISOString()
-    };
-
-    // Сохраняем основную информацию приглашения
-   await window.setDoc(
-  window.doc(window.db, 'invitations', id),
-  payload
-);
-
-await window.setDoc(
-  window.doc(window.db, 'invitations', id, 'private', 'letter'),
-  {
-    letter: state.letter || '',
-    letterUnlock: state.letterDate || null
-  }
-);
-
-    // Создаём ссылку для получателя
-    const base = location.href.substring(
-      0,
-      location.href.lastIndexOf("/") + 1
-    );
-
-    document.querySelector("#shareLink").value =
-      base + "invite.html?id=" + id;
-
-    // Передаём ID для кнопки "Смотреть ответы"
-    document
-      .querySelector("#answersBtn")
-      ?.setAttribute("data-id", id);
-
-    show(8);
-
-  } catch (e) {
-    console.error("Firebase error:", e);
-    alert(
-      "Ошибка Firebase. Открой F12 → Console, если ошибка повторится."
-    );
-  } finally {
-    btn.disabled = false;
-    btn.textContent = "Создать приглашение ✨";
-  }
+window.firebaseReady = new Promise(resolve => {
+  window.__firebaseResolve = resolve;
 });
 
-  document.querySelector("#previewBtn").onclick = () => {
-  const link = document.querySelector("#shareLink").value;
 
-  if (!link) {
-    alert("Сначала создай приглашение.");
-    return;
+/* =========================================================
+   ВОПРОСЫ
+========================================================= */
+
+const surveyQuestions=[
+  {
+    key:"place",
+    title:"Где встретиться?",
+    items:[
+      ["☕","Кофейня"],
+      ["🎬","Кино"],
+      ["🌳","Парк"],
+      ["🎳","Боулинг"],
+      ["🌅","Набережная"],
+      ["🎨","Мастер-класс"],
+      ["🧺","Пикник"],
+      ["🎡","Аттракционы"]
+    ]
+  },
+  {
+    key:"food",
+    title:"Что покушать?",
+    items:[
+      ["🍕","Пицца"],
+      ["🍣","Суши"],
+      ["🍔","Бургер"],
+      ["🍝","Паста"],
+      ["🌮","Тако"],
+      ["🍜","Рамен"],
+      ["🍰","Десерт"],
+      ["🥗","Салат"]
+    ]
+  },
+  {
+    key:"drink",
+    title:"Что выпить?",
+    items:[
+      ["🥤","Лимонад"],
+      ["☕","Кофе"],
+      ["🍵","Чай"],
+      ["🥛","Милкшейк"],
+      ["🧃","Сок"],
+      ["🧋","Бабл-ти"],
+      ["🍫","Какао"],
+      ["💧","Вода"]
+    ]
+  },
+  {
+    key:"important",
+    title:"Что главное в свидании?",
+    items:[
+      ["💬","Поговорить"],
+      ["😂","Посмеяться"],
+      ["🕯️","Уют"],
+      ["✨","Новые впечатления"],
+      ["❤️","Романтика"],
+      ["🤝","Быть собой"],
+      ["📸","Запомнить день"],
+      ["🌿","Спокойствие"]
+    ]
+  },
+  {
+    key:"activity",
+    title:"Чем заняться?",
+    items:[
+      ["🚶","Прогуляться"],
+      ["🎬","Посмотреть фильм"],
+      ["🎲","Поиграть"],
+      ["🌟","Сделать что-то новое"],
+      ["📸","Сделать фотографии"],
+      ["🍳","Приготовить вместе"],
+      ["🎨","Порисовать"],
+      ["🎶","Послушать музыку"]
+    ]
+  }
+];
+
+
+/* =========================================================
+   LOCAL STORAGE
+========================================================= */
+
+function save(){
+  try{
+    localStorage.setItem(
+      "dateTicketDraft",
+      JSON.stringify(state)
+    );
+  }catch(e){
+    console.warn("Не удалось сохранить черновик:",e);
+  }
+}
+
+
+function load(){
+
+  try{
+
+    const x=JSON.parse(
+      localStorage.getItem("dateTicketDraft")||"null"
+    );
+
+    if(x){
+
+      Object.assign(state,x);
+
+      state.questions={
+        place:[],
+        food:[],
+        drink:[],
+        important:[],
+        activity:[],
+        ...(x.questions||{})
+      };
+
+    }
+
+  }catch(e){
+    console.warn("Не удалось загрузить черновик:",e);
   }
 
-  window.open(link, "_blank");
-};
-  
-document.querySelector("#copyBtn")?.addEventListener("click",async()=>{const x=document.querySelector("#shareLink");try{await navigator.clipboard.writeText(x.value);document.querySelector("#copyBtn").textContent="Скопировано ✓"}catch(e){x.select()}});
-document.querySelector("#answersBtn")?.addEventListener("click",()=>{const id=document.querySelector("#answersBtn").dataset.id;if(id)location.href="admin.html?id="+encodeURIComponent(id)});
 
-load();show(0);
+  const set=(id,v)=>{
+    const el=document.querySelector(id);
+    if(el)el.value=v||"";
+  };
+
+
+  set("#nickname",state.nickname);
+  set("#dateFrom",state.from);
+  set("#dateTo",state.to);
+  set("#time",state.time);
+  set("#letter",state.letter);
+  set("#letterDate",state.letterDate);
+
+
+  const lc=document.querySelector("#letterCount");
+
+  if(lc){
+    lc.textContent=(state.letter||"").length;
+  }
+
+
+  const cp=document.querySelector("#charPreview");
+
+  if(cp){
+    cp.textContent=state.character;
+  }
+
+
+  const cb=document.querySelector("#characterBig");
+
+  if(cb){
+    cb.textContent=state.character;
+  }
+
+
+  document
+    .querySelectorAll(".char")
+    .forEach(x=>{
+      x.classList.toggle(
+        "selected",
+        x.dataset.char===state.character
+      );
+    });
+
+
+  document
+    .querySelectorAll(".theme")
+    .forEach(x=>{
+      x.classList.toggle(
+        "selected",
+        x.dataset.theme===state.theme
+      );
+    });
+
+
+  document
+    .querySelectorAll("[data-music]")
+    .forEach(x=>{
+      x.classList.toggle(
+        "selected",
+        x.dataset.music===state.music
+      );
+    });
+
+
+  renderSurvey();
+  updateProgress();
+}
+
+
+/* =========================================================
+   НАВИГАЦИЯ
+========================================================= */
+
+function show(n){
+
+  current=n;
+
+  steps.forEach((s,i)=>{
+    s.classList.toggle(
+      "active",
+      i===n
+    );
+  });
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+  updateProgress();
+}
+
+
+function updateProgress(){
+
+  const p=document.querySelector("#progress");
+
+  if(p){
+    p.style.width=
+      (current/(steps.length-1)*100)+"%";
+  }
+
+}
+
+
+/* =========================================================
+   REVIEW
+========================================================= */
+
+function updateReview(){
+
+  const rNick=document.querySelector("#rNick");
+  const rChar=document.querySelector("#rChar");
+  const rTheme=document.querySelector("#rTheme");
+  const rDates=document.querySelector("#rDates");
+  const rTime=document.querySelector("#rTime");
+  const rLetter=document.querySelector("#rLetter");
+  const rSurvey=document.querySelector("#rSurvey");
+
+
+  if(rNick)
+    rNick.textContent=state.nickname||"—";
+
+  if(rChar)
+    rChar.textContent=state.character;
+
+  if(rTheme)
+    rTheme.textContent=state.theme;
+
+  if(rDates)
+    rDates.textContent=
+      (state.from||"—")+" → "+(state.to||"—");
+
+  if(rTime)
+    rTime.textContent=state.time||"—";
+
+  if(rLetter)
+    rLetter.textContent=
+      state.letter?"Написано":"Не заполнено";
+
+  if(rSurvey){
+
+    rSurvey.textContent=
+      surveyQuestions
+        .map(q=>
+          `${q.title}: ${
+            (state.questions[q.key]||[]).length
+          }/4`
+        )
+        .join(" · ");
+
+  }
+
+}
+
+
+/* =========================================================
+   ПРОВЕРКА ОПРОСА
+========================================================= */
+
+function validateSurvey(){
+
+  for(const q of surveyQuestions){
+
+    const selected=
+      state.questions[q.key]||[];
+
+    if(selected.length!==4){
+
+      alert(
+        `Выбери ровно 4 варианта для вопроса «${q.title}»`
+      );
+
+      return false;
+    }
+
+  }
+
+  return true;
+}
+
+
+/* =========================================================
+   РЕНДЕР ОПРОСА
+========================================================= */
+
+function renderSurvey(){
+
+  const box=
+    document.querySelector("#surveyQuestions");
+
+  if(!box)return;
+
+  box.innerHTML="";
+
+
+  surveyQuestions.forEach(q=>{
+
+    const card=
+      document.createElement("div");
+
+    card.className="survey-card";
+
+
+    const selected=
+      state.questions[q.key]||[];
+
+
+    card.innerHTML=`
+      <h3>${q.title}</h3>
+
+      <div class="option-grid survey-grid"></div>
+
+      <div class="survey-count">
+        Выбрано:
+        <b>${selected.length}</b>
+        / 4
+      </div>
+    `;
+
+
+    const grid=
+      card.querySelector(".survey-grid");
+
+
+    q.items.forEach(([emoji,name])=>{
+
+      const x=
+        document.createElement("div");
+
+      x.className=
+        "option"+
+        (selected.includes(name)
+          ?" selected"
+          :"");
+
+
+      x.innerHTML=`
+        <div class="emoji">${emoji}</div>
+        <strong>${name}</strong>
+      `;
+
+
+      x.onclick=()=>{
+
+        const a=
+          state.questions[q.key]||[];
+
+
+        if(a.includes(name)){
+
+          state.questions[q.key]=
+            a.filter(v=>v!==name);
+
+        }else{
+
+          if(a.length>=4)return;
+
+          state.questions[q.key]=
+            [...a,name];
+
+        }
+
+
+        renderSurvey();
+        save();
+
+      };
+
+
+      grid.appendChild(x);
+
+    });
+
+
+    box.appendChild(card);
+
+  });
+
+}
+
+
+/* =========================================================
+   ПОЛЯ
+========================================================= */
+
+const nick=
+  document.querySelector("#nickname");
+
+if(nick){
+
+  nick.addEventListener(
+    "input",
+    e=>{
+      state.nickname=e.target.value;
+      save();
+    }
+  );
+
+}
+
+
+document
+  .querySelector("#dateFrom")
+  ?.addEventListener(
+    "change",
+    e=>{
+      state.from=e.target.value;
+      save();
+    }
+  );
+
+
+document
+  .querySelector("#dateTo")
+  ?.addEventListener(
+    "change",
+    e=>{
+      state.to=e.target.value;
+      save();
+    }
+  );
+
+
+document
+  .querySelector("#time")
+  ?.addEventListener(
+    "change",
+    e=>{
+      state.time=e.target.value;
+      save();
+    }
+  );
+
+
+document
+  .querySelector("#letter")
+  ?.addEventListener(
+    "input",
+    e=>{
+
+      state.letter=e.target.value;
+
+      const c=
+        document.querySelector("#letterCount");
+
+      if(c){
+        c.textContent=
+          state.letter.length;
+      }
+
+      save();
+
+    }
+  );
+
+
+document
+  .querySelector("#letterDate")
+  ?.addEventListener(
+    "change",
+    e=>{
+      state.letterDate=e.target.value;
+      save();
+    }
+  );
+
+
+/* =========================================================
+   ПЕРСОНАЖ
+========================================================= */
+
+document
+  .querySelectorAll(".char")
+  .forEach(x=>{
+
+    x.addEventListener("click",()=>{
+
+      state.character=
+        x.dataset.char;
+
+
+      document
+        .querySelectorAll(".char")
+        .forEach(y=>
+          y.classList.remove("selected")
+        );
+
+
+      x.classList.add("selected");
+
+
+      const preview=
+        document.querySelector("#charPreview");
+
+      if(preview)
+        preview.textContent=
+          state.character;
+
+
+      const big=
+        document.querySelector("#characterBig");
+
+      if(big)
+        big.textContent=
+          state.character;
+
+
+      save();
+
+    });
+
+  });
+
+
+/* =========================================================
+   ТЕМА
+========================================================= */
+
+document
+  .querySelectorAll(".theme")
+  .forEach(x=>{
+
+    x.addEventListener("click",()=>{
+
+      state.theme=
+        x.dataset.theme;
+
+
+      document
+        .querySelectorAll(".theme")
+        .forEach(y=>
+          y.classList.remove("selected")
+        );
+
+
+      x.classList.add("selected");
+
+      save();
+
+    });
+
+  });
+
+
+/* =========================================================
+   МУЗЫКА
+========================================================= */
+
+document
+  .querySelectorAll("[data-music]")
+  .forEach(x=>{
+
+    x.addEventListener("click",()=>{
+
+      state.music=
+        x.dataset.music;
+
+
+      document
+        .querySelectorAll("[data-music]")
+        .forEach(y=>
+          y.classList.remove("selected")
+        );
+
+
+      x.classList.add("selected");
+
+      save();
+
+    });
+
+  });
+
+
+/* =========================================================
+   NEXT
+========================================================= */
+
+document
+  .querySelectorAll(".next")
+  .forEach(btn=>{
+
+    btn.addEventListener("click",()=>{
+
+      if(
+        current===0 &&
+        !state.nickname.trim()
+      ){
+
+        alert("Введи обращение.");
+        return;
+
+      }
+
+
+      if(
+        current===4 &&
+        (!state.from||!state.to)
+      ){
+
+        alert("Укажи обе даты.");
+        return;
+
+      }
+
+
+      if(
+        current===4 &&
+        state.from>state.to
+      ){
+
+        alert(
+          "Дата начала не может быть позже даты окончания."
+        );
+
+        return;
+
+      }
+
+
+      if(
+        current===5 &&
+        !state.letterDate
+      ){
+
+        alert(
+          "Выбери дату открытия письма."
+        );
+
+        return;
+
+      }
+
+
+      if(
+        current===6 &&
+        !validateSurvey()
+      ){
+
+        return;
+
+      }
+
+
+      if(current===6){
+        updateReview();
+      }
+
+
+      show(
+        Math.min(
+          current+1,
+          steps.length-1
+        )
+      );
+
+    });
+
+  });
+
+
+/* =========================================================
+   PREVIOUS
+========================================================= */
+
+document
+  .querySelectorAll(".prev")
+  .forEach(btn=>{
+
+    btn.addEventListener(
+      "click",
+      ()=>{
+        show(
+          Math.max(
+            current-1,
+            0
+          )
+        );
+      }
+    );
+
+  });
+
+
+/* =========================================================
+   СОЗДАНИЕ ПРИГЛАШЕНИЯ
+========================================================= */
+
+document
+  .querySelector("#createBtn")
+  ?.addEventListener(
+    "click",
+    async()=>{
+      
+      if(!validateSurvey()){
+
+        show(6);
+        return;
+
+      }
+
+
+      if(!state.nickname.trim()){
+
+        alert(
+          "Введи обращение."
+        );
+
+        show(0);
+        return;
+
+      }
+
+
+      if(!state.from||!state.to){
+
+        alert(
+          "Укажи диапазон дат."
+        );
+
+        show(4);
+        return;
+
+      }
+
+
+      const btn=
+        document.querySelector("#createBtn");
+
+
+      btn.disabled=true;
+      btn.textContent=
+        "Создаём приглашение…";
+
+
+      try{
+
+        /*
+          Ждём полной загрузки Firebase.
+        */
+        await window.firebaseReady;
+
+
+        if(
+          !window.db||
+          !window.doc||
+          !window.setDoc
+        ){
+
+          throw new Error(
+            "Firebase не инициализирован."
+          );
+
+        }
+
+
+        /*
+          Создаём ID.
+        */
+        const id=
+          Math.random()
+            .toString(36)
+            .slice(2,10)
+            .toUpperCase();
+
+
+        /*
+          Основные данные.
+        */
+        const payload={
+
+          nickname:
+            state.nickname,
+
+          character:
+            state.character,
+
+          theme:
+            state.theme,
+
+          music:
+            state.music,
+
+          from:
+            state.from,
+
+          to:
+            state.to,
+
+          time:
+            state.time,
+
+          questions:
+            state.questions,
+
+          status:
+            "created",
+
+          createdAt:
+            new Date().toISOString()
+
+        };
+
+
+        /*
+          Сохраняем приглашение.
+        */
+        await window.setDoc(
+          window.doc(
+            window.db,
+            "invitations",
+            id
+          ),
+          payload
+        );
+
+
+        /*
+          Сохраняем личное письмо.
+        */
+        await window.setDoc(
+          window.doc(
+            window.db,
+            "invitations",
+            id,
+            "private",
+            "letter"
+          ),
+          {
+
+            letter:
+              state.letter||"",
+
+            letterUnlock:
+              state.letterDate||null
+
+          }
+        );
+
+
+        /*
+          Создаём ссылку.
+        */
+        const base=
+          location.href.substring(
+            0,
+            location.href.lastIndexOf("/") + 1
+          );
+
+
+        const inviteLink=
+          base+
+          "invite.html?id="+
+          id;
+
+
+        const shareLink=
+          document.querySelector(
+            "#shareLink"
+          );
+
+
+        if(shareLink){
+          shareLink.value=
+            inviteLink;
+        }
+
+
+        /*
+          Сохраняем ID глобально.
+        */
+        window.createdInvitationId=
+          id;
+
+        window.createdInvitationLink=
+          inviteLink;
+
+
+        /*
+          Если кнопка ответов есть —
+          передаём ей ID.
+        */
+        const answersBtn=
+          document.querySelector(
+            "#answersBtn"
+          );
+
+
+        if(answersBtn){
+
+          answersBtn.dataset.id=
+            id;
+
+        }
+
+
+        /*
+          Показываем финальный экран.
+        */
+        show(8);
+
+
+      }catch(e){
+
+        console.error(
+          "Firebase error:",
+          e
+        );
+
+
+        alert(
+          "Ошибка Firebase:\n\n"+
+          (
+            e.message||
+            "Не удалось создать приглашение."
+          )
+        );
+
+
+      }finally{
+
+        btn.disabled=false;
+
+        btn.textContent=
+          "Создать приглашение ✨";
+
+      }
+
+    }
+  );
+
+
+/* =========================================================
+   ПРЕВЬЮ
+========================================================= */
+
+document
+  .querySelector("#previewBtn")
+  ?.addEventListener(
+    "click",
+    ()=>{
+
+      let link=
+        window.createdInvitationLink;
+
+
+      /*
+        Если глобальной ссылки нет,
+        берём её из поля.
+      */
+      if(!link){
+
+        const input=
+          document.querySelector(
+            "#shareLink"
+          );
+
+        if(
+          input&&
+          input.value
+        ){
+
+          link=
+            input.value;
+
+        }
+
+      }
+
+
+      if(!link){
+
+        alert(
+          "Сначала создай приглашение."
+        );
+
+        return;
+
+      }
+
+
+      /*
+        Открываем настоящее
+        invite.html.
+      */
+      window.open(
+        link,
+        "_blank"
+      );
+
+    }
+  );
+
+
+/* =========================================================
+   КОПИРОВАНИЕ
+========================================================= */
+
+document
+  .querySelector("#copyBtn")
+  ?.addEventListener(
+    "click",
+    async()=>{
+
+      const input=
+        document.querySelector(
+          "#shareLink"
+        );
+
+
+      if(
+        !input||
+        !input.value
+      ){
+
+        alert(
+          "Сначала создай приглашение."
+        );
+
+        return;
+
+      }
+
+
+      try{
+
+        await navigator.clipboard
+          .writeText(
+            input.value
+          );
+
+
+        const btn=
+          document.querySelector(
+            "#copyBtn"
+          );
+
+
+        if(btn){
+
+          btn.textContent=
+            "Скопировано ✓";
+
+
+          setTimeout(
+            ()=>{
+              btn.textContent=
+                "Копировать";
+            },
+            1800
+          );
+
+        }
+
+      }catch(e){
+
+        input.select();
+
+        try{
+          document.execCommand(
+            "copy"
+          );
+        }catch(error){
+
+          console.error(
+            "Copy error:",
+            error
+          );
+
+        }
+
+      }
+
+    }
+  );
+
+
+/* =========================================================
+   СМОТРЕТЬ ОТВЕТЫ
+========================================================= */
+
+document
+  .querySelector("#answersBtn")
+  ?.addEventListener(
+    "click",
+    ()=>{
+
+      const btn=
+        document.querySelector(
+          "#answersBtn"
+        );
+
+
+      const id=
+        btn?.dataset.id||
+        window.createdInvitationId;
+
+
+      if(!id){
+
+        alert(
+          "Сначала создай приглашение."
+        );
+
+        return;
+
+      }
+
+
+      location.href=
+        "admin.html?id="+
+        encodeURIComponent(id);
+
+    }
+  );
+
+
+/* =========================================================
+   ЗАПУСК
+========================================================= */
+
+load();
+show(0);
+
 </script>
-<script type="module">import{initializeApp}from"https://www.gstatic.com/firebasejs/12.17.0/firebase-app.js";import{getFirestore,doc,setDoc}from"https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js";const app=initializeApp({apiKey:"AIzaSyC2es1T9S8AnTBPyrHVfxTy-Z_u-GiGpWo",authDomain:"date-ticket-2e786.firebaseapp.com",databaseURL:"https://date-ticket-2e786-default-rtdb.europe-west1.firebasedatabase.app",projectId:"date-ticket-2e786",storageBucket:"date-ticket-2e786.firebasestorage.app",messagingSenderId:"576969359516",appId:"1:576969359516:web:2b9e622d7b2de86acc6d59"});window.db=getFirestore(app);window.doc=doc;window.setDoc=setDoc;</script></body>
+
+
+<script type="module">
+
+import{
+  initializeApp
+}from
+"https://www.gstatic.com/firebasejs/12.17.0/firebase-app.js";
+
+
+import{
+  getFirestore,
+  doc,
+  setDoc
+}from
+"https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js";
+
+
+const firebaseConfig={
+
+  apiKey:
+    "AIzaSyC2esT1S9AnTBPyrHVfxTy-Z_u-GiGpWo",
+
+  authDomain:
+    "date-ticket-2e786.firebaseapp.com",
+
+  databaseURL:
+    "https://date-ticket-2e786-default-rtdb.europe-west1.firebasedatabase.app",
+
+  projectId:
+    "date-ticket-2e786",
+
+  storageBucket:
+    "date-ticket-2e786.firebasestorage.app",
+
+  messagingSenderId:
+    "576969359516",
+
+  appId:
+    "1:576969359516:web:2b9e622d7b2de86acc6d59"
+
+};
+
+
+try{
+
+  const app=
+    initializeApp(
+      firebaseConfig
+    );
+
+
+  const db=
+    getFirestore(app);
+
+
+  /*
+    Передаём Firebase
+    в основной скрипт.
+  */
+  window.db=
+    db;
+
+  window.doc=
+    doc;
+
+  window.setDoc=
+    setDoc;
+
+
+  /*
+    Сообщаем основному скрипту,
+    что Firebase полностью готов.
+  */
+  if(
+    typeof window.__firebaseResolve===
+    "function"
+  ){
+
+    window.__firebaseResolve();
+
+  }
+
+
+  console.log(
+    "Firebase готов ✓"
+  );
+
+
+}catch(error){
+
+  console.error(
+    "Firebase initialization error:",
+    error
+  );
+
+
+  if(
+    typeof window.__firebaseResolve===
+    "function"
+  ){
+
+    window.__firebaseResolve();
+
+  }
+
+}
+
+</script>
+
+</body>
 </html>
