@@ -100,7 +100,7 @@ cursor:pointer;text-align:left;transition:.22s;min-height:78px
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 @media(max-width:800px){.step-layout{grid-template-columns:1fr;gap:25px}.preview{min-height:330px}.nav-hide{display:none}.theme-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:520px){main{padding-top:25px}.option-grid,.char-grid,.theme-grid{grid-template-columns:1fr 1fr}.option-grid .option{min-height:70px}.date-row{grid-template-columns:1fr}.preview{padding:22px}.preview .character{font-size:105px}.actions .btn{padding:14px 16px}}
-</style>
+<style>.survey-card{margin:20px 0;padding:20px;border:1px solid rgba(120,100,110,.16);border-radius:20px;background:rgba(255,255,255,.55)}.survey-card h3{margin:0 0 14px;font-size:18px}.survey-grid{grid-template-columns:repeat(2,minmax(0,1fr))}@media(max-width:650px){.survey-grid{grid-template-columns:1fr}}</style>
 </head>
 <body>
 <div class="container">
@@ -252,18 +252,13 @@ cursor:pointer;text-align:left;transition:.22s;min-height:78px
 
 <!-- 7 -->
 <section class="step" data-title="Опрос">
-<div class="step-layout">
-<div class="copy">
+<div class="step-layout"><div class="copy">
 <span class="eyebrow">Шаг 7 · Идеальное свидание</span>
-<h1>Выбери варианты для каждого вопроса</h1>
-<p>У получателя будет выбор только из отмеченных тобой четырёх вариантов. Здесь мы показываем первый вопрос-пример.</p>
-<label style="margin-top:24px">Где хотелось бы встретиться?</label>
-<div class="option-grid" id="surveyOptions"></div>
-<div class="limit">Выбрано: <b id="surveyCount">0</b> / 4</div>
-<div class="notice">Нужно выбрать ровно четыре варианта. В финальной версии здесь будут все вопросы один за другим.</div>
-</div>
-<div class="preview"><div class="character">🐸</div><div class="bubble">Я предложу только те варианты, которые ты выберешь. Остальное останется за кадром 😉</div></div>
-</div>
+<h1>Выбери по 4 варианта для каждого вопроса</h1>
+<p>Получатель увидит только те варианты, которые ты отметишь. Для каждого вопроса нужно выбрать ровно четыре.</p>
+<div id="surveyQuestions"></div>
+<div class="notice">Пять вопросов × четыре варианта. Получатель выберет по одному варианту в каждом вопросе.</div>
+</div><div class="preview"><div class="character">🐸</div><div class="bubble">Я предложу только твои варианты. Пусть выбор будет за вами двоими 😉</div></div></div>
 <div class="actions"><button class="btn secondary prev">← Назад</button><button class="btn next" id="surveyNext">Продолжить →</button></div>
 </section>
 
@@ -281,7 +276,7 @@ cursor:pointer;text-align:left;transition:.22s;min-height:78px
 <div class="review-row"><span>Даты</span><b id="rDates">—</b></div>
 <div class="review-row"><span>Время</span><b id="rTime">—</b></div>
 <div class="review-row"><span>Личное письмо</span><b id="rLetter">—</b></div>
-<div class="review-row"><span>Вариантов в вопросе</span><b id="rSurvey">—</b></div>
+<div class="review-row"><span>Опрос</span><b id="rSurvey">—</b></div>
 </div>
 </div>
 <div class="preview"><div class="success">🎫</div><div class="bubble">Всё готово. После нажатия кнопки появится ссылка на твоё приглашение.</div></div>
@@ -318,10 +313,14 @@ const state={
  survey:[]
 };
 
-const surveyData=[
- ["☕","Кофейня"],["🎬","Кино"],["🌳","Парк"],["🎳","Боулинг"],
- ["🌅","Набережная"],["🎨","Мастер-класс"],["🧺","Пикник"],["🎡","Аттракционы"]
+const surveyQuestions=[
+ {key:"place",title:"Где хотелось бы встретиться?",items:[["☕","Кофейня"],["🎬","Кино"],["🌳","Парк"],["🎳","Боулинг"],["🌅","Набережная"],["🎨","Мастер-класс"],["🧺","Пикник"],["🎡","Аттракционы"]]},
+ {key:"food",title:"Что бы хотелось покушать?",items:[["🍕","Пицца"],["🍣","Суши"],["🍔","Бургер"],["🍝","Паста"],["🌮","Тако"],["🍜","Рамен"],["🍰","Десерт"],["🥗","Салат"]]},
+ {key:"drink",title:"Что выпить?",items:[["🥤","Лимонад"],["☕","Кофе"],["🍵","Чай"],["🥛","Милкшейк"],["🧃","Сок"],["🧋","Бабл-ти"],["🍫","Какао"],["💧","Вода"]]},
+ {key:"important",title:"Что главное в свидании?",items:[["💬","Поговорить"],["😂","Посмеяться"],["🕯️","Уют"],["✨","Новые впечатления"],["❤️","Романтика"],["🤝","Быть собой"],["📸","Запомнить день"],["🌿","Спокойствие"]]},
+ {key:"activity",title:"Чем хотелось бы заняться?",items:[["🚶","Прогуляться"],["🎬","Посмотреть фильм"],["🎲","Поиграть"],["🌟","Сделать что-то новое"],["📸","Сделать фотографии"],["🍳","Приготовить вместе"],["🎨","Порисовать"],["🎶","Послушать музыку"]]}
 ];
+
 
 const save=()=>localStorage.setItem("dateTicketDraft",JSON.stringify(state));
 const load=()=>{
@@ -352,7 +351,7 @@ document.querySelectorAll(".next").forEach(btn=>btn.addEventListener("click",()=
  if(current===0 && !document.querySelector("#nickname").value.trim()){
    document.querySelector("#nickname").focus(); return;
  }
- if(current===6 && state.survey.length!==4){alert("Выбери ровно 4 варианта.");return}
+ if(current===6 && !validateSurvey()){return}
  show(current+1);
 }));
 document.querySelectorAll(".prev").forEach(btn=>btn.addEventListener("click",()=>show(current-1)));
@@ -381,45 +380,23 @@ document.querySelector("#letter").addEventListener("input",e=>{
  state.letter=e.target.value;document.querySelector("#letterCount").textContent=e.target.value.length;save();
 });
 function renderSurvey(){
- const box=document.querySelector("#surveyOptions");box.innerHTML="";
- surveyData.forEach(([emoji,name])=>{
-   const div=document.createElement("div");div.className="option"+(state.survey.includes(name)?" selected":"");
-   div.innerHTML=`<div class="emoji">${emoji}</div><strong>${name}</strong>`;
-   div.onclick=()=>{
-     if(state.survey.includes(name)) state.survey=state.survey.filter(x=>x!==name);
-     else if(state.survey.length<4) state.survey.push(name);
-     renderSurvey();save();
-   };
-   box.appendChild(div);
+ const box=document.querySelector("#surveyQuestions");box.innerHTML="";
+ surveyQuestions.forEach(q=>{
+  const card=document.createElement("div");card.className="survey-card";
+  card.innerHTML=`<h3>${q.title}</h3><div class="option-grid survey-grid"></div><div class="limit">Выбрано: <b>0</b> / 4</div>`;
+  const grid=card.querySelector(".survey-grid"),count=card.querySelector(".limit b"),selected=Array.isArray(state.questions[q.key])?state.questions[q.key]:[];
+  q.items.forEach(([emoji,name])=>{const div=document.createElement("div");div.className="option"+(selected.includes(name)?" selected":"");div.innerHTML=`<div class="emoji">${emoji}</div><strong>${name}</strong>`;div.onclick=()=>{const list=state.questions[q.key]||[];if(list.includes(name))state.questions[q.key]=list.filter(x=>x!==name);else if(list.length<4)state.questions[q.key]=[...list,name];renderSurvey();save()};grid.appendChild(div)});
+  count.textContent=selected.length;box.appendChild(card);
  });
- document.querySelector("#surveyCount").textContent=state.survey.length;
 }
+function validateSurvey(){for(const q of surveyQuestions){if(!Array.isArray(state.questions[q.key])||state.questions[q.key].length!==4){alert(`Выбери ровно 4 варианта для вопроса: «${q.title}»`);return false}}return true}
 function updateReview(){
- document.querySelector("#rNick").textContent=state.nickname||"—";
- document.querySelector("#rChar").textContent=state.character;
- document.querySelector("#rTheme").textContent=state.theme;
- document.querySelector("#rDates").textContent=(state.from||"—")+" → "+(state.to||"—");
- document.querySelector("#rTime").textContent=state.time||"—";
- document.querySelector("#rLetter").textContent=state.letter?"Написано":"Не заполнено";
- document.querySelector("#rSurvey").textContent=state.survey.length+" / 4";
+ document.querySelector("#rNick").textContent=state.nickname||"—";document.querySelector("#rChar").textContent=state.character;document.querySelector("#rTheme").textContent=state.theme;document.querySelector("#rDates").textContent=(state.from||"—")+" → "+(state.to||"—");document.querySelector("#rTime").textContent=state.time||"—";document.querySelector("#rLetter").textContent=state.letter?"Написано":"Не заполнено";document.querySelector("#rSurvey").textContent=surveyQuestions.map(q=>`${q.key}: ${(state.questions[q.key]||[]).length}/4`).join(" · ");
 }
 document.querySelector("#createBtn").addEventListener("click",async()=>{
- if(state.survey.length!==4){alert("Выбери ровно 4 варианта.");return}
- if(!state.from||!state.to){alert("Укажи диапазон дат.");return}
- if(state.from>state.to){alert("Дата начала не может быть позже даты окончания.");return}
- const btn=document.querySelector("#createBtn"); btn.disabled=true; btn.textContent="Создаём приглашение…";
- try{
-  const id=Math.random().toString(36).slice(2,10).toUpperCase();
-  const payload={nickname:state.nickname,character:state.character,theme:state.theme,music:state.music,from:state.from,to:state.to,time:state.time,survey:state.survey,status:"created",createdAt:new Date().toISOString()};
-  const privateLetter={letter:state.letter,letterUnlock:state.letterDate||null};
-  const {db,doc,setDoc}=window.dateTicketFirebase;
-  await setDoc(doc(db,"invitations",id),payload);
-  await setDoc(doc(db,"invitations",id,"private","letter"),privateLetter);
-  localStorage.setItem("dateTicketInvitation",JSON.stringify({...payload,...privateLetter,id}));
-  const base=location.href.substring(0,location.href.lastIndexOf("/")+1);
-  document.querySelector("#shareLink").value=base+"invite.html?id="+id; show(8);
- }catch(error){console.error(error);alert("Не удалось создать приглашение. Проверь правила Firestore и интернет.");}
- finally{btn.disabled=false;btn.textContent="Создать приглашение ✨";}
+ if(!validateSurvey())return;if(!state.from||!state.to){alert("Укажи диапазон дат.");return}if(state.from>state.to){alert("Дата начала не может быть позже даты окончания.");return}
+ const btn=document.querySelector("#createBtn");btn.disabled=true;btn.textContent="Создаём приглашение…";
+ try{const id=Math.random().toString(36).slice(2,10).toUpperCase();const payload={nickname:state.nickname,character:state.character,theme:state.theme,music:state.music,from:state.from,to:state.to,time:state.time,questions:state.questions,status:"created",createdAt:new Date().toISOString()};const privateLetter={letter:state.letter||"",letterUnlock:state.letterDate||null};const {db,doc,setDoc}=window.dateTicketFirebase;await setDoc(doc(db,"invitations",id),payload);await setDoc(doc(db,"invitations",id,"private","letter"),privateLetter);localStorage.setItem("dateTicketInvitation",JSON.stringify({...payload,...privateLetter,id}));const base=location.href.substring(0,location.href.lastIndexOf("/")+1);document.querySelector("#shareLink").value=base+"invite.html?id="+id;show(8)}catch(e){console.error(e);alert("Не удалось создать приглашение. Проверь правила Firestore и подключение к интернету.")}finally{btn.disabled=false;btn.textContent="Создать приглашение ✨"}
 });
 document.querySelector("#copyBtn").addEventListener("click",async()=>{
  try{await navigator.clipboard.writeText(document.querySelector("#shareLink").value);document.querySelector("#copyBtn").textContent="Скопировано ✓";setTimeout(()=>document.querySelector("#copyBtn").textContent="Копировать",1500)}
@@ -431,14 +408,5 @@ document.querySelector("#previewBtn").addEventListener("click",()=>{
 });
 load();updateProgress();
 </script>
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-app.js";
-import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js";
-const firebaseConfig = {
- apiKey:"AIzaSyC2es1T9S8AnTBPyrHVfxTy-Z_u-GiGpWo", authDomain:"date-ticket-2e786.firebaseapp.com", databaseURL:"https://date-ticket-2e786-default-rtdb.europe-west1.firebasedatabase.app", projectId:"date-ticket-2e786", storageBucket:"date-ticket-2e786.firebasestorage.app", messagingSenderId:"576969359516", appId:"1:576969359516:web:2b9e622d7b2de86acc6d59"
-};
-const app=initializeApp(firebaseConfig); const db=getFirestore(app);
-window.dateTicketFirebase={db,doc,setDoc};
-</script>
-</body>
+<script type="module">import{initializeApp}from"https://www.gstatic.com/firebasejs/12.17.0/firebase-app.js";import{getFirestore,doc,setDoc}from"https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js";const firebaseConfig={apiKey:"AIzaSyC2es1T9S8AnTBPyrHVfxTy-Z_u-GiGpWo",authDomain:"date-ticket-2e786.firebaseapp.com",databaseURL:"https://date-ticket-2e786-default-rtdb.europe-west1.firebasedatabase.app",projectId:"date-ticket-2e786",storageBucket:"date-ticket-2e786.firebasestorage.app",messagingSenderId:"576969359516",appId:"1:576969359516:web:2b9e622d7b2de86acc6d59"};window.dateTicketFirebase={db:getFirestore(initializeApp(firebaseConfig)),doc,setDoc};</script></body>
 </html>
