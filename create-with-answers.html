@@ -1,9 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Создание приглашения — Date Ticket</title>
+
+<title>Создать приглашение — Date Ticket</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,18 +15,20 @@
 :root{
   --bg:#090d16;
   --bg2:#111728;
-  --card:rgba(19,25,42,.78);
+  --card:rgba(19,25,42,.80);
   --line:rgba(255,255,255,.10);
   --text:#fff;
   --muted:#aeb6c8;
   --pink:#ff6fae;
   --pink2:#ff91bf;
   --gold:#f6c667;
-  --green:#78d6a1;
+  --green:#71d6a1;
   --danger:#ff667d;
 }
 
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
 body{
   margin:0;
@@ -35,7 +39,6 @@ body{
     radial-gradient(circle at 75% 10%,rgba(255,105,170,.14),transparent 28%),
     radial-gradient(circle at 10% 90%,rgba(95,100,255,.12),transparent 30%),
     linear-gradient(135deg,var(--bg),var(--bg2));
-  overflow-x:hidden;
 }
 
 body:before{
@@ -46,13 +49,25 @@ body:before{
   opacity:.28;
   background-image:
     radial-gradient(circle at 20% 20%,#fff 0 1px,transparent 1.5px),
-    radial-gradient(circle at 75% 35%,#fff 0 1px,transparent 1.5px);
-  background-size:270px 240px,330px 290px;
+    radial-gradient(circle at 75% 35%,#fff 0 1px,transparent 1.5px),
+    radial-gradient(circle at 45% 80%,#fff 0 1px,transparent 1.5px);
+  background-size:270px 240px,330px 290px,370px 320px;
+}
+
+button,
+input,
+textarea,
+select{
+  font-family:"Manrope",sans-serif;
+}
+
+button{
+  cursor:pointer;
 }
 
 a{
-  text-decoration:none;
   color:inherit;
+  text-decoration:none;
 }
 
 .container{
@@ -61,106 +76,47 @@ a{
 }
 
 header{
-  height:78px;
+  min-height:78px;
   display:flex;
   align-items:center;
   justify-content:space-between;
+  gap:15px;
   position:relative;
-  z-index:2;
+  z-index:5;
 }
 
 .logo{
-  font:700 24px "Playfair Display",serif;
+  font:700 25px "Playfair Display",serif;
   font-style:italic;
 }
 
 .header-right{
   display:flex;
   align-items:center;
-  gap:12px;
+  gap:8px;
 }
 
-.save{
-  color:var(--muted);
-  font-size:12px;
-}
-
-.account{
-  padding:9px 13px;
-  border:1px solid var(--line);
-  border-radius:999px;
+.email{
   color:var(--muted);
   font-size:11px;
-  background:rgba(255,255,255,.04);
 }
 
-.progress-wrap{
-  position:relative;
-  z-index:2;
-}
-
-.progress-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:10px;
-}
-
-.step-label{
-  font-size:12px;
-  color:var(--muted);
-}
-
-.step-title{
-  font-size:13px;
-  font-weight:700;
-}
-
-.progress{
-  height:5px;
-  background:rgba(255,255,255,.08);
-  border-radius:99px;
-  overflow:hidden;
-}
-
-.progress-bar{
-  height:100%;
-  width:12.5%;
-  background:linear-gradient(90deg,var(--pink),var(--gold));
-  transition:.45s;
+.header-btn{
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.055);
+  color:#fff;
+  border-radius:12px;
+  padding:10px 13px;
+  font-size:11px;
 }
 
 main{
-  padding:44px 0 70px;
+  padding:35px 0 80px;
 }
 
-.step{
-  display:none;
-  animation:enter .45s ease;
-}
-
-.step.active{
-  display:block;
-}
-
-.step-layout{
-  display:grid;
-  grid-template-columns:1.05fr .95fr;
-  gap:50px;
-  align-items:center;
-  min-height:590px;
-}
-
-.copy h1{
-  font:700 clamp(40px,5vw,62px)/1.05 "Playfair Display",serif;
-  margin:0 0 18px;
-  letter-spacing:-1px;
-}
-
-.copy p{
-  color:var(--muted);
-  line-height:1.7;
-  max-width:570px;
+.hero{
+  text-align:center;
+  margin-bottom:35px;
 }
 
 .eyebrow{
@@ -169,18 +125,63 @@ main{
   font-size:11px;
   text-transform:uppercase;
   letter-spacing:1.7px;
-  margin-bottom:14px;
+  margin-bottom:12px;
+}
+
+.hero h1{
+  font:700 clamp(38px,6vw,60px)/1.05 "Playfair Display",serif;
+  margin:0 0 14px;
+}
+
+.hero p{
+  color:var(--muted);
+  line-height:1.7;
+  font-size:14px;
+  max-width:650px;
+  margin:auto;
+}
+
+.card{
+  border:1px solid var(--line);
+  background:var(--card);
+  border-radius:28px;
+  padding:30px;
+  backdrop-filter:blur(18px);
+  box-shadow:0 30px 80px rgba(0,0,0,.28);
+  margin-bottom:18px;
+}
+
+.card h2{
+  margin:0 0 8px;
+  font:700 28px "Playfair Display",serif;
+}
+
+.card-description{
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.6;
+  margin-bottom:22px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
 }
 
 .field{
-  margin-top:28px;
+  margin-bottom:18px;
+}
+
+.field:last-child{
+  margin-bottom:0;
 }
 
 label{
   display:block;
-  font-size:13px;
-  font-weight:700;
-  margin-bottom:10px;
+  font-size:12px;
+  font-weight:800;
+  margin-bottom:8px;
 }
 
 input,
@@ -189,23 +190,17 @@ select{
   width:100%;
   border:1px solid var(--line);
   outline:none;
-  border-radius:16px;
+  border-radius:14px;
   background:rgba(255,255,255,.055);
   color:#fff;
-  padding:17px 18px;
-  font:500 14px "Manrope",sans-serif;
+  padding:15px;
+  font-size:13px;
   transition:.2s;
 }
 
-select option{
-  background:#151b2b;
-  color:#fff;
-}
-
-textarea{
-  min-height:180px;
-  resize:vertical;
-  line-height:1.7;
+input::placeholder,
+textarea::placeholder{
+  color:#788196;
 }
 
 input:focus,
@@ -215,137 +210,220 @@ select:focus{
   box-shadow:0 0 0 4px rgba(255,111,174,.08);
 }
 
-.preview{
+select option{
+  background:#151b2b;
+}
+
+textarea{
+  min-height:150px;
+  resize:vertical;
+  line-height:1.6;
+}
+
+.char-grid{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:9px;
+}
+
+.char{
   border:1px solid var(--line);
-  background:var(--card);
-  border-radius:28px;
-  padding:30px;
-  backdrop-filter:blur(18px);
-  box-shadow:0 30px 80px rgba(0,0,0,.28);
-  min-height:470px;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
+  background:rgba(255,255,255,.04);
+  border-radius:15px;
+  padding:11px 5px;
   text-align:center;
+  transition:.2s;
+}
+
+.char:hover{
+  transform:translateY(-2px);
+}
+
+.char.selected{
+  border-color:rgba(255,111,174,.75);
+  background:rgba(255,111,174,.10);
+}
+
+.char .emoji{
+  display:block;
+  font-size:32px;
+  margin-bottom:4px;
+}
+
+.char small{
+  font-size:9px;
+  color:var(--muted);
+}
+
+.theme-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+
+.theme{
+  height:85px;
+  border-radius:15px;
+  border:2px solid transparent;
+  cursor:pointer;
   position:relative;
   overflow:hidden;
+  transition:.2s;
 }
 
-.preview:before{
-  content:"";
+.theme.selected{
+  border-color:#fff;
+}
+
+.theme span{
   position:absolute;
-  width:320px;
-  height:320px;
-  border-radius:50%;
-  background:radial-gradient(circle,rgba(255,111,174,.20),transparent 65%);
-  top:-110px;
-  right:-100px;
+  bottom:9px;
+  left:10px;
+  font-size:10px;
+  font-weight:800;
+  text-shadow:0 2px 7px #000;
 }
 
-.preview .character{
-  font-size:145px;
-  position:relative;
-  z-index:1;
-  filter:drop-shadow(0 20px 20px rgba(0,0,0,.25));
-  animation:float 4s ease-in-out infinite;
+.sakura{
+  background:linear-gradient(135deg,#4a203f,#11162d);
 }
 
-.preview .bubble{
-  position:relative;
-  z-index:1;
-  margin-top:15px;
-  max-width:330px;
-  padding:13px 17px;
-  border-radius:17px;
-  background:rgba(255,255,255,.07);
-  border:1px solid var(--line);
-  font-size:13px;
-  color:#e8ebf3;
+.galaxy{
+  background:linear-gradient(135deg,#171c50,#080b17);
 }
 
-.option-grid{
+.sunset{
+  background:linear-gradient(135deg,#8e3c48,#f0a45e);
+}
+
+.rain{
+  background:linear-gradient(135deg,#172c43,#50677b);
+}
+
+.ocean{
+  background:linear-gradient(135deg,#0b5260,#122238);
+}
+
+.city{
+  background:linear-gradient(135deg,#201b3f,#0b0d15);
+}
+
+.music-grid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
-  gap:12px;
-  margin-top:18px;
+  gap:10px;
+}
+
+.music{
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.04);
+  border-radius:15px;
+  padding:16px;
+  transition:.2s;
+}
+
+.music.selected{
+  border-color:rgba(255,111,174,.75);
+  background:rgba(255,111,174,.09);
+}
+
+.music strong{
+  display:block;
+  font-size:12px;
+  margin-bottom:4px;
+}
+
+.music small{
+  color:var(--muted);
+  font-size:10px;
+}
+
+.options{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
 }
 
 .option{
+  display:flex;
+  align-items:center;
+  gap:10px;
   border:1px solid var(--line);
-  background:rgba(255,255,255,.045);
-  border-radius:17px;
-  padding:17px;
+  background:rgba(255,255,255,.04);
+  padding:13px;
+  border-radius:14px;
   cursor:pointer;
-  text-align:left;
-  transition:.22s;
-  min-height:78px;
-}
-
-.option:hover{
-  transform:translateY(-2px);
-  background:rgba(255,255,255,.075);
+  transition:.2s;
 }
 
 .option.selected{
-  border-color:rgba(255,111,174,.72);
-  background:rgba(255,111,174,.10);
-  box-shadow:0 0 0 2px rgba(255,111,174,.08) inset;
+  border-color:rgba(255,111,174,.7);
+  background:rgba(255,111,174,.09);
 }
 
-.option .emoji{
-  font-size:28px;
-  margin-bottom:8px;
+.option input{
+  width:auto;
+  margin:0;
+  accent-color:var(--pink);
 }
 
-.option strong{
-  font-size:13px;
-}
-
-.option small{
-  display:block;
-  color:var(--muted);
-  margin-top:3px;
-  font-size:11px;
+.option span{
+  font-size:12px;
 }
 
 .counter{
   color:var(--muted);
-  font-size:12px;
+  font-size:11px;
   margin-top:12px;
 }
 
-.counter b{
+.counter strong{
   color:#fff;
 }
 
-.date-row{
+.review{
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
+  gap:0;
+  border:1px solid var(--line);
+  border-radius:17px;
+  overflow:hidden;
 }
 
-.notice{
-  margin-top:14px;
-  color:#9ea8bc;
+.row{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  padding:13px 15px;
+  border-bottom:1px solid rgba(255,255,255,.06);
   font-size:11px;
-  line-height:1.6;
+}
+
+.row:last-child{
+  border-bottom:0;
+}
+
+.row span{
+  color:var(--muted);
+}
+
+.row strong{
+  text-align:right;
 }
 
 .actions{
   display:flex;
   justify-content:space-between;
-  gap:12px;
-  margin-top:30px;
+  gap:10px;
+  margin-top:20px;
+  flex-wrap:wrap;
 }
 
 .btn{
   border:0;
-  cursor:pointer;
-  border-radius:15px;
-  padding:15px 23px;
+  border-radius:14px;
+  padding:14px 19px;
   color:#fff;
-  font:700 13px "Manrope";
+  font:700 12px "Manrope",sans-serif;
   background:linear-gradient(135deg,var(--pink),var(--pink2));
   box-shadow:0 12px 35px rgba(255,105,170,.22);
   transition:.2s;
@@ -361,301 +439,122 @@ select:focus{
   box-shadow:none;
 }
 
-.btn.danger{
-  background:rgba(255,102,125,.13);
-  border:1px solid rgba(255,102,125,.25);
-  box-shadow:none;
+.btn.green{
+  background:linear-gradient(135deg,#4bbf85,#71d6a1);
 }
 
 .btn:disabled{
-  opacity:.4;
+  opacity:.45;
   cursor:not-allowed;
   transform:none;
 }
 
-.theme-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
-  margin-top:18px;
-}
-
-.theme{
-  height:105px;
-  border-radius:17px;
-  border:2px solid transparent;
-  cursor:pointer;
-  position:relative;
-  overflow:hidden;
-  transition:.2s;
-}
-
-.theme.selected{
-  border-color:#fff;
-}
-
-.theme span{
-  position:absolute;
-  left:12px;
-  bottom:10px;
+.message{
+  padding:13px 15px;
+  border-radius:14px;
   font-size:11px;
-  font-weight:700;
-  text-shadow:0 2px 8px #000;
+  line-height:1.5;
+  margin-top:12px;
 }
 
-.sakura{background:linear-gradient(135deg,#4a203f,#11162d)}
-.galaxy{background:linear-gradient(135deg,#171c50,#080b17)}
-.sunset{background:linear-gradient(135deg,#8e3c48,#f0a45e)}
-.rain{background:linear-gradient(135deg,#172c43,#50677b)}
-.ocean{background:linear-gradient(135deg,#0b5260,#122238)}
-.city{background:linear-gradient(135deg,#201b3f,#0b0d15)}
-
-.char-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
-  margin-top:18px;
+.message.error{
+  color:var(--danger);
+  background:rgba(255,102,125,.07);
+  border:1px solid rgba(255,102,125,.15);
 }
 
-.char{
-  border:1px solid var(--line);
-  border-radius:18px;
-  padding:15px;
-  background:rgba(255,255,255,.045);
-  cursor:pointer;
+.message.success{
+  color:var(--green);
+  background:rgba(113,214,161,.07);
+  border:1px solid rgba(113,214,161,.15);
+}
+
+.created{
+  display:none;
   text-align:center;
-  transition:.2s;
 }
 
-.char.selected{
-  border-color:rgba(255,111,174,.75);
-  background:rgba(255,111,174,.09);
-}
-
-.char .big{
-  font-size:55px;
-}
-
-.char div:last-child{
-  font-size:11px;
-  margin-top:5px;
-}
-
-.music-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-  margin-top:18px;
-}
-
-.music{
-  border:1px solid var(--line);
-  background:rgba(255,255,255,.045);
-  border-radius:18px;
-  padding:18px;
-  cursor:pointer;
-  transition:.2s;
-}
-
-.music.selected{
-  border-color:rgba(255,111,174,.75);
-  background:rgba(255,111,174,.09);
-}
-
-.music strong{
+.created.show{
   display:block;
-  font-size:13px;
 }
 
-.music small{
-  color:var(--muted);
-  display:block;
-  margin-top:5px;
-}
-
-.limit{
-  color:var(--muted);
-  font-size:12px;
-  margin-top:8px;
-}
-
-.limit.ok{
-  color:#ffc0d8;
-}
-
-.review{
-  border:1px solid var(--line);
-  border-radius:20px;
-  background:rgba(255,255,255,.045);
-  padding:18px;
-  margin-top:18px;
-}
-
-.review-row{
-  display:flex;
-  justify-content:space-between;
-  gap:15px;
-  padding:10px 0;
-  border-bottom:1px solid rgba(255,255,255,.06);
-  font-size:12px;
-}
-
-.review-row:last-child{
-  border-bottom:0;
-}
-
-.review-row span{
-  color:var(--muted);
-}
-
-.success-wrap{
-  min-height:650px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-}
-
-.success-card{
-  width:min(700px,100%);
-  border:1px solid var(--line);
-  background:var(--card);
-  border-radius:30px;
-  padding:45px 30px;
-  text-align:center;
-  backdrop-filter:blur(18px);
-  box-shadow:0 30px 80px rgba(0,0,0,.28);
-}
-
-.success{
-  font-size:80px;
+.created-icon{
+  font-size:75px;
   margin-bottom:15px;
 }
 
-.success-card h1{
-  font:700 48px "Playfair Display",serif;
-  margin:0 0 14px;
+.created h2{
+  font:700 38px "Playfair Display",serif;
+  margin:0 0 10px;
 }
 
-.success-card p{
+.created p{
   color:var(--muted);
   line-height:1.7;
+  font-size:13px;
 }
 
 .linkbox{
   display:flex;
-  gap:8px;
-  margin-top:22px;
+  gap:7px;
+  margin-top:20px;
 }
 
 .linkbox input{
-  font-size:12px;
-}
-
-.info-box{
-  margin-top:18px;
-  padding:16px;
-  border-radius:17px;
-  border:1px solid var(--line);
-  background:rgba(255,255,255,.04);
-  text-align:left;
-  font-size:12px;
-  color:var(--muted);
-  line-height:1.7;
-}
-
-.error-text{
-  color:var(--danger);
-  font-size:12px;
-  margin-top:12px;
-  display:none;
+  min-width:0;
+  font-size:11px;
 }
 
 .hidden{
   display:none!important;
 }
 
-@keyframes enter{
-  from{
-    opacity:0;
-    transform:translateY(12px);
-    filter:blur(3px);
-  }
-  to{
-    opacity:1;
-    transform:none;
-    filter:none;
-  }
-}
-
-@keyframes float{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-10px)}
-}
-
 @media(max-width:800px){
-  .step-layout{
+
+  .grid{
     grid-template-columns:1fr;
-    gap:25px;
   }
 
-  .preview{
-    min-height:330px;
+  .char-grid{
+    grid-template-columns:repeat(3,1fr);
   }
+}
 
-  .theme-grid{
-    grid-template-columns:1fr 1fr;
-  }
+@media(max-width:600px){
 
-  .save{
+  .email{
     display:none;
   }
-}
 
-@media(max-width:520px){
   main{
-    padding-top:25px;
+    padding-top:20px;
   }
 
-  .option-grid,
-  .char-grid,
+  .card{
+    padding:21px;
+  }
+
   .theme-grid,
-  .music-grid{
+  .music-grid,
+  .options{
     grid-template-columns:1fr 1fr;
-  }
-
-  .date-row{
-    grid-template-columns:1fr;
-  }
-
-  .preview{
-    padding:22px;
-  }
-
-  .preview .character{
-    font-size:105px;
-  }
-
-  .actions .btn{
-    padding:14px 16px;
-  }
-
-  .success-card{
-    padding:35px 20px;
-  }
-
-  .success-card h1{
-    font-size:38px;
   }
 
   .linkbox{
     flex-direction:column;
   }
 
-  .header-right .account{
-    display:none;
+  .actions{
+    display:grid;
+    grid-template-columns:1fr;
+  }
+
+  .actions .btn{
+    width:100%;
   }
 }
 </style>
+
 </head>
 
 <body>
@@ -663,773 +562,589 @@ select:focus{
 <div class="container">
 
 <header>
-  <a class="logo" href="index.html">Date Ticket</a>
+
+<a
+ class="logo"
+ href="index.html">
+Date Ticket </a>
 
   <div class="header-right">
-    <div class="save">Приглашение сохраняется в аккаунте</div>
-    <div class="account" id="accountLabel">Гость</div>
+
+```
+<span
+  id="userEmail"
+  class="email">
+</span>
+
+<a
+  class="header-btn"
+  href="account.html">
+  Аккаунт
+</a>
+
+<button
+  id="logoutBtn"
+  class="header-btn"
+  type="button">
+  Выйти
+</button>
+```
+
   </div>
+
 </header>
-
-<div class="progress-wrap" id="progressWrap">
-
-  <div class="progress-top">
-    <div>
-      <span class="step-label">
-        Шаг <span id="stepNum">1</span> из 8
-      </span>
-      ·
-      <span class="step-title" id="stepTitle">
-        Обращение
-      </span>
-    </div>
-
-    <div class="step-label" id="progressPercent">
-      13%
-    </div>
-  </div>
-
-  <div class="progress">
-    <div class="progress-bar" id="progressBar"></div>
-  </div>
-
-</div>
 
 <main>
 
-<!-- STEP 1 -->
+<section
+  id="creator">
 
-<section class="step active" data-title="Обращение">
+  <div class="hero">
 
-<div class="step-layout">
-
-<div class="copy">
-
+```
 <span class="eyebrow">
-Шаг 1 · Персонализация
+  Расширенный конструктор
 </span>
 
 <h1>
-Как сайт будет обращаться к получателю?
+  Создай своё приглашение
 </h1>
 
 <p>
-Это обращение будет использоваться во всём путешествии:
-в приветствии, репликах персонажа и на финальном билете.
+  Здесь можно настроить всё сразу:
+  обращение, персонажа, оформление,
+  дату, музыку, личное письмо и варианты ответа.
 </p>
+```
+
+  </div>
+
+  <!-- PERSONAL -->
+
+  <section class="card">
+
+```
+<h2>
+  💌 Получатель
+</h2>
+
+<div class="card-description">
+  Настрой, как приглашение будет обращаться к человеку.
+</div>
 
 <div class="field">
 
-<label for="nickname">
-Обращение
-</label>
+  <label for="nickname">
+    Имя или обращение
+  </label>
 
-<input
- id="nickname"
- maxlength="35"
- placeholder="Например: Солнышко, Алина, Любимая..."
->
-
-<div class="notice">
-Можно написать что угодно. Главное — чтобы получателю было приятно это увидеть.
-</div>
+  <input
+    id="nickname"
+    maxlength="35"
+    placeholder="Например: Алина, Любимая, Солнышко...">
 
 </div>
+```
 
+  </section>
+
+  <!-- CHARACTER -->
+
+  <section class="card">
+
+```
+<h2>
+  🐸 Персонаж
+</h2>
+
+<div class="card-description">
+  Выбери персонажа, который будет сопровождать приглашение.
 </div>
 
-<div class="preview">
+<div
+  id="characters"
+  class="char-grid">
 
-<div class="character" id="charPreview">
-🐸
-</div>
+  <button
+    class="char selected"
+    data-char="🐸"
+    type="button">
+    <span class="emoji">🐸</span>
+    <small>Лягушка</small>
+  </button>
 
-<div class="bubble" id="bubblePreview">
-Привет! Я приготовил для тебя кое-что особенное ❤️
-</div>
+  <button
+    class="char"
+    data-char="🦊"
+    type="button">
+    <span class="emoji">🦊</span>
+    <small>Лисёнок</small>
+  </button>
 
-</div>
+  <button
+    class="char"
+    data-char="🐱"
+    type="button">
+    <span class="emoji">🐱</span>
+    <small>Котик</small>
+  </button>
 
-</div>
+  <button
+    class="char"
+    data-char="🐻"
+    type="button">
+    <span class="emoji">🐻</span>
+    <small>Мишка</small>
+  </button>
 
-<div class="actions">
+  <button
+    class="char"
+    data-char="🐰"
+    type="button">
+    <span class="emoji">🐰</span>
+    <small>Зайчик</small>
+  </button>
 
-<a class="btn secondary" href="index.html">
-На главную
-</a>
-
-<button class="btn next" type="button">
-Далее →
-</button>
-
-</div>
-
-</section>
-
-
-<!-- STEP 2 -->
-
-<section class="step" data-title="Персонаж">
-
-<div class="step-layout">
-
-<div class="copy">
-
-<span class="eyebrow">
-Шаг 2 · Персонаж
-</span>
-
-<h1>
-Кто встретит получателя?
-</h1>
-
-<p>
-Выбери персонажа, который будет сопровождать приглашение.
-</p>
-
-<div class="char-grid">
-
-<div class="char selected" data-char="🐸">
-<div class="big">🐸</div>
-<div>Лягушка</div>
-</div>
-
-<div class="char" data-char="🦊">
-<div class="big">🦊</div>
-<div>Лисёнок</div>
-</div>
-
-<div class="char" data-char="🐱">
-<div class="big">🐱</div>
-<div>Котик</div>
-</div>
-
-<div class="char" data-char="🐻">
-<div class="big">🐻</div>
-<div>Мишка</div>
-</div>
-
-<div class="char" data-char="🐰">
-<div class="big">🐰</div>
-<div>Кролик</div>
-</div>
-
-<div class="char" data-char="🤖">
-<div class="big">🤖</div>
-<div>Робот</div>
-</div>
+  <button
+    class="char"
+    data-char="🤖"
+    type="button">
+    <span class="emoji">🤖</span>
+    <small>Робот</small>
+  </button>
 
 </div>
+```
 
+  </section>
+
+  <!-- THEME -->
+
+  <section class="card">
+
+```
+<h2>
+  🌌 Оформление
+</h2>
+
+<div class="card-description">
+  Выбери атмосферу будущего приглашения.
 </div>
-
-<div class="preview">
-
-<div class="character" id="characterBig">
-🐸
-</div>
-
-<div class="bubble">
-Я буду ждать тебя здесь 💗
-</div>
-
-</div>
-
-</div>
-
-<div class="actions">
-
-<button class="btn secondary prev" type="button">
-← Назад
-</button>
-
-<button class="btn next" type="button">
-Далее →
-</button>
-
-</div>
-
-</section>
-
-
-<!-- STEP 3 -->
-
-<section class="step" data-title="Оформление">
-
-<div class="step-layout">
-
-<div class="copy">
-
-<span class="eyebrow">
-Шаг 3 · Атмосфера
-</span>
-
-<h1>
-Как будет выглядеть ваше свидание?
-</h1>
-
-<p>
-Выбери настроение страницы.
-</p>
 
 <div class="theme-grid">
 
-<div class="theme sakura selected" data-theme="Сакура">
-<span>🌸 Сакура</span>
-</div>
+  <button
+    class="theme sakura selected"
+    data-theme="Сакура"
+    type="button">
+    <span>🌸 Сакура</span>
+  </button>
 
-<div class="theme galaxy" data-theme="Космос">
-<span>🌌 Космос</span>
-</div>
+  <button
+    class="theme galaxy"
+    data-theme="Галактика"
+    type="button">
+    <span>🌌 Галактика</span>
+  </button>
 
-<div class="theme sunset" data-theme="Закат">
-<span>🌅 Закат</span>
-</div>
+  <button
+    class="theme sunset"
+    data-theme="Закат"
+    type="button">
+    <span>🌅 Закат</span>
+  </button>
 
-<div class="theme rain" data-theme="Дождь">
-<span>🌧️ Дождь</span>
-</div>
+  <button
+    class="theme rain"
+    data-theme="Дождь"
+    type="button">
+    <span>🌧️ Дождь</span>
+  </button>
 
-<div class="theme ocean" data-theme="Океан">
-<span>🌊 Океан</span>
-</div>
+  <button
+    class="theme ocean"
+    data-theme="Океан"
+    type="button">
+    <span>🌊 Океан</span>
+  </button>
 
-<div class="theme city" data-theme="Ночной город">
-<span>🌃 Ночной город</span>
-</div>
-
-</div>
-
-</div>
-
-<div class="preview">
-
-<div class="character">
-🌸
-</div>
-
-<div class="bubble">
-Каждая деталь будет частью вашей истории ✨
-</div>
-
-</div>
-
-</div>
-
-<div class="actions">
-
-<button class="btn secondary prev" type="button">
-← Назад
-</button>
-
-<button class="btn next" type="button">
-Далее →
-</button>
+  <button
+    class="theme city"
+    data-theme="Ночной город"
+    type="button">
+    <span>🌃 Город</span>
+  </button>
 
 </div>
+```
 
-</section>
+  </section>
 
+  <!-- DATE -->
 
-<!-- STEP 4 -->
+  <section class="card">
 
-<section class="step" data-title="Музыка">
+```
+<h2>
+  🎫 Дата и время
+</h2>
 
-<div class="step-layout">
+<div class="card-description">
+  Укажи диапазон дат, из которого получатель сможет выбрать день.
+</div>
 
-<div class="copy">
+<div class="grid">
 
-<span class="eyebrow">
-Шаг 4 · Музыка
-</span>
+  <div class="field">
 
-<h1>
-Добавим немного музыки?
-</h1>
+    <label for="dateFrom">
+      Дата начала
+    </label>
 
-<p>
-Музыка необязательна. Можно оставить приглашение без неё.
-</p>
+    <input
+      id="dateFrom"
+      type="date">
+
+  </div>
+
+  <div class="field">
+
+    <label for="dateTo">
+      Дата окончания
+    </label>
+
+    <input
+      id="dateTo"
+      type="date">
+
+  </div>
+
+</div>
+
+<div class="field">
+
+  <label for="time">
+    Время
+  </label>
+
+  <input
+    id="time"
+    type="time"
+    value="18:00">
+
+</div>
+```
+
+  </section>
+
+  <!-- MUSIC -->
+
+  <section class="card">
+
+```
+<h2>
+  🎵 Музыка
+</h2>
+
+<div class="card-description">
+  Выбери музыкальное оформление приглашения.
+</div>
 
 <div class="music-grid">
 
-<div class="music selected" data-music="none">
-<strong>🔇 Без музыки</strong>
-<small>Тихое приглашение</small>
-</div>
+  <button
+    class="music selected"
+    data-music="none"
+    type="button">
 
-<div class="music" data-music="romantic">
-<strong>💗 Romantic</strong>
-<small>Нежная атмосфера</small>
-</div>
+    <strong>
+      🔇 Без музыки
+    </strong>
 
-<div class="music" data-music="dream">
-<strong>✨ Dream</strong>
-<small>Мечтательное настроение</small>
-</div>
+    <small>
+      Классический вариант
+    </small>
 
-<div class="music" data-music="night">
-<strong>🌙 Night</strong>
-<small>Спокойный вечер</small>
-</div>
+  </button>
 
-</div>
+  <button
+    class="music"
+    data-music="romantic"
+    type="button">
 
-<div class="notice">
-Музыка будет отображаться на странице приглашения, если соответствующий файл добавлен в проект.
-</div>
+    <strong>
+      💗 Романтика
+    </strong>
 
-</div>
+    <small>
+      Нежное настроение
+    </small>
 
-<div class="preview">
+  </button>
 
-<div class="character">
-🎵
-</div>
+  <button
+    class="music"
+    data-music="dream"
+    type="button">
 
-<div class="bubble">
-Иногда одна мелодия говорит больше тысячи слов.
-</div>
+    <strong>
+      🌙 Dream
+    </strong>
 
-</div>
+    <small>
+      Спокойная атмосфера
+    </small>
 
-</div>
+  </button>
 
-<div class="actions">
+  <button
+    class="music"
+    data-music="cinematic"
+    type="button">
 
-<button class="btn secondary prev" type="button">
-← Назад
-</button>
+    <strong>
+      🎬 Cinematic
+    </strong>
 
-<button class="btn next" type="button">
-Далее →
-</button>
+    <small>
+      Как маленький фильм
+    </small>
 
-</div>
-
-</section>
-
-
-<!-- STEP 5 -->
-
-<section class="step" data-title="Дата">
-
-<div class="step-layout">
-
-<div class="copy">
-
-<span class="eyebrow">
-Шаг 5 · День свидания
-</span>
-
-<h1>
-Когда может состояться свидание?
-</h1>
-
-<p>
-Получатель увидит только этот диапазон и сам выберет подходящий день.
-</p>
-
-<div class="field">
-
-<label>
-Доступные даты
-</label>
-
-<div class="date-row">
-
-<div>
-<label for="dateFrom">От</label>
-<input type="date" id="dateFrom">
-</div>
-
-<div>
-<label for="dateTo">До</label>
-<input type="date" id="dateTo">
-</div>
+  </button>
 
 </div>
+```
 
+  </section>
+
+  <!-- LETTER -->
+
+  <section class="card">
+
+```
+<h2>
+  💌 Личное письмо
+</h2>
+
+<div class="card-description">
+  Сообщение можно открыть позже — в выбранный тобой момент.
 </div>
 
 <div class="field">
 
-<label for="time">
-Предпочтительное время
-</label>
+  <label for="letter">
+    Сообщение
+  </label>
 
-<input type="time" id="time" value="18:00">
+  <textarea
+    id="letter"
+    maxlength="3000"
+    placeholder="Напиши здесь что-нибудь особенное..."></textarea>
 
-</div>
-
-<div class="notice">
-Предъявить билет можно будет только в выбранный получателем день.
-</div>
-
-</div>
-
-<div class="preview">
-
-<div class="character">
-🎫
-</div>
-
-<div class="bubble">
-У билета будет свой день и время ❤️
-</div>
-
-</div>
-
-</div>
-
-<div class="actions">
-
-<button class="btn secondary prev" type="button">
-← Назад
-</button>
-
-<button class="btn next" type="button">
-Далее →
-</button>
-
-</div>
-
-</section>
-
-
-<!-- STEP 6 -->
-
-<section class="step" data-title="Письмо">
-
-<div class="step-layout">
-
-<div class="copy">
-
-<span class="eyebrow">
-Шаг 6 · Личное письмо
-</span>
-
-<h1>
-Есть что сказать лично?
-</h1>
-
-<p>
-Напиши письмо, которое будет доступно получателю после приглашения.
-</p>
-
-<div class="field">
-
-<label for="letter">
-Твоё письмо
-</label>
-
-<textarea
- id="letter"
- maxlength="3000"
- placeholder="Напиши здесь всё, что хочешь сказать..."
-></textarea>
-
-<div class="counter">
-<span id="letterCount">0</span> / 3000
-</div>
+  <div class="counter">
+    Символов:
+    <strong id="letterCount">
+      0
+    </strong>
+    / 3000
+  </div>
 
 </div>
 
 <div class="field">
 
-<label for="letterDate">
-Когда открыть письмо?
-</label>
+  <label for="letterDate">
+    Когда открыть письмо?
+  </label>
 
-<input
- type="datetime-local"
- id="letterDate"
->
-
-</div>
-
-<div class="notice">
-Если дату открытия не указать, письмо будет доступно сразу после принятия приглашения.
-</div>
+  <input
+    id="letterDate"
+    type="datetime-local">
 
 </div>
+```
 
-<div class="preview">
+  </section>
 
-<div class="character">
-💌
-</div>
+  <!-- ANSWERS -->
 
-<div class="bubble">
-Иногда самое важное письмо ждёт своего момента.
-</div>
+  <section class="card">
 
-</div>
+```
+<h2>
+  🥰 Варианты ответа
+</h2>
 
-</div>
-
-<div class="actions">
-
-<button class="btn secondary prev" type="button">
-← Назад
-</button>
-
-<button class="btn next" type="button">
-Далее →
-</button>
-
-</div>
-
-</section>
-
-
-<!-- STEP 7 -->
-
-<section class="step" data-title="Опрос">
-
-<div class="step-layout">
-
-<div class="copy">
-
-<span class="eyebrow">
-Шаг 7 · Выбор свидания
-</span>
-
-<h1>
-Что предложить получателю?
-</h1>
-
-<p>
-Выбери ровно четыре варианта. Именно из них получатель выберет своё свидание.
-</p>
-
-<div
- id="surveyOptions"
- class="option-grid"
-></div>
-
-<div class="counter">
-Выбрано:
-<b id="surveyCount">0</b>
-/
-4
+<div class="card-description">
+  Получатель увидит эти варианты и сможет выбрать один.
+  Выбери ровно четыре.
 </div>
 
 <div
- id="surveyError"
- class="error-text"
-></div>
+  id="answerOptions"
+  class="options">
 
 </div>
 
-<div class="preview">
+<div class="counter">
 
-<div class="character">
-💗
-</div>
-
-<div class="bubble">
-Выбор будет за тобой. Главное — провести этот день вместе.
-</div>
+  Выбрано:
+  <strong id="answerCount">
+    0
+  </strong>
+  / 4
 
 </div>
+```
 
+  </section>
+
+  <!-- REVIEW -->
+
+  <section class="card">
+
+```
+<h2>
+  ✨ Проверка
+</h2>
+
+<div class="card-description">
+  Проверь настройки перед созданием приглашения.
 </div>
-
-<div class="actions">
-
-<button class="btn secondary prev" type="button">
-← Назад
-</button>
-
-<button class="btn next" type="button">
-Проверить →
-</button>
-
-</div>
-
-</section>
-
-
-<!-- STEP 8 -->
-
-<section class="step" data-title="Проверка">
-
-<div class="step-layout">
-
-<div class="copy">
-
-<span class="eyebrow">
-Шаг 8 · Финальная проверка
-</span>
-
-<h1>
-Всё готово?
-</h1>
-
-<p>
-Проверь данные перед созданием приглашения.
-</p>
 
 <div class="review">
 
-<div class="review-row">
-<span>Обращение</span>
-<strong id="rNick">—</strong>
+  <div class="row">
+    <span>Обращение</span>
+    <strong id="rNickname">—</strong>
+  </div>
+
+  <div class="row">
+    <span>Персонаж</span>
+    <strong id="rCharacter">🐸</strong>
+  </div>
+
+  <div class="row">
+    <span>Тема</span>
+    <strong id="rTheme">Сакура</strong>
+  </div>
+
+  <div class="row">
+    <span>Дата</span>
+    <strong id="rDate">—</strong>
+  </div>
+
+  <div class="row">
+    <span>Время</span>
+    <strong id="rTime">18:00</strong>
+  </div>
+
+  <div class="row">
+    <span>Музыка</span>
+    <strong id="rMusic">Без музыки</strong>
+  </div>
+
+  <div class="row">
+    <span>Письмо</span>
+    <strong id="rLetter">Не заполнено</strong>
+  </div>
+
+  <div class="row">
+    <span>Варианты ответа</span>
+    <strong id="rAnswers">0 / 4</strong>
+  </div>
+
 </div>
 
-<div class="review-row">
-<span>Персонаж</span>
-<strong id="rChar">—</strong>
-</div>
-
-<div class="review-row">
-<span>Оформление</span>
-<strong id="rTheme">—</strong>
-</div>
-
-<div class="review-row">
-<span>Музыка</span>
-<strong id="rMusic">—</strong>
-</div>
-
-<div class="review-row">
-<span>Даты</span>
-<strong id="rDates">—</strong>
-</div>
-
-<div class="review-row">
-<span>Время</span>
-<strong id="rTime">—</strong>
-</div>
-
-<div class="review-row">
-<span>Письмо</span>
-<strong id="rLetter">—</strong>
-</div>
-
-<div class="review-row">
-<span>Варианты свидания</span>
-<strong id="rSurvey">—</strong>
-</div>
-
-</div>
 
 <div
- id="createError"
- class="error-text"
-></div>
-
+  id="message"
+  class="message hidden">
 </div>
 
-<div class="preview">
-
-<div class="character">
-🎟️
-</div>
-
-<div class="bubble">
-После создания ты получишь ссылку, которую можно отправить получателю.
-</div>
-
-</div>
-
-</div>
 
 <div class="actions">
 
-<button class="btn secondary prev" type="button">
-← Назад
-</button>
+  <a
+    href="index.html"
+    class="btn secondary">
+    На главную
+  </a>
 
-<button class="btn" id="createBtn" type="button">
-Создать приглашение ✨
-</button>
+  <button
+    id="createBtn"
+    class="btn green"
+    type="button">
+    Создать приглашение ✨
+  </button>
 
 </div>
+```
+
+  </section>
 
 </section>
 
-
-<!-- SUCCESS -->
+<!-- CREATED -->
 
 <section
- id="successStep"
- class="hidden"
->
+  id="created"
+  class="card created">
 
-<div class="success-wrap">
+  <div class="created-icon">
+    💌
+  </div>
 
-<div class="success-card">
+  <h2>
+    Приглашение готово!
+  </h2>
 
-<div class="success">
-💌
-</div>
+  <p>
+    Оно сохранено в твоём аккаунте.
+    Теперь можешь отправить ссылку получателю.
+  </p>
 
-<h1>
-Приглашение создано!
-</h1>
+  <div class="linkbox">
 
-<p>
-Теперь отправь эту ссылку человеку, для которого ты его создал.
-</p>
-
-<div class="linkbox">
-
+```
 <input
- id="shareLink"
- readonly
->
+  id="shareLink"
+  readonly>
 
 <button
- class="btn"
- id="copyLinkBtn"
- type="button"
->
-Копировать
+  id="copyBtn"
+  class="btn secondary"
+  type="button">
+  Копировать
+</button>
+```
+
+  </div>
+
+  <div class="actions">
+
+```
+<button
+  id="openBtn"
+  class="btn"
+  type="button">
+  Открыть приглашение
 </button>
 
-</div>
-
-<div class="actions" style="justify-content:center">
-
 <a
- class="btn secondary"
- id="openInviteBtn"
- href="#"
->
-Открыть приглашение
+  href="admin.html"
+  class="btn secondary">
+  Мои приглашения
 </a>
+```
 
-<a
- class="btn secondary"
- id="answersBtn"
- href="#"
->
-Мои приглашения 💌
-</a>
-
-</div>
-
-<div class="info-box">
-<strong style="color:#fff">
-Важно:
-</strong>
-<br>
-После того как получатель пройдёт опрос, повторно проходить его ему не придётся.
-Его выбранная дата сохранится в приглашении и будет отображаться в разделе «Мои приглашения».
-</div>
-
-</div>
-
-</div>
+  </div>
 
 </section>
 
 </main>
 
 </div>
-
 
 <script type="module">
 
@@ -1438,16 +1153,17 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-app.js";
 
 import {
+  getAuth,
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/12.17.0/firebase-auth.js";
+
+import {
   getFirestore,
   doc,
   setDoc,
-  getDoc
+  serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js";
-
-import {
-  getAuth,
-  onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/12.17.0/firebase-auth.js";
 
 
 /* =========================
@@ -1456,39 +1172,102 @@ import {
 
 const firebaseConfig = {
 
-  apiKey:"AIzaSyC2esT1S9A8SnTBPyrHVfxTy-Z_u-GiGpWo",
+  apiKey:
+    "AIzaSyC2esT1S9A8SnTBPyrHVfxTy-Z_u-GiGpWo",
 
-  authDomain:"date-ticket-2e786.firebaseapp.com",
+  authDomain:
+    "date-ticket-2e786.firebaseapp.com",
 
   databaseURL:
     "https://date-ticket-2e786-default-rtdb.europe-west1.firebasedatabase.app",
 
-  projectId:"date-ticket-2e786",
+  projectId:
+    "date-ticket-2e786",
 
   storageBucket:
     "date-ticket-2e786.firebasestorage.app",
 
-  messagingSenderId:"576969359516",
+  messagingSenderId:
+    "576969359516",
 
   appId:
     "1:576969359516:web:2b9e622d7b2de86acc6d59"
+
 };
 
-const app = initializeApp(firebaseConfig);
 
-const db = getFirestore(app);
+const app =
+  initializeApp(firebaseConfig);
 
-const auth = getAuth(app);
+const auth =
+  getAuth(app);
+
+const db =
+  getFirestore(app);
+
+
+/* =========================
+   ELEMENTS
+========================= */
+
+const creator =
+  document.querySelector("#creator");
+
+const created =
+  document.querySelector("#created");
+
+const userEmail =
+  document.querySelector("#userEmail");
+
+const logoutBtn =
+  document.querySelector("#logoutBtn");
+
+const nickname =
+  document.querySelector("#nickname");
+
+const dateFrom =
+  document.querySelector("#dateFrom");
+
+const dateTo =
+  document.querySelector("#dateTo");
+
+const time =
+  document.querySelector("#time");
+
+const letter =
+  document.querySelector("#letter");
+
+const letterDate =
+  document.querySelector("#letterDate");
+
+const letterCount =
+  document.querySelector("#letterCount");
+
+const answerOptions =
+  document.querySelector("#answerOptions");
+
+const answerCount =
+  document.querySelector("#answerCount");
+
+const createBtn =
+  document.querySelector("#createBtn");
+
+const message =
+  document.querySelector("#message");
+
+const shareLink =
+  document.querySelector("#shareLink");
+
+const copyBtn =
+  document.querySelector("#copyBtn");
+
+const openBtn =
+  document.querySelector("#openBtn");
 
 
 /* =========================
    STATE
 ========================= */
-
-const steps =
-  [...document.querySelectorAll(".step")];
-
-let current = 0;
 
 const state = {
 
@@ -1510,16 +1289,15 @@ const state = {
 
   letterDate:"",
 
-  survey:[]
+  answers:[]
 
 };
 
 
-/* =========================
-   SURVEY
-========================= */
+let currentUser = null;
 
-const surveyData = [
+
+const answerData = [
 
   ["☕","Кофейня"],
 
@@ -1541,301 +1319,66 @@ const surveyData = [
 
 
 /* =========================
-   LOCAL DRAFT
+   HELPERS
 ========================= */
 
-function saveDraft(){
+function escapeHtml(value){
 
-  localStorage.setItem(
-    "dateTicketCreateWithAnswersDraft",
-    JSON.stringify(state)
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+function generateId(){
+
+  const chars =
+    "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+
+  let id = "";
+
+  for(let i = 0; i < 8; i++){
+
+    id +=
+      chars[
+        Math.floor(
+          Math.random() * chars.length
+        )
+      ];
+
+  }
+
+  return id;
+
+}
+
+
+function showMessage(text,type="error"){
+
+  message.className =
+    `message ${type}`;
+
+  message.textContent =
+    text;
+
+  message.classList.remove(
+    "hidden"
   );
 
 }
 
 
-function loadDraft(){
+function hideMessage(){
 
-  try{
-
-    const saved =
-      JSON.parse(
-        localStorage.getItem(
-          "dateTicketCreateWithAnswersDraft"
-        ) || "{}"
-      );
-
-    Object.assign(
-      state,
-      saved
-    );
-
-  }catch(e){
-
-    console.error(e);
-
-  }
-
-}
-
-
-/* =========================
-   ACCOUNT
-========================= */
-
-onAuthStateChanged(
-  auth,
-  user => {
-
-    const label =
-      document.querySelector("#accountLabel");
-
-    if(user){
-
-      label.textContent =
-        user.email || "Аккаунт";
-
-    }else{
-
-      label.textContent =
-        "Гость";
-
-    }
-
-  }
-);
-
-
-/* =========================
-   PROGRESS
-========================= */
-
-function updateProgress(){
-
-  const pct =
-    Math.round(
-      ((current + 1) / 8) * 100
-    );
-
-  document.querySelector("#stepNum")
-    .textContent =
-    current + 1;
-
-  document.querySelector("#stepTitle")
-    .textContent =
-    steps[current].dataset.title;
-
-  document.querySelector("#progressPercent")
-    .textContent =
-    pct + "%";
-
-  document.querySelector("#progressBar")
-    .style.width =
-    pct + "%";
-
-}
-
-
-/* =========================
-   SHOW STEP
-========================= */
-
-function show(n){
-
-  current =
-    Math.max(
-      0,
-      Math.min(
-        n,
-        steps.length - 1
-      )
-    );
-
-  steps.forEach(
-    (step,index) => {
-
-      step.classList.toggle(
-        "active",
-        index === current
-      );
-
-    }
+  message.classList.add(
+    "hidden"
   );
 
-  updateProgress();
-
-  if(current === 6){
-
-    renderSurvey();
-
-  }
-
-  if(current === 7){
-
-    updateReview();
-
-  }
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-
 }
-
-
-/* =========================
-   VALIDATION
-========================= */
-
-function validateStep(){
-
-  if(current === 0){
-
-    if(!state.nickname.trim()){
-
-      document.querySelector("#nickname").focus();
-
-      return false;
-
-    }
-
-  }
-
-
-  if(current === 4){
-
-    if(!state.from || !state.to){
-
-      alert(
-        "Укажи диапазон дат."
-      );
-
-      return false;
-
-    }
-
-    if(state.from > state.to){
-
-      alert(
-        "Дата начала не может быть позже даты окончания."
-      );
-
-      return false;
-
-    }
-
-  }
-
-
-  if(current === 6){
-
-    if(state.survey.length !== 4){
-
-      const error =
-        document.querySelector("#surveyError");
-
-      error.textContent =
-        "Выбери ровно 4 варианта.";
-
-      error.style.display =
-        "block";
-
-      return false;
-
-    }
-
-    document.querySelector("#surveyError")
-      .style.display =
-      "none";
-
-  }
-
-  return true;
-
-}
-
-
-/* =========================
-   NEXT
-========================= */
-
-document
-  .querySelectorAll(".next")
-  .forEach(
-    button => {
-
-      button.addEventListener(
-        "click",
-        () => {
-
-          if(
-            !validateStep()
-          ){
-
-            return;
-
-          }
-
-          show(
-            current + 1
-          );
-
-        }
-      );
-
-    }
-  );
-
-
-/* =========================
-   PREVIOUS
-========================= */
-
-document
-  .querySelectorAll(".prev")
-  .forEach(
-    button => {
-
-      button.addEventListener(
-        "click",
-        () => {
-
-          show(
-            current - 1
-          );
-
-        }
-      );
-
-    }
-  );
-
-
-/* =========================
-   NICKNAME
-========================= */
-
-document
-  .querySelector("#nickname")
-  .addEventListener(
-    "input",
-    e => {
-
-      state.nickname =
-        e.target.value.trim();
-
-      document.querySelector(
-        "#bubblePreview"
-      ).textContent =
-        state.nickname
-          ? `Привет, ${state.nickname}! Я приготовил для тебя кое-что особенное ❤️`
-          : "Привет! Я приготовил для тебя кое-что особенное ❤️";
-
-      saveDraft();
-
-    }
-  );
 
 
 /* =========================
@@ -1844,46 +1387,34 @@ document
 
 document
   .querySelectorAll(".char")
-  .forEach(
-    element => {
+  .forEach(button => {
 
-      element.addEventListener(
-        "click",
-        () => {
+    button.addEventListener(
+      "click",
+      () => {
 
-          document
-            .querySelectorAll(".char")
-            .forEach(
-              x =>
-                x.classList.remove(
-                  "selected"
-                )
-            );
-
-          element.classList.add(
-            "selected"
+        document
+          .querySelectorAll(".char")
+          .forEach(
+            item =>
+              item.classList.remove(
+                "selected"
+              )
           );
 
-          state.character =
-            element.dataset.char;
+        button.classList.add(
+          "selected"
+        );
 
-          document.querySelector(
-            "#characterBig"
-          ).textContent =
-            state.character;
+        state.character =
+          button.dataset.char;
 
-          document.querySelector(
-            "#charPreview"
-          ).textContent =
-            state.character;
+        updateReview();
 
-          saveDraft();
+      }
+    );
 
-        }
-      );
-
-    }
-  );
+  });
 
 
 /* =========================
@@ -1892,36 +1423,34 @@ document
 
 document
   .querySelectorAll(".theme")
-  .forEach(
-    element => {
+  .forEach(button => {
 
-      element.addEventListener(
-        "click",
-        () => {
+    button.addEventListener(
+      "click",
+      () => {
 
-          document
-            .querySelectorAll(".theme")
-            .forEach(
-              x =>
-                x.classList.remove(
-                  "selected"
-                )
-            );
-
-          element.classList.add(
-            "selected"
+        document
+          .querySelectorAll(".theme")
+          .forEach(
+            item =>
+              item.classList.remove(
+                "selected"
+              )
           );
 
-          state.theme =
-            element.dataset.theme;
+        button.classList.add(
+          "selected"
+        );
 
-          saveDraft();
+        state.theme =
+          button.dataset.theme;
 
-        }
-      );
+        updateReview();
 
-    }
-  );
+      }
+    );
+
+  });
 
 
 /* =========================
@@ -1929,731 +1458,659 @@ document
 ========================= */
 
 document
-  .querySelectorAll("[data-music]")
-  .forEach(
-    element => {
+  .querySelectorAll(".music")
+  .forEach(button => {
 
-      element.addEventListener(
+    button.addEventListener(
+      "click",
+      () => {
+
+        document
+          .querySelectorAll(".music")
+          .forEach(
+            item =>
+              item.classList.remove(
+                "selected"
+              )
+          );
+
+        button.classList.add(
+          "selected"
+        );
+
+        state.music =
+          button.dataset.music;
+
+        updateReview();
+
+      }
+    );
+
+  });
+
+
+/* =========================
+   ANSWERS
+========================= */
+
+function renderAnswers(){
+
+  answerOptions.innerHTML = "";
+
+  answerData.forEach(
+    ([emoji,name]) => {
+
+      const selected =
+        state.answers.includes(name);
+
+      const button =
+        document.createElement("button");
+
+      button.type =
+        "button";
+
+      button.className =
+        "option" +
+        (
+          selected
+            ? " selected"
+            : ""
+        );
+
+      button.innerHTML = `
+
+        <span style="font-size:22px">
+          ${emoji}
+        </span>
+
+        <span>
+          ${escapeHtml(name)}
+        </span>
+
+      `;
+
+      button.addEventListener(
         "click",
         () => {
 
-          document
-            .querySelectorAll("[data-music]")
-            .forEach(
-              x =>
-                x.classList.remove(
-                  "selected"
-                )
-            );
+          if(
+            state.answers.includes(name)
+          ){
 
-          element.classList.add(
-            "selected"
-          );
+            state.answers =
+              state.answers.filter(
+                item =>
+                  item !== name
+              );
 
-          state.music =
-            element.dataset.music;
+          }else{
 
-          saveDraft();
+            if(
+              state.answers.length >= 4
+            ){
+
+              showMessage(
+                "Можно выбрать только 4 варианта.",
+                "error"
+              );
+
+              return;
+
+            }
+
+            state.answers.push(name);
+
+          }
+
+          renderAnswers();
+
+          updateReview();
+
+          hideMessage();
 
         }
+      );
+
+      answerOptions.appendChild(
+        button
       );
 
     }
   );
 
 
-/* =========================
-   DATES
-========================= */
-
-document
-  .querySelector("#dateFrom")
-  .addEventListener(
-    "input",
-    e => {
-
-      state.from =
-        e.target.value;
-
-      saveDraft();
-
-    }
-  );
-
-
-document
-  .querySelector("#dateTo")
-  .addEventListener(
-    "input",
-    e => {
-
-      state.to =
-        e.target.value;
-
-      saveDraft();
-
-    }
-  );
-
-
-document
-  .querySelector("#time")
-  .addEventListener(
-    "input",
-    e => {
-
-      state.time =
-        e.target.value;
-
-      saveDraft();
-
-    }
-  );
-
-
-/* =========================
-   LETTER
-========================= */
-
-document
-  .querySelector("#letter")
-  .addEventListener(
-    "input",
-    e => {
-
-      state.letter =
-        e.target.value;
-
-      document.querySelector(
-        "#letterCount"
-      ).textContent =
-        e.target.value.length;
-
-      saveDraft();
-
-    }
-  );
-
-
-document
-  .querySelector("#letterDate")
-  .addEventListener(
-    "input",
-    e => {
-
-      state.letterDate =
-        e.target.value;
-
-      saveDraft();
-
-    }
-  );
-
-
-/* =========================
-   SURVEY
-========================= */
-
-function renderSurvey(){
-
-  const box =
-    document.querySelector(
-      "#surveyOptions"
-    );
-
-  box.innerHTML = "";
-
-  surveyData.forEach(
-    ([emoji,name]) => {
-
-      const div =
-        document.createElement(
-          "div"
-        );
-
-      div.className =
-        "option" +
-        (
-          state.survey.includes(name)
-            ? " selected"
-            : ""
-        );
-
-      div.innerHTML = `
-        <div class="emoji">${emoji}</div>
-        <strong>${name}</strong>
-      `;
-
-      div.onclick = () => {
-
-        if(
-          state.survey.includes(name)
-        ){
-
-          state.survey =
-            state.survey.filter(
-              x => x !== name
-            );
-
-        }
-
-        else if(
-          state.survey.length < 4
-        ){
-
-          state.survey.push(name);
-
-        }
-
-        renderSurvey();
-
-        saveDraft();
-
-      };
-
-      box.appendChild(div);
-
-    }
-  );
-
-  document.querySelector(
-    "#surveyCount"
-  ).textContent =
-    state.survey.length;
+  answerCount.textContent =
+    state.answers.length;
 
 }
+
+
+/* =========================
+   INPUTS
+========================= */
+
+nickname.addEventListener(
+  "input",
+  () => {
+
+    state.nickname =
+      nickname.value.trim();
+
+    updateReview();
+
+  }
+);
+
+
+dateFrom.addEventListener(
+  "input",
+  () => {
+
+    state.from =
+      dateFrom.value;
+
+    updateReview();
+
+  }
+);
+
+
+dateTo.addEventListener(
+  "input",
+  () => {
+
+    state.to =
+      dateTo.value;
+
+    updateReview();
+
+  }
+);
+
+
+time.addEventListener(
+  "input",
+  () => {
+
+    state.time =
+      time.value;
+
+    updateReview();
+
+  }
+);
+
+
+letter.addEventListener(
+  "input",
+  () => {
+
+    state.letter =
+      letter.value;
+
+    letterCount.textContent =
+      letter.value.length;
+
+    updateReview();
+
+  }
+);
+
+
+letterDate.addEventListener(
+  "input",
+  () => {
+
+    state.letterDate =
+      letterDate.value;
+
+  }
+);
 
 
 /* =========================
    REVIEW
 ========================= */
 
-function updateReview(){
+function formatDate(value){
 
-  document.querySelector(
-    "#rNick"
-  ).textContent =
-    state.nickname || "—";
-
-  document.querySelector(
-    "#rChar"
-  ).textContent =
-    state.character;
-
-  document.querySelector(
-    "#rTheme"
-  ).textContent =
-    state.theme;
-
-  const musicNames = {
-
-    none:"Без музыки",
-
-    romantic:"Romantic",
-
-    dream:"Dream",
-
-    night:"Night"
-
-  };
-
-  document.querySelector(
-    "#rMusic"
-  ).textContent =
-    musicNames[state.music] ||
-    state.music ||
-    "—";
-
-  document.querySelector(
-    "#rDates"
-  ).textContent =
-    (state.from || "—") +
-    " → " +
-    (state.to || "—");
-
-  document.querySelector(
-    "#rTime"
-  ).textContent =
-    state.time || "—";
-
-  document.querySelector(
-    "#rLetter"
-  ).textContent =
-    state.letter
-      ? "Написано"
-      : "Не заполнено";
-
-  document.querySelector(
-    "#rSurvey"
-  ).textContent =
-    state.survey.length +
-    " / 4";
-
-}
-
-
-/* =========================
-   CREATE ID
-========================= */
-
-function generateId(){
-
-  return (
-    Math.random()
-      .toString(36)
-      .slice(2,10)
-      .toUpperCase()
-  );
-
-}
-
-
-/* =========================
-   CREATE INVITATION
-========================= */
-
-document
-  .querySelector("#createBtn")
-  .addEventListener(
-    "click",
-    async () => {
-
-      if(
-        !validateStep()
-      ){
-
-        return;
-
-      }
-
-      const button =
-        document.querySelector(
-          "#createBtn"
-        );
-
-      const error =
-        document.querySelector(
-          "#createError"
-        );
-
-      error.style.display =
-        "none";
-
-      button.disabled =
-        true;
-
-      button.textContent =
-        "Создаём приглашение…";
-
-
-      try{
-
-        const user =
-          auth.currentUser;
-
-        const id =
-          generateId();
-
-
-        const payload = {
-
-          nickname:
-            state.nickname,
-
-          character:
-            state.character,
-
-          theme:
-            state.theme,
-
-          music:
-            state.music,
-
-          from:
-            state.from,
-
-          to:
-            state.to,
-
-          time:
-            state.time,
-
-          survey:
-            state.survey,
-
-          status:
-            "created",
-
-          response:
-            null,
-
-          createdAt:
-            new Date().toISOString(),
-
-          ownerUid:
-            user ? user.uid : null,
-
-          ownerEmail:
-            user ? user.email : null
-
-        };
-
-
-        const privateLetter = {
-
-          letter:
-            state.letter || "",
-
-          letterUnlock:
-            state.letterDate || null
-
-        };
-
-
-        await setDoc(
-          doc(
-            db,
-            "invitations",
-            id
-          ),
-          payload
-        );
-
-
-        await setDoc(
-          doc(
-            db,
-            "invitations",
-            id,
-            "private",
-            "letter"
-          ),
-          privateLetter
-        );
-
-
-        /*
-          Сохраняем созданное приглашение
-          локально — как резерв.
-        */
-
-        localStorage.setItem(
-          "dateTicketInvitation",
-          JSON.stringify({
-            ...payload,
-            ...privateLetter,
-            id
-          })
-        );
-
-
-        /*
-          Сохраняем ID приглашения
-          отдельно для аккаунта.
-        */
-
-        const oldIds =
-          JSON.parse(
-            localStorage.getItem(
-              "dateTicketMyInvitationIds"
-            ) || "[]"
-          );
-
-        if(
-          !oldIds.includes(id)
-        ){
-
-          oldIds.push(id);
-
-        }
-
-        localStorage.setItem(
-          "dateTicketMyInvitationIds",
-          JSON.stringify(oldIds)
-        );
-
-
-        const base =
-          location.href.substring(
-            0,
-            location.href.lastIndexOf("/") + 1
-          );
-
-        const link =
-          base +
-          "invite.html?id=" +
-          encodeURIComponent(id);
-
-
-        document.querySelector(
-          "#shareLink"
-        ).value =
-          link;
-
-
-        document.querySelector(
-          "#openInviteBtn"
-        ).href =
-          link;
-
-
-        document.querySelector(
-          "#answersBtn"
-        ).href =
-          "admin.html?id=" +
-          encodeURIComponent(id);
-
-
-        document.querySelector(
-          "#progressWrap"
-        ).classList.add(
-          "hidden"
-        );
-
-
-        steps.forEach(
-          x =>
-            x.classList.remove(
-              "active"
-            )
-        );
-
-
-        document.querySelector(
-          "#successStep"
-        ).classList.remove(
-          "hidden"
-        );
-
-
-        localStorage.removeItem(
-          "dateTicketCreateWithAnswersDraft"
-        );
-
-
-        window.scrollTo({
-          top:0,
-          behavior:"smooth"
-        });
-
-      }
-
-      catch(errorValue){
-
-        console.error(
-          errorValue
-        );
-
-        error.textContent =
-          "Не удалось создать приглашение. Проверь подключение к интернету и правила Firestore.";
-
-        error.style.display =
-          "block";
-
-      }
-
-      finally{
-
-        button.disabled =
-          false;
-
-        button.textContent =
-          "Создать приглашение ✨";
-
-      }
-
-    }
-  );
-
-
-/* =========================
-   COPY LINK
-========================= */
-
-document
-  .querySelector("#copyLinkBtn")
-  .addEventListener(
-    "click",
-    async () => {
-
-      const input =
-        document.querySelector(
-          "#shareLink"
-        );
-
-      if(!input.value){
-
-        return;
-
-      }
-
-      try{
-
-        await navigator.clipboard.writeText(
-          input.value
-        );
-
-        const button =
-          document.querySelector(
-            "#copyLinkBtn"
-          );
-
-        const old =
-          button.textContent;
-
-        button.textContent =
-          "Скопировано ✓";
-
-        setTimeout(
-          () => {
-            button.textContent =
-              old;
-          },
-          1500
-        );
-
-      }
-
-      catch(e){
-
-        input.select();
-
-        alert(
-          "Ссылка выделена. Скопируй её вручную."
-        );
-
-      }
-
-    }
-  );
-
-
-/* =========================
-   LOAD DRAFT INTO UI
-========================= */
-
-function applyDraft(){
-
-  if(state.nickname){
-
-    document.querySelector(
-      "#nickname"
-    ).value =
-      state.nickname;
-
-    document.querySelector(
-      "#bubblePreview"
-    ).textContent =
-      `Привет, ${state.nickname}! Я приготовил для тебя кое-что особенное ❤️`;
-
+  if(!value){
+    return "—";
   }
 
+  const parts =
+    value.split("-");
 
-  document.querySelector(
-    "#charPreview"
-  ).textContent =
+  if(parts.length !== 3){
+    return value;
+  }
+
+  return `${parts[2]}.${parts[1]}.${parts[0]}`;
+
+}
+
+
+function updateReview(){
+
+  document
+    .querySelector("#rNickname")
+    .textContent =
+    state.nickname || "—";
+
+
+  document
+    .querySelector("#rCharacter")
+    .textContent =
     state.character;
 
-  document.querySelector(
-    "#characterBig"
-  ).textContent =
-    state.character;
+
+  document
+    .querySelector("#rTheme")
+    .textContent =
+    state.theme;
 
 
   document
-    .querySelectorAll(".char")
-    .forEach(
-      element => {
-
-        element.classList.toggle(
-          "selected",
-          element.dataset.char ===
-          state.character
-        );
-
-      }
-    );
+    .querySelector("#rDate")
+    .textContent =
+    `${formatDate(state.from)}
+     → ${formatDate(state.to)}`;
 
 
   document
-    .querySelectorAll(".theme")
-    .forEach(
-      element => {
-
-        element.classList.toggle(
-          "selected",
-          element.dataset.theme ===
-          state.theme
-        );
-
-      }
-    );
+    .querySelector("#rTime")
+    .textContent =
+    state.time || "—";
 
 
   document
-    .querySelectorAll("[data-music]")
-    .forEach(
-      element => {
-
-        element.classList.toggle(
-          "selected",
-          element.dataset.music ===
-          state.music
-        );
-
-      }
-    );
+    .querySelector("#rMusic")
+    .textContent =
+    state.music === "none"
+      ? "Без музыки"
+      : state.music;
 
 
-  document.querySelector(
-    "#dateFrom"
-  ).value =
-    state.from || "";
+  document
+    .querySelector("#rLetter")
+    .textContent =
+    state.letter
+      ? "Заполнено"
+      : "Не заполнено";
 
 
-  document.querySelector(
-    "#dateTo"
-  ).value =
-    state.to || "";
-
-
-  document.querySelector(
-    "#time"
-  ).value =
-    state.time || "18:00";
-
-
-  document.querySelector(
-    "#letter"
-  ).value =
-    state.letter || "";
-
-
-  document.querySelector(
-    "#letterCount"
-  ).textContent =
-    (state.letter || "").length;
-
-
-  document.querySelector(
-    "#letterDate"
-  ).value =
-    state.letterDate || "";
+  document
+    .querySelector("#rAnswers")
+    .textContent =
+    `${state.answers.length} / 4`;
 
 }
 
 
 /* =========================
-   INIT
+   CREATE
 ========================= */
 
-loadDraft();
+createBtn.addEventListener(
+  "click",
+  async () => {
 
-applyDraft();
+    hideMessage();
 
-updateProgress();
 
-renderSurvey();
+    if(!currentUser){
+
+      showMessage(
+        "Сначала войди в аккаунт."
+      );
+
+      return;
+
+    }
+
+
+    if(!state.nickname){
+
+      showMessage(
+        "Напиши имя или обращение."
+      );
+
+      nickname.focus();
+
+      return;
+
+    }
+
+
+    if(!state.from || !state.to){
+
+      showMessage(
+        "Укажи диапазон дат."
+      );
+
+      return;
+
+    }
+
+
+    if(state.from > state.to){
+
+      showMessage(
+        "Дата начала не может быть позже даты окончания."
+      );
+
+      return;
+
+    }
+
+
+    if(state.answers.length !== 4){
+
+      showMessage(
+        "Выбери ровно 4 варианта ответа."
+      );
+
+      return;
+
+    }
+
+
+    if(
+      state.letter &&
+      state.letterDate &&
+      new Date(state.letterDate).getTime() <
+      Date.now()
+    ){
+
+      showMessage(
+        "Дата открытия письма не может быть в прошлом."
+      );
+
+      return;
+
+    }
+
+
+    createBtn.disabled =
+      true;
+
+    createBtn.textContent =
+      "Создаём…";
+
+
+    try{
+
+      const id =
+        generateId();
+
+
+      const payload = {
+
+        ownerUid:
+          currentUser.uid,
+
+        ownerEmail:
+          currentUser.email || "",
+
+        nickname:
+          state.nickname,
+
+        character:
+          state.character,
+
+        theme:
+          state.theme,
+
+        music:
+          state.music,
+
+        from:
+          state.from,
+
+        to:
+          state.to,
+
+        time:
+          state.time,
+
+        survey:
+          state.answers,
+
+        status:
+          "created",
+
+        response:
+          null,
+
+        createdAt:
+          serverTimestamp()
+
+      };
+
+
+      const privateLetter = {
+
+        letter:
+          state.letter || "",
+
+        letterUnlock:
+          state.letterDate || null
+
+      };
+
+
+      await setDoc(
+        doc(
+          db,
+          "invitations",
+          id
+        ),
+        payload
+      );
+
+
+      await setDoc(
+        doc(
+          db,
+          "invitations",
+          id,
+          "private",
+          "letter"
+        ),
+        privateLetter
+      );
+
+
+      const url =
+        new URL(
+          `invite.html?id=${encodeURIComponent(id)}`,
+          location.href
+        ).href;
+
+
+      localStorage.setItem(
+        "dateTicketInvitation",
+        JSON.stringify({
+
+          ...payload,
+
+          ...privateLetter,
+
+          id
+
+        })
+      );
+
+
+      shareLink.value =
+        url;
+
+
+      creator.classList.add(
+        "hidden"
+      );
+
+      created.classList.add(
+        "show"
+      );
+
+
+      window.scrollTo({
+        top:0,
+        behavior:"smooth"
+      });
+
+
+    }catch(error){
+
+      console.error(error);
+
+      showMessage(
+        "Не удалось создать приглашение. Проверь правила Firestore."
+      );
+
+    }finally{
+
+      createBtn.disabled =
+        false;
+
+      createBtn.textContent =
+        "Создать приглашение ✨";
+
+    }
+
+  }
+);
+
+
+/* =========================
+   COPY
+========================= */
+
+copyBtn.addEventListener(
+  "click",
+  async () => {
+
+    if(!shareLink.value){
+      return;
+    }
+
+
+    try{
+
+      await navigator.clipboard.writeText(
+        shareLink.value
+      );
+
+      const old =
+        copyBtn.textContent;
+
+      copyBtn.textContent =
+        "✓ Скопировано";
+
+      setTimeout(
+        () => {
+
+          copyBtn.textContent =
+            old;
+
+        },
+        1500
+      );
+
+    }catch(error){
+
+      shareLink.select();
+
+      alert(
+        "Ссылка выделена. Нажми Ctrl+C."
+      );
+
+    }
+
+  }
+);
+
+
+/* =========================
+   OPEN
+========================= */
+
+openBtn.addEventListener(
+  "click",
+  () => {
+
+    if(shareLink.value){
+
+      location.href =
+        shareLink.value;
+
+    }
+
+  }
+);
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+logoutBtn.addEventListener(
+  "click",
+  async () => {
+
+    try{
+
+      await signOut(auth);
+
+      location.href =
+        "index.html";
+
+    }catch(error){
+
+      console.error(error);
+
+    }
+
+  }
+);
+
+
+/* =========================
+   AUTH
+========================= */
+
+onAuthStateChanged(
+  auth,
+  user => {
+
+    if(!user){
+
+      location.href =
+        "login.html";
+
+      return;
+
+    }
+
+
+    currentUser =
+      user;
+
+    userEmail.textContent =
+      user.email || "";
+
+  }
+);
+
+
+/* =========================
+   INITIAL
+========================= */
+
+renderAnswers();
+
+updateReview();
 
 </script>
 
