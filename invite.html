@@ -1,10 +1,10 @@
-<!doctype html>
+<!DOCTYPE html>
 
 <html lang="ru">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Приглашение · Date Ticket</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Date Ticket — Приглашение</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,19 +14,20 @@
 :root{
   --bg:#090d16;
   --bg2:#111728;
-  --card:rgba(18,24,40,.76);
+  --card:rgba(19,25,42,.78);
   --line:rgba(255,255,255,.10);
   --text:#fff;
   --muted:#aeb6c8;
   --pink:#ff6fae;
   --pink2:#ff91bf;
   --gold:#f6c667;
-  --green:#79d6a1;
-  --red:#ff7186;
-  --yellow:#eac56c;
+  --green:#69d3a2;
+  --danger:#ff667d;
 }
 
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
 html{
   scroll-behavior:smooth;
@@ -37,10 +38,12 @@ body{
   min-height:100vh;
   color:var(--text);
   font-family:"Manrope",sans-serif;
+
   background:
-    radial-gradient(circle at 80% 10%,rgba(255,105,170,.15),transparent 28%),
-    radial-gradient(circle at 10% 85%,rgba(95,100,255,.13),transparent 30%),
+    radial-gradient(circle at 80% 10%,rgba(255,105,170,.16),transparent 28%),
+    radial-gradient(circle at 10% 85%,rgba(95,100,255,.12),transparent 30%),
     linear-gradient(135deg,var(--bg),var(--bg2));
+
   overflow-x:hidden;
 }
 
@@ -49,251 +52,398 @@ body:before{
   position:fixed;
   inset:0;
   pointer-events:none;
-  opacity:.30;
+  opacity:.3;
+
   background-image:
     radial-gradient(circle at 15% 20%,rgba(255,255,255,.35) 0 1px,transparent 1.5px),
     radial-gradient(circle at 70% 35%,rgba(255,255,255,.25) 0 1px,transparent 1.5px),
     radial-gradient(circle at 40% 75%,rgba(255,255,255,.22) 0 1px,transparent 1.5px);
+
   background-size:240px 220px,310px 270px,370px 320px;
 }
 
-a{
-  text-decoration:none;
-  color:inherit;
+button,
+input{
+  font-family:inherit;
 }
 
-button,
-input,
-select,
-textarea{
-  font-family:inherit;
+button{
+  cursor:pointer;
 }
 
 .container{
   width:min(900px,92%);
   margin:auto;
-  position:relative;
-  z-index:1;
 }
 
 header{
-  min-height:88px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:20px;
+  padding:30px 0 20px;
+  text-align:center;
 }
 
 .logo{
-  font:700 24px "Playfair Display",serif;
+  display:inline-block;
+  color:#fff;
+  font:700 25px "Playfair Display",serif;
   font-style:italic;
+  text-decoration:none;
 }
 
-.header-id{
-  color:var(--muted);
+.eyebrow{
+  margin-top:25px;
+  color:#ffc0d8;
   font-size:11px;
-  word-break:break-all;
-  text-align:right;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:2px;
 }
 
-.hero{
-  text-align:center;
-  padding:55px 0 30px;
-}
-
-.badge{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:8px 14px;
-  border:1px solid rgba(255,111,174,.25);
-  background:rgba(255,111,174,.07);
-  border-radius:999px;
-  color:#ffc1d9;
-  font-size:11px;
-  margin-bottom:20px;
-}
-
-.character{
-  font-size:125px;
-  line-height:1;
-  display:block;
-  filter:drop-shadow(0 25px 30px rgba(0,0,0,.35));
-  animation:float 4s ease-in-out infinite;
-}
-
-.hero h1{
-  font:700 clamp(38px,6vw,62px)/1.05 "Playfair Display",serif;
-  margin:25px 0 13px;
+h1{
+  font:700 clamp(42px,7vw,68px)/1.05 "Playfair Display",serif;
+  margin:12px 0 12px;
   letter-spacing:-1px;
 }
 
-.hero h1 span{
-  color:var(--pink2);
-}
-
-.hero p{
-  color:var(--muted);
-  line-height:1.75;
-  font-size:14px;
-  max-width:600px;
+.subtitle{
+  max-width:620px;
   margin:auto;
+  color:var(--muted);
+  font-size:15px;
+  line-height:1.7;
 }
 
 .card{
   border:1px solid var(--line);
   background:var(--card);
-  border-radius:26px;
-  padding:28px;
+  border-radius:28px;
+  padding:30px;
   margin:18px 0;
   backdrop-filter:blur(18px);
-  box-shadow:0 25px 70px rgba(0,0,0,.22);
-}
-
-.card-title{
-  font:700 23px "Playfair Display",serif;
-  margin:0 0 7px;
-}
-
-.card-subtitle{
-  color:var(--muted);
-  font-size:12px;
-  line-height:1.6;
-}
-
-.label{
-  color:#ffc0d8;
-  font-size:10px;
-  font-weight:800;
-  letter-spacing:1.8px;
-  text-transform:uppercase;
-  margin-bottom:10px;
+  box-shadow:0 30px 80px rgba(0,0,0,.25);
 }
 
 .hidden{
   display:none!important;
 }
 
-.question{
-  margin-top:28px;
+.loading{
+  text-align:center;
+  padding:70px 25px;
 }
 
-.question:first-child{
-  margin-top:0;
+.loading-icon{
+  font-size:70px;
+  animation:float 3s ease-in-out infinite;
 }
 
-.question-title{
-  font-size:16px;
-  font-weight:700;
-  margin-bottom:12px;
+.loading h2{
+  font:600 30px "Playfair Display",serif;
+  margin:15px 0 8px;
+}
+
+.loading p{
+  color:var(--muted);
+  font-size:13px;
+}
+
+.profile{
+  text-align:center;
+}
+
+.character{
+  font-size:125px;
+  line-height:1;
+  margin:5px 0 20px;
+  filter:drop-shadow(0 20px 25px rgba(0,0,0,.35));
+  animation:float 4s ease-in-out infinite;
+}
+
+.profile-name{
+  font:700 40px "Playfair Display",serif;
+  margin:0 0 10px;
+}
+
+.profile-text{
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.7;
+}
+
+.invitation-text{
+  text-align:center;
+  color:#e8ebf3;
+  font-size:17px;
+  line-height:1.8;
+}
+
+.section-title{
+  text-align:center;
+  margin-bottom:22px;
+}
+
+.section-title h2{
+  font:600 30px "Playfair Display",serif;
+  margin:0 0 7px;
+}
+
+.section-title p{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.6;
+  margin:0;
 }
 
 .options{
   display:grid;
   grid-template-columns:repeat(2,1fr);
-  gap:10px;
+  gap:12px;
 }
 
 .option{
   border:1px solid var(--line);
   background:rgba(255,255,255,.045);
-  border-radius:17px;
-  padding:16px;
-  cursor:pointer;
+  border-radius:18px;
+  padding:18px;
+  min-height:90px;
   transition:.2s;
 }
 
 .option:hover{
   transform:translateY(-2px);
-  background:rgba(255,255,255,.075);
-}
-
-.option.selected{
-  border-color:rgba(255,111,174,.78);
-  background:rgba(255,111,174,.11);
-  box-shadow:0 0 0 2px rgba(255,111,174,.08) inset;
+  background:rgba(255,255,255,.07);
+  border-color:rgba(255,111,174,.35);
 }
 
 .option .emoji{
-  font-size:25px;
-  margin-bottom:7px;
+  font-size:30px;
+  margin-bottom:8px;
 }
 
 .option strong{
   display:block;
-  font-size:13px;
+  font-size:14px;
 }
 
 .option small{
   display:block;
   color:var(--muted);
-  margin-top:3px;
+  margin-top:4px;
   font-size:11px;
-  line-height:1.4;
+}
+
+.option.selected{
+  border-color:rgba(255,111,174,.75);
+  background:rgba(255,111,174,.12);
+  box-shadow:0 0 0 2px rgba(255,111,174,.08) inset;
+}
+
+.counter{
+  text-align:center;
+  color:var(--muted);
+  font-size:12px;
+  margin-top:14px;
+}
+
+.counter strong{
+  color:#fff;
 }
 
 .date-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:12px;
-  margin-top:18px;
+  gap:14px;
 }
 
 .date-option{
   border:1px solid var(--line);
   background:rgba(255,255,255,.045);
-  border-radius:17px;
-  padding:17px;
-  cursor:pointer;
+  border-radius:18px;
+  padding:20px;
   text-align:center;
   transition:.2s;
+  cursor:pointer;
 }
 
 .date-option:hover{
+  border-color:rgba(255,111,174,.45);
   transform:translateY(-2px);
 }
 
 .date-option.selected{
-  border-color:rgba(255,111,174,.78);
-  background:rgba(255,111,174,.11);
+  border-color:var(--pink);
+  background:rgba(255,111,174,.12);
+  box-shadow:0 0 0 2px rgba(255,111,174,.08) inset;
 }
 
-.date-option strong{
+.date-option .day{
+  font-size:22px;
+  font-weight:800;
+}
+
+.date-option .month{
+  color:var(--muted);
+  font-size:12px;
+  margin-top:4px;
+}
+
+.time-box{
+  margin-top:14px;
+  text-align:center;
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:18px;
+  background:rgba(255,255,255,.04);
+}
+
+.time-box span{
+  color:var(--muted);
   display:block;
-  font-size:16px;
+  font-size:11px;
+  margin-bottom:6px;
 }
 
-.date-option small{
+.time-box strong{
+  font-size:25px;
+}
+
+.letter{
+  position:relative;
+  overflow:hidden;
+}
+
+.letter:before{
+  content:"✉";
+  position:absolute;
+  right:25px;
+  top:8px;
+  font-size:80px;
+  opacity:.045;
+}
+
+.letter-content{
+  position:relative;
+  z-index:1;
+  white-space:pre-wrap;
+  font:400 18px/1.85 "Playfair Display",serif;
+  color:#f4f0f3;
+}
+
+.ticket{
+  position:relative;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.13);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,111,174,.13),
+      rgba(255,255,255,.035)
+    );
+}
+
+.ticket:before,
+.ticket:after{
+  content:"";
+  position:absolute;
+  width:26px;
+  height:26px;
+  border-radius:50%;
+  background:var(--bg);
+  top:50%;
+  transform:translateY(-50%);
+}
+
+.ticket:before{
+  left:-14px;
+}
+
+.ticket:after{
+  right:-14px;
+}
+
+.ticket-header{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  align-items:center;
+  border-bottom:1px dashed rgba(255,255,255,.16);
+  padding-bottom:18px;
+}
+
+.ticket-title{
+  font:700 28px "Playfair Display",serif;
+}
+
+.ticket-id{
+  color:var(--muted);
+  font:11px monospace;
+}
+
+.ticket-main{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  padding:22px 0;
+}
+
+.ticket-item{
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:16px;
+  padding:17px;
+  background:rgba(255,255,255,.035);
+}
+
+.ticket-item span{
   display:block;
   color:var(--muted);
-  margin-top:5px;
-  font-size:11px;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  margin-bottom:7px;
 }
 
-.time-wrap{
-  margin-top:20px;
+.ticket-item strong{
+  font-size:18px;
 }
 
-input[type="time"]{
-  width:100%;
-  border:1px solid var(--line);
-  outline:none;
-  border-radius:16px;
-  background:rgba(255,255,255,.055);
-  color:#fff;
-  padding:16px 17px;
-  font:600 14px "Manrope",sans-serif;
+.ticket-status{
+  border-radius:18px;
+  padding:20px;
+  text-align:center;
+  margin-top:10px;
 }
 
-input[type="time"]:focus{
-  border-color:rgba(255,111,174,.65);
-  box-shadow:0 0 0 4px rgba(255,111,174,.08);
+.ticket-status strong{
+  display:block;
+  font-size:21px;
+  margin-bottom:7px;
+}
+
+.ticket-status p{
+  color:var(--muted);
+  margin:0;
+  font-size:12px;
+  line-height:1.6;
+}
+
+.ticket-active{
+  background:rgba(105,211,162,.09);
+  border:1px solid rgba(105,211,162,.22);
+}
+
+.ticket-waiting{
+  background:rgba(246,198,103,.08);
+  border:1px solid rgba(246,198,103,.18);
+}
+
+.ticket-expired{
+  background:rgba(255,102,125,.08);
+  border:1px solid rgba(255,102,125,.18);
 }
 
 .actions{
   display:flex;
   justify-content:center;
-  gap:10px;
+  gap:12px;
   flex-wrap:wrap;
   margin-top:25px;
 }
@@ -326,263 +476,60 @@ input[type="time"]:focus{
   transform:none;
 }
 
-.notice{
-  margin-top:14px;
-  color:var(--muted);
-  font-size:11px;
-  line-height:1.6;
-  text-align:center;
-}
-
-.status{
-  text-align:center;
-  padding:45px 25px;
-}
-
-.status-icon{
-  font-size:60px;
-  margin-bottom:12px;
-}
-
-.status h2{
-  font:700 30px "Playfair Display",serif;
-  margin:0 0 10px;
-}
-
-.status p{
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.7;
-  max-width:520px;
-  margin:auto;
-}
-
-.ticket{
-  position:relative;
-  overflow:hidden;
-  background:
-    radial-gradient(circle at 90% 15%,rgba(255,111,174,.14),transparent 25%),
-    rgba(18,24,40,.82);
-}
-
-.ticket:before{
-  content:"🎫";
-  position:absolute;
-  right:25px;
-  top:15px;
-  font-size:70px;
-  opacity:.06;
-}
-
-.ticket-header{
-  display:flex;
-  justify-content:space-between;
-  gap:20px;
-  align-items:flex-start;
-}
-
-.ticket-title{
-  font:700 34px "Playfair Display",serif;
-  margin:5px 0;
-}
-
-.ticket-name{
-  color:var(--pink2);
-}
-
-.ticket-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-  margin-top:25px;
-}
-
-.ticket-item{
-  border:1px solid var(--line);
-  background:rgba(255,255,255,.045);
-  border-radius:18px;
-  padding:18px;
-}
-
-.ticket-item span{
-  display:block;
-  color:var(--muted);
-  font-size:10px;
-  text-transform:uppercase;
-  letter-spacing:1.2px;
-}
-
-.ticket-item strong{
-  display:block;
-  margin-top:7px;
-  font-size:17px;
-}
-
-.ticket-status{
-  margin-top:20px;
-  padding:20px;
-  border-radius:20px;
-  text-align:center;
-  border:1px solid var(--line);
-  background:rgba(255,255,255,.045);
-}
-
-.ticket-status strong{
-  display:block;
-  font-size:20px;
-  margin-bottom:6px;
-}
-
-.ticket-status p{
-  color:var(--muted);
-  font-size:12px;
-  line-height:1.6;
-  margin:0;
-}
-
-.ticket-status.good{
-  border-color:rgba(121,214,161,.35);
-  background:rgba(121,214,161,.08);
-}
-
-.ticket-status.good strong{
-  color:var(--green);
-}
-
-.ticket-status.waiting{
-  border-color:rgba(234,197,108,.28);
-  background:rgba(234,197,108,.07);
-}
-
-.ticket-status.waiting strong{
-  color:var(--yellow);
-}
-
-.ticket-status.bad{
-  border-color:rgba(255,113,134,.30);
-  background:rgba(255,113,134,.07);
-}
-
-.ticket-status.bad strong{
-  color:var(--red);
-}
-
-.answers{
-  display:grid;
-  gap:0;
-}
-
-.answer{
-  display:flex;
-  justify-content:space-between;
-  gap:20px;
-  padding:15px 0;
-  border-bottom:1px solid rgba(255,255,255,.07);
-}
-
-.answer:last-child{
-  border-bottom:0;
-}
-
-.answer span{
-  color:var(--muted);
-  font-size:12px;
-}
-
-.answer strong{
-  text-align:right;
-  font-size:13px;
-}
-
-.letter{
-  position:relative;
-  overflow:hidden;
-}
-
-.letter:before{
-  content:"✉";
-  position:absolute;
-  right:25px;
-  top:15px;
-  font-size:70px;
-  opacity:.06;
-}
-
-.letter-text{
-  position:relative;
-  white-space:pre-wrap;
-  font-family:"Playfair Display",serif;
-  font-size:18px;
-  line-height:1.8;
-  color:#f4edf1;
-}
-
-.unlock{
-  border:1px solid var(--line);
-  border-radius:18px;
-  background:rgba(255,255,255,.045);
-  padding:18px;
-  text-align:center;
-  color:var(--muted);
-  font-size:12px;
-  line-height:1.6;
-}
-
 .error{
-  color:var(--red);
-}
-
-.success{
-  color:var(--green);
-}
-
-.loading-spinner{
-  width:42px;
-  height:42px;
-  margin:0 auto 18px;
-  border-radius:50%;
-  border:3px solid rgba(255,255,255,.10);
-  border-top-color:var(--pink);
-  animation:spin .8s linear infinite;
-}
-
-footer{
-  border-top:1px solid var(--line);
-  padding:25px 0 40px;
-  margin-top:40px;
-  color:#7f899d;
-  font-size:11px;
   text-align:center;
+  padding:60px 25px;
+}
+
+.error-icon{
+  font-size:65px;
+}
+
+.error h2{
+  font:600 30px "Playfair Display",serif;
+}
+
+.error p{
+  color:var(--muted);
+  line-height:1.6;
+  font-size:13px;
+}
+
+.footer{
+  text-align:center;
+  padding:25px 0 50px;
+  color:#737e93;
+  font-size:11px;
+}
+
+.music-player{
+  margin-top:20px;
+  text-align:center;
+}
+
+.music-player audio{
+  width:100%;
+  max-width:450px;
 }
 
 @keyframes float{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-10px)}
-}
-
-@keyframes spin{
-  to{transform:rotate(360deg)}
+  0%,100%{
+    transform:translateY(0);
+  }
+  50%{
+    transform:translateY(-10px);
+  }
 }
 
 @media(max-width:650px){
-  .header{
-    min-height:70px;
-  }
 
-  .header-id{
-    max-width:150px;
-  }
-
-  .hero{
-    padding-top:35px;
-  }
-
-  .character{
-    font-size:95px;
+  .container{
+    width:min(92%,600px);
   }
 
   .card{
     padding:21px;
+    border-radius:23px;
   }
 
   .options{
@@ -593,24 +540,25 @@ footer{
     grid-template-columns:1fr;
   }
 
-  .ticket-grid{
+  .ticket-main{
     grid-template-columns:1fr;
   }
 
+  .profile-name{
+    font-size:34px;
+  }
+
+  .character{
+    font-size:100px;
+  }
+
   .ticket-header{
+    align-items:flex-start;
     flex-direction:column;
   }
 
-  .ticket-title{
-    font-size:29px;
-  }
-
-  .answer{
-    align-items:flex-start;
-  }
-
-  .answer strong{
-    max-width:55%;
+  .letter-content{
+    font-size:17px;
   }
 }
 </style>
@@ -623,86 +571,72 @@ footer{
 
 <header>
   <a class="logo" href="index.html">Date Ticket</a>
-  <div class="header-id" id="headerId"></div>
+
+  <div class="eyebrow">
+    💌 Особенное приглашение
+  </div>
+
+  <h1 id="pageTitle">
+    Для тебя
+  </h1>
+
+  <div class="subtitle" id="pageSubtitle">
+    Кто-то приготовил для тебя кое-что особенное.
+  </div>
 </header>
 
-<section id="loading" class="card status">
-  <div class="loading-spinner"></div>
+<section id="loading" class="card loading">
+
+  <div class="loading-icon">💌</div>
+
   <h2>Открываем приглашение…</h2>
+
   <p>
-    Подожди немного. Мы проверяем приглашение и смотрим,
-    проходил ли ты его раньше.
+    Подожди немного, мы готовим всё специально для тебя.
   </p>
+
 </section>
 
-<section id="error" class="card status hidden">
-  <div class="status-icon">🥀</div>
-  <h2>Не удалось открыть</h2>
+<section id="error" class="card error hidden">
+
+  <div class="error-icon">🥀</div>
+
+  <h2>Приглашение не найдено</h2>
+
   <p id="errorText">
-    Произошла ошибка.
+    Возможно, ссылка была введена неправильно или приглашение больше недоступно.
   </p>
+
   <div class="actions">
-    <button class="btn" id="retryBtn">
+    <button class="btn" onclick="location.reload()">
       Попробовать снова
     </button>
+
+```
+<a class="btn secondary" href="index.html">
+  На главную
+</a>
+```
+
   </div>
+
 </section>
 
-<main id="surveyPage" class="hidden">
+<main id="newInvite" class="hidden">
 
-  <section class="hero">
-    <div class="badge">💌 Особенное приглашение</div>
-
-```
-<div class="character" id="surveyCharacter">🐸</div>
-
-<h1>
-  Привет, <span id="surveyName">Солнышко</span> ❤️
-</h1>
-
-<p id="surveyIntro">
-  Я приготовил для тебя кое-что особенное.
-  Ответь на несколько вопросов, чтобы выбрать идеальное свидание.
-</p>
-```
-
-  </section>
-
-  <section class="card">
+  <section class="card profile">
 
 ```
-<div class="label">Шаг 1</div>
+<div class="character" id="character">
+  🐸
+</div>
 
-<h2 class="card-title">
-  Где хочешь провести свидание?
-</h2>
+<div class="profile-name" id="receiver">
+  Солнышко
+</div>
 
-<div class="options" id="placeOptions">
-
-  <div class="option" data-value="Кофейня">
-    <div class="emoji">☕</div>
-    <strong>Кофейня</strong>
-    <small>Уютно посидеть и поговорить</small>
-  </div>
-
-  <div class="option" data-value="Кино">
-    <div class="emoji">🎬</div>
-    <strong>Кино</strong>
-    <small>Фильм и что-нибудь вкусное</small>
-  </div>
-
-  <div class="option" data-value="Парк">
-    <div class="emoji">🌳</div>
-    <strong>Парк</strong>
-    <small>Прогулка на свежем воздухе</small>
-  </div>
-
-  <div class="option" data-value="Набережная">
-    <div class="emoji">🌅</div>
-    <strong>Набережная</strong>
-    <small>Прогулка и красивый вид</small>
-  </div>
-
+<div class="profile-text">
+  Для тебя приготовили особенное приглашение ❤️
 </div>
 ```
 
@@ -711,171 +645,40 @@ footer{
   <section class="card">
 
 ```
-<div class="label">Шаг 2</div>
+<div class="section-title">
 
-<h2 class="card-title">
-  Что хочется перекусить?
-</h2>
+  <h2>
+    Прежде чем открыть билет…
+  </h2>
 
-<div class="options" id="foodOptions">
-
-  <div class="option" data-value="Пицца">
-    <div class="emoji">🍕</div>
-    <strong>Пицца</strong>
-    <small>Классика для уютного вечера</small>
-  </div>
-
-  <div class="option" data-value="Суши">
-    <div class="emoji">🍣</div>
-    <strong>Суши</strong>
-    <small>Что-нибудь лёгкое и вкусное</small>
-  </div>
-
-  <div class="option" data-value="Бургеры">
-    <div class="emoji">🍔</div>
-    <strong>Бургеры</strong>
-    <small>Сытно и без лишних церемоний</small>
-  </div>
-
-  <div class="option" data-value="Сладкое">
-    <div class="emoji">🍰</div>
-    <strong>Сладкое</strong>
-    <small>Десерт и хорошее настроение</small>
-  </div>
+  <p>
+    Ответь на несколько маленьких вопросов.
+    Здесь нет неправильных ответов.
+  </p>
 
 </div>
-```
 
-  </section>
 
-  <section class="card">
+<div id="surveyBox" class="options"></div>
 
-```
-<div class="label">Шаг 3</div>
-
-<h2 class="card-title">
-  Что будем пить?
-</h2>
-
-<div class="options" id="drinkOptions">
-
-  <div class="option" data-value="Кофе">
-    <div class="emoji">☕</div>
-    <strong>Кофе</strong>
-    <small>Тёплый напиток для долгих разговоров</small>
-  </div>
-
-  <div class="option" data-value="Чай">
-    <div class="emoji">🍵</div>
-    <strong>Чай</strong>
-    <small>Спокойно и уютно</small>
-  </div>
-
-  <div class="option" data-value="Лимонад">
-    <div class="emoji">🥤</div>
-    <strong>Лимонад</strong>
-    <small>Что-нибудь прохладное</small>
-  </div>
-
-  <div class="option" data-value="Неважно">
-    <div class="emoji">❤️</div>
-    <strong>Неважно</strong>
-    <small>Главное — компания</small>
-  </div>
-
-</div>
-```
-
-  </section>
-
-  <section class="card">
-
-```
-<div class="label">Шаг 4</div>
-
-<h2 class="card-title">
-  Чем хочется заняться?
-</h2>
-
-<div class="options" id="activityOptions">
-
-  <div class="option" data-value="Прогуляться">
-    <div class="emoji">🚶</div>
-    <strong>Прогуляться</strong>
-    <small>Просто гулять и разговаривать</small>
-  </div>
-
-  <div class="option" data-value="Посмотреть фильм">
-    <div class="emoji">🎬</div>
-    <strong>Посмотреть фильм</strong>
-    <small>Устроиться поудобнее и смотреть кино</small>
-  </div>
-
-  <div class="option" data-value="Боулинг">
-    <div class="emoji">🎳</div>
-    <strong>Боулинг</strong>
-    <small>Немного соревнования и смеха</small>
-  </div>
-
-  <div class="option" data-value="Мастер-класс">
-    <div class="emoji">🎨</div>
-    <strong>Мастер-класс</strong>
-    <small>Попробовать что-нибудь новое</small>
-  </div>
-
-</div>
-```
-
-  </section>
-
-  <section class="card">
-
-```
-<div class="label">Шаг 5</div>
-
-<h2 class="card-title">
-  Выбери день свидания
-</h2>
-
-<div class="card-subtitle">
-  Доступны только даты, которые выбрал создатель приглашения.
+<div class="counter">
+  Выбрано:
+  <strong id="surveyCount">0</strong>
+  из
+  <strong id="surveyTotal">4</strong>
 </div>
 
-<div class="date-grid" id="dateOptions"></div>
-
-<div class="time-wrap">
-  <div class="question-title">
-    Во сколько?
-  </div>
-
-  <input type="time" id="dateTime" value="">
-</div>
-```
-
-  </section>
-
-  <section class="card">
-
-```
-<div class="label">Последний шаг</div>
-
-<h2 class="card-title">
-  Всё готово? ❤️
-</h2>
-
-<div class="card-subtitle">
-  После отправки повторно проходить этот опрос уже не понадобится.
-  При следующем открытии ссылки сразу появится готовое приглашение.
-</div>
 
 <div class="actions">
-  <button class="btn" id="submitBtn">
-    Принять приглашение ❤️
-  </button>
-</div>
 
-<div class="notice">
-  Ответы будут сохранены в приглашении.
+  <button
+    class="btn"
+    id="continueBtn"
+    disabled
+  >
+    Продолжить →
+  </button>
+
 </div>
 ```
 
@@ -883,23 +686,89 @@ footer{
 
 </main>
 
-<main id="resultPage" class="hidden">
+<main id="chooseDate" class="hidden">
 
-  <section class="hero">
+  <section class="card">
 
 ```
-<div class="badge">❤️ Приглашение принято</div>
+<div class="section-title">
 
-<div class="character" id="resultCharacter">🐸</div>
+  <h2>
+    Теперь выбери день ❤️
+  </h2>
 
-<h1>
-  До встречи, <span id="resultName">Солнышко</span>
-</h1>
+  <p id="dateDescription">
+    Выбери удобную дату свидания.
+  </p>
 
-<p>
-  Ты уже выбрал(а) своё идеальное свидание.
-  Здесь всегда будут доступны его детали и билет.
-</p>
+</div>
+
+<div id="dateOptions" class="date-grid"></div>
+
+
+<div class="time-box">
+
+  <span>
+    Время
+  </span>
+
+  <strong id="dateTime">
+    —
+  </strong>
+
+</div>
+
+
+<div class="actions">
+
+  <button
+    class="btn"
+    id="confirmDateBtn"
+    disabled
+  >
+    Подтвердить дату ❤️
+  </button>
+
+</div>
+```
+
+  </section>
+
+</main>
+
+<main id="result" class="hidden">
+
+  <section class="card profile">
+
+```
+<div class="character" id="resultCharacter">
+  🐸
+</div>
+
+<div class="profile-name" id="resultName">
+  Солнышко
+</div>
+
+<div class="profile-text">
+  Приглашение принято ❤️
+</div>
+```
+
+  </section>
+
+  <section class="card">
+
+```
+<div class="invitation-text">
+
+  Всё готово.
+
+  <br><br>
+
+  Ты выбрала своё свидание.
+  Теперь осталось только дождаться этого дня ✨
+
+</div>
 ```
 
   </section>
@@ -907,68 +776,60 @@ footer{
   <section class="card ticket">
 
 ```
-<div class="label">Твой цифровой билет</div>
-
 <div class="ticket-header">
 
-  <div>
-    <div class="ticket-title">
-      Date Ticket
-    </div>
-
-    <div class="card-subtitle">
-      Билет на особенное свидание
-    </div>
+  <div class="ticket-title">
+    🎫 Date Ticket
   </div>
 
-  <div class="ticket-name" id="ticketName">
-    ❤️
+  <div class="ticket-id" id="ticketId">
+    —
   </div>
 
 </div>
 
-<div class="ticket-grid">
+
+<div class="ticket-main">
 
   <div class="ticket-item">
-    <span>Место</span>
-    <strong id="resultPlace">—</strong>
+
+    <span>
+      Дата
+    </span>
+
+    <strong id="resultDate">
+      —
+    </strong>
+
   </div>
 
-  <div class="ticket-item">
-    <span>Еда</span>
-    <strong id="resultFood">—</strong>
-  </div>
 
   <div class="ticket-item">
-    <span>Напиток</span>
-    <strong id="resultDrink">—</strong>
-  </div>
 
-  <div class="ticket-item">
-    <span>Занятие</span>
-    <strong id="resultActivity">—</strong>
-  </div>
+    <span>
+      Время
+    </span>
 
-  <div class="ticket-item">
-    <span>Дата</span>
-    <strong id="resultDate">—</strong>
-  </div>
+    <strong id="resultTime">
+      —
+    </strong>
 
-  <div class="ticket-item">
-    <span>Время</span>
-    <strong id="resultTime">—</strong>
   </div>
 
 </div>
 
-<div class="ticket-status" id="ticketStatus">
+
+<div
+  id="ticketStatus"
+  class="ticket-status ticket-waiting"
+>
 
   <strong id="ticketStatusTitle">
-    Проверяем дату…
+    ⏳ Билет пока не активен
   </strong>
 
   <p id="ticketStatusText">
-    Подожди немного.
+    Билет можно предъявить только в день свидания.
   </p>
 
 </div>
@@ -976,75 +837,80 @@ footer{
 
   </section>
 
-  <section class="card">
+  <section
+    id="letterCard"
+    class="card letter hidden"
+  >
 
 ```
-<div class="label">Твои ответы</div>
+<div class="section-title">
 
-<div class="answers">
-
-  <div class="answer">
-    <span>📍 Место</span>
-    <strong id="answerPlace">—</strong>
-  </div>
-
-  <div class="answer">
-    <span>🍽️ Еда</span>
-    <strong id="answerFood">—</strong>
-  </div>
-
-  <div class="answer">
-    <span>🥤 Напиток</span>
-    <strong id="answerDrink">—</strong>
-  </div>
-
-  <div class="answer">
-    <span>✨ Чем заняться</span>
-    <strong id="answerActivity">—</strong>
-  </div>
+  <h2>
+    💌 Личное письмо
+  </h2>
 
 </div>
+
+<div
+  id="letterState"
+  class="profile-text"
+  style="text-align:center"
+>
+  Проверяем доступ…
+</div>
+
+<div
+  id="letterText"
+  class="letter-content hidden"
+></div>
 ```
 
   </section>
 
-  <section class="card letter">
+  <section
+    id="musicCard"
+    class="card hidden"
+  >
 
 ```
-<div class="label">Личное письмо</div>
+<div class="section-title">
 
-<div id="letterLocked" class="unlock">
-  Проверяем время открытия…
+  <h2>
+    🎵 Маленький саундтрек
+  </h2>
+
+  <p>
+    Музыка, которую выбрали для этого приглашения.
+  </p>
+
 </div>
 
-<div id="letterContent" class="letter-text hidden"></div>
+<div
+  id="musicPlayer"
+  class="music-player"
+></div>
 ```
 
   </section>
 
-  <section class="card">
+  <div class="actions">
 
 ```
-<div class="label">Информация</div>
-
-<div class="answer">
-  <span>ID приглашения</span>
-  <strong id="resultId">—</strong>
-</div>
-
-<div class="answer">
-  <span>Статус</span>
-  <strong class="success">Приглашение принято ✓</strong>
-</div>
+<button
+  class="btn secondary"
+  id="refreshBtn"
+>
+  Обновить билет
+</button>
 ```
 
-  </section>
+  </div>
 
 </main>
 
-<footer>
-  Date Ticket · Сделано для особенных свиданий ❤️
-</footer>
+<div class="footer">
+  © 2026 Date Ticket · Сделано для особенных свиданий ❤️
+</div>
 
 </div>
 
@@ -1063,66 +929,108 @@ import {
 
 
 const firebaseConfig = {
+
   apiKey:"AIzaSyC2esT1S9A8SnTBPyrHVfxTy-Z_u-GiGpWo",
+
   authDomain:"date-ticket-2e786.firebaseapp.com",
-  databaseURL:"https://date-ticket-2e786-default-rtdb.europe-west1.firebasedatabase.app",
+
+  databaseURL:
+    "https://date-ticket-2e786-default-rtdb.europe-west1.firebasedatabase.app",
+
   projectId:"date-ticket-2e786",
-  storageBucket:"date-ticket-2e786.firebasestorage.app",
+
+  storageBucket:
+    "date-ticket-2e786.firebasestorage.app",
+
   messagingSenderId:"576969359516",
-  appId:"1:576969359516:web:2b9e622d7b2de86acc6d59"
+
+  appId:
+    "1:576969359516:web:2b9e622d7b2de86acc6d59"
 };
+
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-const invitationId =
+
+const inviteId =
   new URLSearchParams(location.search).get("id");
 
 
 let invitation = null;
+let selectedSurvey = [];
+let selectedDate = null;
 
-let selected = {
-  place:"",
-  food:"",
-  drink:"",
-  activity:"",
-  date:"",
-  time:""
+
+const surveyMeta = {
+
+  "Кофейня":{
+    emoji:"☕",
+    description:"Спокойно посидеть и поговорить"
+  },
+
+  "Кино":{
+    emoji:"🎬",
+    description:"Фильм и немного попкорна"
+  },
+
+  "Парк":{
+    emoji:"🌳",
+    description:"Прогулка на свежем воздухе"
+  },
+
+  "Боулинг":{
+    emoji:"🎳",
+    description:"Немного соревнования"
+  },
+
+  "Набережная":{
+    emoji:"🌅",
+    description:"Прогулка и красивые виды"
+  },
+
+  "Мастер-класс":{
+    emoji:"🎨",
+    description:"Создать что-нибудь вместе"
+  },
+
+  "Пикник":{
+    emoji:"🧺",
+    description:"Уютный вечер вдвоём"
+  },
+
+  "Аттракционы":{
+    emoji:"🎡",
+    description:"Веселье и немного адреналина"
+  }
+
 };
 
 
-const loading =
-  document.querySelector("#loading");
+function show(id){
 
-const errorPage =
-  document.querySelector("#error");
+  [
+    "#loading",
+    "#error",
+    "#newInvite",
+    "#chooseDate",
+    "#result"
+  ].forEach(selector => {
 
-const surveyPage =
-  document.querySelector("#surveyPage");
+    document
+      .querySelector(selector)
+      .classList.add("hidden");
 
-const resultPage =
-  document.querySelector("#resultPage");
+  });
 
+  document
+    .querySelector(id)
+    .classList.remove("hidden");
 
-function showPage(page){
-
-  loading.classList.add("hidden");
-  errorPage.classList.add("hidden");
-  surveyPage.classList.add("hidden");
-  resultPage.classList.add("hidden");
-
-  page.classList.remove("hidden");
-
-}
-
-
-function showError(message){
-
-  document.querySelector("#errorText").textContent =
-    message;
-
-  showPage(errorPage);
-
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
 }
 
 
@@ -1139,7 +1047,6 @@ function formatDate(value){
   return d.toLocaleDateString(
     "ru-RU",
     {
-      weekday:"long",
       day:"numeric",
       month:"long",
       year:"numeric"
@@ -1150,8 +1057,6 @@ function formatDate(value){
 
 function formatShortDate(value){
 
-  if(!value) return "";
-
   const d =
     new Date(value + "T12:00:00");
 
@@ -1161,7 +1066,6 @@ function formatShortDate(value){
   return d.toLocaleDateString(
     "ru-RU",
     {
-      weekday:"short",
       day:"numeric",
       month:"long"
     }
@@ -1173,125 +1077,151 @@ function todayString(){
 
   const d = new Date();
 
-  const y =
-    d.getFullYear();
-
-  const m =
-    String(d.getMonth()+1)
-      .padStart(2,"0");
-
-  const day =
-    String(d.getDate())
-      .padStart(2,"0");
-
-  return `${y}-${m}-${day}`;
+  return [
+    d.getFullYear(),
+    String(d.getMonth()+1).padStart(2,"0"),
+    String(d.getDate()).padStart(2,"0")
+  ].join("-");
 }
 
 
-function getDateRange(from,to){
+function getDateList(from,to){
+
+  const result = [];
 
   if(!from || !to)
-    return [];
+    return result;
 
   const start =
-    new Date(from+"T12:00:00");
+    new Date(from + "T12:00:00");
 
   const end =
-    new Date(to+"T12:00:00");
+    new Date(to + "T12:00:00");
 
   if(
     Number.isNaN(start.getTime()) ||
     Number.isNaN(end.getTime())
-  )
-    return [];
+  ){
+    return result;
+  }
 
-  const dates=[];
-
-  const cursor =
+  let current =
     new Date(start);
 
-  let safety=0;
+  let safety = 0;
 
   while(
-    cursor <= end &&
+    current <= end &&
     safety < 100
   ){
 
     const y =
-      cursor.getFullYear();
+      current.getFullYear();
 
     const m =
-      String(cursor.getMonth()+1)
-        .padStart(2,"0");
+      String(current.getMonth()+1).padStart(2,"0");
 
     const d =
-      String(cursor.getDate())
-        .padStart(2,"0");
+      String(current.getDate()).padStart(2,"0");
 
-    dates.push(`${y}-${m}-${d}`);
+    result.push(
+      `${y}-${m}-${d}`
+    );
 
-    cursor.setDate(
-      cursor.getDate()+1
+    current.setDate(
+      current.getDate()+1
     );
 
     safety++;
+
   }
 
-  return dates;
+  return result;
 }
 
 
-function selectOption(group,value){
+function renderSurvey(){
 
-  document
-    .querySelectorAll(`#${group} .option`)
-    .forEach(option => {
+  const box =
+    document.querySelector("#surveyBox");
 
-      option.classList.toggle(
-        "selected",
-        option.dataset.value === value
+  box.innerHTML = "";
+
+  const available =
+    Array.isArray(invitation.survey)
+      ? invitation.survey
+      : [];
+
+  document.querySelector("#surveyTotal")
+    .textContent = 4;
+
+
+  available.forEach(name => {
+
+    const meta =
+      surveyMeta[name] || {
+        emoji:"✨",
+        description:"Особенный вариант"
+      };
+
+    const div =
+      document.createElement("div");
+
+    div.className =
+      "option" +
+      (
+        selectedSurvey.includes(name)
+          ? " selected"
+          : ""
       );
 
-    });
+    div.innerHTML = `
+      <div class="emoji">${meta.emoji}</div>
+      <strong>${name}</strong>
+      <small>${meta.description}</small>
+    `;
 
-}
+
+    div.addEventListener(
+      "click",
+      () => {
+
+        if(selectedSurvey.includes(name)){
+
+          selectedSurvey =
+            selectedSurvey.filter(
+              x => x !== name
+            );
+
+        }
+        else{
+
+          if(selectedSurvey.length >= 4)
+            return;
+
+          selectedSurvey.push(name);
+
+        }
+
+        renderSurvey();
+
+      }
+    );
 
 
-function setupOptions(){
+    box.appendChild(div);
 
-  const groups = [
-    ["placeOptions","place"],
-    ["foodOptions","food"],
-    ["drinkOptions","drink"],
-    ["activityOptions","activity"]
-  ];
+  });
 
-  groups.forEach(
-    ([group,key]) => {
 
-      document
-        .querySelectorAll(`#${group} .option`)
-        .forEach(option => {
+  document.querySelector("#surveyCount")
+    .textContent =
+    selectedSurvey.length;
 
-          option.addEventListener(
-            "click",
-            () => {
 
-              selected[key] =
-                option.dataset.value;
-
-              selectOption(
-                group,
-                selected[key]
-              );
-
-            }
-          );
-
-        });
-
-    }
-  );
+  document.querySelector("#continueBtn")
+    .disabled =
+    selectedSurvey.length !== 4;
 
 }
 
@@ -1301,23 +1231,27 @@ function renderDates(){
   const box =
     document.querySelector("#dateOptions");
 
-  box.innerHTML="";
+  box.innerHTML = "";
 
   const dates =
-    getDateRange(
+    getDateList(
       invitation.from,
       invitation.to
     );
 
+
   if(!dates.length){
 
-    box.innerHTML =
-      `<div class="notice">
-        Создатель приглашения не указал доступные даты.
-      </div>`;
+    box.innerHTML = `
+      <div class="option selected">
+        <strong>Дата недоступна</strong>
+      </div>
+    `;
 
     return;
+
   }
+
 
   dates.forEach(date => {
 
@@ -1325,120 +1259,118 @@ function renderDates(){
       document.createElement("div");
 
     div.className =
-      "date-option";
-
-    div.dataset.date =
-      date;
+      "date-option" +
+      (
+        selectedDate === date
+          ? " selected"
+          : ""
+      );
 
     div.innerHTML = `
-      <strong>${formatShortDate(date)}</strong>
-      <small>${date}</small>
+      <div class="day">
+        ${new Date(date+"T12:00:00")
+          .toLocaleDateString(
+            "ru-RU",
+            {day:"numeric"}
+          )}
+      </div>
+
+      <div class="month">
+        ${new Date(date+"T12:00:00")
+          .toLocaleDateString(
+            "ru-RU",
+            {
+              month:"long",
+              weekday:"long"
+            }
+          )}
+      </div>
     `;
+
 
     div.addEventListener(
       "click",
       () => {
 
-        document
-          .querySelectorAll(".date-option")
-          .forEach(x =>
-            x.classList.remove("selected")
-          );
+        selectedDate = date;
 
-        div.classList.add("selected");
+        renderDates();
 
-        selected.date =
-          date;
+        document.querySelector("#confirmDateBtn")
+          .disabled = false;
 
       }
     );
+
 
     box.appendChild(div);
 
   });
 
+
+  document.querySelector("#dateTime")
+    .textContent =
+    invitation.time || "—";
+
 }
 
 
-function restoreExistingResponse(response){
+function getCompletedKey(){
 
-  selected = {
-    place:response.place || "",
-    food:response.food || "",
-    drink:response.drink || "",
-    activity:
-      response.activity ||
-      response.important ||
-      "",
-    date:response.date || "",
-    time:
-      response.time ||
-      invitation.time ||
-      ""
-  };
+  return `dateTicketCompleted_${inviteId}`;
 
-  selectOption(
-    "placeOptions",
-    selected.place
-  );
+}
 
-  selectOption(
-    "foodOptions",
-    selected.food
-  );
 
-  selectOption(
-    "drinkOptions",
-    selected.drink
-  );
+function getSavedResponse(){
 
-  selectOption(
-    "activityOptions",
-    selected.activity
-  );
+  try{
 
-  document
-    .querySelectorAll(".date-option")
-    .forEach(option => {
-
-      option.classList.toggle(
-        "selected",
-        option.dataset.date === selected.date
+    const raw =
+      localStorage.getItem(
+        getCompletedKey()
       );
 
-    });
+    return raw
+      ? JSON.parse(raw)
+      : null;
 
-  document.querySelector("#dateTime").value =
-    selected.time || "";
+  }catch(e){
+
+    return null;
+
+  }
 
 }
 
 
-function prepareSurvey(){
+function saveCompletedResponse(response){
 
-  document.querySelector("#surveyCharacter")
-    .textContent =
-    invitation.character || "🐸";
+  try{
 
-  document.querySelector("#surveyName")
-    .textContent =
-    invitation.nickname || "Солнышко";
+    localStorage.setItem(
+      getCompletedKey(),
+      JSON.stringify(response)
+    );
 
-  document.querySelector("#surveyIntro")
-    .textContent =
-    `Я приготовил для тебя кое-что особенное. Выбери то, что тебе хочется, ${invitation.nickname || "солнышко"} ❤️`;
+  }catch(e){
 
-  renderDates();
-
-  if(invitation.response){
-
-    restoreExistingResponse(
-      invitation.response
+    console.warn(
+      "Не удалось сохранить локальный статус.",
+      e
     );
 
   }
 
-  showPage(surveyPage);
+}
+
+
+function getResponseFromFirebase(data){
+
+  if(!data.response)
+    return null;
+
+  return data.response;
 
 }
 
@@ -1454,44 +1386,47 @@ function updateTicketStatus(date){
   const text =
     document.querySelector("#ticketStatusText");
 
+
   if(!date){
 
     box.className =
-      "ticket-status waiting";
+      "ticket-status ticket-waiting";
 
     title.textContent =
-      "⏳ Дата не выбрана";
+      "⏳ Билет не активирован";
 
     text.textContent =
-      "В приглашении пока нет даты свидания.";
+      "Дата свидания ещё не выбрана.";
 
     return;
 
   }
 
+
   const today =
     todayString();
+
 
   if(date === today){
 
     box.className =
-      "ticket-status good";
+      "ticket-status ticket-active";
 
     title.textContent =
       "🎫 Билет активен сегодня";
 
     text.textContent =
-      "Сегодня день свидания. Билет можно предъявить.";
+      "Сегодня день свидания. Этот билет можно предъявить.";
 
   }
 
   else if(date > today){
 
     box.className =
-      "ticket-status waiting";
+      "ticket-status ticket-waiting";
 
     title.textContent =
-      "⏳ Свидание ещё впереди";
+      "⏳ Билет пока не активен";
 
     text.textContent =
       `Билет можно предъявить только ${formatDate(date)}.`;
@@ -1501,88 +1436,13 @@ function updateTicketStatus(date){
   else{
 
     box.className =
-      "ticket-status bad";
+      "ticket-status ticket-expired";
 
     title.textContent =
-      "🥀 Свидание уже прошло";
+      "🥀 Билет уже недействителен";
 
     text.textContent =
-      "Этот билет больше нельзя предъявить.";
-
-  }
-
-}
-
-
-async function loadLetter(){
-
-  const locked =
-    document.querySelector("#letterLocked");
-
-  const content =
-    document.querySelector("#letterContent");
-
-  locked.classList.remove("hidden");
-  content.classList.add("hidden");
-
-  try{
-
-    const snap =
-      await getDoc(
-        doc(
-          db,
-          "invitations",
-          invitationId,
-          "private",
-          "letter"
-        )
-      );
-
-    if(!snap.exists()){
-
-      locked.textContent =
-        "Личного письма нет.";
-
-      return;
-    }
-
-    const letter =
-      snap.data();
-
-    const unlock =
-      letter.letterUnlock
-        ? new Date(letter.letterUnlock)
-        : null;
-
-    if(
-      !unlock ||
-      Number.isNaN(unlock.getTime()) ||
-      Date.now() >= unlock.getTime()
-    ){
-
-      locked.classList.add("hidden");
-
-      content.textContent =
-        letter.letter ||
-        "Письмо пустое.";
-
-      content.classList.remove("hidden");
-
-      return;
-    }
-
-    locked.innerHTML =
-      `💌 Личное письмо пока закрыто.<br>
-       Оно откроется ${unlock.toLocaleString("ru-RU")}.`;
-
-  }
-
-  catch(error){
-
-    console.error(error);
-
-    locked.textContent =
-      "Личное письмо пока недоступно.";
+      "Дата свидания уже прошла.";
 
   }
 
@@ -1595,39 +1455,21 @@ function showResult(response){
     .textContent =
     invitation.character || "🐸";
 
+
   document.querySelector("#resultName")
     .textContent =
     invitation.nickname || "Солнышко";
 
-  document.querySelector("#ticketName")
-    .textContent =
-    invitation.nickname || "❤️";
 
-  document.querySelector("#resultId")
+  document.querySelector("#ticketId")
     .textContent =
-    invitationId;
+    inviteId;
 
-  document.querySelector("#resultPlace")
-    .textContent =
-    response.place || "—";
-
-  document.querySelector("#resultFood")
-    .textContent =
-    response.food || "—";
-
-  document.querySelector("#resultDrink")
-    .textContent =
-    response.drink || "—";
-
-  document.querySelector("#resultActivity")
-    .textContent =
-    response.activity ||
-    response.important ||
-    "—";
 
   document.querySelector("#resultDate")
     .textContent =
     formatDate(response.date);
+
 
   document.querySelector("#resultTime")
     .textContent =
@@ -1635,202 +1477,41 @@ function showResult(response){
     invitation.time ||
     "—";
 
-  document.querySelector("#answerPlace")
-    .textContent =
-    response.place || "—";
-
-  document.querySelector("#answerFood")
-    .textContent =
-    response.food || "—";
-
-  document.querySelector("#answerDrink")
-    .textContent =
-    response.drink || "—";
-
-  document.querySelector("#answerActivity")
-    .textContent =
-    response.activity ||
-    response.important ||
-    "—";
 
   updateTicketStatus(
     response.date
   );
 
+
   loadLetter();
 
-  showPage(resultPage);
+  loadMusic();
+
+  show("#result");
 
 }
 
 
-async function submitResponse(){
+async function loadLetter(){
 
-  if(!selected.place){
+  const card =
+    document.querySelector("#letterCard");
 
-    alert("Выбери место для свидания.");
-    return;
+  const state =
+    document.querySelector("#letterState");
 
-  }
-
-  if(!selected.food){
-
-    alert("Выбери еду.");
-    return;
-
-  }
-
-  if(!selected.drink){
-
-    alert("Выбери напиток.");
-    return;
-
-  }
-
-  if(!selected.activity){
-
-    alert("Выбери, чем хотите заняться.");
-    return;
-
-  }
-
-  if(!selected.date){
-
-    alert("Выбери дату свидания.");
-    return;
-
-  }
-
-  const time =
-    document.querySelector("#dateTime").value ||
-    invitation.time ||
-    "";
-
-  if(!time){
-
-    alert("Выбери время свидания.");
-    return;
-
-  }
-
-  selected.time =
-    time;
-
-  const btn =
-    document.querySelector("#submitBtn");
-
-  btn.disabled=true;
-  btn.textContent =
-    "Сохраняем ответ…";
-
-  try{
-
-    const response = {
-
-      place:selected.place,
-
-      food:selected.food,
-
-      drink:selected.drink,
-
-      activity:selected.activity,
-
-      important:selected.activity,
-
-      date:selected.date,
-
-      time:selected.time,
-
-      answeredAt:
-        new Date().toISOString()
-
-    };
-
-    await setDoc(
-      doc(
-        db,
-        "invitations",
-        invitationId
-      ),
-      {
-        response:response,
-        status:"answered",
-        answeredAt:
-          new Date().toISOString()
-      },
-      {
-        merge:true
-      }
-    );
-
-    invitation.response =
-      response;
-
-    /*
-      Сохраняем ID локально.
-
-      Это нужно не как основной источник данных,
-      а чтобы на этом устройстве сразу открывалось
-      уже пройденное приглашение.
-    */
-
-    const completed =
-      JSON.parse(
-        localStorage.getItem(
-          "dateTicketCompleted"
-        ) || "{}"
-      );
-
-    completed[invitationId] =
-      true;
-
-    localStorage.setItem(
-      "dateTicketCompleted",
-      JSON.stringify(completed)
-    );
-
-    showResult(response);
-
-  }
-
-  catch(error){
-
-    console.error(error);
-
-    alert(
-      "Не удалось сохранить ответ. Проверь интернет и попробуй ещё раз."
-    );
-
-  }
-
-  finally{
-
-    btn.disabled=false;
-    btn.textContent =
-      "Принять приглашение ❤️";
-
-  }
-
-}
+  const text =
+    document.querySelector("#letterText");
 
 
-async function loadInvitation(){
+  card.classList.remove("hidden");
 
-  showPage(loading);
+  state.classList.remove("hidden");
+  text.classList.add("hidden");
 
-  if(!invitationId){
+  state.textContent =
+    "Проверяем доступ…";
 
-    showError(
-      "В ссылке отсутствует ID приглашения."
-    );
-
-    return;
-
-  }
-
-  document.querySelector("#headerId")
-    .textContent =
-    "ID: " + invitationId;
 
   try{
 
@@ -1839,80 +1520,406 @@ async function loadInvitation(){
         doc(
           db,
           "invitations",
-          invitationId
+          inviteId,
+          "private",
+          "letter"
         )
       );
 
+
     if(!snap.exists()){
 
-      showError(
-        "Приглашение с таким ID не найдено."
-      );
-
+      card.classList.add("hidden");
       return;
 
     }
 
-    invitation =
+
+    const letter =
       snap.data();
 
-    document.title =
-      `Приглашение · ${invitation.nickname || "Date Ticket"}`;
 
-    /*
-      Самое важное:
+    const unlock =
+      letter.letterUnlock
+        ? new Date(letter.letterUnlock)
+        : null;
 
-      Если response уже существует в Firebase,
-      опрос больше НЕ показываем.
 
-      При повторном открытии ссылки сразу
-      открывается готовый билет.
-    */
+    if(
+      !unlock ||
+      Date.now() >= unlock.getTime()
+    ){
 
-    if(invitation.response){
+      state.classList.add("hidden");
 
-      showResult(
-        invitation.response
-      );
+      text.textContent =
+        letter.letter ||
+        "Письмо пустое.";
 
-      return;
+      text.classList.remove("hidden");
+
+    }
+    else{
+
+      state.textContent =
+        `Письмо откроется ${unlock.toLocaleString("ru-RU")}.`;
 
     }
 
-    prepareSurvey();
-
   }
-
   catch(error){
 
     console.error(error);
 
-    showError(
-      "Не удалось загрузить приглашение. Проверь интернет и попробуй ещё раз."
-    );
+    state.textContent =
+      "Письмо пока недоступно.";
 
   }
 
 }
 
 
-document
-  .querySelector("#submitBtn")
-  .addEventListener(
-    "click",
-    submitResponse
+function loadMusic(){
+
+  const card =
+    document.querySelector("#musicCard");
+
+  const player =
+    document.querySelector("#musicPlayer");
+
+
+  if(
+    !invitation.music ||
+    invitation.music === "none"
+  ){
+
+    card.classList.add("hidden");
+    return;
+
+  }
+
+
+  card.classList.remove("hidden");
+
+  player.innerHTML = "";
+
+
+  /*
+    Если позже добавишь реальные mp3-ссылки,
+    сюда можно добавить их через объект musicSources.
+  */
+
+  const musicSources = {
+    none:""
+  };
+
+
+  if(!musicSources[invitation.music]){
+
+    player.innerHTML = `
+      <div class="profile-text">
+        Музыка будет доступна позже 🎵
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  const audio =
+    document.createElement("audio");
+
+  audio.controls = true;
+  audio.src =
+    musicSources[invitation.music];
+
+  player.appendChild(audio);
+
+}
+
+
+async function saveResponse(date){
+
+  const response = {
+
+    place:
+      selectedSurvey[0] || "",
+
+    food:
+      selectedSurvey[1] || "",
+
+    drink:
+      selectedSurvey[2] || "",
+
+    important:
+      selectedSurvey[3] || "",
+
+    activity:
+      selectedSurvey.join(", "),
+
+    survey:
+      selectedSurvey,
+
+    date:
+      date,
+
+    time:
+      invitation.time || "",
+
+    completedAt:
+      new Date().toISOString()
+
+  };
+
+
+  await setDoc(
+    doc(
+      db,
+      "invitations",
+      inviteId
+    ),
+    {
+      response:response,
+      status:"accepted",
+      updatedAt:
+        new Date().toISOString()
+    },
+    {
+      merge:true
+    }
   );
 
 
-document
-  .querySelector("#retryBtn")
+  saveCompletedResponse(response);
+
+  return response;
+
+}
+
+
+async function loadInvitation(){
+
+  if(!inviteId){
+
+    document.querySelector("#errorText")
+      .textContent =
+      "В ссылке отсутствует ID приглашения.";
+
+    show("#error");
+
+    return;
+
+  }
+
+
+  try{
+
+    const snap =
+      await getDoc(
+        doc(
+          db,
+          "invitations",
+          inviteId
+        )
+      );
+
+
+    if(!snap.exists()){
+
+      document.querySelector("#errorText")
+        .textContent =
+        "Приглашение с таким ID не найдено.";
+
+      show("#error");
+
+      return;
+
+    }
+
+
+    invitation =
+      snap.data();
+
+
+    document.title =
+      `Для ${invitation.nickname || "тебя"} · Date Ticket`;
+
+
+    document.querySelector("#pageTitle")
+      .textContent =
+      `Для ${invitation.nickname || "тебя"}`;
+
+
+    document.querySelector("#character")
+      .textContent =
+      invitation.character || "🐸";
+
+
+    document.querySelector("#receiver")
+      .textContent =
+      invitation.nickname || "Солнышко";
+
+
+    document.querySelector("#pageSubtitle")
+      .textContent =
+      "Кто-то приготовил для тебя кое-что особенное ❤️";
+
+
+    /*
+      1. Сначала проверяем Firebase.
+      Если ответ уже существует — опрос повторно НЕ показываем.
+    */
+
+    const firebaseResponse =
+      getResponseFromFirebase(
+        invitation
+      );
+
+
+    if(firebaseResponse){
+
+      saveCompletedResponse(
+        firebaseResponse
+      );
+
+      showResult(
+        firebaseResponse
+      );
+
+      return;
+
+    }
+
+
+    /*
+      2. Затем проверяем localStorage.
+      Это позволяет не показывать опрос повторно
+      на этом же устройстве.
+    */
+
+    const localResponse =
+      getSavedResponse();
+
+
+    if(localResponse){
+
+      showResult(
+        localResponse
+      );
+
+      return;
+
+    }
+
+
+    /*
+      3. Новый получатель.
+    */
+
+    selectedSurvey = [];
+
+    selectedDate = null;
+
+    renderSurvey();
+
+    show("#newInvite");
+
+  }
+  catch(error){
+
+    console.error(error);
+
+    document.querySelector("#errorText")
+      .textContent =
+      "Не удалось загрузить приглашение. Проверь интернет и попробуй ещё раз.";
+
+    show("#error");
+
+  }
+
+}
+
+
+document.querySelector("#continueBtn")
   .addEventListener(
     "click",
-    loadInvitation
+    () => {
+
+      if(selectedSurvey.length !== 4)
+        return;
+
+      renderDates();
+
+      show("#chooseDate");
+
+    }
   );
 
 
-setupOptions();
+document.querySelector("#confirmDateBtn")
+  .addEventListener(
+    "click",
+    async () => {
+
+      if(!selectedDate)
+        return;
+
+
+      const btn =
+        document.querySelector(
+          "#confirmDateBtn"
+        );
+
+
+      btn.disabled = true;
+
+      btn.textContent =
+        "Сохраняем…";
+
+
+      try{
+
+        const response =
+          await saveResponse(
+            selectedDate
+          );
+
+
+        showResult(
+          response
+        );
+
+      }
+      catch(error){
+
+        console.error(error);
+
+        alert(
+          "Не удалось сохранить ответ. Проверь интернет и попробуй ещё раз."
+        );
+
+        btn.disabled = false;
+
+        btn.textContent =
+          "Подтвердить дату ❤️";
+
+      }
+
+    }
+  );
+
+
+document.querySelector("#refreshBtn")
+  .addEventListener(
+    "click",
+    () => {
+
+      loadInvitation();
+
+    }
+  );
+
 
 loadInvitation();
 
