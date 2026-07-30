@@ -188,7 +188,7 @@ p{color:var(--muted);line-height:1.8}
 <div class="info"><span>Место</span><strong id="ticketPlace">Кино</strong></div>
 <div class="info"><span>Время</span><strong id="ticketTime">18:00</strong></div>
 </div>
-<div class="countdown">
+<div style="padding:16px 30px;text-align:center;border-bottom:1px dashed #b9b0a7"><span style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#927e82">Дата</span><strong id="ticketDate" style="display:block;margin-top:6px;font-size:18px">—</strong></div><div class="countdown">
 <div class="small">До нашей встречи</div>
 <div class="count" id="meetCountdown">—</div>
 </div>
@@ -223,76 +223,25 @@ p{color:var(--muted);line-height:1.8}
 </div>
 
 <script>
-const fallback={nickname:"Солнышко",character:"🐸",theme:"Сакура",time:"18:00",from:"",to:"",survey:["Кино","Кофейня","Парк","Боулинг"],id:""};
-let data={...fallback};
-let privateLetter={letter:"",letterUnlock:null};
-const inviteId=new URLSearchParams(location.search).get("id");
-async function loadInvitation(){
- if(!inviteId){showError("В ссылке нет ID приглашения.");return false;}
- try{
-  const {db,doc,getDoc}=window.dateTicketFirebase;
-  const snap=await getDoc(doc(db,"invitations",inviteId));
-  if(!snap.exists()){showError("Приглашение не найдено.");return false;}
-  data={...fallback,...snap.data(),id:inviteId};
-  const letterSnap=await getDoc(doc(db,"invitations",inviteId,"private","letter"));
-  if(letterSnap.exists()) privateLetter=letterSnap.data();
-  document.querySelector("#inviteId").textContent=`# ${inviteId}`;
-  document.querySelector("#welcomeChar").textContent=data.character||"🐸";
-  document.querySelector("#welcomeTitle").textContent=`Привет, ${data.nickname||"Солнышко"}`;
-  return true;
- }catch(e){console.error(e);showError("Не удалось загрузить приглашение.");return false;}
-}
-function showError(message){document.querySelector("#welcomeTitle").textContent="Упс…";document.querySelector("#welcomeSpeech").textContent=message;document.querySelector("#startBtn").style.display="none";}
-const questions=[
- {title:"Где тебе хотелось бы встретиться?",key:"place",emoji:{
-  "Кофейня":"☕","Кино":"🎬","Парк":"🌳","Боулинг":"🎳","Набережная":"🌅","Мастер-класс":"🎨","Пикник":"🧺","Аттракционы":"🎡"
- }},
- {title:"Что бы тебе хотелось покушать?",key:"food",emoji:{
-  "Пицца":"🍕","Суши":"🍣","Бургер":"🍔","Паста":"🍝"
- },fallback:["Пицца","Суши","Бургер","Паста"]},
- {title:"Что выпить?",key:"drink",emoji:{
-  "Лимонад":"🥤","Кофе":"☕","Чай":"🍵","Милкшейк":"🥛"
- },fallback:["Лимонад","Кофе","Чай","Милкшейк"]},
- {title:"Что главное в свидании?",key:"mood",emoji:{
-  "Поговорить":"💬","Посмеяться":"😂","Уют":"🕯️","Новые впечатления":"✨"
- },fallback:["Поговорить","Посмеяться","Уют","Новые впечатления"]},
- {title:"Чем хотелось бы заняться?",key:"activity",emoji:{
-  "Прогуляться":"🚶","Посмотреть фильм":"🎬","Поиграть":"🎲","Сделать что-то новое":"🌟"
- },fallback:["Прогуляться","Посмотреть фильм","Поиграть","Сделать что-то новое"]}
-];
-
-let qIndex=0;
-const answers={};
-let chosenDate="";
-
+const fallback={nickname:"Солнышко",character:"🐸",theme:"Сакура",music:"none",time:"18:00",from:"",to:"",questions:{place:["Кино","Кофейня","Парк","Боулинг"],food:["Пицца","Суши","Бургер","Паста"],drink:["Лимонад","Кофе","Чай","Милкшейк"],important:["Поговорить","Посмеяться","Уют","Новые впечатления"],activity:["Прогуляться","Посмотреть фильм","Поиграть","Сделать что-то новое"]},id:""};
+let data={...fallback},privateLetter={letter:"",letterUnlock:null};const inviteId=new URLSearchParams(location.search).get("id");
+const questionMeta=[
+ {title:"Где тебе хотелось бы встретиться?",key:"place",emoji:{"Кофейня":"☕","Кино":"🎬","Парк":"🌳","Боулинг":"🎳","Набережная":"🌅","Мастер-класс":"🎨","Пикник":"🧺","Аттракционы":"🎡"}},
+ {title:"Что бы тебе хотелось покушать?",key:"food",emoji:{"Пицца":"🍕","Суши":"🍣","Бургер":"🍔","Паста":"🍝","Тако":"🌮","Рамен":"🍜","Десерт":"🍰","Салат":"🥗"}},
+ {title:"Что выпить?",key:"drink",emoji:{"Лимонад":"🥤","Кофе":"☕","Чай":"🍵","Милкшейк":"🥛","Сок":"🧃","Бабл-ти":"🧋","Какао":"🍫","Вода":"💧"}},
+ {title:"Что главное в свидании?",key:"important",emoji:{"Поговорить":"💬","Посмеяться":"😂","Уют":"🕯️","Новые впечатления":"✨","Романтика":"❤️","Быть собой":"🤝","Запомнить день":"📸","Спокойствие":"🌿"}},
+ {title:"Чем хотелось бы заняться?",key:"activity",emoji:{"Прогуляться":"🚶","Посмотреть фильм":"🎬","Поиграть":"🎲","Сделать что-то новое":"🌟","Сделать фотографии":"📸","Приготовить вместе":"🍳","Порисовать":"🎨","Послушать музыку":"🎶"}}];
+let questions=[],qIndex=0;const answers={},chosenDate="";let selectedDate="";
+async function loadInvitation(){if(!inviteId){showError("В ссылке нет ID приглашения.");return false}try{const{db,doc,getDoc}=window.dateTicketFirebase;const snap=await getDoc(doc(db,"invitations",inviteId));if(!snap.exists()){showError("Приглашение не найдено.");return false}const raw=snap.data();data={...fallback,...raw,id:inviteId,questions:{...fallback.questions,...(raw.questions||{})}};const ls=await getDoc(doc(db,"invitations",inviteId,"private","letter"));if(ls.exists())privateLetter=ls.data();document.querySelector("#inviteId").textContent=`# ${inviteId}`;document.querySelector("#welcomeChar").textContent=data.character||"🐸";document.querySelector("#welcomeTitle").textContent=`Привет, ${data.nickname||"Солнышко"}`;questions=questionMeta.map(q=>({...q,options:(data.questions[q.key]||[]).slice(0,4)}));applyTheme(data.theme);return true}catch(e){console.error(e);showError("Не удалось загрузить приглашение.");return false}}
+function showError(message){document.querySelector("#welcomeTitle").textContent="Упс…";document.querySelector("#welcomeSpeech").textContent=message;document.querySelector("#startBtn").style.display="none"}
+function applyTheme(theme){document.body.dataset.theme=theme||"Сакура"}
 function show(id){
  document.querySelectorAll(".screen").forEach(x=>x.classList.remove("active"));
  document.querySelector("#"+id).classList.add("active");
  window.scrollTo({top:0,behavior:"smooth"});
 }
-function optionsFor(q){
- if(q.key==="place") return Array.isArray(data.survey)&&data.survey.length===4 ? data.survey : q.fallback;
- return q.fallback||Object.keys(q.emoji);
-}
-function renderQuestion(){
- const q=questions[qIndex];
- document.querySelector("#questionNumber").textContent=`Вопрос ${qIndex+1} из ${questions.length}`;
- document.querySelector("#questionTitle").textContent=q.title;
- const box=document.querySelector("#questionOptions");box.innerHTML="";
- const opts=optionsFor(q);
- opts.forEach(name=>{
-  const div=document.createElement("div");
-  div.className="option"+(answers[q.key]===name?" selected":"");
-  div.innerHTML=`<div class="emoji">${q.emoji[name]||"✨"}</div><strong>${name}</strong>`;
-  div.onclick=()=>{
-   answers[q.key]=name;
-   box.querySelectorAll(".option").forEach(x=>x.classList.remove("selected"));
-   div.classList.add("selected");
-  };
-  box.appendChild(div);
- });
- document.querySelector("#questionNext").textContent=qIndex===questions.length-1?"Выбрать дату →":"Дальше →";
-}
+function optionsFor(q){return Array.isArray(q.options)&&q.options.length===4?q.options:[]}
+function renderQuestion(){const q=questions[qIndex];document.querySelector("#questionNumber").textContent=`Вопрос ${qIndex+1} из ${questions.length}`;document.querySelector("#questionTitle").textContent=q.title;const box=document.querySelector("#questionOptions");box.innerHTML="";optionsFor(q).forEach(name=>{const div=document.createElement("div");div.className="option"+(answers[q.key]===name?" selected":"");div.innerHTML=`<div class="emoji">${q.emoji[name]||"✨"}</div><strong>${name}</strong>`;div.onclick=()=>{answers[q.key]=name;box.querySelectorAll(".option").forEach(x=>x.classList.remove("selected"));div.classList.add("selected")};box.appendChild(div)});document.querySelector("#questionNext").textContent=qIndex===questions.length-1?"Выбрать дату →":"Дальше →"}
 function buildDates(){
  const box=document.querySelector("#dateOptions");box.innerHTML="";
  if(!data.from || !data.to){box.innerHTML='<p>Отправитель не указал диапазон дат.</p>';return;}
@@ -309,7 +258,7 @@ function buildDates(){
    const weekday=date.toLocaleDateString("ru-RU",{weekday:"short"}).replace(".","");
    div.innerHTML=`<div class="month">${weekday}</div><div class="day">${day}</div><div class="month">${month}</div>`;
    div.onclick=()=>{
-    chosenDate=date.toISOString().slice(0,10);
+    selectedDate=date.toISOString().slice(0,10);
     box.querySelectorAll(".date-option").forEach(x=>x.classList.remove("selected"));
     div.classList.add("selected");
    };
@@ -326,14 +275,7 @@ function ticketDateTime(){
  if(!chosenDate)return null;
  return new Date(chosenDate+"T"+(data.time||"18:00")+":00");
 }
-function updateTicket(){
- const nick=data.nickname||"Солнышко";
- document.querySelector("#ticketReceiver").textContent=`Для тебя, ${nick} ❤️`;
- document.querySelector("#ticketPlace").textContent=answers.place||data.survey?.[0]||"Кино";
- document.querySelector("#ticketTime").textContent=data.time||"18:00";
- document.querySelector("#ticketMessage").textContent="Я хочу провести этот день именно с тобой. Надеюсь, ты примешь это приглашение ❤️";
- document.querySelector("#ticketId").textContent=`DATE TICKET · ${data.id||"INVITATION"}`;
-}
+function updateTicket(){const nick=data.nickname||"Солнышко";document.querySelector("#ticketReceiver").textContent=`Для тебя, ${nick} ❤️`;document.querySelector("#ticketPlace").textContent=answers.place||"—";document.querySelector("#ticketTime").textContent=data.time||"18:00";document.querySelector("#ticketMessage").textContent=`${formatDate(selectedDate)} · ${data.time||"18:00"} · ${answers.place||"место будет выбрано"} ❤️`;document.querySelector("#ticketId").textContent=`DATE TICKET · ${data.id||"INVITATION"}`;if(document.querySelector("#ticketDate"))document.querySelector("#ticketDate").textContent=formatDate(selectedDate)}
 function countdown(target,el,doneText){
  const tick=()=>{
   const diff=target-new Date();
@@ -363,29 +305,15 @@ function startTicketTimers(){
  };check();
 }
 
-document.querySelector("#startBtn").onclick=async()=>{
- const ok=await loadInvitation(); if(!ok)return;
- qIndex=0;renderQuestion();show("survey");
-};
-loadInvitation();
-document.querySelector("#questionNext").onclick=()=>{
- if(!answers[questions[qIndex].key]){alert("Выбери один вариант.");return}
- if(qIndex<questions.length-1){qIndex++;renderQuestion()}
- else{buildDates();show("dateScreen")}
-};
-document.querySelector("#dateNext").onclick=async()=>{
- if(!chosenDate){alert("Выбери дату.");return}
- try{
-  const {db,doc,updateDoc}=window.dateTicketFirebase;
-  await updateDoc(doc(db,"invitations",inviteId),{response:{place:answers.place||null,food:answers.food||null,drink:answers.drink||null,mood:answers.mood||null,activity:answers.activity||null,date:chosenDate,time:data.time||"18:00",completedAt:new Date().toISOString()},status:"completed"});
- }catch(e){console.error(e);alert("Не удалось сохранить ответы. Попробуй ещё раз.");return;}
- updateTicket();show("ticketScreen");startTicketTimers();
-};
+document.querySelector("#startBtn").onclick=async()=>{if(!questions.length){const ok=await loadInvitation();if(!ok)return}qIndex=0;renderQuestion();show("survey")};
+document.querySelector("#questionNext").onclick=()=>{const q=questions[qIndex];if(!answers[q.key]){alert("Выбери один вариант.");return}if(qIndex<questions.length-1){qIndex++;renderQuestion()}else{buildDates();show("dateScreen")}};
+document.querySelector("#dateNext").onclick=async()=>{if(!selectedDate){alert("Выбери дату.");return}try{const{db,doc,updateDoc}=window.dateTicketFirebase;await updateDoc(doc(db,"invitations",inviteId),{response:{place:answers.place||null,food:answers.food||null,drink:answers.drink||null,important:answers.important||null,activity:answers.activity||null,date:selectedDate,time:data.time||"18:00",completedAt:new Date().toISOString()},status:"completed"})}catch(e){console.error(e);alert("Не удалось сохранить ответы. Попробуй ещё раз.");return}updateTicket();show("ticketScreen");startTicketTimers()};
 document.querySelector("#presentBtn").onclick=()=>{
  localStorage.setItem("dateTicketUsed_"+(data.id||"DEMO"),new Date().toISOString());
  document.querySelector("#usedStatus").textContent=`Билет ${data.id||""} предъявлен ${new Date().toLocaleString("ru-RU")}`;
  show("qrScreen");
 };
+window.addEventListener("dateTicketFirebaseReady",loadInvitation);
 </script>
-</body>
+<script type="module">import{initializeApp}from"https://www.gstatic.com/firebasejs/12.17.0/firebase-app.js";import{getFirestore,doc,getDoc,updateDoc}from"https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js";const firebaseConfig={apiKey:"AIzaSyC2es1T9S8AnTBPyrHVfxTy-Z_u-GiGpWo",authDomain:"date-ticket-2e786.firebaseapp.com",databaseURL:"https://date-ticket-2e786-default-rtdb.europe-west1.firebasedatabase.app",projectId:"date-ticket-2e786",storageBucket:"date-ticket-2e786.firebasestorage.app",messagingSenderId:"576969359516",appId:"1:576969359516:web:2b9e622d7b2de86acc6d59"};window.dateTicketFirebase={db:getFirestore(initializeApp(firebaseConfig)),doc,getDoc,updateDoc};window.dispatchEvent(new Event("dateTicketFirebaseReady"));</script></body>
 </html>
