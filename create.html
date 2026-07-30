@@ -315,14 +315,65 @@ const surveyQuestions=[
 {key:"activity",title:"Чем заняться?",items:[["🚶","Прогуляться"],["🎬","Посмотреть фильм"],["🎲","Поиграть"],["🌟","Сделать что-то новое"],["📸","Сделать фотографии"],["🍳","Приготовить вместе"],["🎨","Порисовать"],["🎶","Послушать музыку"]]}
 ];
 state.questions=state.questions||{place:[],food:[],drink:[],important:[],activity:[]};
-function renderSurvey(){const box=document.querySelector('#surveyQuestions');box.innerHTML='';surveyQuestions.forEach(q=>{const card=document.createElement('div');card.className='survey-card';card.innerHTML=`<h3>${q.title}</h3><div class="option-grid survey-grid"></div><div class="survey-count">Выбрано: <b>0</b> / 4</div>`;const grid=card.querySelector('.survey-grid'),count=card.querySelector('.survey-count b'),sel=state.questions[q.key]||[];q.items.forEach(([e,n])=>{const x=document.createElement('div');x.className='option'+(sel.includes(n)?' selected':'');x.innerHTML=`<div class="emoji">${e}</div><strong>${n}</strong>`;x.onclick=()=>{let a=state.questions[q.key]||[];state.questions[q.key]=a.includes(n)?a.filter(v=>v!==n):a.length<4?[...a,n]:a;renderSurvey();save()};grid.appendChild(x)});count.textContent=sel.length;box.appendChild(card)})}
+function renderSurvey(){
+  const box=document.querySelector("#surveyQuestions");
+  if(!box){
+    console.error("surveyQuestions container not found");
+    return;
+  }
+  box.innerHTML="";
+
+  surveyQuestions.forEach(q=>{
+    const card=document.createElement("div");
+    card.className="survey-card";
+
+    const title=document.createElement("h3");
+    title.textContent=q.title;
+
+    const grid=document.createElement("div");
+    grid.className="survey-grid";
+
+    const countWrap=document.createElement("div");
+    countWrap.className="survey-count";
+    countWrap.innerHTML='Выбрано: <b>0</b> / 4';
+
+    const selected=Array.isArray(state.questions[q.key]) ? state.questions[q.key] : [];
+
+    q.items.forEach(([emoji,name])=>{
+      const option=document.createElement("div");
+      option.className="option"+(selected.includes(name)?" selected":"");
+      option.innerHTML=`<div class="emoji">${emoji}</div><strong>${name}</strong>`;
+
+      option.addEventListener("click",()=>{
+        const current=Array.isArray(state.questions[q.key]) ? state.questions[q.key] : [];
+        if(current.includes(name)){
+          state.questions[q.key]=current.filter(v=>v!==name);
+        }else if(current.length<4){
+          state.questions[q.key]=[...current,name];
+        }else{
+          return;
+        }
+        save();
+        renderSurvey();
+      });
+      grid.appendChild(option);
+    });
+
+    countWrap.querySelector("b").textContent=selected.length;
+    card.appendChild(title);
+    card.appendChild(grid);
+    card.appendChild(countWrap);
+    box.appendChild(card);
+  });
+}
+
 function validateSurvey(){for(const q of surveyQuestions)if((state.questions[q.key]||[]).length!==4){alert(`Выбери ровно 4 варианта для вопроса «${q.title}»`);return false}return true}
 function updateReview(){document.querySelector('#rNick').textContent=state.nickname||'—';document.querySelector('#rChar').textContent=state.character;document.querySelector('#rTheme').textContent=state.theme;document.querySelector('#rDates').textContent=(state.from||'—')+' → '+(state.to||'—');document.querySelector('#rTime').textContent=state.time||'—';document.querySelector('#rLetter').textContent=state.letter?'Написано':'Не заполнено';document.querySelector('#rSurvey').textContent=surveyQuestions.map(q=>`${q.title}: ${(state.questions[q.key]||[]).length}/4`).join(' · ')}
 document.querySelector('#surveyNext').onclick=()=>{if(validateSurvey()){show(7);updateReview()}};
 document.querySelector('#createBtn').addEventListener('click',async()=>{if(!validateSurvey()||!state.from||!state.to)return;const btn=document.querySelector('#createBtn');btn.disabled=true;try{const id=Math.random().toString(36).slice(2,10).toUpperCase();const payload={nickname:state.nickname,character:state.character,theme:state.theme,music:state.music,from:state.from,to:state.to,time:state.time,questions:state.questions,status:'created',createdAt:new Date().toISOString()};await setDoc(doc(db,'invitations',id),payload);await setDoc(doc(db,'invitations',id,'private','letter'),{letter:state.letter||'',letterUnlock:state.letterDate||null});const base=location.href.substring(0,location.href.lastIndexOf('/')+1);document.querySelector('#shareLink').value=base+'invite.html?id='+id;document.querySelector('#answersBtn').dataset.id=id;show(8)}catch(e){console.error(e);alert('Ошибка Firebase.')}finally{btn.disabled=false}});
 document.querySelector('#copyLinkBtn').onclick=async()=>{try{await navigator.clipboard.writeText(document.querySelector('#shareLink').value);document.querySelector('#copyLinkBtn').textContent='Скопировано ✓'}catch(e){}};
 document.querySelector('#answersBtn').onclick=()=>{const id=document.querySelector('#answersBtn').dataset.id;if(id)location.href='admin.html?id='+id};
-renderSurvey();load();updateProgress();
+load();renderSurvey();updateProgress();
 </script>
 <script type="module">import{initializeApp}from"https://www.gstatic.com/firebasejs/12.17.0/firebase-app.js";import{getFirestore,doc,setDoc}from"https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js";const app=initializeApp({apiKey:"AIzaSyC2es1T9S8AnTBPyrHVfxTy-Z_u-GiGpWo",authDomain:"date-ticket-2e786.firebaseapp.com",databaseURL:"https://date-ticket-2e786-default-rtdb.europe-west1.firebasedatabase.app",projectId:"date-ticket-2e786",storageBucket:"date-ticket-2e786.firebasestorage.app",messagingSenderId:"576969359516",appId:"1:576969359516:web:2b9e622d7b2de86acc6d59"});window.db=getFirestore(app);window.doc=doc;window.setDoc=setDoc;</script></body>
 </html>
