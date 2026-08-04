@@ -21,6 +21,6 @@ window.fb={collection,doc,setDoc,getDoc,updateDoc,serverTimestamp,onAuthStateCha
 </script>
 <script type="module">
 const $=id=>document.getElementById(id),msg=$("msg");
-$("signup").onclick=async()=>{try{await window.fb.createUserWithEmailAndPassword(window.auth,$("email").value.trim(),$("pass").value);location.href="create.html"}catch(e){msg.textContent=e.message}};
-$("signin").onclick=async()=>{try{await window.fb.signInWithEmailAndPassword(window.auth,$("email").value.trim(),$("pass").value);location.href="account.html"}catch(e){msg.textContent=e.message}};
+$("signup").onclick=async()=>{try{await window.fb.createUserWithEmailAndPassword(window.auth,String($("email")?.value ?? "").trim(),$("pass").value);location.href="create.html"}catch(e){msg.textContent=e.message}};
+$("signin").onclick=async()=>{try{await window.fb.signInWithEmailAndPassword(window.auth,String($("email")?.value ?? "").trim(),$("pass").value);location.href="account.html"}catch(e){msg.textContent=e.message}};
 </script></body></html>
